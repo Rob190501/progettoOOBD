@@ -20,6 +20,7 @@ Inoltre, il sistema permette di visualizzare, per ciascun corso, statistiche sul
 
 
 Per i gruppi composti da 3 membri:
+
 Il sistema permette, per ciascun corso, l’inserimento di zero o più test di valutazione.
 
 Un test, come una lezione, è caratterizzato da un titolo, una descrizione, una durata (espressa in ore), e una data e orario di inizio.
