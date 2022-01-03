@@ -3,7 +3,7 @@
 
 Si sviluppi un sistema informativo, composto da una base di dati relazionale e da un applicativo Java dotato di GUI (Swing o JavaFX), per la gestione di corsi di formazione.
 
-Il sistema permette ad un operatore di gestirecorsi  di  formazione. 
+Il sistema permette ad un operatore di gestire corsi  di  formazione. 
 
 Un corso è caratterizzato da un nome, una descrizione, un tasso di presenze minimo necessario (e.g.:  75%), un numero massimo di partecipanti, e  da  una  o  più  lezioni.
 
