@@ -13,19 +13,23 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JButton;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
+import java.awt.CardLayout;
+import javax.swing.JTextField;
 
 public class LoginFrame extends JFrame {
 
 	private Controller controller;
 	
 	private JPanel panelPrincipale;
-	private JPanel panelSecondario;
+	private JPanel panelBottoni;
 	
 	public LoginFrame(Controller controller) {
 		this.controller = controller;
@@ -44,7 +48,7 @@ public class LoginFrame extends JFrame {
 		
 		impostaPanelPrincipale();
 		
-		impostaPanelSecondario();
+		impostaPanelBottoni();
 		
 		impostaLayoutPanelPrincipale();
 		
@@ -61,6 +65,7 @@ public class LoginFrame extends JFrame {
 		setBackground(Color.WHITE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+		setMinimumSize(new Dimension(450, 300));
 		setLocationRelativeTo(null);
 	}
 	
@@ -71,18 +76,24 @@ public class LoginFrame extends JFrame {
 		setContentPane(panelPrincipale);
 	}
 	
-	private void impostaPanelSecondario() {
-		panelSecondario = new JPanel();
-		panelSecondario.setBackground(Color.WHITE);
+	private void impostaPanelBottoni() {
+		panelBottoni = new JPanel();
+		panelBottoni.setBackground(Color.LIGHT_GRAY);
+		panelBottoni.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnProva = new JButton("New button");
-		btnProva.addActionListener(new ActionListener() {
+		JButton btnAccedi = new JButton("  Accedi  ");
+		btnAccedi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
+		panelBottoni.add(btnAccedi);
 		
-		panelSecondario.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		panelSecondario.add(btnProva);
+		JButton btnRegistrati = new JButton("Registrati");
+		btnRegistrati.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		panelBottoni.add(btnRegistrati);
 	}
 	
 	private void impostaLayoutPanelPrincipale() {
@@ -91,15 +102,15 @@ public class LoginFrame extends JFrame {
 			gl_panelPrincipale.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelPrincipale.createSequentialGroup()
 					.addGap(33)
-					.addComponent(panelSecondario, GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+					.addComponent(panelBottoni, GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
 					.addGap(28))
 		);
 		gl_panelPrincipale.setVerticalGroup(
-			gl_panelPrincipale.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panelPrincipale.createSequentialGroup()
-					.addGap(188)
-					.addComponent(panelSecondario, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGap(41))
+			gl_panelPrincipale.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panelPrincipale.createSequentialGroup()
+					.addContainerGap(225, Short.MAX_VALUE)
+					.addComponent(panelBottoni, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 		);
 		panelPrincipale.setLayout(gl_panelPrincipale);
 	}
