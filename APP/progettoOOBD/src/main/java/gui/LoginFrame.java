@@ -43,23 +43,26 @@ public class LoginFrame extends javax.swing.JFrame {
         panelSuperiore = new javax.swing.JPanel();
         buttonChiudi = new javax.swing.JButton();
         buttonRiduciAIcona = new javax.swing.JButton();
-        panleContenuti = new javax.swing.JPanel();
-        textFieldUsername = new javax.swing.JTextField();
-        labelUsername = new javax.swing.JLabel();
+        labelTitolo = new javax.swing.JLabel();
+        panelContenuti = new javax.swing.JPanel();
+        textFieldMatricola = new javax.swing.JTextField();
+        labelMatricola = new javax.swing.JLabel();
         labelPassword = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        passwordField = new javax.swing.JPasswordField();
+        buttonAccediStudente = new javax.swing.JButton();
+        buttonRegistratiStudente = new javax.swing.JButton();
+        buttonAccediOperatore = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(450, 600));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(450, 600));
         setSize(new java.awt.Dimension(450, 600));
 
         panelPrincipale.setBackground(new java.awt.Color(255, 255, 255));
 
-        panelSuperiore.setBackground(new java.awt.Color(51, 153, 255));
+        panelSuperiore.setBackground(new java.awt.Color(153, 204, 255));
         panelSuperiore.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 panelSuperioreMouseDragged(evt);
@@ -72,6 +75,7 @@ public class LoginFrame extends javax.swing.JFrame {
         });
 
         buttonChiudi.setBackground(new java.awt.Color(204, 0, 0));
+        buttonChiudi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         buttonChiudi.setForeground(new java.awt.Color(0, 0, 0));
         buttonChiudi.setText("X");
         buttonChiudi.setFocusPainted(false);
@@ -82,8 +86,9 @@ public class LoginFrame extends javax.swing.JFrame {
         });
 
         buttonRiduciAIcona.setBackground(new java.awt.Color(255, 204, 0));
+        buttonRiduciAIcona.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         buttonRiduciAIcona.setForeground(new java.awt.Color(0, 0, 0));
-        buttonRiduciAIcona.setText("-");
+        buttonRiduciAIcona.setText("–");
         buttonRiduciAIcona.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         buttonRiduciAIcona.setFocusPainted(false);
         buttonRiduciAIcona.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -92,12 +97,19 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         });
 
+        labelTitolo.setBackground(new java.awt.Color(255, 255, 255));
+        labelTitolo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labelTitolo.setForeground(new java.awt.Color(255, 255, 255));
+        labelTitolo.setText("Gestione corsi di formazione - Login");
+
         javax.swing.GroupLayout panelSuperioreLayout = new javax.swing.GroupLayout(panelSuperiore);
         panelSuperiore.setLayout(panelSuperioreLayout);
         panelSuperioreLayout.setHorizontalGroup(
             panelSuperioreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSuperioreLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(labelTitolo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(buttonRiduciAIcona)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonChiudi)
@@ -109,59 +121,96 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelSuperioreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonChiudi)
-                    .addComponent(buttonRiduciAIcona))
+                    .addComponent(buttonRiduciAIcona)
+                    .addComponent(labelTitolo))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panleContenuti.setBackground(new java.awt.Color(255, 255, 255));
+        panelContenuti.setBackground(new java.awt.Color(255, 255, 255));
 
-        textFieldUsername.setBackground(new java.awt.Color(255, 255, 255));
-        textFieldUsername.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        textFieldUsername.setForeground(new java.awt.Color(51, 153, 255));
-        textFieldUsername.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(51, 153, 255)));
+        textFieldMatricola.setBackground(new java.awt.Color(255, 255, 255));
+        textFieldMatricola.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        textFieldMatricola.setForeground(new java.awt.Color(0, 0, 0));
+        textFieldMatricola.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(153, 204, 255)));
+        textFieldMatricola.setSelectionColor(new java.awt.Color(51, 153, 255));
 
-        labelUsername.setBackground(new java.awt.Color(255, 255, 255));
-        labelUsername.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        labelUsername.setForeground(new java.awt.Color(51, 153, 255));
-        labelUsername.setText("Username");
+        labelMatricola.setBackground(new java.awt.Color(255, 255, 255));
+        labelMatricola.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        labelMatricola.setForeground(new java.awt.Color(153, 204, 255));
+        labelMatricola.setText("Matricola");
 
         labelPassword.setBackground(new java.awt.Color(255, 255, 255));
-        labelPassword.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        labelPassword.setForeground(new java.awt.Color(51, 153, 255));
+        labelPassword.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        labelPassword.setForeground(new java.awt.Color(153, 204, 255));
         labelPassword.setText("Password");
 
-        jPasswordField1.setBackground(new java.awt.Color(255, 255, 255));
-        jPasswordField1.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        jPasswordField1.setForeground(new java.awt.Color(51, 153, 255));
-        jPasswordField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(51, 153, 255)));
-        jPasswordField1.setEchoChar('*');
+        passwordField.setBackground(new java.awt.Color(255, 255, 255));
+        passwordField.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        passwordField.setForeground(new java.awt.Color(0, 0, 0));
+        passwordField.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(153, 204, 255)));
+        passwordField.setEchoChar('*');
+        passwordField.setSelectionColor(new java.awt.Color(51, 153, 255));
 
-        javax.swing.GroupLayout panleContenutiLayout = new javax.swing.GroupLayout(panleContenuti);
-        panleContenuti.setLayout(panleContenutiLayout);
-        panleContenutiLayout.setHorizontalGroup(
-            panleContenutiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panleContenutiLayout.createSequentialGroup()
+        buttonAccediStudente.setBackground(new java.awt.Color(153, 204, 255));
+        buttonAccediStudente.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        buttonAccediStudente.setForeground(new java.awt.Color(255, 255, 255));
+        buttonAccediStudente.setText("Accedi");
+        buttonAccediStudente.setFocusPainted(false);
+
+        buttonRegistratiStudente.setBackground(new java.awt.Color(153, 204, 255));
+        buttonRegistratiStudente.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        buttonRegistratiStudente.setForeground(new java.awt.Color(255, 255, 255));
+        buttonRegistratiStudente.setText("Registrati");
+        buttonRegistratiStudente.setFocusPainted(false);
+
+        buttonAccediOperatore.setBackground(new java.awt.Color(153, 204, 255));
+        buttonAccediOperatore.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        buttonAccediOperatore.setForeground(new java.awt.Color(255, 255, 255));
+        buttonAccediOperatore.setText("Accedi come operatore");
+        buttonAccediOperatore.setFocusPainted(false);
+        buttonAccediOperatore.setMaximumSize(new java.awt.Dimension(277, 42));
+        buttonAccediOperatore.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonAccediOperatoreMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelContenutiLayout = new javax.swing.GroupLayout(panelContenuti);
+        panelContenuti.setLayout(panelContenutiLayout);
+        panelContenutiLayout.setHorizontalGroup(
+            panelContenutiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelContenutiLayout.createSequentialGroup()
                 .addContainerGap(50, Short.MAX_VALUE)
-                .addGroup(panleContenutiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panleContenutiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(textFieldUsername)
-                        .addComponent(labelUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(panelContenutiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panelContenutiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panelContenutiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(textFieldMatricola)
+                            .addComponent(labelMatricola, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(buttonAccediStudente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonRegistratiStudente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonAccediOperatore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
-        panleContenutiLayout.setVerticalGroup(
-            panleContenutiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panleContenutiLayout.createSequentialGroup()
-                .addContainerGap(109, Short.MAX_VALUE)
-                .addComponent(labelUsername)
+        panelContenutiLayout.setVerticalGroup(
+            panelContenutiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelContenutiLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(labelMatricola)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63)
+                .addComponent(textFieldMatricola, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
                 .addComponent(labelPassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(218, Short.MAX_VALUE))
+                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(buttonAccediStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(buttonRegistratiStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                .addComponent(buttonAccediOperatore, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40))
         );
 
         javax.swing.GroupLayout panelPrincipaleLayout = new javax.swing.GroupLayout(panelPrincipale);
@@ -169,14 +218,14 @@ public class LoginFrame extends javax.swing.JFrame {
         panelPrincipaleLayout.setHorizontalGroup(
             panelPrincipaleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelSuperiore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panleContenuti, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelContenuti, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelPrincipaleLayout.setVerticalGroup(
             panelPrincipaleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPrincipaleLayout.createSequentialGroup()
                 .addComponent(panelSuperiore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(panleContenuti, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelContenuti, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -219,21 +268,29 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void buttonChiudiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonChiudiMouseClicked
         // TODO add your handling code here:
-        //System.exit(0);
-        dispose();
+        System.exit(0);
     }//GEN-LAST:event_buttonChiudiMouseClicked
+
+    private void buttonAccediOperatoreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonAccediOperatoreMouseClicked
+        // TODO add your handling code here:
+        controller.accessoOperatore();
+    }//GEN-LAST:event_buttonAccediOperatoreMouseClicked
     
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonAccediOperatore;
+    private javax.swing.JButton buttonAccediStudente;
     private javax.swing.JButton buttonChiudi;
+    private javax.swing.JButton buttonRegistratiStudente;
     private javax.swing.JButton buttonRiduciAIcona;
-    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JLabel labelMatricola;
     private javax.swing.JLabel labelPassword;
-    private javax.swing.JLabel labelUsername;
+    private javax.swing.JLabel labelTitolo;
+    private javax.swing.JPanel panelContenuti;
     private javax.swing.JPanel panelPrincipale;
     private javax.swing.JPanel panelSuperiore;
-    private javax.swing.JPanel panleContenuti;
-    private javax.swing.JTextField textFieldUsername;
+    private javax.swing.JPasswordField passwordField;
+    private javax.swing.JTextField textFieldMatricola;
     // End of variables declaration//GEN-END:variables
 }

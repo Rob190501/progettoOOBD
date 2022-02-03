@@ -6,7 +6,7 @@ import javax.swing.UIManager;
 
 
 
-public class HomeFrameOperatori extends javax.swing.JFrame {
+public class HomeFrameStudente extends javax.swing.JFrame {
 
     private Controller controller;
     private int mouseX;
@@ -15,7 +15,7 @@ public class HomeFrameOperatori extends javax.swing.JFrame {
     /**
      * Creates new form Home
      */
-    public HomeFrameOperatori(Controller controller) {
+    public HomeFrameStudente(Controller controller) {
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         }
@@ -56,7 +56,7 @@ public class HomeFrameOperatori extends javax.swing.JFrame {
 
         panelPrincipale.setBackground(new java.awt.Color(255, 255, 255));
 
-        panelLaterale.setBackground(new java.awt.Color(0, 204, 51));
+        panelLaterale.setBackground(new java.awt.Color(0, 102, 255));
         panelLaterale.setForeground(new java.awt.Color(204, 204, 204));
 
         javax.swing.GroupLayout panelLateraleLayout = new javax.swing.GroupLayout(panelLaterale);
@@ -70,7 +70,7 @@ public class HomeFrameOperatori extends javax.swing.JFrame {
             .addGap(0, 566, Short.MAX_VALUE)
         );
 
-        panelSuperiore.setBackground(new java.awt.Color(0, 153, 51));
+        panelSuperiore.setBackground(new java.awt.Color(0, 0, 204));
         panelSuperiore.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 panelSuperioreMouseDragged(evt);
@@ -188,8 +188,7 @@ public class HomeFrameOperatori extends javax.swing.JFrame {
 
     private void buttonChiudiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonChiudiMouseClicked
         // TODO add your handling code here:
-        //System.exit(0);
-        dispose();
+        System.exit(0);
     }//GEN-LAST:event_buttonChiudiMouseClicked
 
     private void buttonRiduciAIconaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonRiduciAIconaMouseClicked
