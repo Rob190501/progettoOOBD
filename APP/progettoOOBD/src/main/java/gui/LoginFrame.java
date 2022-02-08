@@ -36,9 +36,9 @@ public class LoginFrame extends javax.swing.JFrame {
 
         panelPrincipale = new javax.swing.JPanel();
         panelSuperiore = new javax.swing.JPanel();
-        buttonChiudi = new javax.swing.JButton();
-        buttonRiduciAIcona = new javax.swing.JButton();
         labelTitolo = new javax.swing.JLabel();
+        labelMinimizza = new javax.swing.JLabel();
+        labelChiudi = new javax.swing.JLabel();
         panelContenuti = new javax.swing.JPanel();
         labelUserName = new javax.swing.JLabel();
         textFieldUserName = new javax.swing.JTextField();
@@ -51,7 +51,7 @@ public class LoginFrame extends javax.swing.JFrame {
         labelDataBase = new javax.swing.JLabel();
         textFieldDatabase = new javax.swing.JTextField();
         labelStatoConnessione = new javax.swing.JLabel();
-        buttonEffettuaConnessione = new javax.swing.JButton();
+        buttonConnettiti = new javax.swing.JButton();
         buttonAccediOperatore = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -76,33 +76,42 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         });
 
-        buttonChiudi.setBackground(new java.awt.Color(204, 0, 0));
-        buttonChiudi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        buttonChiudi.setForeground(new java.awt.Color(0, 0, 0));
-        buttonChiudi.setText("X");
-        buttonChiudi.setFocusPainted(false);
-        buttonChiudi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonChiudiActionPerformed(evt);
-            }
-        });
-
-        buttonRiduciAIcona.setBackground(new java.awt.Color(255, 204, 0));
-        buttonRiduciAIcona.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        buttonRiduciAIcona.setForeground(new java.awt.Color(0, 0, 0));
-        buttonRiduciAIcona.setText("–");
-        buttonRiduciAIcona.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        buttonRiduciAIcona.setFocusPainted(false);
-        buttonRiduciAIcona.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonRiduciAIconaActionPerformed(evt);
-            }
-        });
-
         labelTitolo.setBackground(new java.awt.Color(255, 255, 255));
         labelTitolo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         labelTitolo.setForeground(new java.awt.Color(255, 255, 255));
         labelTitolo.setText("Gestione corsi di formazione - Connessione al DB");
+
+        labelMinimizza.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        labelMinimizza.setForeground(new java.awt.Color(255, 255, 255));
+        labelMinimizza.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelMinimizza.setText("–");
+        labelMinimizza.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelMinimizzaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                labelMinimizzaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                labelMinimizzaMouseExited(evt);
+            }
+        });
+
+        labelChiudi.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        labelChiudi.setForeground(new java.awt.Color(255, 255, 255));
+        labelChiudi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelChiudi.setText("X");
+        labelChiudi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelChiudiMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                labelChiudiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                labelChiudiMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelSuperioreLayout = new javax.swing.GroupLayout(panelSuperiore);
         panelSuperiore.setLayout(panelSuperioreLayout);
@@ -111,21 +120,20 @@ public class LoginFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSuperioreLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelTitolo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(buttonRiduciAIcona)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addComponent(labelMinimizza, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonChiudi)
+                .addComponent(labelChiudi, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         panelSuperioreLayout.setVerticalGroup(
             panelSuperioreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSuperioreLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelSuperioreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonChiudi)
-                    .addComponent(buttonRiduciAIcona)
-                    .addComponent(labelTitolo))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(labelTitolo)
+                .addContainerGap(8, Short.MAX_VALUE))
+            .addComponent(labelChiudi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(labelMinimizza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         panelContenuti.setBackground(new java.awt.Color(255, 255, 255));
@@ -197,15 +205,15 @@ public class LoginFrame extends javax.swing.JFrame {
         labelStatoConnessione.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelStatoConnessione.setText("Stato: non connesso");
 
-        buttonEffettuaConnessione.setBackground(new java.awt.Color(153, 204, 255));
-        buttonEffettuaConnessione.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        buttonEffettuaConnessione.setForeground(new java.awt.Color(255, 255, 255));
-        buttonEffettuaConnessione.setText("Effettua connessione");
-        buttonEffettuaConnessione.setFocusPainted(false);
-        buttonEffettuaConnessione.setMaximumSize(new java.awt.Dimension(277, 42));
-        buttonEffettuaConnessione.addActionListener(new java.awt.event.ActionListener() {
+        buttonConnettiti.setBackground(new java.awt.Color(153, 204, 255));
+        buttonConnettiti.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        buttonConnettiti.setForeground(new java.awt.Color(255, 255, 255));
+        buttonConnettiti.setText("Connettiti al Database");
+        buttonConnettiti.setFocusPainted(false);
+        buttonConnettiti.setMaximumSize(new java.awt.Dimension(277, 42));
+        buttonConnettiti.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonEffettuaConnessioneActionPerformed(evt);
+                buttonConnettitiActionPerformed(evt);
             }
         });
 
@@ -231,7 +239,7 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addGroup(panelContenutiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelContenutiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(buttonAccediOperatore, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
-                        .addComponent(buttonEffettuaConnessione, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonConnettiti, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(labelStatoConnessione, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(panelContenutiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(textFieldDatabase, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
@@ -275,7 +283,7 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(labelStatoConnessione)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(buttonEffettuaConnessione, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonConnettiti, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(buttonAccediOperatore, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(17, Short.MAX_VALUE))
@@ -327,16 +335,6 @@ public class LoginFrame extends javax.swing.JFrame {
             setLocation(x - mouseX, y - mouseY);
         }
     }//GEN-LAST:event_panelSuperioreMouseDragged
-
-    private void buttonRiduciAIconaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRiduciAIconaActionPerformed
-        // TODO add your handling code here:
-        setState(ICONIFIED);
-    }//GEN-LAST:event_buttonRiduciAIconaActionPerformed
-
-    private void buttonChiudiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChiudiActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_buttonChiudiActionPerformed
     
     private void connessioneStabilita() {
         labelStatoConnessione.setForeground(new java.awt.Color(0, 204, 0));
@@ -350,7 +348,7 @@ public class LoginFrame extends javax.swing.JFrame {
         buttonAccediOperatore.setEnabled(false);
     }
     
-    private void buttonEffettuaConnessioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEffettuaConnessioneActionPerformed
+    private void buttonConnettitiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConnettitiActionPerformed
         // TODO add your handling code here:
         if(controller.effettuaConnessioneDB(textFieldUserName.getText(), passwordField.getText(), textFieldIP.getText(), textFieldPorta.getText(), textFieldDatabase.getText())) {
             connessioneStabilita();
@@ -358,20 +356,50 @@ public class LoginFrame extends javax.swing.JFrame {
         else {
             connessioneNonStabilita();
         }
-    }//GEN-LAST:event_buttonEffettuaConnessioneActionPerformed
+    }//GEN-LAST:event_buttonConnettitiActionPerformed
 
     private void buttonAccediOperatoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAccediOperatoreActionPerformed
         // TODO add your handling code here:
         controller.accessoOperatore();
     }//GEN-LAST:event_buttonAccediOperatoreActionPerformed
 
+    private void labelChiudiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelChiudiMouseClicked
+        // TODO add your handling code here:
+        controller.terminaEsecuzione();
+    }//GEN-LAST:event_labelChiudiMouseClicked
+
+    private void labelChiudiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelChiudiMouseEntered
+        // TODO add your handling code here:
+        labelChiudi.setForeground(new java.awt.Color(255, 0, 0));
+    }//GEN-LAST:event_labelChiudiMouseEntered
+
+    private void labelChiudiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelChiudiMouseExited
+        // TODO add your handling code here:
+        labelChiudi.setForeground(new java.awt.Color(255, 255, 255));
+    }//GEN-LAST:event_labelChiudiMouseExited
+
+    private void labelMinimizzaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMinimizzaMouseClicked
+        // TODO add your handling code here:
+        setState(ICONIFIED);
+    }//GEN-LAST:event_labelMinimizzaMouseClicked
+
+    private void labelMinimizzaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMinimizzaMouseEntered
+        // TODO add your handling code here:
+        labelMinimizza.setForeground(new java.awt.Color(255, 204, 0));
+    }//GEN-LAST:event_labelMinimizzaMouseEntered
+
+    private void labelMinimizzaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMinimizzaMouseExited
+        // TODO add your handling code here:
+        labelMinimizza.setForeground(new java.awt.Color(255, 255, 255));
+    }//GEN-LAST:event_labelMinimizzaMouseExited
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAccediOperatore;
-    private javax.swing.JButton buttonChiudi;
-    private javax.swing.JButton buttonEffettuaConnessione;
-    private javax.swing.JButton buttonRiduciAIcona;
+    private javax.swing.JButton buttonConnettiti;
+    private javax.swing.JLabel labelChiudi;
     private javax.swing.JLabel labelDataBase;
     private javax.swing.JLabel labelIP;
+    private javax.swing.JLabel labelMinimizza;
     private javax.swing.JLabel labelPassword;
     private javax.swing.JLabel labelPorta;
     private javax.swing.JLabel labelStatoConnessione;
