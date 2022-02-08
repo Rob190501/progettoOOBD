@@ -4,17 +4,12 @@ import controller.Controller;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
-
-
 public class LoginFrame extends javax.swing.JFrame {
 
     private Controller controller;
     private int mouseX;
     private int mouseY;
     
-    /**
-     * Creates new form Home
-     */
     public LoginFrame(Controller controller) {
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -45,20 +40,27 @@ public class LoginFrame extends javax.swing.JFrame {
         buttonRiduciAIcona = new javax.swing.JButton();
         labelTitolo = new javax.swing.JLabel();
         panelContenuti = new javax.swing.JPanel();
-        textFieldMatricola = new javax.swing.JTextField();
-        labelMatricola = new javax.swing.JLabel();
+        labelUserName = new javax.swing.JLabel();
+        textFieldUserName = new javax.swing.JTextField();
         labelPassword = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
-        buttonAccediStudente = new javax.swing.JButton();
-        buttonRegistratiStudente = new javax.swing.JButton();
+        labelIP = new javax.swing.JLabel();
+        textFieldIP = new javax.swing.JTextField();
+        labelPorta = new javax.swing.JLabel();
+        textFieldPorta = new javax.swing.JTextField();
+        labelDataBase = new javax.swing.JLabel();
+        textFieldDatabase = new javax.swing.JTextField();
+        labelStatoConnessione = new javax.swing.JLabel();
+        buttonEffettuaConnessione = new javax.swing.JButton();
         buttonAccediOperatore = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMinimumSize(new java.awt.Dimension(450, 600));
+        setMinimumSize(new java.awt.Dimension(450, 800));
         setUndecorated(true);
-        setSize(new java.awt.Dimension(450, 600));
+        setPreferredSize(new java.awt.Dimension(450, 800));
+        setSize(new java.awt.Dimension(450, 800));
 
         panelPrincipale.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -79,9 +81,9 @@ public class LoginFrame extends javax.swing.JFrame {
         buttonChiudi.setForeground(new java.awt.Color(0, 0, 0));
         buttonChiudi.setText("X");
         buttonChiudi.setFocusPainted(false);
-        buttonChiudi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonChiudiMouseClicked(evt);
+        buttonChiudi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonChiudiActionPerformed(evt);
             }
         });
 
@@ -91,16 +93,16 @@ public class LoginFrame extends javax.swing.JFrame {
         buttonRiduciAIcona.setText("–");
         buttonRiduciAIcona.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         buttonRiduciAIcona.setFocusPainted(false);
-        buttonRiduciAIcona.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonRiduciAIconaMouseClicked(evt);
+        buttonRiduciAIcona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRiduciAIconaActionPerformed(evt);
             }
         });
 
         labelTitolo.setBackground(new java.awt.Color(255, 255, 255));
         labelTitolo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         labelTitolo.setForeground(new java.awt.Color(255, 255, 255));
-        labelTitolo.setText("Gestione corsi di formazione - Login");
+        labelTitolo.setText("Gestione corsi di formazione - Connessione al DB");
 
         javax.swing.GroupLayout panelSuperioreLayout = new javax.swing.GroupLayout(panelSuperiore);
         panelSuperiore.setLayout(panelSuperioreLayout);
@@ -109,7 +111,7 @@ public class LoginFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSuperioreLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelTitolo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addComponent(buttonRiduciAIcona)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonChiudi)
@@ -128,16 +130,17 @@ public class LoginFrame extends javax.swing.JFrame {
 
         panelContenuti.setBackground(new java.awt.Color(255, 255, 255));
 
-        textFieldMatricola.setBackground(new java.awt.Color(255, 255, 255));
-        textFieldMatricola.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        textFieldMatricola.setForeground(new java.awt.Color(0, 0, 0));
-        textFieldMatricola.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(153, 204, 255)));
-        textFieldMatricola.setSelectionColor(new java.awt.Color(51, 153, 255));
+        labelUserName.setBackground(new java.awt.Color(255, 255, 255));
+        labelUserName.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        labelUserName.setForeground(new java.awt.Color(153, 204, 255));
+        labelUserName.setText("User Name");
 
-        labelMatricola.setBackground(new java.awt.Color(255, 255, 255));
-        labelMatricola.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        labelMatricola.setForeground(new java.awt.Color(153, 204, 255));
-        labelMatricola.setText("Matricola");
+        textFieldUserName.setBackground(new java.awt.Color(255, 255, 255));
+        textFieldUserName.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        textFieldUserName.setForeground(new java.awt.Color(0, 0, 0));
+        textFieldUserName.setText("postgres");
+        textFieldUserName.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(153, 204, 255)));
+        textFieldUserName.setSelectionColor(new java.awt.Color(51, 153, 255));
 
         labelPassword.setBackground(new java.awt.Color(255, 255, 255));
         labelPassword.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -147,31 +150,75 @@ public class LoginFrame extends javax.swing.JFrame {
         passwordField.setBackground(new java.awt.Color(255, 255, 255));
         passwordField.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         passwordField.setForeground(new java.awt.Color(0, 0, 0));
+        passwordField.setText("admin");
         passwordField.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(153, 204, 255)));
         passwordField.setEchoChar('*');
         passwordField.setSelectionColor(new java.awt.Color(51, 153, 255));
 
-        buttonAccediStudente.setBackground(new java.awt.Color(153, 204, 255));
-        buttonAccediStudente.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        buttonAccediStudente.setForeground(new java.awt.Color(255, 255, 255));
-        buttonAccediStudente.setText("Accedi");
-        buttonAccediStudente.setFocusPainted(false);
+        labelIP.setBackground(new java.awt.Color(255, 255, 255));
+        labelIP.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        labelIP.setForeground(new java.awt.Color(153, 204, 255));
+        labelIP.setText("IP");
 
-        buttonRegistratiStudente.setBackground(new java.awt.Color(153, 204, 255));
-        buttonRegistratiStudente.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        buttonRegistratiStudente.setForeground(new java.awt.Color(255, 255, 255));
-        buttonRegistratiStudente.setText("Registrati");
-        buttonRegistratiStudente.setFocusPainted(false);
+        textFieldIP.setBackground(new java.awt.Color(255, 255, 255));
+        textFieldIP.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        textFieldIP.setForeground(new java.awt.Color(0, 0, 0));
+        textFieldIP.setText("localhost");
+        textFieldIP.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(153, 204, 255)));
+        textFieldIP.setSelectionColor(new java.awt.Color(51, 153, 255));
+
+        labelPorta.setBackground(new java.awt.Color(255, 255, 255));
+        labelPorta.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        labelPorta.setForeground(new java.awt.Color(153, 204, 255));
+        labelPorta.setText("Porta");
+
+        textFieldPorta.setBackground(new java.awt.Color(255, 255, 255));
+        textFieldPorta.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        textFieldPorta.setForeground(new java.awt.Color(0, 0, 0));
+        textFieldPorta.setText("5432");
+        textFieldPorta.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(153, 204, 255)));
+        textFieldPorta.setSelectionColor(new java.awt.Color(51, 153, 255));
+
+        labelDataBase.setBackground(new java.awt.Color(255, 255, 255));
+        labelDataBase.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        labelDataBase.setForeground(new java.awt.Color(153, 204, 255));
+        labelDataBase.setText("Database");
+
+        textFieldDatabase.setBackground(new java.awt.Color(255, 255, 255));
+        textFieldDatabase.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        textFieldDatabase.setForeground(new java.awt.Color(0, 0, 0));
+        textFieldDatabase.setText("corsi_di_formazione");
+        textFieldDatabase.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(153, 204, 255)));
+        textFieldDatabase.setSelectionColor(new java.awt.Color(51, 153, 255));
+
+        labelStatoConnessione.setBackground(new java.awt.Color(255, 255, 255));
+        labelStatoConnessione.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        labelStatoConnessione.setForeground(new java.awt.Color(204, 0, 0));
+        labelStatoConnessione.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelStatoConnessione.setText("Stato: non connesso");
+
+        buttonEffettuaConnessione.setBackground(new java.awt.Color(153, 204, 255));
+        buttonEffettuaConnessione.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        buttonEffettuaConnessione.setForeground(new java.awt.Color(255, 255, 255));
+        buttonEffettuaConnessione.setText("Effettua connessione");
+        buttonEffettuaConnessione.setFocusPainted(false);
+        buttonEffettuaConnessione.setMaximumSize(new java.awt.Dimension(277, 42));
+        buttonEffettuaConnessione.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEffettuaConnessioneActionPerformed(evt);
+            }
+        });
 
         buttonAccediOperatore.setBackground(new java.awt.Color(153, 204, 255));
         buttonAccediOperatore.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         buttonAccediOperatore.setForeground(new java.awt.Color(255, 255, 255));
         buttonAccediOperatore.setText("Accedi come operatore");
+        buttonAccediOperatore.setEnabled(false);
         buttonAccediOperatore.setFocusPainted(false);
         buttonAccediOperatore.setMaximumSize(new java.awt.Dimension(277, 42));
-        buttonAccediOperatore.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonAccediOperatoreMouseClicked(evt);
+        buttonAccediOperatore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAccediOperatoreActionPerformed(evt);
             }
         });
 
@@ -180,37 +227,57 @@ public class LoginFrame extends javax.swing.JFrame {
         panelContenutiLayout.setHorizontalGroup(
             panelContenutiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelContenutiLayout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelContenutiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(textFieldDatabase)
+                    .addComponent(labelDataBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textFieldPorta)
+                    .addComponent(labelPorta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelContenutiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(labelPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(panelContenutiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textFieldMatricola)
-                            .addComponent(labelMatricola, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(buttonAccediStudente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buttonRegistratiStudente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buttonAccediOperatore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(50, Short.MAX_VALUE))
+                            .addComponent(textFieldIP, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                            .addComponent(labelIP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(panelContenutiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(passwordField)
+                            .addComponent(labelPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelContenutiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(textFieldUserName)
+                                .addComponent(labelUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE))
+                            .addComponent(buttonAccediOperatore, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                            .addComponent(buttonEffettuaConnessione, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(labelStatoConnessione, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelContenutiLayout.setVerticalGroup(
             panelContenutiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelContenutiLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(labelMatricola)
+                .addGap(31, 31, 31)
+                .addComponent(labelUserName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldMatricola, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addComponent(textFieldUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(labelPassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(buttonAccediStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(buttonRegistratiStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(labelIP)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textFieldIP, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(labelPorta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textFieldPorta, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(labelDataBase)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textFieldDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addComponent(labelStatoConnessione)
+                .addGap(28, 28, 28)
+                .addComponent(buttonEffettuaConnessione, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(buttonAccediOperatore, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40))
+                .addGap(31, 31, 31))
         );
 
         javax.swing.GroupLayout panelPrincipaleLayout = new javax.swing.GroupLayout(panelPrincipale);
@@ -261,36 +328,58 @@ public class LoginFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_panelSuperioreMouseDragged
 
-    private void buttonRiduciAIconaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonRiduciAIconaMouseClicked
+    private void buttonRiduciAIconaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRiduciAIconaActionPerformed
         // TODO add your handling code here:
         setState(ICONIFIED);
-    }//GEN-LAST:event_buttonRiduciAIconaMouseClicked
+    }//GEN-LAST:event_buttonRiduciAIconaActionPerformed
 
-    private void buttonChiudiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonChiudiMouseClicked
+    private void buttonChiudiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChiudiActionPerformed
         // TODO add your handling code here:
         System.exit(0);
-    }//GEN-LAST:event_buttonChiudiMouseClicked
+    }//GEN-LAST:event_buttonChiudiActionPerformed
 
-    private void buttonAccediOperatoreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonAccediOperatoreMouseClicked
+    private void buttonEffettuaConnessioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEffettuaConnessioneActionPerformed
+        // TODO add your handling code here:
+        if(controller.effettuaConnessioneDB(textFieldUserName.getText(), passwordField.getText(), textFieldIP.getText(), textFieldPorta.getText(), textFieldDatabase.getText())) {
+            labelStatoConnessione.setForeground(new java.awt.Color(0, 204, 0));
+            labelStatoConnessione.setText("Stato: connesso");
+            
+            buttonAccediOperatore.setEnabled(true);
+        }
+        else {
+            labelStatoConnessione.setForeground(new java.awt.Color(204, 0, 0));
+            labelStatoConnessione.setText("Stato: non connesso");
+            
+            buttonAccediOperatore.setEnabled(false);
+        }
+    }//GEN-LAST:event_buttonEffettuaConnessioneActionPerformed
+
+    private void buttonAccediOperatoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAccediOperatoreActionPerformed
         // TODO add your handling code here:
         controller.accessoOperatore();
-    }//GEN-LAST:event_buttonAccediOperatoreMouseClicked
+    }//GEN-LAST:event_buttonAccediOperatoreActionPerformed
     
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAccediOperatore;
-    private javax.swing.JButton buttonAccediStudente;
     private javax.swing.JButton buttonChiudi;
-    private javax.swing.JButton buttonRegistratiStudente;
+    private javax.swing.JButton buttonEffettuaConnessione;
     private javax.swing.JButton buttonRiduciAIcona;
-    private javax.swing.JLabel labelMatricola;
+    private javax.swing.JLabel labelDataBase;
+    private javax.swing.JLabel labelIP;
     private javax.swing.JLabel labelPassword;
+    private javax.swing.JLabel labelPorta;
+    private javax.swing.JLabel labelStatoConnessione;
     private javax.swing.JLabel labelTitolo;
+    private javax.swing.JLabel labelUserName;
     private javax.swing.JPanel panelContenuti;
     private javax.swing.JPanel panelPrincipale;
     private javax.swing.JPanel panelSuperiore;
     private javax.swing.JPasswordField passwordField;
-    private javax.swing.JTextField textFieldMatricola;
+    private javax.swing.JTextField textFieldDatabase;
+    private javax.swing.JTextField textFieldIP;
+    private javax.swing.JTextField textFieldPorta;
+    private javax.swing.JTextField textFieldUserName;
     // End of variables declaration//GEN-END:variables
 }

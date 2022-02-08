@@ -11,7 +11,6 @@ CREATE TABLE corso (
 
 CREATE TABLE area_tematica (
     nome_area VARCHAR (200),
-    descrizione_area VARCHAR (300) NOT NULL,
 
     CONSTRAINT pk_area PRIMARY KEY (nome_area)
 );
@@ -46,6 +45,19 @@ CREATE TABLE lezioni_del_corso (
     ON UPDATE CASCADE,
 
     CONSTRAINT fk_ldc_titolo_lezione FOREIGN KEY (titolo_lezione) REFERENCES lezione (titolo_lezione)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+CREATE TABLE area_del_corso (
+    nome_corso VARCHAR (200) NOT NULL,
+    nome_area VARCHAR (200),
+
+    CONSTRAINT fk_adc_nome_corso FOREIGN KEY (nome_corso) REFERENCES corso (nome_corso)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+
+    CONSTRAINT fk_adc_nome_area FOREIGN KEY (nome_area) REFERENCES area_tematica (nome_area)
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );
