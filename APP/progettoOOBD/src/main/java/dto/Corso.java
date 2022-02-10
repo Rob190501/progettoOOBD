@@ -1,11 +1,14 @@
 package dto;
 
+import java.util.LinkedList;
+
 public class Corso {
     
     private String nomeCorso;
     private String descrizioneCorso;
     private int tassoPresenzeMin;
     private int partecipantiMax;
+    private LinkedList<AreaTematica> areeDelCorso;
 
     public Corso(String nomeCorso, String descrizioneCorso, int tassoPresenzeMin, int partecipantiMax) {
         setNomeCorso(nomeCorso);

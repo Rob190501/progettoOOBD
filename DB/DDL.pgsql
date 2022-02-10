@@ -21,8 +21,13 @@ CREATE TABLE lezione (
     durata_lezione TIME NOT NULL,
     data_inizio DATE NOT NULL,
     ora_inizio TIME NOT NULL,
+    nome_corso VARCHAR (200),
 
-    CONSTRAINT pk_lezione PRIMARY KEY (titolo_lezione)
+    CONSTRAINT pk_lezione PRIMARY KEY (titolo_lezione),
+
+    CONSTRAINT fk_corso_della_lezione FOREIGN KEY (nome_corso) REFERENCES corso (nome_corso)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
 
 CREATE TABLE studente (
@@ -34,19 +39,6 @@ CREATE TABLE studente (
     cognome VARCHAR (200) NOT  NULL,
 
     CONSTRAINT pk_studente PRIMARY KEY (matricola)
-);
-
-CREATE TABLE lezioni_del_corso (
-    nome_corso VARCHAR (200) NOT NULL,
-    titolo_lezione VARCHAR (200) NOT NULL,
-
-    CONSTRAINT fk_ldc_nome_corso FOREIGN KEY (nome_corso) REFERENCES corso (nome_corso)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-
-    CONSTRAINT fk_ldc_titolo_lezione FOREIGN KEY (titolo_lezione) REFERENCES lezione (titolo_lezione)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
 );
 
 CREATE TABLE area_del_corso (
