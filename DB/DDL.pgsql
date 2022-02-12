@@ -10,10 +10,17 @@ CREATE TABLE corso (
 );
 
 CREATE TABLE area_tematica (
-    nome_area VARCHAR (200),
+    nome_area_tematica VARCHAR (200),
+    descrizione_area VARCHAR (200),
 
     CONSTRAINT pk_area PRIMARY KEY (nome_area)
 );
+
+select * from area_tematica;
+
+insert into area_tematica(nome_area_tematica, descrizione_area) VALUES
+('Informatica', 'Area di informatica'),
+('Scienze', 'Area di scienze');
 
 CREATE TABLE lezione (
     titolo_lezione VARCHAR (200),
