@@ -30,7 +30,7 @@ public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfacci
     }
     
     @Override
-    public boolean createLezione(AreaTematica area) {
+    public boolean createAreaTematica(AreaTematica area) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -48,10 +48,11 @@ public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfacci
         ResultSet rs = pst.executeQuery();
         
         while(rs.next()) {
+            int codice_area_tematica = rs.getInt("codice_area_tematica");
             String nome_area_tematica = rs.getString("nome_area_tematica");
-            String descrizione_area = rs.getString("descrizione_area");
+            String descrizione_area = rs.getString("descrizione_area_tematica");
             
-            AreaTematica area = new AreaTematica(nome_area_tematica, descrizione_area);
+            AreaTematica area = new AreaTematica(codice_area_tematica, nome_area_tematica, descrizione_area);
             
             listaAreeTematiche.add(area);
         }

@@ -2,32 +2,42 @@ package dto;
 
 public class AreaTematica {
     
+    private int codiceAreaTematica;
     private String nomeAreaTematica;
-    private String descrizioneArea;
+    private String descrizioneAreaTematica;
 
-    public AreaTematica(String nomeAreaTematica, String descrizioneArea) {
+    public AreaTematica(int codiceAreaTematica, String nomeAreaTematica, String descrizioneAreaTematica) {
+        setCodiceAreaTematica(codiceAreaTematica);
         setNomeAreaTematica(nomeAreaTematica);
-        setDescrizioneArea(descrizioneArea);
+        setDescrizioneAreaTematica(descrizioneAreaTematica);
     }
 
+    public int getCodiceAreaTematica() {
+        return codiceAreaTematica;
+    }
+    
     public String getNomeAreaTematica() {
         return nomeAreaTematica;
     }
 
-    public String getDescrizioneArea() {
-        return descrizioneArea;
+    public String getDescrizioneAreaTematica() {
+        return descrizioneAreaTematica;
+    }
+    
+    public void setCodiceAreaTematica(int codiceAreaTematica) {
+        this.codiceAreaTematica = codiceAreaTematica;
     }
     
     public void setNomeAreaTematica(String nomeAreaTematica) {
         this.nomeAreaTematica = nomeAreaTematica;
     }
 
-    public void setDescrizioneArea(String descrizioneArea) {
-        this.descrizioneArea = descrizioneArea;
+    public void setDescrizioneAreaTematica(String descrizioneAreaTematica) {
+        this.descrizioneAreaTematica = descrizioneAreaTematica;
     }
     
     public String toString() {
-        return getNomeAreaTematica() + ": " + getDescrizioneArea();
+        return getCodiceAreaTematica() + " | " + getNomeAreaTematica() + " | " + getDescrizioneAreaTematica();
     }
     
 }

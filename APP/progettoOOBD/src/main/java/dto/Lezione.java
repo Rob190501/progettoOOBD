@@ -3,6 +3,7 @@ package dto;
 
 public class Lezione {
     
+    private int codiceLezione;
     private String nomeLezione;
     private String descrizioneLezione;
     private String durataLezione;
@@ -10,13 +11,18 @@ public class Lezione {
     private String oraInizio;
     private Corso corsoDellaLezione;
 
-    public Lezione(String nomeLezione, String descrizioneLezione, String durataLezione, String dataInizio, String oraInizio, Corso corsoDellaLezione) {
+    public Lezione(int codiceLezione, String nomeLezione, String descrizioneLezione, String durataLezione, String dataInizio, String oraInizio, Corso corsoDellaLezione) {
+        setCodiceLezione(codiceLezione);
         setNomeLezione(nomeLezione);
         setDescrizioneLezione(descrizioneLezione);
         setDurataLezione(durataLezione);
         setDataInizio(dataInizio);
         setOraInizio(oraInizio);
         setCorsoDellaLezione(corsoDellaLezione);
+    }
+    
+    public int getCodiceLezione() {
+        return codiceLezione;
     }
     
     public String getNomeLezione() {
@@ -41,6 +47,10 @@ public class Lezione {
 
     public Corso getCorsoDellaLezione() {
         return corsoDellaLezione;
+    }
+    
+    public void setCodiceLezione(int codiceLezione) {
+        this.codiceLezione = codiceLezione;
     }
 
     public void setNomeLezione(String nomeLezione) {

@@ -4,17 +4,24 @@ import java.util.LinkedList;
 
 public class Corso {
     
+    private int codiceCorso;
     private String nomeCorso;
     private String descrizioneCorso;
     private int tassoPresenzeMin;
     private int partecipantiMax;
     private LinkedList<AreaTematica> areeDelCorso;
 
-    public Corso(String nomeCorso, String descrizioneCorso, int tassoPresenzeMin, int partecipantiMax) {
+    public Corso(int codiceCorso, String nomeCorso, String descrizioneCorso, int tassoPresenzeMin, int partecipantiMax) {
+        setCodiceCorso(codiceCorso);
         setNomeCorso(nomeCorso);
         setDescrizioneCorso(descrizioneCorso);
         setTassoPresenzeMin(tassoPresenzeMin);
         setPartecipantiMax(partecipantiMax);
+        areeDelCorso = new LinkedList<AreaTematica>();
+    }
+    
+    public int getCodiceCorso() {
+        return codiceCorso;
     }
     
     public String getNomeCorso() {
@@ -31,6 +38,10 @@ public class Corso {
 
     public int getPartecipantiMax() {
         return partecipantiMax;
+    }
+    
+    public void setCodiceCorso(int codiceCorso) {
+        this.codiceCorso = codiceCorso;
     }
     
     public void setNomeCorso(String nomeCorso) {

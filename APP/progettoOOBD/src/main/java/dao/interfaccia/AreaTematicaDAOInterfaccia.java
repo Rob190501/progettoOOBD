@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 public interface AreaTematicaDAOInterfaccia {
     
-    public boolean createLezione(AreaTematica area);
+    public boolean createAreaTematica(AreaTematica area);
     
     public AreaTematica retrieveAreaTematicaByNomeAreaTematica(String nomeAreaTematica);
     
