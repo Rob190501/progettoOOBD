@@ -10,14 +10,17 @@ CREATE TABLE corso (
     tasso_presenze_min INTEGER NOT NULL,
     partecipanti_max INTEGER NOT NULL,
 
-    CONSTRAINT pk_corso PRIMARY KEY (codice_corso)
+    CONSTRAINT pk_corso PRIMARY KEY (codice_corso),
+    CONSTRAINT unico_nome_corso UNIQUE (nome_corso)
 );
+
+alter table corso add CONSTRAINT unico_nome_corso UNIQUE (nome_corso);
 
 select * from corso;
 
 insert into corso (nome_corso, descrizione_corso, tasso_presenze_min, partecipanti_max) VALUES
-('Corso di Informatica', 'Si studia informatica', 50, 150),
-('Corso di Matematica', 'Si studia matematica', 50, 150);
+('Enformatica', 'Si studia informatica', 50, 150),
+('enformatica', 'Si studia matematica', 50, 150);
 
 CREATE TABLE area_tematica (
     codice_area_tematica INTEGER GENERATED ALWAYS AS IDENTITY
@@ -99,8 +102,10 @@ where corso.codice_corso = area_del_corso.codice_corso AND
 select * from area_tematica;
 
 INSERT INTO area_del_corso (codice_area_tematica, codice_corso )VALUES
-(0, 0),
-(2, 1);
+/*(0, 0),
+(2, 1),
+(0, 3),*/
+(3, 0);
 
 CREATE TABLE studenti_del_corso (
     matricola INTEGER NOT NULL,

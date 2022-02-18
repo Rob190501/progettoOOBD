@@ -1,5 +1,6 @@
 package dto;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Corso {
@@ -58,6 +59,14 @@ public class Corso {
 
     public void setPartecipantiMax(int partecipantiMax) {
         this.partecipantiMax = partecipantiMax;
+    }
+    
+    public void addAreaTematica(AreaTematica areaTematica) {
+        areeDelCorso.add(areaTematica);
+    }
+    
+    public String toString() {
+        return nomeCorso + areeDelCorso.toString();
     }
     
 }

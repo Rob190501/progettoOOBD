@@ -348,7 +348,7 @@ public class LoginFrame extends javax.swing.JFrame {
     
     private void buttonConnettitiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConnettitiActionPerformed
         // TODO add your handling code here:
-        if(controller.effettuaConnessioneDB(textFieldUserName.getText(), passwordField.getText(), textFieldIP.getText(), textFieldPorta.getText(), textFieldDatabase.getText())) {
+        if(controller.avviaConnessione(textFieldUserName.getText(), passwordField.getText(), textFieldIP.getText(), textFieldPorta.getText(), textFieldDatabase.getText())) {
             connessioneStabilita();
         }
         else {

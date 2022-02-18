@@ -13,6 +13,7 @@ public class Studente {
         setMatricola(matricola);
         setNome(nome);
         setCognome(cognome);
+        presenze = new LinkedList<Lezione>();
     }
     
     public String getMatricola() {
@@ -47,6 +48,8 @@ public class Studente {
         this.cognome = cognome;
     }
     
-    
+    public void addPresenza(Lezione lezione) {
+        presenze.add(lezione);
+    }
     
 }

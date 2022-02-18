@@ -2,7 +2,9 @@ package controller;
 
 import connessione.ConnessioneDB;
 import dao.implementazione.postgresql.AreaTematicaDAOImplementazione;
+import dao.implementazione.postgresql.CorsoDAOImplementazione;
 import dto.AreaTematica;
+import dto.Corso;
 import gui.HomeFrameOperatore;
 import gui.HomeFrameStudente;
 import gui.LoginFrame;
@@ -21,8 +23,41 @@ public class Controller {
     private LinkedList<AreaTematica> listaAreeTematiche;
     private AreaTematicaDAOImplementazione areaTematicaDAO;
     
+    private LinkedList<Corso> listaCorsi;
+    private CorsoDAOImplementazione corsoDAO;
+    
     public Controller(){
         loginFrame = new LoginFrame(this);
+    }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
+    
+    public void setListaAreeTematiche(LinkedList<AreaTematica> listaAreeTematiche) {
+        this.listaAreeTematiche = listaAreeTematiche;
+    }
+
+    public void setListaCorsi(LinkedList<Corso> listaCorsi) {
+        this.listaCorsi = listaCorsi;
+    }
+    
+    public boolean avviaConnessione(String userName, String password, String ip, String porta, String db) {        
+        chiudiConnessione();
+        try {
+            setConnection(ConnessioneDB.getIstanza(userName, password, ip, porta, db).getConnection());
+            System.out.println("Connessione riuscita");
+            avviaDAO();
+            return true;
+        }
+        catch(Exception e) {
+            System.out.println("Connessione fallita");
+            return false;
+        }
     }
     
     public void chiudiConnessione() {
@@ -36,45 +71,37 @@ public class Controller {
         }
     }
     
-    public boolean effettuaConnessioneDB(String userName, String password, String ip, String porta, String db) {        
-        chiudiConnessione();
-        try {
-            connection = ConnessioneDB.getIstanza(userName, password, ip, porta, db).getConnection();
-            System.out.println("Connessione riuscita");
-            avviaDAO();
-            return true;
-        }
-        catch(Exception e) {
-            System.out.println("Connessione fallita");
-            return false;
-        }
-    }
-    
     public void avviaDAO() {
         try {
-            areaTematicaDAO = new AreaTematicaDAOImplementazione(this, connection);
+            areaTematicaDAO = new AreaTematicaDAOImplementazione(this);
             
-            listaAreeTematiche = areaTematicaDAO.retrieveAllAreaTematica();
+            setListaAreeTematiche(areaTematicaDAO.retrieveAllAreaTematica());
             
-            for(AreaTematica lista : listaAreeTematiche) {
+            corsoDAO = new CorsoDAOImplementazione(this);
+            
+            setListaCorsi(corsoDAO.retrieveAllCorso(listaAreeTematiche));
+            
+            /*for(AreaTematica lista : listaAreeTematiche) {
+                System.out.println(lista.toString());
+            }*/
+            
+            for(Corso lista : listaCorsi) {
                 System.out.println(lista.toString());
             }
         }
         catch (Exception ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
-    }
-    
-    
-    
-    public void terminaEsecuzione() {
-        chiudiConnessione();
-        System.exit(0);
     }
     
     public void accessoOperatore(){
         loginFrame.setVisible(false);
         homeFrameOperatore = new HomeFrameOperatore(this);
+    }
+    
+    public void terminaEsecuzione() {
+        chiudiConnessione();
+        System.exit(0);
     }
     
     public static void main(String[] args){
