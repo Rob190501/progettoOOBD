@@ -3,20 +3,30 @@ package dto;
 import java.util.LinkedList;
 
 public class Studente {
-    private String matricola;
+    private int matricola;
     private String nome;
     private String cognome;
     private LinkedList<Corso> corsiFrequentati;
     private LinkedList<Lezione> presenze;
 
-    public Studente(String matricola, String nome, String cognome) {
+    public Studente(int matricola, String nome, String cognome) {
         setMatricola(matricola);
         setNome(nome);
         setCognome(cognome);
+        corsiFrequentati = new LinkedList<Corso>();
         presenze = new LinkedList<Lezione>();
+        
     }
     
-    public String getMatricola() {
+    public Studente(String nome, String cognome) {
+        setNome(nome);
+        setCognome(cognome);
+        corsiFrequentati = new LinkedList<Corso>();
+        presenze = new LinkedList<Lezione>();
+        
+    }
+    
+    public int getMatricola() {
         return matricola;
     }
 
@@ -36,7 +46,7 @@ public class Studente {
         return presenze;
     }
 
-    public void setMatricola(String matricola) {
+    public void setMatricola(int matricola) {
         this.matricola = matricola;
     }
 
@@ -48,8 +58,16 @@ public class Studente {
         this.cognome = cognome;
     }
     
+    public void addCorso(Corso corso) {
+        corsiFrequentati.add(corso);
+    }
+    
     public void addPresenza(Lezione lezione) {
         presenze.add(lezione);
+    }
+    
+    public String toString() {
+        return matricola + " | " + nome + " | " + cognome + corsiFrequentati.toString() + presenze.toString();
     }
     
 }

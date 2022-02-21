@@ -3,28 +3,35 @@ package controller;
 import connessione.ConnessioneDB;
 import dao.implementazione.postgresql.AreaTematicaDAOImplementazione;
 import dao.implementazione.postgresql.CorsoDAOImplementazione;
+import dao.implementazione.postgresql.LezioneDAOImplementazione;
+import dao.implementazione.postgresql.StudenteDAOImplementazione;
 import dto.AreaTematica;
 import dto.Corso;
+import dto.Lezione;
+import dto.Studente;
 import gui.HomeFrameOperatore;
-import gui.HomeFrameStudente;
 import gui.LoginFrame;
 import java.sql.Connection;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Controller {
     
     private Connection connection = null;
     private LoginFrame loginFrame;
     private HomeFrameOperatore homeFrameOperatore;
-    private HomeFrameStudente homeFrameStudente;
     
     private LinkedList<AreaTematica> listaAreeTematiche;
     private AreaTematicaDAOImplementazione areaTematicaDAO;
     
     private LinkedList<Corso> listaCorsi;
     private CorsoDAOImplementazione corsoDAO;
+    
+    private LinkedList<Lezione> listaLezioni;
+    private LezioneDAOImplementazione lezioneDAO;
+    
+    private LinkedList<Studente> listaStudenti;
+    private StudenteDAOImplementazione studenteDAO;
+    
     
     public Controller(){
         loginFrame = new LoginFrame(this);
@@ -34,23 +41,32 @@ public class Controller {
         return connection;
     }
 
-    public void setConnection(Connection connection) {
+    private void setConnection(Connection connection) {
         this.connection = connection;
     }
     
-    public void setListaAreeTematiche(LinkedList<AreaTematica> listaAreeTematiche) {
+    private void setListaAreeTematiche(LinkedList<AreaTematica> listaAreeTematiche) {
         this.listaAreeTematiche = listaAreeTematiche;
     }
 
-    public void setListaCorsi(LinkedList<Corso> listaCorsi) {
+    private void setListaCorsi(LinkedList<Corso> listaCorsi) {
         this.listaCorsi = listaCorsi;
     }
+
+    private void setListaLezioni(LinkedList<Lezione> listaLezioni) {
+        this.listaLezioni = listaLezioni;
+    }
+
+    private void setListaStudenti(LinkedList<Studente> listaStudenti) {
+        this.listaStudenti = listaStudenti;
+    }
+    
+    
     
     public boolean avviaConnessione(String userName, String password, String ip, String porta, String db) {        
         chiudiConnessione();
         try {
             setConnection(ConnessioneDB.getIstanza(userName, password, ip, porta, db).getConnection());
-            System.out.println("Connessione riuscita");
             avviaDAO();
             return true;
         }
@@ -81,11 +97,33 @@ public class Controller {
             
             setListaCorsi(corsoDAO.retrieveAllCorso(listaAreeTematiche));
             
+            lezioneDAO = new LezioneDAOImplementazione(this);
+            
+            setListaLezioni(lezioneDAO.retrieveAllLezione(listaCorsi));
+            
+            studenteDAO = new StudenteDAOImplementazione(this);
+            
+            setListaStudenti(studenteDAO.retrieveAllStudente(listaCorsi, listaLezioni));
+            
+            Studente s = new Studente("Mario", "Rossi");
+            
+            studenteDAO.createStudente(s);
+            
+            listaStudenti.add(s);
+            
             /*for(AreaTematica lista : listaAreeTematiche) {
                 System.out.println(lista.toString());
             }*/
             
-            for(Corso lista : listaCorsi) {
+            /*for(Corso lista : listaCorsi) {
+                System.out.println(lista.toString());
+            }*/
+            
+            /*for(Lezione lista : listaLezioni) {
+                System.out.println(lista.toString());
+            }*/
+            
+            for(Studente lista : listaStudenti) {
                 System.out.println(lista.toString());
             }
         }

@@ -7,8 +7,6 @@ public interface AreaTematicaDAOInterfaccia {
     
     public boolean createAreaTematica(AreaTematica area);
     
-    public AreaTematica retrieveAreaTematicaByNomeAreaTematica(String nomeAreaTematica);
-    
     public LinkedList<AreaTematica> retrieveAllAreaTematica() throws Exception;
     
     public boolean updateAreaTematica(AreaTematica areaTematica);

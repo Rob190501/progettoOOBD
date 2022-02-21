@@ -4,16 +4,16 @@ package dto;
 public class Lezione {
     
     private int codiceLezione;
-    private String nomeLezione;
+    private String titoloLezione;
     private String descrizioneLezione;
     private String durataLezione;
     private String dataInizio;
     private String oraInizio;
     private Corso corsoDellaLezione;
 
-    public Lezione(int codiceLezione, String nomeLezione, String descrizioneLezione, String durataLezione, String dataInizio, String oraInizio, Corso corsoDellaLezione) {
+    public Lezione(int codiceLezione, String titoloLezione, String descrizioneLezione, String durataLezione, String dataInizio, String oraInizio, Corso corsoDellaLezione) {
         setCodiceLezione(codiceLezione);
-        setNomeLezione(nomeLezione);
+        setTitoloLezione(titoloLezione);
         setDescrizioneLezione(descrizioneLezione);
         setDurataLezione(durataLezione);
         setDataInizio(dataInizio);
@@ -25,8 +25,8 @@ public class Lezione {
         return codiceLezione;
     }
     
-    public String getNomeLezione() {
-        return nomeLezione;
+    public String getTitoloLezione() {
+        return titoloLezione;
     }
 
     public String getDescrizioneLezione() {
@@ -53,8 +53,8 @@ public class Lezione {
         this.codiceLezione = codiceLezione;
     }
 
-    public void setNomeLezione(String nomeLezione) {
-        this.nomeLezione = nomeLezione;
+    public void setTitoloLezione(String nomeLezione) {
+        this.titoloLezione = nomeLezione;
     }
 
     public void setDescrizioneLezione(String descrizioneLezione) {
@@ -77,6 +77,8 @@ public class Lezione {
         this.corsoDellaLezione = corsoDellaLezione;
     }
     
-    
+    public String toString() {
+        return codiceLezione + " | " + titoloLezione + " | " + descrizioneLezione + " | " + durataLezione + " | " + dataInizio + " | " + oraInizio + " | " + corsoDellaLezione.getNomeCorso();
+    }
     
 }

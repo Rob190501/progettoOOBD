@@ -16,7 +16,6 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
     
     private String querySelectAllCorso = "SELECT * " +
                                          "FROM corso";
-    
     private String querySelectAreeDelCorso = "SELECT codice_area_tematica " +
                                              "FROM area_del_corso " +
                                              "WHERE codice_corso = ?";
@@ -26,11 +25,11 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
         setConnection(controller.getConnection());
     }
 
-    public void setController(Controller controller) {
+    private void setController(Controller controller) {
         this.controller = controller;
     }
 
-    public void setConnection(Connection connection) {
+    private void setConnection(Connection connection) {
         this.connection = connection;
     }
     
@@ -40,13 +39,8 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
     }
 
     @Override
-    public Corso retrieveCorsoByNomeCorso(String nomeAreaTematica) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public LinkedList<Corso> retrieveAllCorso(LinkedList<AreaTematica> listaAreeTematiche) throws Exception {
-        LinkedList<Corso> listaCorsi = new LinkedList<Corso>();
+        LinkedList listaCorsi = new LinkedList<Corso>();
         
         PreparedStatement pstRetrieveAllCorso = connection.prepareStatement(querySelectAllCorso);
         
@@ -72,22 +66,23 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
         return listaCorsi;
     }
     
-    public void aggiungiAreeTematiche(Corso corso, LinkedList<AreaTematica> listaAreeTematiche) throws Exception{
+    private void aggiungiAreeTematiche(Corso corso, LinkedList<AreaTematica> listaAreeTematiche) throws Exception{
         PreparedStatement pstAreeDelCorso = connection.prepareStatement(querySelectAreeDelCorso);
             
-            pstAreeDelCorso.setInt(1, corso.getCodiceCorso());
+        pstAreeDelCorso.setInt(1, corso.getCodiceCorso());
             
-            ResultSet rsAreeDelCorso = pstAreeDelCorso.executeQuery();
-            
-            while(rsAreeDelCorso.next()) {
-                for(AreaTematica areaTematica : listaAreeTematiche) {
-                    if(areaTematica.getCodiceAreaTematica() == rsAreeDelCorso.getInt("codice_area_tematica"))
-                        corso.addAreaTematica(areaTematica);
+        ResultSet rsAreeDelCorso = pstAreeDelCorso.executeQuery();
+        
+        while(rsAreeDelCorso.next()) {
+            for(AreaTematica areaTematica : listaAreeTematiche) {
+                if(rsAreeDelCorso.getInt("codice_area_tematica") == areaTematica.getCodiceAreaTematica()) {
+                    corso.addAreaTematica(areaTematica);
                 }
             }
+        }
             
-            pstAreeDelCorso.close();
-            rsAreeDelCorso.close();
+        pstAreeDelCorso.close();
+        rsAreeDelCorso.close();
     }
 
     @Override

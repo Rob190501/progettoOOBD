@@ -1,5 +1,6 @@
 package dao.interfaccia;
 
+import dto.Corso;
 import dto.Lezione;
 import java.util.LinkedList;
 
@@ -7,9 +8,7 @@ public interface LezioneDAOInterfaccia {
     
     public boolean createLezione(Lezione lez);
     
-    public Lezione retrieveLezioneByTitolo(String titoloLezione);
-    
-    public LinkedList<Lezione> retrieveAllLezione();
+    public LinkedList<Lezione> retrieveAllLezione(LinkedList<Corso> listaCorsi) throws Exception;
     
     public boolean updateLezione(Lezione lez);
     

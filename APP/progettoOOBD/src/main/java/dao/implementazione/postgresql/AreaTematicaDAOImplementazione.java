@@ -35,11 +35,6 @@ public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfacci
     }
 
     @Override
-    public AreaTematica retrieveAreaTematicaByNomeAreaTematica(String nomeAreaTematica) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public LinkedList<AreaTematica> retrieveAllAreaTematica() throws Exception {
         LinkedList<AreaTematica> listaAreeTematiche = new LinkedList<AreaTematica>();
         
