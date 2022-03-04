@@ -14,7 +14,9 @@ INSERT INTO area_del_corso (codice_area_tematica, codice_corso ) VALUES
 (3, 0);
 
 INSERT INTO studente (nome, cognome) VALUES
-('Roberto', 'Ambrosino');
+('Roberto', 'Ambrosino'),
+('Mario', 'Rossi'),
+('Lucia', 'Gialli');
 
 INSERT INTO studenti_del_corso (matricola, codice_corso) VALUES
 (0, 0),

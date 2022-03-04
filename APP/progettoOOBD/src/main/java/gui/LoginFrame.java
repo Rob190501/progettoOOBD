@@ -10,12 +10,6 @@ public class LoginFrame extends javax.swing.JFrame {
     private int mouseY;
     
     public LoginFrame(Controller controller) {
-        try {
-            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-        }
-        catch (Exception e) {
-        // If Nimbus is not available, you can set the GUI to another look and feel.
-        }
         
         this.controller = controller;
         
@@ -54,6 +48,7 @@ public class LoginFrame extends javax.swing.JFrame {
         buttonAccediOperatore = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestione corsi di formazione - Connessione al DB");
         setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(450, 700));

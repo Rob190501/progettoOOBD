@@ -13,6 +13,7 @@ import gui.HomeFrameOperatore;
 import gui.LoginFrame;
 import java.sql.Connection;
 import java.util.LinkedList;
+import javax.swing.table.DefaultTableModel;
 
 public class Controller {
     
@@ -41,6 +42,22 @@ public class Controller {
         return connection;
     }
 
+    public LinkedList<AreaTematica> getListaAreeTematiche() {
+        return listaAreeTematiche;
+    }
+
+    public LinkedList<Corso> getListaCorsi() {
+        return listaCorsi;
+    }
+
+    public LinkedList<Lezione> getListaLezioni() {
+        return listaLezioni;
+    }
+
+    public LinkedList<Studente> getListaStudenti() {
+        return listaStudenti;
+    }
+    
     private void setConnection(Connection connection) {
         this.connection = connection;
     }
@@ -60,8 +77,6 @@ public class Controller {
     private void setListaStudenti(LinkedList<Studente> listaStudenti) {
         this.listaStudenti = listaStudenti;
     }
-    
-    
     
     public boolean avviaConnessione(String userName, String password, String ip, String porta, String db) {        
         chiudiConnessione();
@@ -105,12 +120,6 @@ public class Controller {
             
             setListaStudenti(studenteDAO.retrieveAllStudente(listaCorsi, listaLezioni));
             
-            Studente s = new Studente("Mario", "Rossi");
-            
-            studenteDAO.createStudente(s);
-            
-            listaStudenti.add(s);
-            
             /*for(AreaTematica lista : listaAreeTematiche) {
                 System.out.println(lista.toString());
             }*/
@@ -123,9 +132,9 @@ public class Controller {
                 System.out.println(lista.toString());
             }*/
             
-            for(Studente lista : listaStudenti) {
+            /*for(Studente lista : listaStudenti) {
                 System.out.println(lista.toString());
-            }
+            }*/
         }
         catch (Exception ex) {
             ex.printStackTrace();
@@ -140,6 +149,26 @@ public class Controller {
     public void terminaEsecuzione() {
         chiudiConnessione();
         System.exit(0);
+    }
+    
+    public void inserisciStudentiInJTable(DefaultTableModel modelTableStudenti) {
+        modelTableStudenti.setRowCount(0);
+        
+        for(Studente studente : listaStudenti) {
+            Object[] row = {studente, studente.getMatricola(), studente.getNome(), studente.getCognome()};
+            modelTableStudenti.addRow(row);
+        }
+    }
+    
+    public void inserisciPresenzeInJTable(DefaultTableModel modelTablePresenze, Object studenteSelezionato) {
+        Studente studente = (Studente) studenteSelezionato;
+        
+        modelTablePresenze.setRowCount(0);
+        
+        for(Lezione lezione : studente.getPresenze()) {
+            Object[] row = {lezione};
+            modelTablePresenze.addRow(row);
+        }
     }
     
     public static void main(String[] args){

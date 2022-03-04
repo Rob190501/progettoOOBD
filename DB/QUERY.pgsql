@@ -13,6 +13,14 @@ FROM area_del_corso;
 SELECT *
 FROM studente;
 
+/*Seleziona tutte le informazioni relative alle presenze di un determinato studente*/
+SELECT *
+FROM studente INNER JOIN (lezione INNER JOIN presenze
+                          ON lezione.codice_lezione = presenze.codice_lezione)
+     ON studente.matricola = presenze.matricola
+WHERE studente.matricola = 0;
+
+
 /*Seleziona il nome del corso e il nome dell'area tematica di tutti i corsi
 che hanno almeno un'area tematica*/
 SELECT nome_corso, nome_area_tematica
