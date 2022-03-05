@@ -13,6 +13,7 @@ import gui.HomeFrameOperatore;
 import gui.LoginFrame;
 import java.sql.Connection;
 import java.util.LinkedList;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class Controller {
@@ -151,7 +152,8 @@ public class Controller {
         System.exit(0);
     }
     
-    public void inserisciStudentiInJTable(DefaultTableModel modelTableStudenti) {
+    public void inserisciStudentiInJTable(JTable tableStudenti) {
+        DefaultTableModel modelTableStudenti = (DefaultTableModel) tableStudenti.getModel();
         modelTableStudenti.setRowCount(0);
         
         for(Studente studente : listaStudenti) {
@@ -160,19 +162,19 @@ public class Controller {
         }
     }
     
-    public void inserisciPresenzeInJTable(DefaultTableModel modelTablePresenze, Object studenteSelezionato) {
-        Studente studente = (Studente) studenteSelezionato;
+    public void inserisciPresenzeInJTable(JTable tableStudenti, JTable tablePresenze) {
+        Studente studenteSelezionato = (Studente) tableStudenti.getModel().getValueAt(tableStudenti.getSelectedRow(), 0);
+        DefaultTableModel modelTablePresenze = (DefaultTableModel) tablePresenze.getModel();
         
         modelTablePresenze.setRowCount(0);
         
-        for(Lezione lezione : studente.getPresenze()) {
+        for(Lezione lezione : studenteSelezionato.getPresenze()) {
             Object[] row = {lezione};
             modelTablePresenze.addRow(row);
         }
     }
     
-    public static void main(String[] args){
-        
+    public static void main(String[] args){        
         Controller c = new Controller();
         
     }

@@ -61,6 +61,7 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         labelStudenti.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         labelStudenti.setForeground(new java.awt.Color(204, 204, 204));
         labelStudenti.setText("  Studenti");
+        labelStudenti.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         labelStudenti.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 labelStudentiMouseClicked(evt);
@@ -70,6 +71,7 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         labelWIP.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         labelWIP.setForeground(new java.awt.Color(204, 204, 204));
         labelWIP.setText("  Panel WIP");
+        labelWIP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         labelWIP.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 labelWIPMouseClicked(evt);
@@ -258,6 +260,7 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableStudentiWIP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tableStudentiWIP.getTableHeader().setReorderingAllowed(false);
         tableStudentiWIP.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -479,18 +482,16 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         labelWIP.setText("  Panel WIP");
     }
     
-    private void richiediStudentiPerJTable(JTable table) {
-        controller.inserisciStudentiInJTable((DefaultTableModel) table.getModel());
+    private void richiediStudentiPerJTable(JTable tableStudenti) {
+        controller.inserisciStudentiInJTable(tableStudenti);
         
-        if(table.getColumnCount() > 3) {
-            table.removeColumn(table.getColumnModel().getColumn(0));
+        if(tableStudenti.getColumnCount() > 3) {
+            tableStudenti.removeColumn(tableStudenti.getColumnModel().getColumn(0));
         }
     }
     
     private void richiediPresenzePerJTable(JTable tableStudenti, JTable tablePresenze) {
-        Object studente = tableStudenti.getModel().getValueAt(tableStudenti.getSelectedRow(), 0);
-        
-        controller.inserisciPresenzeInJTable((DefaultTableModel) tablePresenze.getModel(), studente);
+        controller.inserisciPresenzeInJTable(tableStudenti, tablePresenze);
     }
     
     private void tableStudentiWIPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableStudentiWIPMouseClicked
