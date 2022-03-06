@@ -16,12 +16,16 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     private Controller controller;
     private int mouseX;
     private int mouseY;
+    private JLabel labelSelezionata;
     
     public HomeFrameOperatore(Controller controller) {
-        
         this.controller = controller;
         
         initComponents();
+        
+        evidenziaLabel(labelHomePage);
+        
+        labelSelezionata = labelHomePage;
         
         setVisible(true);
     }
@@ -166,9 +170,6 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
             }
         });
         panelSuperiore.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelSuperioreMouseClicked(evt);
-            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 panelSuperioreMousePressed(evt);
             }
@@ -439,19 +440,7 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
             setLocation(x - mouseX, y - mouseY);
         }
     }//GEN-LAST:event_panelSuperioreMouseDragged
-
-    private void panelSuperioreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelSuperioreMouseClicked
-        // TODO add your handling code here:
-        if(evt.getClickCount()==2){
-            if (getExtendedState() == MAXIMIZED_BOTH) {
-                setExtendedState(JFrame.NORMAL);
-            }
-            else {
-                setExtendedState(MAXIMIZED_BOTH);
-            }
-        }
-    }//GEN-LAST:event_panelSuperioreMouseClicked
-
+    
     private void labelMinimizzaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMinimizzaMouseClicked
         // TODO add your handling code here:
         setState(ICONIFIED);
@@ -536,13 +525,10 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         card.show(panelStudenti, "cardStudentiWIP");
     }//GEN-LAST:event_jButton1ActionPerformed
     
-    private void deselezionaTutteLeLabel() {
-        deselezionaLabel(labelHomePage);
-        deselezionaLabel(labelStudenti);
-        deselezionaLabel(labelAreeTematiche);
-        deselezionaLabel(labelCorsi);
-        deselezionaLabel(labelLezioni);
-        deselezionaLabel(labelWIP);
+    private void aggiornaLabelSelezionata(JLabel nuovaLabelSelezionata) {
+        deselezionaLabel(labelSelezionata);
+        evidenziaLabel(nuovaLabelSelezionata);
+        labelSelezionata = nuovaLabelSelezionata;
     }
     
     private void evidenziaLabel(JLabel label) {
@@ -559,41 +545,35 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     
     private void labelStudentiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelStudentiMouseClicked
         // TODO add your handling code here:
-        deselezionaTutteLeLabel();
-        evidenziaLabel(labelStudenti);
+        aggiornaLabelSelezionata(labelStudenti);
         mostraCardStudenti();
     }//GEN-LAST:event_labelStudentiMouseClicked
 
     private void labelWIPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelWIPMouseClicked
         // TODO add your handling code here:
-        deselezionaTutteLeLabel();
-        evidenziaLabel(labelWIP);
+        aggiornaLabelSelezionata(labelWIP);
         mostraCardWIP();
         richiediStudentiPerJTable(tableStudentiWIP);
     }//GEN-LAST:event_labelWIPMouseClicked
 
     private void labelHomePageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelHomePageMouseClicked
         // TODO add your handling code here:
-        deselezionaTutteLeLabel();
-        evidenziaLabel(labelHomePage);
+        aggiornaLabelSelezionata(labelHomePage);
     }//GEN-LAST:event_labelHomePageMouseClicked
 
     private void labelCorsiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCorsiMouseClicked
         // TODO add your handling code here:
-        deselezionaTutteLeLabel();
-        evidenziaLabel(labelCorsi);
+        aggiornaLabelSelezionata(labelCorsi);
     }//GEN-LAST:event_labelCorsiMouseClicked
 
     private void labelLezioniMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelLezioniMouseClicked
         // TODO add your handling code here:
-        deselezionaTutteLeLabel();
-        evidenziaLabel(labelLezioni);
+        aggiornaLabelSelezionata(labelLezioni);
     }//GEN-LAST:event_labelLezioniMouseClicked
 
     private void labelAreeTematicheMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelAreeTematicheMouseClicked
         // TODO add your handling code here:
-        deselezionaTutteLeLabel();
-        evidenziaLabel(labelAreeTematiche);
+        aggiornaLabelSelezionata(labelAreeTematiche);
     }//GEN-LAST:event_labelAreeTematicheMouseClicked
     
     
