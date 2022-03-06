@@ -7,7 +7,6 @@ import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 
 
@@ -46,11 +45,21 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         labelMinimizza = new javax.swing.JLabel();
         labelRidimensiona = new javax.swing.JLabel();
         labelChiudi = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         panelContenuti = new javax.swing.JPanel();
+        panelHomePage = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         panelStudenti = new javax.swing.JPanel();
         panelStudentiHome = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         panelStudentiWIP = new javax.swing.JPanel();
+        panelAreeTematiche = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        panelCorsi = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        panelLezioni = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         panelWIP = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableStudentiWIP = new javax.swing.JTable();
@@ -58,6 +67,7 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         tablePresenzeWIP = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestione Corsi di Formazione");
         setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(1000, 600));
@@ -223,12 +233,18 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Gestione corsi di formazione");
+
         javax.swing.GroupLayout panelSuperioreLayout = new javax.swing.GroupLayout(panelSuperiore);
         panelSuperiore.setLayout(panelSuperioreLayout);
         panelSuperioreLayout.setHorizontalGroup(
             panelSuperioreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSuperioreLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(labelMinimizza, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelRidimensiona, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -238,13 +254,37 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         );
         panelSuperioreLayout.setVerticalGroup(
             panelSuperioreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelRidimensiona, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+            .addComponent(labelMinimizza, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+            .addComponent(labelRidimensiona, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(labelChiudi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(labelMinimizza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         panelContenuti.setBackground(new java.awt.Color(255, 255, 255));
         panelContenuti.setLayout(new java.awt.CardLayout());
+
+        panelHomePage.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setText("Home Page");
+
+        javax.swing.GroupLayout panelHomePageLayout = new javax.swing.GroupLayout(panelHomePage);
+        panelHomePage.setLayout(panelHomePageLayout);
+        panelHomePageLayout.setHorizontalGroup(
+            panelHomePageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelHomePageLayout.createSequentialGroup()
+                .addGap(275, 275, 275)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(189, Short.MAX_VALUE))
+        );
+        panelHomePageLayout.setVerticalGroup(
+            panelHomePageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelHomePageLayout.createSequentialGroup()
+                .addGap(196, 196, 196)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(316, Short.MAX_VALUE))
+        );
+
+        panelContenuti.add(panelHomePage, "cardHomePage");
 
         panelStudenti.setBackground(new java.awt.Color(255, 255, 255));
         panelStudenti.setLayout(new java.awt.CardLayout());
@@ -258,19 +298,28 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("Studenti");
+
         javax.swing.GroupLayout panelStudentiHomeLayout = new javax.swing.GroupLayout(panelStudentiHome);
         panelStudentiHome.setLayout(panelStudentiHomeLayout);
         panelStudentiHomeLayout.setHorizontalGroup(
             panelStudentiHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelStudentiHomeLayout.createSequentialGroup()
-                .addGap(298, 298, 298)
-                .addComponent(jButton1)
+                .addGroup(panelStudentiHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelStudentiHomeLayout.createSequentialGroup()
+                        .addGap(298, 298, 298)
+                        .addComponent(jButton1))
+                    .addGroup(panelStudentiHomeLayout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(372, Short.MAX_VALUE))
         );
         panelStudentiHomeLayout.setVerticalGroup(
             panelStudentiHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelStudentiHomeLayout.createSequentialGroup()
-                .addContainerGap(283, Short.MAX_VALUE)
+                .addGap(42, 42, 42)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 225, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(261, 261, 261))
         );
@@ -291,6 +340,75 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         panelStudenti.add(panelStudentiWIP, "cardStudentiWIP");
 
         panelContenuti.add(panelStudenti, "cardStudenti");
+
+        panelAreeTematiche.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel3.setText("aree tematicher");
+
+        javax.swing.GroupLayout panelAreeTematicheLayout = new javax.swing.GroupLayout(panelAreeTematiche);
+        panelAreeTematiche.setLayout(panelAreeTematicheLayout);
+        panelAreeTematicheLayout.setHorizontalGroup(
+            panelAreeTematicheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAreeTematicheLayout.createSequentialGroup()
+                .addGap(122, 122, 122)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(467, Short.MAX_VALUE))
+        );
+        panelAreeTematicheLayout.setVerticalGroup(
+            panelAreeTematicheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAreeTematicheLayout.createSequentialGroup()
+                .addGap(73, 73, 73)
+                .addComponent(jLabel3)
+                .addContainerGap(477, Short.MAX_VALUE))
+        );
+
+        panelContenuti.add(panelAreeTematiche, "cardAreeTematiche");
+
+        panelCorsi.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel4.setText("corsi");
+
+        javax.swing.GroupLayout panelCorsiLayout = new javax.swing.GroupLayout(panelCorsi);
+        panelCorsi.setLayout(panelCorsiLayout);
+        panelCorsiLayout.setHorizontalGroup(
+            panelCorsiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCorsiLayout.createSequentialGroup()
+                .addGap(272, 272, 272)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(292, Short.MAX_VALUE))
+        );
+        panelCorsiLayout.setVerticalGroup(
+            panelCorsiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCorsiLayout.createSequentialGroup()
+                .addGap(162, 162, 162)
+                .addComponent(jLabel4)
+                .addContainerGap(388, Short.MAX_VALUE))
+        );
+
+        panelContenuti.add(panelCorsi, "cardCorsi");
+
+        panelLezioni.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel5.setText("Lezioni");
+
+        javax.swing.GroupLayout panelLezioniLayout = new javax.swing.GroupLayout(panelLezioni);
+        panelLezioni.setLayout(panelLezioniLayout);
+        panelLezioniLayout.setHorizontalGroup(
+            panelLezioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLezioniLayout.createSequentialGroup()
+                .addGap(257, 257, 257)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(355, Short.MAX_VALUE))
+        );
+        panelLezioniLayout.setVerticalGroup(
+            panelLezioniLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLezioniLayout.createSequentialGroup()
+                .addGap(159, 159, 159)
+                .addComponent(jLabel5)
+                .addContainerGap(391, Short.MAX_VALUE))
+        );
+
+        panelContenuti.add(panelLezioni, "cardLezioni");
 
         panelWIP.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -380,11 +498,11 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         panelWIPLayout.setVerticalGroup(
             panelWIPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelWIPLayout.createSequentialGroup()
-                .addContainerGap(64, Short.MAX_VALUE)
+                .addContainerGap(67, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         panelContenuti.add(panelWIP, "cardWIP");
@@ -403,6 +521,7 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
             panelPrincipaleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPrincipaleLayout.createSequentialGroup()
                 .addComponent(panelSuperiore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addGroup(panelPrincipaleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelLaterale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelContenuti, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -491,9 +610,29 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         labelChiudi.setForeground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_labelChiudiMouseExited
 
+    private void mostraCardHomePage() {
+        CardLayout card = (CardLayout) panelContenuti.getLayout();
+        card.show(panelContenuti, "cardHomePage");
+    }
+    
     private void mostraCardStudenti() {
         CardLayout card = (CardLayout) panelContenuti.getLayout();
         card.show(panelContenuti, "cardStudenti");
+    }
+    
+    private void mostraCardAreeTematiche() {
+        CardLayout card = (CardLayout) panelContenuti.getLayout();
+        card.show(panelContenuti, "cardAreeTematiche");
+    }
+    
+    private void mostraCardCorsi() {
+        CardLayout card = (CardLayout) panelContenuti.getLayout();
+        card.show(panelContenuti, "cardCorsi");
+    }
+    
+    private void mostraCardLezioni() {
+        CardLayout card = (CardLayout) panelContenuti.getLayout();
+        card.show(panelContenuti, "cardLezioni");
     }
     
     private void mostraCardWIP() {
@@ -558,21 +697,25 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
 
     private void labelHomePageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelHomePageMouseClicked
         // TODO add your handling code here:
+        mostraCardHomePage();
         aggiornaLabelSelezionata(labelHomePage);
     }//GEN-LAST:event_labelHomePageMouseClicked
 
     private void labelCorsiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCorsiMouseClicked
         // TODO add your handling code here:
+        mostraCardCorsi();
         aggiornaLabelSelezionata(labelCorsi);
     }//GEN-LAST:event_labelCorsiMouseClicked
 
     private void labelLezioniMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelLezioniMouseClicked
         // TODO add your handling code here:
+        mostraCardLezioni();
         aggiornaLabelSelezionata(labelLezioni);
     }//GEN-LAST:event_labelLezioniMouseClicked
 
     private void labelAreeTematicheMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelAreeTematicheMouseClicked
         // TODO add your handling code here:
+        mostraCardAreeTematiche();
         aggiornaLabelSelezionata(labelAreeTematiche);
     }//GEN-LAST:event_labelAreeTematicheMouseClicked
     
@@ -580,6 +723,12 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelAreeTematiche;
@@ -591,8 +740,12 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     private javax.swing.JLabel labelRidimensiona;
     private javax.swing.JLabel labelStudenti;
     private javax.swing.JLabel labelWIP;
+    private javax.swing.JPanel panelAreeTematiche;
     private javax.swing.JPanel panelContenuti;
+    private javax.swing.JPanel panelCorsi;
+    private javax.swing.JPanel panelHomePage;
     private javax.swing.JPanel panelLaterale;
+    private javax.swing.JPanel panelLezioni;
     private javax.swing.JPanel panelPrincipale;
     private javax.swing.JPanel panelStudenti;
     private javax.swing.JPanel panelStudentiHome;
