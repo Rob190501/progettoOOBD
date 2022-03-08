@@ -144,7 +144,17 @@ public class Controller {
     
     public void accessoOperatore(){
         loginFrame.setVisible(false);
-        homeFrameOperatore = new HomeFrameOperatore(this);
+        if(homeFrameOperatore == null) {
+            homeFrameOperatore = new HomeFrameOperatore(this);
+        }
+        else {
+            homeFrameOperatore.setVisible(true);
+        }
+    }
+    
+    public void esciDaOperatore() {
+        loginFrame.setVisible(true);
+        homeFrameOperatore.setVisible(false);
     }
     
     public void terminaEsecuzione() {

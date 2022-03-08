@@ -22,9 +22,11 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         
         initComponents();
         
+        labelSelezionata = labelHomePage;
+        
         evidenziaLabel(labelHomePage);
         
-        labelSelezionata = labelHomePage;
+        mostraCardHomePage();
         
         setVisible(true);
     }
@@ -48,7 +50,10 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         panelContenuti = new javax.swing.JPanel();
         panelHomePage = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        labelBenvenutoHomePage = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        textAreaInformazioniHomePage = new javax.swing.JTextArea();
+        buttonEsciHomePage = new javax.swing.JButton();
         panelStudenti = new javax.swing.JPanel();
         panelStudentiHome = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -265,23 +270,59 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
 
         panelHomePage.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setText("Home Page");
+        labelBenvenutoHomePage.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        labelBenvenutoHomePage.setForeground(new java.awt.Color(153, 204, 255));
+        labelBenvenutoHomePage.setText("Benvenuto");
+
+        jScrollPane3.setBorder(null);
+
+        textAreaInformazioniHomePage.setEditable(false);
+        textAreaInformazioniHomePage.setBackground(new java.awt.Color(255, 255, 255));
+        textAreaInformazioniHomePage.setColumns(20);
+        textAreaInformazioniHomePage.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        textAreaInformazioniHomePage.setForeground(new java.awt.Color(0, 0, 0));
+        textAreaInformazioniHomePage.setRows(5);
+        textAreaInformazioniHomePage.setBorder(null);
+        textAreaInformazioniHomePage.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jScrollPane3.setViewportView(textAreaInformazioniHomePage);
+
+        buttonEsciHomePage.setBackground(new java.awt.Color(255, 51, 51));
+        buttonEsciHomePage.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonEsciHomePage.setForeground(new java.awt.Color(255, 255, 255));
+        buttonEsciHomePage.setText("Esci");
+        buttonEsciHomePage.setBorder(null);
+        buttonEsciHomePage.setFocusPainted(false);
+        buttonEsciHomePage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEsciHomePageActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelHomePageLayout = new javax.swing.GroupLayout(panelHomePage);
         panelHomePage.setLayout(panelHomePageLayout);
         panelHomePageLayout.setHorizontalGroup(
             panelHomePageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelHomePageLayout.createSequentialGroup()
-                .addGap(275, 275, 275)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(189, Short.MAX_VALUE))
+                .addGap(61, 61, 61)
+                .addGroup(panelHomePageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelBenvenutoHomePage))
+                .addContainerGap(96, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHomePageLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buttonEsciHomePage, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64))
         );
         panelHomePageLayout.setVerticalGroup(
             panelHomePageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelHomePageLayout.createSequentialGroup()
-                .addGap(196, 196, 196)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(316, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHomePageLayout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(labelBenvenutoHomePage)
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addComponent(buttonEsciHomePage, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
         );
 
         panelContenuti.add(panelHomePage, "cardHomePage");
@@ -612,6 +653,7 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
 
     private void mostraCardHomePage() {
         CardLayout card = (CardLayout) panelContenuti.getLayout();
+        textAreaInformazioniHomePage.setText(informazioniHomePage());
         card.show(panelContenuti, "cardHomePage");
     }
     
@@ -646,6 +688,14 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         if(tableStudenti.getColumnCount() > 3) {
             tableStudenti.removeColumn(tableStudenti.getColumnModel().getColumn(0));
         }
+    }
+    
+    private String informazioniHomePage(){
+        String informazioni = "Studenti registrati: " + controller.getListaStudenti().size() + System.lineSeparator() + System.lineSeparator() +
+                              "Aree Tematiche registrate: " + controller.getListaAreeTematiche().size() + System.lineSeparator() + System.lineSeparator() +
+                              "Corsi registrati: " + controller.getListaCorsi().size() + System.lineSeparator() + System.lineSeparator() +
+                              "Lezioni registrate: " + controller.getListaLezioni().size();
+        return informazioni;
     }
     
     private void richiediPresenzePerJTable(JTable tableStudenti, JTable tablePresenze) {
@@ -718,12 +768,17 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         mostraCardAreeTematiche();
         aggiornaLabelSelezionata(labelAreeTematiche);
     }//GEN-LAST:event_labelAreeTematicheMouseClicked
+
+    private void buttonEsciHomePageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEsciHomePageActionPerformed
+        // TODO add your handling code here:
+        controller.esciDaOperatore();
+    }//GEN-LAST:event_buttonEsciHomePageActionPerformed
     
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonEsciHomePage;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -731,7 +786,9 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel labelAreeTematiche;
+    private javax.swing.JLabel labelBenvenutoHomePage;
     private javax.swing.JLabel labelChiudi;
     private javax.swing.JLabel labelCorsi;
     private javax.swing.JLabel labelHomePage;
@@ -754,5 +811,6 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     private javax.swing.JPanel panelWIP;
     private javax.swing.JTable tablePresenzeWIP;
     private javax.swing.JTable tableStudentiWIP;
+    private javax.swing.JTextArea textAreaInformazioniHomePage;
     // End of variables declaration//GEN-END:variables
 }
