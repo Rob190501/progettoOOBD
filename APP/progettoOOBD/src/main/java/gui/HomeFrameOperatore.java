@@ -151,13 +151,13 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
             .addGroup(panelLateraleLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(panelLateraleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(labelWIP, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                    .addComponent(labelAreeTematiche, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
                     .addComponent(labelStudenti, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(labelHomePage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(labelCorsi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(labelLezioni, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelAreeTematiche, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(labelWIP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         panelLateraleLayout.setVerticalGroup(
             panelLateraleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,7 +272,7 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
 
         labelBenvenutoHomePage.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         labelBenvenutoHomePage.setForeground(new java.awt.Color(153, 204, 255));
-        labelBenvenutoHomePage.setText("Benvenuto");
+        labelBenvenutoHomePage.setText("Home Page");
 
         jScrollPane3.setBorder(null);
 
@@ -291,7 +291,9 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         buttonEsciHomePage.setForeground(new java.awt.Color(255, 255, 255));
         buttonEsciHomePage.setText("Esci");
         buttonEsciHomePage.setBorder(null);
+        buttonEsciHomePage.setBorderPainted(false);
         buttonEsciHomePage.setFocusPainted(false);
+        buttonEsciHomePage.setOpaque(true);
         buttonEsciHomePage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEsciHomePageActionPerformed(evt);

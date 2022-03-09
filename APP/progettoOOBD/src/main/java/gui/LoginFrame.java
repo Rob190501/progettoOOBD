@@ -53,7 +53,6 @@ public class LoginFrame extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(450, 700));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(450, 700));
         setSize(new java.awt.Dimension(450, 700));
 
         panelPrincipale.setBackground(new java.awt.Color(255, 255, 255));
@@ -202,8 +201,10 @@ public class LoginFrame extends javax.swing.JFrame {
         buttonConnettiti.setForeground(new java.awt.Color(255, 255, 255));
         buttonConnettiti.setText("Connettiti al Database");
         buttonConnettiti.setBorder(null);
+        buttonConnettiti.setBorderPainted(false);
         buttonConnettiti.setFocusPainted(false);
         buttonConnettiti.setMaximumSize(new java.awt.Dimension(277, 42));
+        buttonConnettiti.setOpaque(true);
         buttonConnettiti.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonConnettitiActionPerformed(evt);
@@ -215,9 +216,11 @@ public class LoginFrame extends javax.swing.JFrame {
         buttonAccediOperatore.setForeground(new java.awt.Color(255, 255, 255));
         buttonAccediOperatore.setText("Accedi come operatore");
         buttonAccediOperatore.setBorder(null);
+        buttonAccediOperatore.setBorderPainted(false);
         buttonAccediOperatore.setEnabled(false);
         buttonAccediOperatore.setFocusPainted(false);
         buttonAccediOperatore.setMaximumSize(new java.awt.Dimension(277, 42));
+        buttonAccediOperatore.setOpaque(true);
         buttonAccediOperatore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAccediOperatoreActionPerformed(evt);
