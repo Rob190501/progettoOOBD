@@ -162,13 +162,25 @@ public class Controller {
         System.exit(0);
     }
     
-    public void inserisciStudentiInJTable(JTable tableStudenti) {
+    public void inserisciTuttiGliStudentiInJTable(JTable tableStudenti) {
         DefaultTableModel modelTableStudenti = (DefaultTableModel) tableStudenti.getModel();
         modelTableStudenti.setRowCount(0);
         
         for(Studente studente : listaStudenti) {
             Object[] row = {studente, studente.getMatricola(), studente.getNome(), studente.getCognome()};
             modelTableStudenti.addRow(row);
+        }
+    }
+    
+    public void inserisciCorsiDelloStudenteInJTable(JTable tableStudenti, JTable tableCorsiDelloStudente) {
+        Studente studenteSelezionato = (Studente) tableStudenti.getModel().getValueAt(tableStudenti.getSelectedRow(), 0);
+        DefaultTableModel modelTablePresenze = (DefaultTableModel) tableCorsiDelloStudente.getModel();
+        
+        modelTablePresenze.setRowCount(0);
+        
+        for(Corso corso : studenteSelezionato.getCorsiFrequentati()) {
+            Object[] row = {corso, corso.getCodiceCorso(), corso.getNomeCorso(), corso.getDescrizioneCorso()};
+            modelTablePresenze.addRow(row);
         }
     }
     
@@ -179,7 +191,7 @@ public class Controller {
         modelTablePresenze.setRowCount(0);
         
         for(Lezione lezione : studenteSelezionato.getPresenze()) {
-            Object[] row = {lezione};
+            Object[] row = {lezione, lezione.getCodiceLezione(), lezione.getTitoloLezione(), lezione.getDataInizio(), lezione.getCorsoDellaLezione().getNomeCorso()};
             modelTablePresenze.addRow(row);
         }
     }
