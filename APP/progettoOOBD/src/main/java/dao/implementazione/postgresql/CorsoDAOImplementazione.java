@@ -20,9 +20,9 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
                                              "FROM area_del_corso " +
                                              "WHERE codice_corso = ?";
     
-    public CorsoDAOImplementazione(Controller controller) {
+    public CorsoDAOImplementazione(Controller controller, Connection connection) {
         setController(controller);
-        setConnection(controller.getConnection());
+        setConnection(connection);
     }
 
     private void setController(Controller controller) {

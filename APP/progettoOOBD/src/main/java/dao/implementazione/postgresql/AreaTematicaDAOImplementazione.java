@@ -16,9 +16,9 @@ public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfacci
     private String query = "SELECT * " +
                            "FROM area_tematica";
 
-    public AreaTematicaDAOImplementazione(Controller controller) {
+    public AreaTematicaDAOImplementazione(Controller controller, Connection connection) {
         setController(controller);
-        setConnection(controller.getConnection());
+        setConnection(connection);
     }
     
     public void setController(Controller controller) {

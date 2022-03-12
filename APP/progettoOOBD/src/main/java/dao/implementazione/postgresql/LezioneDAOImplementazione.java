@@ -17,9 +17,9 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
     private String querySelectAllLezione = "SELECT * "+
                                            "FROM lezione";
     
-    public LezioneDAOImplementazione(Controller controller) {
+    public LezioneDAOImplementazione(Controller controller, Connection connection) {
         setController(controller);
-        setConnection(controller.getConnection());
+        setConnection(connection);
     }
     
     private void setController(Controller controller) {

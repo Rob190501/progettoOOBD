@@ -30,9 +30,9 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
                                          "FROM presenze " +
                                          "WHERE matricola = ?";
     
-    public StudenteDAOImplementazione(Controller controller) {
+    public StudenteDAOImplementazione(Controller controller, Connection connection) {
         setController(controller);
-        setConnection(controller.getConnection());
+        setConnection(connection);
     }
 
     private void setController(Controller controller) {

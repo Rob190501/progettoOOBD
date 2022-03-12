@@ -14,8 +14,6 @@ public class LoginFrame extends javax.swing.JFrame {
         this.controller = controller;
         
         initComponents();
-        
-        setVisible(true);
     }
 
     /**

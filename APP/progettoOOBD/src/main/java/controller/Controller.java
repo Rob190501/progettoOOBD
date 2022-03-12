@@ -12,9 +12,8 @@ import dto.Studente;
 import gui.HomeFrameOperatore;
 import gui.LoginFrame;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.LinkedList;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 public class Controller {
     
@@ -37,6 +36,7 @@ public class Controller {
     
     public Controller(){
         loginFrame = new LoginFrame(this);
+        loginFrame.setVisible(true);
     }
 
     public Connection getConnection() {
@@ -105,37 +105,21 @@ public class Controller {
     
     public void avviaDAO() {
         try {
-            areaTematicaDAO = new AreaTematicaDAOImplementazione(this);
+            areaTematicaDAO = new AreaTematicaDAOImplementazione(this, connection);
             
             setListaAreeTematiche(areaTematicaDAO.retrieveAllAreaTematica());
             
-            corsoDAO = new CorsoDAOImplementazione(this);
+            corsoDAO = new CorsoDAOImplementazione(this, connection);
             
             setListaCorsi(corsoDAO.retrieveAllCorso(listaAreeTematiche));
             
-            lezioneDAO = new LezioneDAOImplementazione(this);
+            lezioneDAO = new LezioneDAOImplementazione(this, connection);
             
             setListaLezioni(lezioneDAO.retrieveAllLezione(listaCorsi));
             
-            studenteDAO = new StudenteDAOImplementazione(this);
+            studenteDAO = new StudenteDAOImplementazione(this, connection);
             
             setListaStudenti(studenteDAO.retrieveAllStudente(listaCorsi, listaLezioni));
-            
-            /*for(AreaTematica lista : listaAreeTematiche) {
-                System.out.println(lista.toString());
-            }*/
-            
-            /*for(Corso lista : listaCorsi) {
-                System.out.println(lista.toString());
-            }*/
-            
-            /*for(Lezione lista : listaLezioni) {
-                System.out.println(lista.toString());
-            }*/
-            
-            /*for(Studente lista : listaStudenti) {
-                System.out.println(lista.toString());
-            }*/
         }
         catch (Exception ex) {
             ex.printStackTrace();
@@ -144,12 +128,12 @@ public class Controller {
     
     public void accessoOperatore(){
         loginFrame.setVisible(false);
+        
         if(homeFrameOperatore == null) {
             homeFrameOperatore = new HomeFrameOperatore(this);
         }
-        else {
-            homeFrameOperatore.setVisible(true);
-        }
+        
+        homeFrameOperatore.setVisible(true);
     }
     
     public void esciDaOperatore() {
@@ -162,37 +146,32 @@ public class Controller {
         System.exit(0);
     }
     
-    public void inserisciTuttiGliStudentiInJTable(JTable tableStudenti) {
-        DefaultTableModel modelTableStudenti = (DefaultTableModel) tableStudenti.getModel();
-        modelTableStudenti.setRowCount(0);
-        
+    public void informazioniHomePage() {
+        homeFrameOperatore.impostaInformazioniHomePage(listaStudenti.size(), listaAreeTematiche.size(), listaCorsi.size(), listaLezioni.size());
+    }
+    
+    public void inserisciTuttiStudentiInJTable() {
         for(Studente studente : listaStudenti) {
             Object[] row = {studente, studente.getMatricola(), studente.getNome(), studente.getCognome()};
-            modelTableStudenti.addRow(row);
+            homeFrameOperatore.inserisciStudenteInTableStudentiPrincipale(row);
         }
     }
     
-    public void inserisciCorsiDelloStudenteInJTable(JTable tableStudenti, JTable tableCorsiDelloStudente) {
-        Studente studenteSelezionato = (Studente) tableStudenti.getModel().getValueAt(tableStudenti.getSelectedRow(), 0);
-        DefaultTableModel modelTablePresenze = (DefaultTableModel) tableCorsiDelloStudente.getModel();
+    public void inserisciCorsiFrequentatiInJTable(Object studenteSelezionato) {
+        Studente studente = (Studente) studenteSelezionato;
         
-        modelTablePresenze.setRowCount(0);
-        
-        for(Corso corso : studenteSelezionato.getCorsiFrequentati()) {
+        for(Corso corso : studente.getCorsiFrequentati()) {
             Object[] row = {corso, corso.getCodiceCorso(), corso.getNomeCorso(), corso.getDescrizioneCorso()};
-            modelTablePresenze.addRow(row);
+            homeFrameOperatore.inserisciCorsoInTableCorsiFrequentati(row);
         }
     }
     
-    public void inserisciPresenzeInJTable(JTable tableStudenti, JTable tablePresenze) {
-        Studente studenteSelezionato = (Studente) tableStudenti.getModel().getValueAt(tableStudenti.getSelectedRow(), 0);
-        DefaultTableModel modelTablePresenze = (DefaultTableModel) tablePresenze.getModel();
+    public void inserisciPresenzeInJTable(Object studenteSelezionato) {
+        Studente studente = (Studente) studenteSelezionato;
         
-        modelTablePresenze.setRowCount(0);
-        
-        for(Lezione lezione : studenteSelezionato.getPresenze()) {
+        for(Lezione lezione : studente.getPresenze()) {
             Object[] row = {lezione, lezione.getCodiceLezione(), lezione.getTitoloLezione(), lezione.getDataInizio(), lezione.getCorsoDellaLezione().getNomeCorso()};
-            modelTablePresenze.addRow(row);
+            homeFrameOperatore.inserisciLezioneInTablePresenze(row);
         }
     }
     
