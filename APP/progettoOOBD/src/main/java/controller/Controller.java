@@ -12,8 +12,9 @@ import dto.Studente;
 import gui.HomeFrameOperatore;
 import gui.LoginFrame;
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Controller {
     
@@ -157,6 +158,11 @@ public class Controller {
         }
     }
     
+    public void inserisciStudenteInTableStudentiPrincipale(Studente studente) {
+        Object[] row = {studente, studente.getMatricola(), studente.getNome(), studente.getCognome()};
+        homeFrameOperatore.inserisciStudenteInTableStudentiPrincipale(row);
+    }
+    
     public void inserisciCorsiFrequentatiInJTable(Object studenteSelezionato) {
         Studente studente = (Studente) studenteSelezionato;
         
@@ -172,6 +178,18 @@ public class Controller {
         for(Lezione lezione : studente.getPresenze()) {
             Object[] row = {lezione, lezione.getCodiceLezione(), lezione.getTitoloLezione(), lezione.getDataInizio(), lezione.getCorsoDellaLezione().getNomeCorso()};
             homeFrameOperatore.inserisciLezioneInTablePresenze(row);
+        }
+    }
+    
+    public void nuovoStudente(String nome, String cognome) {
+        Studente studente = new Studente(nome, cognome);
+        
+        try {
+            studenteDAO.createStudente(studente);
+            listaStudenti.add(studente);
+            inserisciStudenteInTableStudentiPrincipale(studente);
+        } catch (Exception ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

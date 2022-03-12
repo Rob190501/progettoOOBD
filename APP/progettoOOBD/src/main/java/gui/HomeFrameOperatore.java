@@ -31,6 +31,7 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         panelTotale = new javax.swing.JPanel();
         panelMenu = new javax.swing.JPanel();
         labelMenuHomePage = new javax.swing.JLabel();
@@ -58,9 +59,13 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         tableCorsiFrequentati = new javax.swing.JTable();
         scrollPaneTablePresenze = new javax.swing.JScrollPane();
         tablePresenze = new javax.swing.JTable();
-        buttonCorsiDegliStudenti = new javax.swing.JButton();
+        buttonNuovoStudente = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        panelNuovoStudente = new javax.swing.JPanel();
+        textFieldNomeStudente = new javax.swing.JTextField();
+        textFieldCognomeStudente = new javax.swing.JTextField();
+        buttonRegistraStudente = new javax.swing.JButton();
         panelCorsiDegliStudenti = new javax.swing.JPanel();
         buttonTornaStudentiHome = new javax.swing.JButton();
         labelCorsiDegliStudenti = new javax.swing.JLabel();
@@ -72,6 +77,17 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         panelLezioni = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gestione Corsi di Formazione");
@@ -428,17 +444,17 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
             tablePresenze.getColumnModel().getColumn(0).setResizable(false);
         }
 
-        buttonCorsiDegliStudenti.setBackground(new java.awt.Color(153, 204, 255));
-        buttonCorsiDegliStudenti.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonCorsiDegliStudenti.setForeground(new java.awt.Color(255, 255, 255));
-        buttonCorsiDegliStudenti.setText("Corsi degli studenti");
-        buttonCorsiDegliStudenti.setBorder(null);
-        buttonCorsiDegliStudenti.setBorderPainted(false);
-        buttonCorsiDegliStudenti.setFocusPainted(false);
-        buttonCorsiDegliStudenti.setOpaque(true);
-        buttonCorsiDegliStudenti.addActionListener(new java.awt.event.ActionListener() {
+        buttonNuovoStudente.setBackground(new java.awt.Color(153, 204, 255));
+        buttonNuovoStudente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonNuovoStudente.setForeground(new java.awt.Color(255, 255, 255));
+        buttonNuovoStudente.setText("Nuovo studente");
+        buttonNuovoStudente.setBorder(null);
+        buttonNuovoStudente.setBorderPainted(false);
+        buttonNuovoStudente.setFocusPainted(false);
+        buttonNuovoStudente.setOpaque(true);
+        buttonNuovoStudente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCorsiDegliStudentiActionPerformed(evt);
+                buttonNuovoStudenteActionPerformed(evt);
             }
         });
 
@@ -459,7 +475,7 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
                 .addGroup(panelStudentiHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelStudentiHomeLayout.createSequentialGroup()
                         .addGroup(panelStudentiHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonCorsiDegliStudenti, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buttonNuovoStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelStudenti, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(380, 380, 380))
                     .addGroup(panelStudentiHomeLayout.createSequentialGroup()
@@ -498,11 +514,68 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
                         .addComponent(scrollPaneTablePresenze, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addComponent(scrollPaneTableTuttiStudenti, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE))
                 .addGap(56, 56, 56)
-                .addComponent(buttonCorsiDegliStudenti, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonNuovoStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
 
         panelStudenti.add(panelStudentiHome, "cardStudentiHome");
+
+        panelNuovoStudente.setBackground(new java.awt.Color(255, 255, 255));
+
+        textFieldNomeStudente.setBackground(new java.awt.Color(255, 255, 255));
+        textFieldNomeStudente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        textFieldNomeStudente.setForeground(new java.awt.Color(0, 0, 0));
+        textFieldNomeStudente.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(153, 204, 255)));
+        textFieldNomeStudente.setSelectionColor(new java.awt.Color(51, 153, 255));
+
+        textFieldCognomeStudente.setBackground(new java.awt.Color(255, 255, 255));
+        textFieldCognomeStudente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        textFieldCognomeStudente.setForeground(new java.awt.Color(0, 0, 0));
+        textFieldCognomeStudente.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(153, 204, 255)));
+        textFieldCognomeStudente.setSelectionColor(new java.awt.Color(51, 153, 255));
+
+        buttonRegistraStudente.setBackground(new java.awt.Color(153, 204, 255));
+        buttonRegistraStudente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonRegistraStudente.setForeground(new java.awt.Color(255, 255, 255));
+        buttonRegistraStudente.setText("Registra studente");
+        buttonRegistraStudente.setBorder(null);
+        buttonRegistraStudente.setBorderPainted(false);
+        buttonRegistraStudente.setFocusPainted(false);
+        buttonRegistraStudente.setOpaque(true);
+        buttonRegistraStudente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRegistraStudenteActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelNuovoStudenteLayout = new javax.swing.GroupLayout(panelNuovoStudente);
+        panelNuovoStudente.setLayout(panelNuovoStudenteLayout);
+        panelNuovoStudenteLayout.setHorizontalGroup(
+            panelNuovoStudenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelNuovoStudenteLayout.createSequentialGroup()
+                .addGap(205, 205, 205)
+                .addGroup(panelNuovoStudenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textFieldNomeStudente, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                    .addComponent(textFieldCognomeStudente))
+                .addGap(190, 190, 190))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelNuovoStudenteLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buttonRegistraStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(98, 98, 98))
+        );
+        panelNuovoStudenteLayout.setVerticalGroup(
+            panelNuovoStudenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelNuovoStudenteLayout.createSequentialGroup()
+                .addGap(117, 117, 117)
+                .addComponent(textFieldNomeStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(117, 117, 117)
+                .addComponent(textFieldCognomeStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
+                .addComponent(buttonRegistraStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(84, 84, 84))
+        );
+
+        panelStudenti.add(panelNuovoStudente, "cardNuovoStudente");
 
         panelCorsiDegliStudenti.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -797,6 +870,11 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         card.show(panelStudenti, "cardStudentiHome");
     }
     
+    private void mostraCardNuovoStudente() {
+        CardLayout card = (CardLayout) panelStudenti.getLayout();
+        card.show(panelStudenti, "cardNuovoStudente");
+    }
+    
     private void mostraCardCorsiDegliStudenti() {
         CardLayout card = (CardLayout) panelStudenti.getLayout();
         card.show(panelStudenti, "cardCorsiDegliStudenti");
@@ -878,11 +956,6 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         controller.esciDaOperatore();
     }//GEN-LAST:event_buttonEsciHomePageActionPerformed
 
-    private void buttonCorsiDegliStudentiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCorsiDegliStudentiActionPerformed
-        // TODO add your handling code here:
-        mostraCardCorsiDegliStudenti();
-    }//GEN-LAST:event_buttonCorsiDegliStudentiActionPerformed
-
     private void buttonTornaStudentiHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTornaStudentiHomeActionPerformed
         // TODO add your handling code here:
         mostraCardStudentiHome();
@@ -896,6 +969,21 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         svuotaTable(tablePresenze);
         controller.inserisciPresenzeInJTable(studenteSelezionato);
     }//GEN-LAST:event_tableStudentiPrincipaleMouseClicked
+
+    private void buttonRegistraStudenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegistraStudenteActionPerformed
+        // TODO add your handling code here:
+        String nome = textFieldNomeStudente.getText();
+        String cognome = textFieldCognomeStudente.getText();
+        
+        controller.nuovoStudente(nome, cognome);
+        
+        mostraCardStudentiHome();
+    }//GEN-LAST:event_buttonRegistraStudenteActionPerformed
+
+    private void buttonNuovoStudenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNuovoStudenteActionPerformed
+        // TODO add your handling code here:
+        mostraCardNuovoStudente();
+    }//GEN-LAST:event_buttonNuovoStudenteActionPerformed
     
     
     
@@ -959,14 +1047,16 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonCorsiDegliStudenti;
     private javax.swing.JButton buttonEsciHomePage;
+    private javax.swing.JButton buttonNuovoStudente;
+    private javax.swing.JButton buttonRegistraStudente;
     private javax.swing.JButton buttonTornaStudentiHome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel labelChiudi;
     private javax.swing.JLabel labelCorsiDegliStudenti;
@@ -987,6 +1077,7 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     private javax.swing.JPanel panelHomePage;
     private javax.swing.JPanel panelLezioni;
     private javax.swing.JPanel panelMenu;
+    private javax.swing.JPanel panelNuovoStudente;
     private javax.swing.JPanel panelStudenti;
     private javax.swing.JPanel panelStudentiHome;
     private javax.swing.JPanel panelSuperiore;
@@ -1000,5 +1091,7 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     private javax.swing.JTable tableStudenti1;
     private javax.swing.JTable tableStudentiPrincipale;
     private javax.swing.JTextArea textAreaInformazioniHomePage;
+    private javax.swing.JTextField textFieldCognomeStudente;
+    private javax.swing.JTextField textFieldNomeStudente;
     // End of variables declaration//GEN-END:variables
 }
