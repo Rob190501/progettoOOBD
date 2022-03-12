@@ -1,6 +1,7 @@
 package gui;
 
 import controller.Controller;
+
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -23,7 +24,7 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         
         initComponents();
         
-        setLabelSelezionata(labelMenuHomePage);
+        nascondiTutteColonneOggetto();
     }
     
     @SuppressWarnings("unchecked")
@@ -698,7 +699,7 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     public void setVisible(boolean b) {
         if(b) {
             riempiTablePrincipali();
-            nascondiTutteColonneOggetto();
+            setLabelSelezionata(labelMenuHomePage);
             mostraCardHomePage();
         }
         
@@ -787,7 +788,6 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     }
     
     private void mostraCardStudenti() {
-        
         CardLayout card = (CardLayout) panelContenuti.getLayout();
         card.show(panelContenuti, "cardStudenti");
     }
@@ -920,12 +920,19 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         //nascondiColonneOggettiCardLezioni();
     }
     
+    private void nascondiColonneOggettiCardStudenti() {
+        nascondiColonnaOggetto(tableStudentiPrincipale);
+        nascondiColonnaOggetto(tableCorsiFrequentati);
+        nascondiColonnaOggetto(tablePresenze);
+    }
+    
     private void svuotaTable(JTable table) {
         DefaultTableModel modelTablePresenze = (DefaultTableModel) table.getModel();
         modelTablePresenze.setRowCount(0);
     }
     
     private void riempiTablePrincipali() {
+        svuotaTable(tableStudentiPrincipale);
         controller.inserisciTuttiStudentiInJTable();
         //controller.inserisciTutteLeAreeTematicheInJTable();
         //controller.inserisciTuttiICorsiInJTable();
@@ -933,11 +940,6 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     }
     
     
-    private void nascondiColonneOggettiCardStudenti() {
-        nascondiColonnaOggetto(tableStudentiPrincipale);
-        nascondiColonnaOggetto(tableCorsiFrequentati);
-        nascondiColonnaOggetto(tablePresenze);
-    }
     
     public void inserisciStudenteInTableStudentiPrincipale(Object[] row) {
         DefaultTableModel modelTableTuttiStudenti = (DefaultTableModel) tableStudentiPrincipale.getModel();
