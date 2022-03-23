@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.LinkedList;
-import java.util.ListIterator;
 
 public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
 

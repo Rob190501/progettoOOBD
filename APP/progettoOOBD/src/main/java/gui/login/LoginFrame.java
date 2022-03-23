@@ -1,4 +1,4 @@
-package gui;
+package gui.login;
 
 import controller.Controller;
 import javax.swing.UIManager;

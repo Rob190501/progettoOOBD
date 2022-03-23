@@ -9,8 +9,9 @@ import dto.AreaTematica;
 import dto.Corso;
 import dto.Lezione;
 import dto.Studente;
-import gui.HomeFrameOperatore;
-import gui.LoginFrame;
+import gui.home.HomeFrameOperatore;
+import gui.home.studenti.PanelStudentiHome;
+import gui.login.LoginFrame;
 import java.sql.Connection;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -21,6 +22,8 @@ public class Controller {
     private Connection connection = null;
     private LoginFrame loginFrame;
     private HomeFrameOperatore homeFrameOperatore;
+    
+    private PanelStudentiHome panelStudentiHome;
     
     private LinkedList<AreaTematica> listaAreeTematiche;
     private AreaTematicaDAOImplementazione areaTematicaDAO;
@@ -62,6 +65,10 @@ public class Controller {
     
     private void setConnection(Connection connection) {
         this.connection = connection;
+    }
+    
+    public void setPanelStudentiHome(PanelStudentiHome panelStudentiHome) {
+        this.panelStudentiHome = panelStudentiHome;
     }
     
     private void setListaAreeTematiche(LinkedList<AreaTematica> listaAreeTematiche) {
@@ -154,13 +161,13 @@ public class Controller {
     public void inserisciTuttiStudentiInJTable() {
         for(Studente studente : listaStudenti) {
             Object[] row = {studente, studente.getMatricola(), studente.getNome(), studente.getCognome()};
-            homeFrameOperatore.inserisciStudenteInTableStudentiPrincipale(row);
+            panelStudentiHome.inserisciStudenteInTableStudenti(row);
         }
     }
     
-    public void inserisciStudenteInTableStudentiPrincipale(Studente studente) {
+    public void inserisciStudenteInJTable(Studente studente) {
         Object[] row = {studente, studente.getMatricola(), studente.getNome(), studente.getCognome()};
-        homeFrameOperatore.inserisciStudenteInTableStudentiPrincipale(row);
+        panelStudentiHome.inserisciStudenteInTableStudenti(row);
     }
     
     public void inserisciCorsiFrequentatiInJTable(Object studenteSelezionato) {
@@ -168,7 +175,7 @@ public class Controller {
         
         for(Corso corso : studente.getCorsiFrequentati()) {
             Object[] row = {corso, corso.getCodiceCorso(), corso.getNomeCorso(), corso.getDescrizioneCorso()};
-            homeFrameOperatore.inserisciCorsoInTableCorsiFrequentati(row);
+            panelStudentiHome.inserisciCorsoInTableCorsiFrequentati(row);
         }
     }
     
@@ -177,7 +184,7 @@ public class Controller {
         
         for(Lezione lezione : studente.getPresenze()) {
             Object[] row = {lezione, lezione.getCodiceLezione(), lezione.getTitoloLezione(), lezione.getDataInizio(), lezione.getCorsoDellaLezione().getNomeCorso()};
-            homeFrameOperatore.inserisciLezioneInTablePresenze(row);
+            panelStudentiHome.inserisciLezioneInTablePresenze(row);
         }
     }
     
@@ -187,7 +194,7 @@ public class Controller {
         try {
             studenteDAO.createStudente(studente);
             listaStudenti.add(studente);
-            inserisciStudenteInTableStudentiPrincipale(studente);
+            inserisciStudenteInJTable(studente);
         } catch (Exception ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }

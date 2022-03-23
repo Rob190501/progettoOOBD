@@ -1,6 +1,8 @@
-package gui;
+package gui.home;
 
 import controller.Controller;
+import gui.home.studenti.PanelNuovoStudente;
+import gui.home.studenti.PanelStudentiHome;
 
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -19,12 +21,19 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     private int mouseY;
     private JLabel labelSelezionata;
     
+    private PanelStudentiHome panelStudentiHome;
+    private PanelNuovoStudente panelNuovoStudente;
+    
     public HomeFrameOperatore(Controller controller) {
-        this.controller = controller;
+        setController(controller);
         
         initComponents();
         
-        nascondiTutteColonneOggetto();
+        creaPanels();
+    }
+    
+    private void setController(Controller controller) {
+        this.controller = controller;
     }
     
     @SuppressWarnings("unchecked")
@@ -51,26 +60,6 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         textAreaInformazioniHomePage = new javax.swing.JTextArea();
         buttonEsciHomePage = new javax.swing.JButton();
         panelStudenti = new javax.swing.JPanel();
-        panelStudentiHome = new javax.swing.JPanel();
-        labelStudenti = new javax.swing.JLabel();
-        scrollPaneTableTuttiStudenti = new javax.swing.JScrollPane();
-        tableStudentiPrincipale = new javax.swing.JTable();
-        scrollPaneTableCorsiFrequentati = new javax.swing.JScrollPane();
-        tableCorsiFrequentati = new javax.swing.JTable();
-        scrollPaneTablePresenze = new javax.swing.JScrollPane();
-        tablePresenze = new javax.swing.JTable();
-        buttonNuovoStudente = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        panelNuovoStudente = new javax.swing.JPanel();
-        textFieldNomeStudente = new javax.swing.JTextField();
-        textFieldCognomeStudente = new javax.swing.JTextField();
-        buttonRegistraStudente = new javax.swing.JButton();
-        panelCorsiDegliStudenti = new javax.swing.JPanel();
-        buttonTornaStudentiHome = new javax.swing.JButton();
-        labelCorsiDegliStudenti = new javax.swing.JLabel();
-        scrollPaneTableStudenti1 = new javax.swing.JScrollPane();
-        tableStudenti1 = new javax.swing.JTable();
         panelAreeTematiche = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         panelCorsi = new javax.swing.JPanel();
@@ -339,329 +328,6 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
 
         panelStudenti.setBackground(new java.awt.Color(255, 255, 255));
         panelStudenti.setLayout(new java.awt.CardLayout());
-
-        panelStudentiHome.setBackground(new java.awt.Color(255, 255, 255));
-
-        labelStudenti.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        labelStudenti.setForeground(new java.awt.Color(153, 204, 255));
-        labelStudenti.setText("Studenti");
-
-        tableStudentiPrincipale.setBackground(new java.awt.Color(255, 255, 255));
-        tableStudentiPrincipale.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Oggetto", "Matricola", "Nome", "Cognome"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tableStudentiPrincipale.setRowHeight(40);
-        tableStudentiPrincipale.getTableHeader().setReorderingAllowed(false);
-        tableStudentiPrincipale.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableStudentiPrincipaleMouseClicked(evt);
-            }
-        });
-        scrollPaneTableTuttiStudenti.setViewportView(tableStudentiPrincipale);
-        if (tableStudentiPrincipale.getColumnModel().getColumnCount() > 0) {
-            tableStudentiPrincipale.getColumnModel().getColumn(0).setResizable(false);
-        }
-
-        tableCorsiFrequentati.setBackground(new java.awt.Color(255, 255, 255));
-        tableCorsiFrequentati.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Oggetto", "Codice", "Nome", "Descrizione"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tableCorsiFrequentati.setRowHeight(40);
-        tableCorsiFrequentati.getTableHeader().setReorderingAllowed(false);
-        scrollPaneTableCorsiFrequentati.setViewportView(tableCorsiFrequentati);
-        if (tableCorsiFrequentati.getColumnModel().getColumnCount() > 0) {
-            tableCorsiFrequentati.getColumnModel().getColumn(0).setResizable(false);
-        }
-
-        tablePresenze.setBackground(new java.awt.Color(255, 255, 255));
-        tablePresenze.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Oggetto", "Codice", "Titolo", "Data", "Corso"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tablePresenze.setRowHeight(40);
-        tablePresenze.getTableHeader().setReorderingAllowed(false);
-        scrollPaneTablePresenze.setViewportView(tablePresenze);
-        if (tablePresenze.getColumnModel().getColumnCount() > 0) {
-            tablePresenze.getColumnModel().getColumn(0).setResizable(false);
-        }
-
-        buttonNuovoStudente.setBackground(new java.awt.Color(153, 204, 255));
-        buttonNuovoStudente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonNuovoStudente.setForeground(new java.awt.Color(255, 255, 255));
-        buttonNuovoStudente.setText("Nuovo studente");
-        buttonNuovoStudente.setBorder(null);
-        buttonNuovoStudente.setBorderPainted(false);
-        buttonNuovoStudente.setFocusPainted(false);
-        buttonNuovoStudente.setOpaque(true);
-        buttonNuovoStudente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonNuovoStudenteActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(153, 204, 255));
-        jLabel1.setText("Corsi Frequentati");
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(153, 204, 255));
-        jLabel2.setText("Presenze");
-
-        javax.swing.GroupLayout panelStudentiHomeLayout = new javax.swing.GroupLayout(panelStudentiHome);
-        panelStudentiHome.setLayout(panelStudentiHomeLayout);
-        panelStudentiHomeLayout.setHorizontalGroup(
-            panelStudentiHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelStudentiHomeLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(panelStudentiHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelStudentiHomeLayout.createSequentialGroup()
-                        .addGroup(panelStudentiHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonNuovoStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelStudenti, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(380, 380, 380))
-                    .addGroup(panelStudentiHomeLayout.createSequentialGroup()
-                        .addComponent(scrollPaneTableTuttiStudenti, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
-                        .addGroup(panelStudentiHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelStudentiHomeLayout.createSequentialGroup()
-                                .addGap(43, 43, 43)
-                                .addGroup(panelStudentiHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelStudentiHomeLayout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelStudentiHomeLayout.createSequentialGroup()
-                                        .addGroup(panelStudentiHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(scrollPaneTableCorsiFrequentati, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                            .addComponent(scrollPaneTablePresenze, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE))
-                                        .addGap(20, 20, 20))))
-                            .addGroup(panelStudentiHomeLayout.createSequentialGroup()
-                                .addGap(45, 45, 45)
-                                .addComponent(jLabel1)
-                                .addGap(0, 209, Short.MAX_VALUE))))))
-        );
-        panelStudentiHomeLayout.setVerticalGroup(
-            panelStudentiHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelStudentiHomeLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(labelStudenti)
-                .addGap(20, 20, 20)
-                .addGroup(panelStudentiHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelStudentiHomeLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(scrollPaneTableCorsiFrequentati, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(scrollPaneTablePresenze, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addComponent(scrollPaneTableTuttiStudenti, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE))
-                .addGap(56, 56, 56)
-                .addComponent(buttonNuovoStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
-        );
-
-        panelStudenti.add(panelStudentiHome, "cardStudentiHome");
-
-        panelNuovoStudente.setBackground(new java.awt.Color(255, 255, 255));
-
-        textFieldNomeStudente.setBackground(new java.awt.Color(255, 255, 255));
-        textFieldNomeStudente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        textFieldNomeStudente.setForeground(new java.awt.Color(0, 0, 0));
-        textFieldNomeStudente.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(153, 204, 255)));
-        textFieldNomeStudente.setSelectionColor(new java.awt.Color(51, 153, 255));
-
-        textFieldCognomeStudente.setBackground(new java.awt.Color(255, 255, 255));
-        textFieldCognomeStudente.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        textFieldCognomeStudente.setForeground(new java.awt.Color(0, 0, 0));
-        textFieldCognomeStudente.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(153, 204, 255)));
-        textFieldCognomeStudente.setSelectionColor(new java.awt.Color(51, 153, 255));
-
-        buttonRegistraStudente.setBackground(new java.awt.Color(153, 204, 255));
-        buttonRegistraStudente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonRegistraStudente.setForeground(new java.awt.Color(255, 255, 255));
-        buttonRegistraStudente.setText("Registra studente");
-        buttonRegistraStudente.setBorder(null);
-        buttonRegistraStudente.setBorderPainted(false);
-        buttonRegistraStudente.setFocusPainted(false);
-        buttonRegistraStudente.setOpaque(true);
-        buttonRegistraStudente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonRegistraStudenteActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelNuovoStudenteLayout = new javax.swing.GroupLayout(panelNuovoStudente);
-        panelNuovoStudente.setLayout(panelNuovoStudenteLayout);
-        panelNuovoStudenteLayout.setHorizontalGroup(
-            panelNuovoStudenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelNuovoStudenteLayout.createSequentialGroup()
-                .addGap(205, 205, 205)
-                .addGroup(panelNuovoStudenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textFieldNomeStudente, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
-                    .addComponent(textFieldCognomeStudente))
-                .addGap(190, 190, 190))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelNuovoStudenteLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(buttonRegistraStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(98, 98, 98))
-        );
-        panelNuovoStudenteLayout.setVerticalGroup(
-            panelNuovoStudenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelNuovoStudenteLayout.createSequentialGroup()
-                .addGap(117, 117, 117)
-                .addComponent(textFieldNomeStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(117, 117, 117)
-                .addComponent(textFieldCognomeStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
-                .addComponent(buttonRegistraStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(84, 84, 84))
-        );
-
-        panelStudenti.add(panelNuovoStudente, "cardNuovoStudente");
-
-        panelCorsiDegliStudenti.setBackground(new java.awt.Color(255, 255, 255));
-
-        buttonTornaStudentiHome.setBackground(new java.awt.Color(153, 204, 255));
-        buttonTornaStudentiHome.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonTornaStudentiHome.setForeground(new java.awt.Color(255, 255, 255));
-        buttonTornaStudentiHome.setText("Indietro");
-        buttonTornaStudentiHome.setBorder(null);
-        buttonTornaStudentiHome.setBorderPainted(false);
-        buttonTornaStudentiHome.setFocusPainted(false);
-        buttonTornaStudentiHome.setOpaque(true);
-        buttonTornaStudentiHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonTornaStudentiHomeActionPerformed(evt);
-            }
-        });
-
-        labelCorsiDegliStudenti.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        labelCorsiDegliStudenti.setForeground(new java.awt.Color(153, 204, 255));
-        labelCorsiDegliStudenti.setText("Corsi degli Studenti");
-
-        tableStudenti1.setBackground(new java.awt.Color(255, 255, 255));
-        tableStudenti1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Oggetto", "Matricola", "Nome", "Cognome"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tableStudenti1.getTableHeader().setReorderingAllowed(false);
-        scrollPaneTableStudenti1.setViewportView(tableStudenti1);
-        if (tableStudenti1.getColumnModel().getColumnCount() > 0) {
-            tableStudenti1.getColumnModel().getColumn(0).setResizable(false);
-        }
-
-        javax.swing.GroupLayout panelCorsiDegliStudentiLayout = new javax.swing.GroupLayout(panelCorsiDegliStudenti);
-        panelCorsiDegliStudenti.setLayout(panelCorsiDegliStudentiLayout);
-        panelCorsiDegliStudentiLayout.setHorizontalGroup(
-            panelCorsiDegliStudentiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCorsiDegliStudentiLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(buttonTornaStudentiHome, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
-            .addGroup(panelCorsiDegliStudentiLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(labelCorsiDegliStudenti, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(382, Short.MAX_VALUE))
-            .addGroup(panelCorsiDegliStudentiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelCorsiDegliStudentiLayout.createSequentialGroup()
-                    .addGap(20, 20, 20)
-                    .addComponent(scrollPaneTableStudenti1, javax.swing.GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
-                    .addGap(20, 20, 20)))
-        );
-        panelCorsiDegliStudentiLayout.setVerticalGroup(
-            panelCorsiDegliStudentiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCorsiDegliStudentiLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(labelCorsiDegliStudenti)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 444, Short.MAX_VALUE)
-                .addComponent(buttonTornaStudentiHome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
-            .addGroup(panelCorsiDegliStudentiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelCorsiDegliStudentiLayout.createSequentialGroup()
-                    .addGap(96, 96, 96)
-                    .addComponent(scrollPaneTableStudenti1, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
-                    .addGap(96, 96, 96)))
-        );
-
-        panelStudenti.add(panelCorsiDegliStudenti, "cardCorsiDegliStudenti");
-
         panelContenuti.add(panelStudenti, "cardStudenti");
 
         panelAreeTematiche.setBackground(new java.awt.Color(255, 255, 255));
@@ -768,6 +434,14 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
+    private void creaPanels() {
+        panelStudentiHome = new PanelStudentiHome(controller, this);
+        panelStudenti.add(panelStudentiHome, "cardStudentiHome");
+        
+        panelNuovoStudente = new PanelNuovoStudente(controller, this);
+        panelStudenti.add(panelNuovoStudente, "cardNuovoStudente");
+    }
+    
     @Override
     public void setVisible(boolean b) {
         if(b) {
@@ -854,43 +528,38 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     
     
     
-    private void mostraCardHomePage() {
+    public void mostraCardHomePage() {
         controller.informazioniHomePage();
         CardLayout card = (CardLayout) panelContenuti.getLayout();
         card.show(panelContenuti, "cardHomePage");
     }
     
-    private void mostraCardStudenti() {
+    public void mostraCardStudenti() {
         CardLayout card = (CardLayout) panelContenuti.getLayout();
         card.show(panelContenuti, "cardStudenti");
     }
     
-    private void mostraCardStudentiHome() {
+    public void mostraCardStudentiHome() {
         CardLayout card = (CardLayout) panelStudenti.getLayout();
         card.show(panelStudenti, "cardStudentiHome");
     }
     
-    private void mostraCardNuovoStudente() {
+    public void mostraCardNuovoStudente() {
         CardLayout card = (CardLayout) panelStudenti.getLayout();
         card.show(panelStudenti, "cardNuovoStudente");
     }
     
-    private void mostraCardCorsiDegliStudenti() {
-        CardLayout card = (CardLayout) panelStudenti.getLayout();
-        card.show(panelStudenti, "cardCorsiDegliStudenti");
-    }
-    
-    private void mostraCardAreeTematiche() {
+    public void mostraCardAreeTematiche() {
         CardLayout card = (CardLayout) panelContenuti.getLayout();
         card.show(panelContenuti, "cardAreeTematiche");
     }
     
-    private void mostraCardCorsi() {
+    public void mostraCardCorsi() {
         CardLayout card = (CardLayout) panelContenuti.getLayout();
         card.show(panelContenuti, "cardCorsi");
     }
     
-    private void mostraCardLezioni() {
+    public void mostraCardLezioni() {
         CardLayout card = (CardLayout) panelContenuti.getLayout();
         card.show(panelContenuti, "cardLezioni");
     }
@@ -955,35 +624,6 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         // TODO add your handling code here:
         controller.esciDaOperatore();
     }//GEN-LAST:event_buttonEsciHomePageActionPerformed
-
-    private void buttonTornaStudentiHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTornaStudentiHomeActionPerformed
-        // TODO add your handling code here:
-        mostraCardStudentiHome();
-    }//GEN-LAST:event_buttonTornaStudentiHomeActionPerformed
-
-    private void tableStudentiPrincipaleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableStudentiPrincipaleMouseClicked
-        // TODO add your handling code here:
-        Object studenteSelezionato = tableStudentiPrincipale.getModel().getValueAt(tableStudentiPrincipale.getSelectedRow(), 0);
-        svuotaTable(tableCorsiFrequentati);
-        controller.inserisciCorsiFrequentatiInJTable(studenteSelezionato);
-        svuotaTable(tablePresenze);
-        controller.inserisciPresenzeInJTable(studenteSelezionato);
-    }//GEN-LAST:event_tableStudentiPrincipaleMouseClicked
-
-    private void buttonRegistraStudenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegistraStudenteActionPerformed
-        // TODO add your handling code here:
-        String nome = textFieldNomeStudente.getText();
-        String cognome = textFieldCognomeStudente.getText();
-        
-        controller.nuovoStudente(nome, cognome);
-        
-        mostraCardStudentiHome();
-    }//GEN-LAST:event_buttonRegistraStudenteActionPerformed
-
-    private void buttonNuovoStudenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNuovoStudenteActionPerformed
-        // TODO add your handling code here:
-        mostraCardNuovoStudente();
-    }//GEN-LAST:event_buttonNuovoStudenteActionPerformed
     
     
     
@@ -995,32 +635,8 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         textAreaInformazioniHomePage.setText(informazioni);
     }
     
-    private void nascondiColonnaOggetto(JTable table) {
-        if(table.getColumnName(0).equals("Oggetto")) {
-            table.removeColumn(table.getColumnModel().getColumn(0));
-        }
-    }
-    
-    private void nascondiTutteColonneOggetto() {
-        nascondiColonneOggettiCardStudenti();
-        //nascondiColonneOggettiCardAreeTematiche();
-        //nascondiColonneOggettiCardCorsi();
-        //nascondiColonneOggettiCardLezioni();
-    }
-    
-    private void nascondiColonneOggettiCardStudenti() {
-        nascondiColonnaOggetto(tableStudentiPrincipale);
-        nascondiColonnaOggetto(tableCorsiFrequentati);
-        nascondiColonnaOggetto(tablePresenze);
-    }
-    
-    private void svuotaTable(JTable table) {
-        DefaultTableModel modelTablePresenze = (DefaultTableModel) table.getModel();
-        modelTablePresenze.setRowCount(0);
-    }
-    
     private void riempiTablePrincipali() {
-        svuotaTable(tableStudentiPrincipale);
+        panelStudentiHome.svuotaTutteTable();
         controller.inserisciTuttiStudentiInJTable();
         //controller.inserisciTutteLeAreeTematicheInJTable();
         //controller.inserisciTuttiICorsiInJTable();
@@ -1028,38 +644,15 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     }
     
     
-    
-    public void inserisciStudenteInTableStudentiPrincipale(Object[] row) {
-        DefaultTableModel modelTableTuttiStudenti = (DefaultTableModel) tableStudentiPrincipale.getModel();
-        modelTableTuttiStudenti.addRow(row);
-    }
-    
-    public void inserisciCorsoInTableCorsiFrequentati(Object[] row) {
-        DefaultTableModel modelTableCorsiFrequentati = (DefaultTableModel) tableCorsiFrequentati.getModel();
-        modelTableCorsiFrequentati.addRow(row);
-    }
-    
-    public void inserisciLezioneInTablePresenze(Object[] row) {
-        DefaultTableModel modelTablePresenze = (DefaultTableModel) tablePresenze.getModel();
-        modelTablePresenze.addRow(row);
-    }
-    
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonEsciHomePage;
-    private javax.swing.JButton buttonNuovoStudente;
-    private javax.swing.JButton buttonRegistraStudente;
-    private javax.swing.JButton buttonTornaStudentiHome;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel labelChiudi;
-    private javax.swing.JLabel labelCorsiDegliStudenti;
     private javax.swing.JLabel labelHomePage;
     private javax.swing.JLabel labelMenuAreeTematiche;
     private javax.swing.JLabel labelMenuCorsi;
@@ -1068,30 +661,16 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     private javax.swing.JLabel labelMenuStudenti;
     private javax.swing.JLabel labelMinimizza;
     private javax.swing.JLabel labelRidimensiona;
-    private javax.swing.JLabel labelStudenti;
     private javax.swing.JLabel labelTitolo;
     private javax.swing.JPanel panelAreeTematiche;
     private javax.swing.JPanel panelContenuti;
     private javax.swing.JPanel panelCorsi;
-    private javax.swing.JPanel panelCorsiDegliStudenti;
     private javax.swing.JPanel panelHomePage;
     private javax.swing.JPanel panelLezioni;
     private javax.swing.JPanel panelMenu;
-    private javax.swing.JPanel panelNuovoStudente;
     private javax.swing.JPanel panelStudenti;
-    private javax.swing.JPanel panelStudentiHome;
     private javax.swing.JPanel panelSuperiore;
     private javax.swing.JPanel panelTotale;
-    private javax.swing.JScrollPane scrollPaneTableCorsiFrequentati;
-    private javax.swing.JScrollPane scrollPaneTablePresenze;
-    private javax.swing.JScrollPane scrollPaneTableStudenti1;
-    private javax.swing.JScrollPane scrollPaneTableTuttiStudenti;
-    private javax.swing.JTable tableCorsiFrequentati;
-    private javax.swing.JTable tablePresenze;
-    private javax.swing.JTable tableStudenti1;
-    private javax.swing.JTable tableStudentiPrincipale;
     private javax.swing.JTextArea textAreaInformazioniHomePage;
-    private javax.swing.JTextField textFieldCognomeStudente;
-    private javax.swing.JTextField textFieldNomeStudente;
     // End of variables declaration//GEN-END:variables
 }
