@@ -1,4 +1,4 @@
-package gui.home;
+package gui.homeFrame;
 
 import controller.Controller;
 import javax.swing.JTable;

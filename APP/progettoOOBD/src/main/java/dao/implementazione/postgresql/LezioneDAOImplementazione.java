@@ -36,7 +36,7 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
     }
 
     @Override
-    public LinkedList<Lezione> retrieveAllLezione(LinkedList<Corso> listaCorsi) throws Exception{
+    public LinkedList<Lezione> retrieveAllLezione(LinkedList<Corso> listaCorsi) throws Exception {
         LinkedList<Lezione> listaLezioni = new LinkedList<Lezione>();
         
         PreparedStatement pstRetrieveAllLezione = connection.prepareStatement(querySelectAllLezione);
@@ -52,9 +52,11 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
             String ora_inizio = rsRetrieveAllLezione.getString("ora_inizio");
             int codice_corso = rsRetrieveAllLezione.getInt("codice_corso");
             
-            Corso corso_della_lezione = trovaCorso(codice_corso, listaCorsi);
+            Corso corsoDellaLezione = trovaCorso(codice_corso, listaCorsi);
             
-            Lezione lezione = new Lezione(codice_lezione, titolo_lezione, descrizione_lezione, durata_lezione, data_inizio, ora_inizio, corso_della_lezione);
+            Lezione lezione = new Lezione(codice_lezione, titolo_lezione, descrizione_lezione, durata_lezione, data_inizio, ora_inizio, corsoDellaLezione);
+            
+            corsoDellaLezione.addLezione(lezione);
             
             listaLezioni.add(lezione);
         }

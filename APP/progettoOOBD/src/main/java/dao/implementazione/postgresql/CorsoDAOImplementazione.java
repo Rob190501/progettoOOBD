@@ -77,6 +77,7 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
             for(AreaTematica areaTematica : listaAreeTematiche) {
                 if(rsAreeDelCorso.getInt("codice_area_tematica") == areaTematica.getCodiceAreaTematica()) {
                     corso.addAreaTematica(areaTematica);
+                    areaTematica.addCorso(corso);
                 }
             }
         }

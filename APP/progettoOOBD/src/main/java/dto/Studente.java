@@ -13,8 +13,8 @@ public class Studente {
         setMatricola(matricola);
         setNome(nome);
         setCognome(cognome);
-        corsiFrequentati = new LinkedList<Corso>();
-        presenze = new LinkedList<Lezione>();
+        corsiFrequentati = new LinkedList<>();
+        presenze = new LinkedList<>();
         
     }
     

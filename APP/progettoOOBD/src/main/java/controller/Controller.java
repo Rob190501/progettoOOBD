@@ -9,8 +9,10 @@ import dto.AreaTematica;
 import dto.Corso;
 import dto.Lezione;
 import dto.Studente;
-import gui.home.HomeFrameOperatore;
-import gui.home.studenti.PanelStudentiHome;
+import gui.homeFrame.HomeFrameOperatore;
+import gui.homeFrame.homePage.PanelHomePage;
+import gui.homeFrame.studenti.PanelNuovoStudente;
+import gui.homeFrame.studenti.PanelStudentiHome;
 import gui.login.LoginFrame;
 import java.sql.Connection;
 import java.util.LinkedList;
@@ -20,10 +22,16 @@ import java.util.logging.Logger;
 public class Controller {
     
     private Connection connection = null;
+    
     private LoginFrame loginFrame;
+    
     private HomeFrameOperatore homeFrameOperatore;
     
+    private PanelHomePage panelHomePage;
+    
     private PanelStudentiHome panelStudentiHome;
+    private PanelNuovoStudente panelNuovoStudente;
+    
     
     private LinkedList<AreaTematica> listaAreeTematiche;
     private AreaTematicaDAOImplementazione areaTematicaDAO;
@@ -67,8 +75,16 @@ public class Controller {
         this.connection = connection;
     }
     
+    public void setPanelHomePage(PanelHomePage panelHomePage) {
+        this.panelHomePage = panelHomePage;
+    }
+    
     public void setPanelStudentiHome(PanelStudentiHome panelStudentiHome) {
         this.panelStudentiHome = panelStudentiHome;
+    }
+    
+    public void setPanelNuovoStudente(PanelNuovoStudente panelNuovoStudente) {
+        this.panelNuovoStudente = panelNuovoStudente;
     }
     
     private void setListaAreeTematiche(LinkedList<AreaTematica> listaAreeTematiche) {
@@ -155,7 +171,7 @@ public class Controller {
     }
     
     public void informazioniHomePage() {
-        homeFrameOperatore.impostaInformazioniHomePage(listaStudenti.size(), listaAreeTematiche.size(), listaCorsi.size(), listaLezioni.size());
+        panelHomePage.impostaInformazioniHomePage(listaStudenti.size(), listaAreeTematiche.size(), listaCorsi.size(), listaLezioni.size());
     }
     
     public void inserisciTuttiStudentiInJTable() {

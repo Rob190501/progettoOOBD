@@ -1,8 +1,8 @@
-package gui.home.studenti;
+package gui.homeFrame.studenti;
 
 import controller.Controller;
-import gui.home.HomeFrameOperatore;
-import gui.home.PanelContenutiGenerico;
+import gui.homeFrame.HomeFrameOperatore;
+import gui.homeFrame.PanelContenutiGenerico;
 import javax.swing.table.DefaultTableModel;
 
 public class PanelStudentiHome extends PanelContenutiGenerico {
@@ -10,7 +10,7 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
     public PanelStudentiHome(Controller controller, HomeFrameOperatore homeFrame) {
         super(controller, homeFrame);
         
-        controller.setPanelStudentiHome(this);
+        getController().setPanelStudentiHome(this);
         
         initComponents();
         
@@ -33,6 +33,7 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
         labelPresenze = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setMinimumSize(new java.awt.Dimension(745, 566));
 
         labelStudenti.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         labelStudenti.setForeground(new java.awt.Color(153, 204, 255));
@@ -63,6 +64,7 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
             }
         });
         tableStudenti.setRowHeight(40);
+        tableStudenti.setShowGrid(true);
         tableStudenti.getTableHeader().setReorderingAllowed(false);
         tableStudenti.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

@@ -103,6 +103,7 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
             for(Corso corso : listaCorsi) {
                 if(rsRetrieveCorsiFrequentati.getInt("codice_corso") == corso.getCodiceCorso()) {
                     studente.addCorso(corso);
+                    corso.addStudente(studente);
                 }
             }
         }
@@ -122,6 +123,7 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
             for(Lezione lezione : listaLezioni) {
                 if(rsRetrievePresenze.getInt("codice_lezione") == lezione.getCodiceLezione()) {
                     studente.addPresenza(lezione);
+                    lezione.addStudente(studente);
                 }
             }
         }

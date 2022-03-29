@@ -9,6 +9,8 @@ public class Corso {
     private String descrizioneCorso;
     private int tassoPresenzeMin;
     private int partecipantiMax;
+    private LinkedList<Studente> studentiDelCorso;
+    private LinkedList<Lezione> lezioniDelCorso;
     private LinkedList<AreaTematica> areeDelCorso;
 
     public Corso(int codiceCorso, String nomeCorso, String descrizioneCorso, int tassoPresenzeMin, int partecipantiMax) {
@@ -17,7 +19,9 @@ public class Corso {
         setDescrizioneCorso(descrizioneCorso);
         setTassoPresenzeMin(tassoPresenzeMin);
         setPartecipantiMax(partecipantiMax);
-        areeDelCorso = new LinkedList<AreaTematica>();
+        studentiDelCorso = new LinkedList<>();
+        lezioniDelCorso = new LinkedList<>();
+        areeDelCorso = new LinkedList<>();
     }
     
     public int getCodiceCorso() {
@@ -58,6 +62,14 @@ public class Corso {
 
     public void setPartecipantiMax(int partecipantiMax) {
         this.partecipantiMax = partecipantiMax;
+    }
+    
+    public void addStudente(Studente studente) {
+        studentiDelCorso.add(studente);
+    }
+    
+    public void addLezione(Lezione lezione) {
+        lezioniDelCorso.add(lezione);
     }
     
     public void addAreaTematica(AreaTematica areaTematica) {

@@ -1,40 +1,45 @@
-package gui.home;
+package gui.homeFrame;
 
 import controller.Controller;
-import gui.home.studenti.PanelNuovoStudente;
-import gui.home.studenti.PanelStudentiHome;
+import gui.homeFrame.homePage.PanelHomePage;
+import gui.homeFrame.studenti.PanelNuovoStudente;
+import gui.homeFrame.studenti.PanelStudentiHome;
 
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 
 
 public class HomeFrameOperatore extends javax.swing.JFrame {
-
+    
     private Controller controller;
     private int mouseX;
     private int mouseY;
     private JLabel labelSelezionata;
     
+    private PanelHomePage panelHomePage;
+    
     private PanelStudentiHome panelStudentiHome;
     private PanelNuovoStudente panelNuovoStudente;
     
+    
+    
     public HomeFrameOperatore(Controller controller) {
         setController(controller);
-        
         initComponents();
-        
         creaPanels();
     }
+    
+    
     
     private void setController(Controller controller) {
         this.controller = controller;
     }
+    
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -54,11 +59,6 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         labelRidimensiona = new javax.swing.JLabel();
         labelChiudi = new javax.swing.JLabel();
         panelContenuti = new javax.swing.JPanel();
-        panelHomePage = new javax.swing.JPanel();
-        labelHomePage = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        textAreaInformazioniHomePage = new javax.swing.JTextArea();
-        buttonEsciHomePage = new javax.swing.JButton();
         panelStudenti = new javax.swing.JPanel();
         panelAreeTematiche = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -262,70 +262,6 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         panelContenuti.setBackground(new java.awt.Color(255, 255, 255));
         panelContenuti.setLayout(new java.awt.CardLayout());
 
-        panelHomePage.setBackground(new java.awt.Color(255, 255, 255));
-
-        labelHomePage.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        labelHomePage.setForeground(new java.awt.Color(153, 204, 255));
-        labelHomePage.setText("Home Page");
-
-        jScrollPane3.setBorder(null);
-
-        textAreaInformazioniHomePage.setEditable(false);
-        textAreaInformazioniHomePage.setBackground(new java.awt.Color(255, 255, 255));
-        textAreaInformazioniHomePage.setColumns(20);
-        textAreaInformazioniHomePage.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        textAreaInformazioniHomePage.setForeground(new java.awt.Color(0, 0, 0));
-        textAreaInformazioniHomePage.setRows(5);
-        textAreaInformazioniHomePage.setBorder(null);
-        textAreaInformazioniHomePage.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jScrollPane3.setViewportView(textAreaInformazioniHomePage);
-
-        buttonEsciHomePage.setBackground(new java.awt.Color(255, 51, 51));
-        buttonEsciHomePage.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonEsciHomePage.setForeground(new java.awt.Color(255, 255, 255));
-        buttonEsciHomePage.setText("Esci");
-        buttonEsciHomePage.setBorder(null);
-        buttonEsciHomePage.setBorderPainted(false);
-        buttonEsciHomePage.setFocusPainted(false);
-        buttonEsciHomePage.setOpaque(true);
-        buttonEsciHomePage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonEsciHomePageActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelHomePageLayout = new javax.swing.GroupLayout(panelHomePage);
-        panelHomePage.setLayout(panelHomePageLayout);
-        panelHomePageLayout.setHorizontalGroup(
-            panelHomePageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHomePageLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(buttonEsciHomePage, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64))
-            .addGroup(panelHomePageLayout.createSequentialGroup()
-                .addGroup(panelHomePageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelHomePageLayout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelHomePageLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(labelHomePage)))
-                .addContainerGap(96, Short.MAX_VALUE))
-        );
-        panelHomePageLayout.setVerticalGroup(
-            panelHomePageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHomePageLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(labelHomePage)
-                .addGap(47, 47, 47)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
-                .addComponent(buttonEsciHomePage, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44))
-        );
-
-        panelContenuti.add(panelHomePage, "cardHomePage");
-
         panelStudenti.setBackground(new java.awt.Color(255, 255, 255));
         panelStudenti.setLayout(new java.awt.CardLayout());
         panelContenuti.add(panelStudenti, "cardStudenti");
@@ -434,13 +370,65 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
+    
+    
     private void creaPanels() {
+        panelHomePage = new PanelHomePage(controller, this);
+        panelContenuti.add(panelHomePage, "cardHomePage");
+        
         panelStudentiHome = new PanelStudentiHome(controller, this);
         panelStudenti.add(panelStudentiHome, "cardStudentiHome");
         
         panelNuovoStudente = new PanelNuovoStudente(controller, this);
         panelStudenti.add(panelNuovoStudente, "cardNuovoStudente");
     }
+    
+    public void mostraCardHomePage() {
+        controller.informazioniHomePage();
+        CardLayout card = (CardLayout) panelContenuti.getLayout();
+        card.show(panelContenuti, "cardHomePage");
+    }
+    
+    public void mostraCardStudenti() {
+        CardLayout card = (CardLayout) panelContenuti.getLayout();
+        card.show(panelContenuti, "cardStudenti");
+    }
+    
+    public void mostraCardStudentiHome() {
+        CardLayout card = (CardLayout) panelStudenti.getLayout();
+        card.show(panelStudenti, "cardStudentiHome");
+    }
+    
+    public void mostraCardNuovoStudente() {
+        CardLayout card = (CardLayout) panelStudenti.getLayout();
+        card.show(panelStudenti, "cardNuovoStudente");
+    }
+    
+    public void mostraCardAreeTematiche() {
+        CardLayout card = (CardLayout) panelContenuti.getLayout();
+        card.show(panelContenuti, "cardAreeTematiche");
+    }
+    
+    public void mostraCardCorsi() {
+        CardLayout card = (CardLayout) panelContenuti.getLayout();
+        card.show(panelContenuti, "cardCorsi");
+    }
+    
+    public void mostraCardLezioni() {
+        CardLayout card = (CardLayout) panelContenuti.getLayout();
+        card.show(panelContenuti, "cardLezioni");
+    }
+    
+    
+    private void riempiTablePrincipali() {
+        panelStudentiHome.svuotaTutteTable();
+        controller.inserisciTuttiStudentiInJTable();
+        //controller.inserisciTutteLeAreeTematicheInJTable();
+        //controller.inserisciTuttiICorsiInJTable();
+        //controller.inserisciTutteLeLezioniInJTable();
+    }
+    
+    
     
     @Override
     public void setVisible(boolean b) {
@@ -449,9 +437,9 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
             setLabelSelezionata(labelMenuHomePage);
             mostraCardHomePage();
         }
-        
         super.setVisible(b);
     }
+    
     
     
     private void panelSuperioreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelSuperioreMousePressed
@@ -467,11 +455,9 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         if (getExtendedState() == NORMAL) {
             int x = evt.getXOnScreen();
             int y = evt.getYOnScreen();
-        
             setLocation(x - mouseX, y - mouseY);
         }
     }//GEN-LAST:event_panelSuperioreMouseDragged
-    
     
     
     
@@ -527,45 +513,6 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     
     
     
-    
-    public void mostraCardHomePage() {
-        controller.informazioniHomePage();
-        CardLayout card = (CardLayout) panelContenuti.getLayout();
-        card.show(panelContenuti, "cardHomePage");
-    }
-    
-    public void mostraCardStudenti() {
-        CardLayout card = (CardLayout) panelContenuti.getLayout();
-        card.show(panelContenuti, "cardStudenti");
-    }
-    
-    public void mostraCardStudentiHome() {
-        CardLayout card = (CardLayout) panelStudenti.getLayout();
-        card.show(panelStudenti, "cardStudentiHome");
-    }
-    
-    public void mostraCardNuovoStudente() {
-        CardLayout card = (CardLayout) panelStudenti.getLayout();
-        card.show(panelStudenti, "cardNuovoStudente");
-    }
-    
-    public void mostraCardAreeTematiche() {
-        CardLayout card = (CardLayout) panelContenuti.getLayout();
-        card.show(panelContenuti, "cardAreeTematiche");
-    }
-    
-    public void mostraCardCorsi() {
-        CardLayout card = (CardLayout) panelContenuti.getLayout();
-        card.show(panelContenuti, "cardCorsi");
-    }
-    
-    public void mostraCardLezioni() {
-        CardLayout card = (CardLayout) panelContenuti.getLayout();
-        card.show(panelContenuti, "cardLezioni");
-    }
-    
-    
-    
     private void evidenziaLabel(JLabel label) {
         label.setText(label.getText().replace("  ", "| "));
         label.setFont(new Font("Segoe UI", 1, 24));
@@ -586,9 +533,7 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     private void aggiornaLabelSelezionata(JLabel nuovaLabelSelezionata) {
         deselezionaLabel(labelSelezionata);
         setLabelSelezionata(nuovaLabelSelezionata);
-    }
-    
-    
+    }    
     
     private void labelMenuStudentiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMenuStudentiMouseClicked
         // TODO add your handling code here:
@@ -619,41 +564,15 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         aggiornaLabelSelezionata(labelMenuAreeTematiche);
         mostraCardAreeTematiche();
     }//GEN-LAST:event_labelMenuAreeTematicheMouseClicked
-
-    private void buttonEsciHomePageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEsciHomePageActionPerformed
-        // TODO add your handling code here:
-        controller.esciDaOperatore();
-    }//GEN-LAST:event_buttonEsciHomePageActionPerformed
     
     
     
-    public void impostaInformazioniHomePage(int numeroStudenti, int numeroAreeTematiche, int numeroCorsi, int numeroLezioni){
-        String informazioni = "Studenti registrati: " + numeroStudenti + System.lineSeparator() + System.lineSeparator() +
-                              "Aree Tematiche registrate: " + numeroAreeTematiche + System.lineSeparator() + System.lineSeparator() +
-                              "Corsi registrati: " + numeroCorsi + System.lineSeparator() + System.lineSeparator() +
-                              "Lezioni registrate: " + numeroLezioni;
-        textAreaInformazioniHomePage.setText(informazioni);
-    }
-    
-    private void riempiTablePrincipali() {
-        panelStudentiHome.svuotaTutteTable();
-        controller.inserisciTuttiStudentiInJTable();
-        //controller.inserisciTutteLeAreeTematicheInJTable();
-        //controller.inserisciTuttiICorsiInJTable();
-        //controller.inserisciTutteLeLezioniInJTable();
-    }
-    
-    
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonEsciHomePage;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel labelChiudi;
-    private javax.swing.JLabel labelHomePage;
     private javax.swing.JLabel labelMenuAreeTematiche;
     private javax.swing.JLabel labelMenuCorsi;
     private javax.swing.JLabel labelMenuHomePage;
@@ -665,12 +584,10 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     private javax.swing.JPanel panelAreeTematiche;
     private javax.swing.JPanel panelContenuti;
     private javax.swing.JPanel panelCorsi;
-    private javax.swing.JPanel panelHomePage;
     private javax.swing.JPanel panelLezioni;
     private javax.swing.JPanel panelMenu;
     private javax.swing.JPanel panelStudenti;
     private javax.swing.JPanel panelSuperiore;
     private javax.swing.JPanel panelTotale;
-    private javax.swing.JTextArea textAreaInformazioniHomePage;
     // End of variables declaration//GEN-END:variables
 }

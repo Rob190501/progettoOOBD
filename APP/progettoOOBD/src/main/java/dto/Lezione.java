@@ -1,6 +1,8 @@
 
 package dto;
 
+import java.util.LinkedList;
+
 public class Lezione {
     
     private int codiceLezione;
@@ -10,6 +12,7 @@ public class Lezione {
     private String dataInizio;
     private String oraInizio;
     private Corso corsoDellaLezione;
+    private LinkedList<Studente> studentiPresenti;
 
     public Lezione(int codiceLezione, String titoloLezione, String descrizioneLezione, String durataLezione, String dataInizio, String oraInizio, Corso corsoDellaLezione) {
         setCodiceLezione(codiceLezione);
@@ -19,6 +22,7 @@ public class Lezione {
         setDataInizio(dataInizio);
         setOraInizio(oraInizio);
         setCorsoDellaLezione(corsoDellaLezione);
+        studentiPresenti = new LinkedList<>();
     }
     
     public int getCodiceLezione() {
@@ -75,6 +79,10 @@ public class Lezione {
 
     public void setCorsoDellaLezione(Corso corsoDellaLezione) {
         this.corsoDellaLezione = corsoDellaLezione;
+    }
+    
+    public void addStudente(Studente studente) {
+        studentiPresenti.add(studente);
     }
     
     public String toString() {
