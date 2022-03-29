@@ -34,12 +34,14 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(745, 566));
+        setPreferredSize(new java.awt.Dimension(745, 566));
 
         labelStudenti.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         labelStudenti.setForeground(new java.awt.Color(153, 204, 255));
         labelStudenti.setText("Studenti");
 
         tableStudenti.setBackground(new java.awt.Color(255, 255, 255));
+        tableStudenti.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         tableStudenti.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -63,6 +65,7 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
                 return canEdit [columnIndex];
             }
         });
+        tableStudenti.setGridColor(new java.awt.Color(0, 0, 0));
         tableStudenti.setRowHeight(40);
         tableStudenti.setShowGrid(true);
         tableStudenti.getTableHeader().setReorderingAllowed(false);
@@ -74,6 +77,7 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
         scrollPaneTableStudenti.setViewportView(tableStudenti);
 
         tableCorsiFrequentati.setBackground(new java.awt.Color(255, 255, 255));
+        tableCorsiFrequentati.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         tableCorsiFrequentati.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -97,11 +101,14 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
                 return canEdit [columnIndex];
             }
         });
+        tableCorsiFrequentati.setGridColor(new java.awt.Color(0, 0, 0));
         tableCorsiFrequentati.setRowHeight(40);
+        tableCorsiFrequentati.setShowGrid(true);
         tableCorsiFrequentati.getTableHeader().setReorderingAllowed(false);
         scrollPaneTableCorsiFrequentati.setViewportView(tableCorsiFrequentati);
 
         tablePresenze.setBackground(new java.awt.Color(255, 255, 255));
+        tablePresenze.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         tablePresenze.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -125,7 +132,9 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
                 return canEdit [columnIndex];
             }
         });
+        tablePresenze.setGridColor(new java.awt.Color(0, 0, 0));
         tablePresenze.setRowHeight(40);
+        tablePresenze.setShowGrid(true);
         tablePresenze.getTableHeader().setReorderingAllowed(false);
         scrollPaneTablePresenze.setViewportView(tablePresenze);
 
@@ -164,7 +173,7 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
                             .addComponent(labelStudenti, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(380, 380, 380))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(scrollPaneTableStudenti, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                        .addComponent(scrollPaneTableStudenti, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(43, 43, 43)
@@ -196,7 +205,7 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
                         .addComponent(labelPresenze)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(scrollPaneTablePresenze, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addComponent(scrollPaneTableStudenti, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE))
+                    .addComponent(scrollPaneTableStudenti, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE))
                 .addGap(56, 56, 56)
                 .addComponent(buttonNuovoStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
