@@ -1,6 +1,7 @@
-package gui.homeFrame;
+package gui.homeFrame.panels.panelContenutiGenerico;
 
 import controller.Controller;
+import gui.homeFrame.HomeFrameOperatore;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 

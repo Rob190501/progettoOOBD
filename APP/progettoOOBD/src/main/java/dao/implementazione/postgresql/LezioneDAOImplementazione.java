@@ -69,7 +69,7 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
     
     private Corso trovaCorso(int codice_corso, LinkedList<Corso> listaCorsi) {
         for(Corso corso : listaCorsi) {
-            if(corso.getCodiceCorso() == codice_corso)
+            if(corso.getCodice() == codice_corso)
                 return corso;
         }
         return null;

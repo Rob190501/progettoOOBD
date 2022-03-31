@@ -1,19 +1,16 @@
-package gui.homeFrame.studenti;
+package gui.homeFrame.panels.studenti;
 
 import controller.Controller;
 import gui.homeFrame.HomeFrameOperatore;
-import gui.homeFrame.PanelContenutiGenerico;
+import gui.homeFrame.panels.panelContenutiGenerico.PanelContenutiGenerico;
 import javax.swing.table.DefaultTableModel;
 
 public class PanelStudentiHome extends PanelContenutiGenerico {
     
     public PanelStudentiHome(Controller controller, HomeFrameOperatore homeFrame) {
         super(controller, homeFrame);
-        
         getController().setPanelStudentiHome(this);
-        
         initComponents();
-        
         nascondiTutteColonneOggetti();
     }
     
@@ -154,7 +151,7 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
 
         labelCorsiFrequentati.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         labelCorsiFrequentati.setForeground(new java.awt.Color(153, 204, 255));
-        labelCorsiFrequentati.setText("Corsi Frequentati");
+        labelCorsiFrequentati.setText("Corsi frequentati");
 
         labelPresenze.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         labelPresenze.setForeground(new java.awt.Color(153, 204, 255));
@@ -171,9 +168,9 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(buttonNuovoStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelStudenti, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(380, 380, 380))
+                        .addGap(400, 400, 400))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(scrollPaneTableStudenti, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+                        .addComponent(scrollPaneTableStudenti, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(43, 43, 43)
@@ -182,13 +179,12 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
                                         .addComponent(labelPresenze)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(scrollPaneTableCorsiFrequentati, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                        .addComponent(scrollPaneTableCorsiFrequentati, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
                                         .addComponent(scrollPaneTablePresenze, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(45, 45, 45)
-                                .addComponent(labelCorsiFrequentati)
-                                .addGap(189, 189, 189)))))
-                .addGap(20, 20, 20))
+                                .addComponent(labelCorsiFrequentati, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(20, 20, 20))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,39 +201,12 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
                         .addComponent(labelPresenze)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(scrollPaneTablePresenze, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addComponent(scrollPaneTableStudenti, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE))
+                    .addComponent(scrollPaneTableStudenti, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE))
                 .addGap(56, 56, 56)
                 .addComponent(buttonNuovoStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
         );
     }// </editor-fold>//GEN-END:initComponents
-    
-    private void nascondiTutteColonneOggetti() {
-        nascondiColonnaOggetto(tableStudenti);
-        nascondiColonnaOggetto(tableCorsiFrequentati);
-        nascondiColonnaOggetto(tablePresenze);
-    }
-    
-    public void svuotaTutteTable() {
-        svuotaTable(tableStudenti);
-        svuotaTable(tableCorsiFrequentati);
-        svuotaTable(tablePresenze);
-    }
-    
-    public void inserisciStudenteInTableStudenti(Object[] row) {
-        DefaultTableModel modelTableTuttiStudenti = (DefaultTableModel) tableStudenti.getModel();
-        modelTableTuttiStudenti.addRow(row);
-    }
-    
-    public void inserisciCorsoInTableCorsiFrequentati(Object[] row) {
-        DefaultTableModel modelTableCorsiFrequentati = (DefaultTableModel) tableCorsiFrequentati.getModel();
-        modelTableCorsiFrequentati.addRow(row);
-    }
-    
-    public void inserisciLezioneInTablePresenze(Object[] row) {
-        DefaultTableModel modelTablePresenze = (DefaultTableModel) tablePresenze.getModel();
-        modelTablePresenze.addRow(row);
-    }
     
     private void tableStudentiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableStudentiMouseClicked
         // TODO add your handling code here:
@@ -253,6 +222,32 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
         getHomeFrame().mostraCardNuovoStudente();
     }//GEN-LAST:event_buttonNuovoStudenteActionPerformed
 
+    private void nascondiTutteColonneOggetti() {
+        nascondiColonnaOggetto(tableStudenti);
+        nascondiColonnaOggetto(tableCorsiFrequentati);
+        nascondiColonnaOggetto(tablePresenze);
+    }
+    
+    public void svuotaTutteTable() {
+        svuotaTable(tableStudenti);
+        svuotaTable(tableCorsiFrequentati);
+        svuotaTable(tablePresenze);
+    }
+    
+    public void inserisciRigaInTableStudenti(Object[] row) {
+        DefaultTableModel modelTableStudenti = (DefaultTableModel) tableStudenti.getModel();
+        modelTableStudenti.addRow(row);
+    }
+    
+    public void inserisciRigaInTableCorsiFrequentati(Object[] row) {
+        DefaultTableModel modelTableCorsiFrequentati = (DefaultTableModel) tableCorsiFrequentati.getModel();
+        modelTableCorsiFrequentati.addRow(row);
+    }
+    
+    public void inserisciRigaInTablePresenze(Object[] row) {
+        DefaultTableModel modelTablePresenze = (DefaultTableModel) tablePresenze.getModel();
+        modelTablePresenze.addRow(row);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonNuovoStudente;

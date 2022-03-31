@@ -23,7 +23,7 @@ WHERE studente.matricola = 0;
 
 /*Seleziona il nome del corso e il nome dell'area tematica di tutti i corsi
 che hanno almeno un'area tematica*/
-SELECT nome_corso, nome_area_tematica
+SELECT corso.codice_corso, corso.nome_corso, area_tematica.nome_area_tematica
 FROM corso, area_tematica, area_del_corso
 WHERE corso.codice_corso = area_del_corso.codice_corso AND
       area_tematica.codice_area_tematica = area_del_corso.codice_area_tematica

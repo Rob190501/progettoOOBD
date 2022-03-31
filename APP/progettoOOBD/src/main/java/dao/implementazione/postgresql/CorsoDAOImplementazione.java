@@ -69,13 +69,13 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
     private void aggiungiAreeTematiche(Corso corso, LinkedList<AreaTematica> listaAreeTematiche) throws Exception{
         PreparedStatement pstAreeDelCorso = connection.prepareStatement(querySelectAreeDelCorso);
             
-        pstAreeDelCorso.setInt(1, corso.getCodiceCorso());
+        pstAreeDelCorso.setInt(1, corso.getCodice());
             
         ResultSet rsAreeDelCorso = pstAreeDelCorso.executeQuery();
         
         while(rsAreeDelCorso.next()) {
             for(AreaTematica areaTematica : listaAreeTematiche) {
-                if(rsAreeDelCorso.getInt("codice_area_tematica") == areaTematica.getCodiceAreaTematica()) {
+                if(rsAreeDelCorso.getInt("codice_area_tematica") == areaTematica.getCodice()) {
                     corso.addAreaTematica(areaTematica);
                     areaTematica.addCorso(corso);
                 }

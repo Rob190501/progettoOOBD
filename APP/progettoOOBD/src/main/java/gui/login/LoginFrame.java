@@ -1,6 +1,7 @@
 package gui.login;
 
 import controller.Controller;
+import javax.swing.JOptionPane;
 
 public class LoginFrame extends javax.swing.JFrame {
 
@@ -395,6 +396,10 @@ public class LoginFrame extends javax.swing.JFrame {
         labelStatoConnessione.setForeground(new java.awt.Color(204, 0, 0));
         labelStatoConnessione.setText("Stato: non connesso");    
         buttonAccediOperatore.setEnabled(false);
+    }
+    
+    public void mostraEccezione(Exception e) {
+        JOptionPane.showMessageDialog(this, e.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
     }
     
     

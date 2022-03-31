@@ -1,8 +1,8 @@
-package gui.homeFrame.homePage;
+package gui.homeFrame.panels.homePage;
 
 import controller.Controller;
 import gui.homeFrame.HomeFrameOperatore;
-import gui.homeFrame.PanelContenutiGenerico;
+import gui.homeFrame.panels.panelContenutiGenerico.PanelContenutiGenerico;
 
 public class PanelHomePage extends PanelContenutiGenerico {
 

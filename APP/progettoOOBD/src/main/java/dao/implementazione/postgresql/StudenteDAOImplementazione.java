@@ -101,7 +101,7 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
         
         while(rsRetrieveCorsiFrequentati.next()) {
             for(Corso corso : listaCorsi) {
-                if(rsRetrieveCorsiFrequentati.getInt("codice_corso") == corso.getCodiceCorso()) {
+                if(rsRetrieveCorsiFrequentati.getInt("codice_corso") == corso.getCodice()) {
                     studente.addCorso(corso);
                     corso.addStudente(studente);
                 }
@@ -121,7 +121,7 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
         
         while(rsRetrievePresenze.next()) {
             for(Lezione lezione : listaLezioni) {
-                if(rsRetrievePresenze.getInt("codice_lezione") == lezione.getCodiceLezione()) {
+                if(rsRetrievePresenze.getInt("codice_lezione") == lezione.getCodice()) {
                     studente.addPresenza(lezione);
                     lezione.addStudente(studente);
                 }

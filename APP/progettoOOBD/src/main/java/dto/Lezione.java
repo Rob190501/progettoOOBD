@@ -5,40 +5,40 @@ import java.util.LinkedList;
 
 public class Lezione {
     
-    private int codiceLezione;
-    private String titoloLezione;
-    private String descrizioneLezione;
-    private String durataLezione;
+    private int codice;
+    private String titolo;
+    private String descrizione;
+    private String durata;
     private String dataInizio;
     private String oraInizio;
     private Corso corsoDellaLezione;
     private LinkedList<Studente> studentiPresenti;
 
     public Lezione(int codiceLezione, String titoloLezione, String descrizioneLezione, String durataLezione, String dataInizio, String oraInizio, Corso corsoDellaLezione) {
-        setCodiceLezione(codiceLezione);
-        setTitoloLezione(titoloLezione);
-        setDescrizioneLezione(descrizioneLezione);
-        setDurataLezione(durataLezione);
+        setCodice(codiceLezione);
+        setTitolo(titoloLezione);
+        setDescrizione(descrizioneLezione);
+        setDurata(durataLezione);
         setDataInizio(dataInizio);
         setOraInizio(oraInizio);
         setCorsoDellaLezione(corsoDellaLezione);
         studentiPresenti = new LinkedList<>();
     }
     
-    public int getCodiceLezione() {
-        return codiceLezione;
+    public int getCodice() {
+        return codice;
     }
     
-    public String getTitoloLezione() {
-        return titoloLezione;
+    public String getTitolo() {
+        return titolo;
     }
 
-    public String getDescrizioneLezione() {
-        return descrizioneLezione;
+    public String getDescrizione() {
+        return descrizione;
     }
 
-    public String getDurataLezione() {
-        return durataLezione;
+    public String getDurata() {
+        return durata;
     }
 
     public String getDataInizio() {
@@ -52,21 +52,25 @@ public class Lezione {
     public Corso getCorsoDellaLezione() {
         return corsoDellaLezione;
     }
+
+    public LinkedList<Studente> getStudentiPresenti() {
+        return studentiPresenti;
+    }
     
-    public void setCodiceLezione(int codiceLezione) {
-        this.codiceLezione = codiceLezione;
+    public void setCodice(int codice) {
+        this.codice = codice;
     }
 
-    public void setTitoloLezione(String nomeLezione) {
-        this.titoloLezione = nomeLezione;
+    public void setTitolo(String nomeLezione) {
+        this.titolo = nomeLezione;
     }
 
-    public void setDescrizioneLezione(String descrizioneLezione) {
-        this.descrizioneLezione = descrizioneLezione;
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
     }
 
-    public void setDurataLezione(String durataLezione) {
-        this.durataLezione = durataLezione;
+    public void setDurata(String durata) {
+        this.durata = durata;
     }
 
     public void setDataInizio(String dataInizio) {
@@ -86,7 +90,7 @@ public class Lezione {
     }
     
     public String toString() {
-        return codiceLezione + " | " + titoloLezione + " | " + descrizioneLezione + " | " + durataLezione + " | " + dataInizio + " | " + oraInizio + " | " + corsoDellaLezione.getNomeCorso();
+        return codice + " | " + titolo + " | " + descrizione + " | " + durata + " | " + dataInizio + " | " + oraInizio + " | " + corsoDellaLezione.getNome();
     }
     
 }
