@@ -16,18 +16,24 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
     private Controller controller;
     private Connection connection;
     
-    private String insertStudente = "INSERT INTO studente (nome, cognome) VALUES (?, ?)";
+    private String insertStudente = "INSERT "
+                                  + "INTO studente (nome, cognome) "
+                                  + "VALUES (?, ?)";
     
-    private String querySelectAllStudente = "SELECT * " +
-                                            "FROM studente";
+    private String querySelectAllStudente = "SELECT * "
+                                          + "FROM studente";
     
-    private String querySelectCorsiFrequentati = "SELECT * " +
-                                                 "FROM studenti_del_corso " +
-                                                 "WHERE matricola = ?";
+    private String querySelectCorsiFrequentati = "SELECT * "
+                                               + "FROM studenti_del_corso "
+                                               + "WHERE matricola = ?";
     
-    private String querySelectPresenze = "SELECT * " +
-                                         "FROM presenze " +
-                                         "WHERE matricola = ?";
+    private String querySelectPresenze = "SELECT * "
+                                       + "FROM presenze "
+                                       + "WHERE matricola = ?";
+    
+    private String deleteStudente = "DELETE "
+                                  + "FROM studente "
+                                  + "WHERE matricola = ?";
     
     public StudenteDAOImplementazione(Controller controller, Connection connection) {
         setController(controller);
@@ -138,8 +144,14 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
     }
 
     @Override
-    public boolean deleteStudente(Studente studente) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean deleteStudente(Studente studente) throws Exception{
+        PreparedStatement pstDeleteStudente = connection.prepareStatement(deleteStudente);
+        
+        pstDeleteStudente.setInt(1, studente.getMatricola());
+        
+        pstDeleteStudente.executeUpdate();
+        
+        return true;
     }
     
 }

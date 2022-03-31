@@ -11,8 +11,8 @@ public interface StudenteDAOInterfaccia {
     
     public LinkedList<Studente> retrieveAllStudente(LinkedList<Corso> listaCorsi, LinkedList<Lezione> listaLezioni) throws Exception;
     
-    public boolean updateStudente(Studente studente);
+    public boolean updateStudente(Studente studente) throws Exception;
     
-    public boolean deleteStudente(Studente studente);
+    public boolean deleteStudente(Studente studente) throws Exception;
     
 }

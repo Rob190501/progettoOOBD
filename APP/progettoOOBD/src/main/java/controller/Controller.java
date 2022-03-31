@@ -287,6 +287,18 @@ public class Controller {
             homeFrameOperatore.mostraEccezione(e);
         }
     }
+    
+    public void eliminaStudente(Object studenteSelezionato) {
+        Studente studente = (Studente) studenteSelezionato;
+        
+        try {
+            studenteDAO.deleteStudente(studente);
+            listaStudenti.remove(studente);
+        }
+        catch(Exception e) {
+            homeFrameOperatore.mostraEccezione(e);
+        }
+    }
     //fine panel studenti
     
     

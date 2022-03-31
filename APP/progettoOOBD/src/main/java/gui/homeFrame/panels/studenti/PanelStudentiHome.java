@@ -28,6 +28,7 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
         buttonNuovoStudente = new javax.swing.JButton();
         labelCorsiFrequentati = new javax.swing.JLabel();
         labelPresenze = new javax.swing.JLabel();
+        buttonEliminaStudente = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(745, 566));
@@ -157,6 +158,20 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
         labelPresenze.setForeground(new java.awt.Color(153, 204, 255));
         labelPresenze.setText("Presenze");
 
+        buttonEliminaStudente.setBackground(new java.awt.Color(153, 204, 255));
+        buttonEliminaStudente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonEliminaStudente.setForeground(new java.awt.Color(255, 255, 255));
+        buttonEliminaStudente.setText("Elimina studente");
+        buttonEliminaStudente.setBorder(null);
+        buttonEliminaStudente.setBorderPainted(false);
+        buttonEliminaStudente.setFocusPainted(false);
+        buttonEliminaStudente.setOpaque(true);
+        buttonEliminaStudente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEliminaStudenteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -165,12 +180,14 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonNuovoStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelStudenti, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(labelStudenti, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(400, 400, 400))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(scrollPaneTableStudenti, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(buttonNuovoStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(scrollPaneTableStudenti, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(43, 43, 43)
@@ -183,7 +200,10 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
                                         .addComponent(scrollPaneTablePresenze, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(45, 45, 45)
-                                .addComponent(labelCorsiFrequentati, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(labelCorsiFrequentati, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(buttonEliminaStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(20, 20, 20))))
         );
         layout.setVerticalGroup(
@@ -203,7 +223,9 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
                         .addComponent(scrollPaneTablePresenze, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addComponent(scrollPaneTableStudenti, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE))
                 .addGap(56, 56, 56)
-                .addComponent(buttonNuovoStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonNuovoStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonEliminaStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -221,6 +243,13 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
         // TODO add your handling code here:
         getHomeFrame().mostraCardNuovoStudente();
     }//GEN-LAST:event_buttonNuovoStudenteActionPerformed
+
+    private void buttonEliminaStudenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEliminaStudenteActionPerformed
+        // TODO add your handling code here:
+        Object studenteSelezionato = tableStudenti.getModel().getValueAt(tableStudenti.getSelectedRow(), 0);
+        getController().eliminaStudente(studenteSelezionato);
+        ((DefaultTableModel) tableStudenti.getModel()).removeRow(tableStudenti.getSelectedRow());
+    }//GEN-LAST:event_buttonEliminaStudenteActionPerformed
 
     private void nascondiTutteColonneOggetti() {
         nascondiColonnaOggetto(tableStudenti);
@@ -250,6 +279,7 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonEliminaStudente;
     private javax.swing.JButton buttonNuovoStudente;
     private javax.swing.JLabel labelCorsiFrequentati;
     private javax.swing.JLabel labelPresenze;
