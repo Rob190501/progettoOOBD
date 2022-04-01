@@ -293,6 +293,7 @@ public class Controller {
         
         try {
             studenteDAO.deleteStudente(studente);
+            studente.rimuoviStudenteDaAssociazioni();
             listaStudenti.remove(studente);
         }
         catch(Exception e) {

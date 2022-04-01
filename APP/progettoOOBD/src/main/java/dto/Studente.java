@@ -66,6 +66,16 @@ public class Studente {
         presenze.add(lezione);
     }
     
+    public void rimuoviStudenteDaAssociazioni() {
+        for(Lezione lezione : presenze) {
+            lezione.getStudentiPresenti().remove(this);
+        }
+        
+        for(Corso corso : corsiFrequentati) {
+            corso.getStudentiIscritti().remove(this);
+        }
+    }
+    
     public String toString() {
         return matricola + " | " + nome + " | " + cognome + corsiFrequentati.toString() + presenze.toString();
     }

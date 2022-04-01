@@ -23,6 +23,7 @@ INSERT INTO studenti_del_corso (matricola, codice_corso) VALUES
 (0, 1);
 
 INSERT INTO presenze (matricola, codice_lezione) VALUES
+(14, 0);
 (0, 0);
 
 INSERT INTO lezione (titolo_lezione, descrizione_lezione, durata_lezione, data_inizio, ora_inizio, codice_corso) VALUES

@@ -11,6 +11,9 @@ SELECT *
 FROM area_del_corso;
 
 SELECT *
+FROM presenze;
+
+SELECT *
 FROM studente;
 
 /*Seleziona tutte le informazioni relative alle presenze di un determinato studente*/
