@@ -8,9 +8,6 @@ public class PanelHomePage extends PanelContenutiGenerico {
 
     public PanelHomePage(Controller controller, HomeFrameOperatore homeFrame) {
         super(controller, homeFrame);
-        
-        getController().setPanelHomePage(this);
-        
         initComponents();
     }
     

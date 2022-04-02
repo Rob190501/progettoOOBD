@@ -23,11 +23,11 @@ public abstract class PanelContenutiGenerico extends javax.swing.JPanel {
         return homeFrame;
     }
     
-    public void setController(Controller controller) {
+    private void setController(Controller controller) {
         this.controller = controller;
     }            
     
-    public void setHomeFrame(HomeFrameOperatore homeFrame) {
+    private void setHomeFrame(HomeFrameOperatore homeFrame) {
         this.homeFrame = homeFrame;
     }
     
@@ -37,8 +37,25 @@ public abstract class PanelContenutiGenerico extends javax.swing.JPanel {
         }
     }
     
+    public Object ottieniOggettoSelezionato(JTable table) {
+        DefaultTableModel modelTable = (DefaultTableModel) table.getModel();
+        return modelTable.getValueAt(table.getSelectedRow(), 0);
+    }
+    
     public void svuotaTable(JTable table) {
         DefaultTableModel modelTable = (DefaultTableModel) table.getModel();
         modelTable.setRowCount(0);
     }
+    
+    public void inserisciRigaInTable(JTable table, Object[] row) {
+        DefaultTableModel modelTable = (DefaultTableModel) table.getModel();
+        modelTable.addRow(row);
+    }
+    
+    public void rimuoviRigaDaTable(JTable table) {
+        DefaultTableModel modelTable = (DefaultTableModel) table.getModel();
+        modelTable.removeRow(table.getSelectedRow());
+    }
+    
+    
 }

@@ -7,10 +7,7 @@ import gui.homeFrame.panels.panelContenutiGenerico.PanelContenutiGenerico;
 public class PanelNuovoStudente extends PanelContenutiGenerico {
     
     public PanelNuovoStudente(Controller controller, HomeFrameOperatore homeFrame) {
-        super(controller, homeFrame);
-        
-        getController().setPanelNuovoStudente(this);
-        
+        super(controller, homeFrame);        
         initComponents();
     }
     
@@ -131,10 +128,7 @@ public class PanelNuovoStudente extends PanelContenutiGenerico {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void svuotaCampi() {
-        textFieldNomeStudente.setText("");
-        textFieldCognomeStudente.setText("");
-    }
+    
     
     private void buttonRegistraStudenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegistraStudenteActionPerformed
         // TODO add your handling code here:
@@ -154,6 +148,10 @@ public class PanelNuovoStudente extends PanelContenutiGenerico {
         getHomeFrame().mostraCardStudentiHome();
     }//GEN-LAST:event_buttonIndietroActionPerformed
 
+    private void svuotaCampi() {
+        textFieldNomeStudente.setText("");
+        textFieldCognomeStudente.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonIndietro;

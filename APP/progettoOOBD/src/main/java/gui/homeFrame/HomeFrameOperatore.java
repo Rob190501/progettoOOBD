@@ -89,6 +89,7 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(1000, 600));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1000, 600));
         setSize(new java.awt.Dimension(1000, 600));
 
         panelTotale.setBackground(new java.awt.Color(255, 255, 255));
@@ -323,21 +324,27 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     private void creaPanels() {
         panelHomePage = new PanelHomePage(controller, this);
         panelContenuti.add(panelHomePage, "cardHomePage");
+        controller.setPanelHomePage(panelHomePage);
         
         panelStudentiHome = new PanelStudentiHome(controller, this);
         panelStudenti.add(panelStudentiHome, "cardStudentiHome");
+        controller.setPanelStudentiHome(panelStudentiHome);
         
         panelNuovoStudente = new PanelNuovoStudente(controller, this);
         panelStudenti.add(panelNuovoStudente, "cardNuovoStudente");
+        controller.setPanelNuovoStudente(panelNuovoStudente);
         
         panelAreeTematicheHome = new PanelAreeTematicheHome(controller, this);
         panelAreeTematiche.add(panelAreeTematicheHome, "cardAreeTematicheHome");
+        controller.setPanelAreeTematicheHome(panelAreeTematicheHome);
         
         panelCorsiHome = new PanelCorsiHome(controller, this);
         panelCorsi.add(panelCorsiHome, "cardPanelCorsiHome");
+        controller.setPanelCorsiHome(panelCorsiHome);
         
         panelLezioniHome = new PanelLezioniHome(controller, this);
         panelLezioni.add(panelLezioniHome, "cardPanelLezioniHome");
+        controller.setPanelLezioniHome(panelLezioniHome);
     }
     
     public void mostraCardHomePage() {

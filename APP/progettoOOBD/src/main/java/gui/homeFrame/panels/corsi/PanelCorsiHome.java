@@ -3,7 +3,6 @@ package gui.homeFrame.panels.corsi;
 import controller.Controller;
 import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.panelContenutiGenerico.PanelContenutiGenerico;
-import javax.swing.table.DefaultTableModel;
 
 
 public class PanelCorsiHome extends PanelContenutiGenerico {
@@ -11,7 +10,6 @@ public class PanelCorsiHome extends PanelContenutiGenerico {
     
     public PanelCorsiHome(Controller controller, HomeFrameOperatore homeFrame) {
         super(controller, homeFrame);
-        getController().setPanelCorsiHome(this);
         initComponents();
         nascondiTutteColonneOggetto();
     }
@@ -251,16 +249,14 @@ public class PanelCorsiHome extends PanelContenutiGenerico {
 
     private void tableCorsiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCorsiMouseClicked
         // TODO add your handling code here:
-        Object corsoSelezionato = tableCorsi.getModel().getValueAt(tableCorsi.getSelectedRow(), 0);
-        svuotaTable(tableLezioniDelCorso);
+        svuotaTableSecondarie();
+        Object corsoSelezionato = ottieniOggettoSelezionato(tableCorsi);
         getController().inserisciLezioniDelCorsoInJTable(corsoSelezionato);
-        svuotaTable(tableStudentiIscritti);
         getController().inserisciStudenteDelCorsoInJTable(corsoSelezionato);
-        svuotaTable(tableAreeDelCorso);
         getController().inserisciAreeDelCorsoInJTable(corsoSelezionato);
     }//GEN-LAST:event_tableCorsiMouseClicked
 
-    public void nascondiTutteColonneOggetto() {
+    private void nascondiTutteColonneOggetto() {
         nascondiColonnaOggetto(tableCorsi);
         nascondiColonnaOggetto(tableLezioniDelCorso);
         nascondiColonnaOggetto(tableStudentiIscritti);
@@ -274,24 +270,26 @@ public class PanelCorsiHome extends PanelContenutiGenerico {
         svuotaTable(tableAreeDelCorso);
     }
     
+    public void svuotaTableSecondarie() {
+        svuotaTable(tableLezioniDelCorso);
+        svuotaTable(tableStudentiIscritti);
+        svuotaTable(tableAreeDelCorso);
+    }
+    
     public void inserisciRigaInTableCorsi(Object[] row) {
-        DefaultTableModel modelTableCorsi = (DefaultTableModel) tableCorsi.getModel();
-        modelTableCorsi.addRow(row);
+        inserisciRigaInTable(tableCorsi, row);
     }
     
     public void inserisciRigaInTableLezioniDelCorso(Object[] row) {
-        DefaultTableModel modelTableLezioniDelCorso = (DefaultTableModel) tableLezioniDelCorso.getModel();
-        modelTableLezioniDelCorso.addRow(row);
+        inserisciRigaInTable(tableLezioniDelCorso, row);
     }
     
     public void inserisciRigaInTableStudentiIscritti(Object[] row) {
-        DefaultTableModel modelTableStudentiIscritti = (DefaultTableModel) tableStudentiIscritti.getModel();
-        modelTableStudentiIscritti.addRow(row);
+        inserisciRigaInTable(tableStudentiIscritti, row);
     }
     
     public void inserisciRigaInTableAreeDelCorso(Object[] row) {
-        DefaultTableModel modelTableAreeDelCorso = (DefaultTableModel) tableAreeDelCorso.getModel();
-        modelTableAreeDelCorso.addRow(row);
+        inserisciRigaInTable(tableAreeDelCorso, row);
     }
     
     

@@ -3,13 +3,11 @@ package gui.homeFrame.panels.studenti;
 import controller.Controller;
 import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.panelContenutiGenerico.PanelContenutiGenerico;
-import javax.swing.table.DefaultTableModel;
 
 public class PanelStudentiHome extends PanelContenutiGenerico {
     
     public PanelStudentiHome(Controller controller, HomeFrameOperatore homeFrame) {
         super(controller, homeFrame);
-        getController().setPanelStudentiHome(this);
         initComponents();
         nascondiTutteColonneOggetti();
     }
@@ -232,10 +230,9 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
     
     private void tableStudentiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableStudentiMouseClicked
         // TODO add your handling code here:
-        Object studenteSelezionato = tableStudenti.getModel().getValueAt(tableStudenti.getSelectedRow(), 0);
-        svuotaTable(tableCorsiFrequentati);
+        svuotaTableSecondarie();
+        Object studenteSelezionato = ottieniOggettoSelezionato(tableStudenti);
         getController().inserisciCorsiFrequentatiInJTable(studenteSelezionato);
-        svuotaTable(tablePresenze);
         getController().inserisciPresenzeInJTable(studenteSelezionato);
     }//GEN-LAST:event_tableStudentiMouseClicked
 
@@ -246,9 +243,9 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
 
     private void buttonEliminaStudenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEliminaStudenteActionPerformed
         // TODO add your handling code here:
-        Object studenteSelezionato = tableStudenti.getModel().getValueAt(tableStudenti.getSelectedRow(), 0);
+        Object studenteSelezionato = ottieniOggettoSelezionato(tableStudenti);
         getController().eliminaStudente(studenteSelezionato);
-        ((DefaultTableModel) tableStudenti.getModel()).removeRow(tableStudenti.getSelectedRow());
+        rimuoviRigaDaTable(tableStudenti);
     }//GEN-LAST:event_buttonEliminaStudenteActionPerformed
 
     private void nascondiTutteColonneOggetti() {
@@ -263,19 +260,21 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
         svuotaTable(tablePresenze);
     }
     
+    public void svuotaTableSecondarie() {
+        svuotaTable(tableCorsiFrequentati);
+        svuotaTable(tablePresenze);
+    }
+    
     public void inserisciRigaInTableStudenti(Object[] row) {
-        DefaultTableModel modelTableStudenti = (DefaultTableModel) tableStudenti.getModel();
-        modelTableStudenti.addRow(row);
+        inserisciRigaInTable(tableStudenti, row);
     }
     
     public void inserisciRigaInTableCorsiFrequentati(Object[] row) {
-        DefaultTableModel modelTableCorsiFrequentati = (DefaultTableModel) tableCorsiFrequentati.getModel();
-        modelTableCorsiFrequentati.addRow(row);
+        inserisciRigaInTable(tableCorsiFrequentati, row);
     }
     
     public void inserisciRigaInTablePresenze(Object[] row) {
-        DefaultTableModel modelTablePresenze = (DefaultTableModel) tablePresenze.getModel();
-        modelTablePresenze.addRow(row);
+        inserisciRigaInTable(tablePresenze, row);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -3,7 +3,6 @@ package gui.homeFrame.panels.areeTematiche;
 import controller.Controller;
 import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.panelContenutiGenerico.PanelContenutiGenerico;
-import javax.swing.table.DefaultTableModel;
 
 
 public class PanelAreeTematicheHome extends PanelContenutiGenerico {
@@ -11,7 +10,6 @@ public class PanelAreeTematicheHome extends PanelContenutiGenerico {
     //costruttore
     public PanelAreeTematicheHome(Controller controller, HomeFrameOperatore homeFrame) {
         super(controller, homeFrame);
-        getController().setPanelAreeTematicheHome(this);
         initComponents();
         nascondiTutteColonneOggetto();
     }
@@ -158,13 +156,13 @@ public class PanelAreeTematicheHome extends PanelContenutiGenerico {
     
     private void tableAreeTematicheMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableAreeTematicheMouseClicked
         // TODO add your handling code here:
-        Object areaSelezionata = tableAreeTematiche.getModel().getValueAt(tableAreeTematiche.getSelectedRow(), 0);
+        Object areaSelezionata = ottieniOggettoSelezionato(tableAreeTematiche);
         svuotaTable(tableCorsiDellArea);
         getController().inserisciCorsiDellAreaInJTable(areaSelezionata);
     }//GEN-LAST:event_tableAreeTematicheMouseClicked
     
     
-    public void nascondiTutteColonneOggetto() {
+    private void nascondiTutteColonneOggetto() {
         nascondiColonnaOggetto(tableAreeTematiche);
         nascondiColonnaOggetto(tableCorsiDellArea);
     }
@@ -175,13 +173,11 @@ public class PanelAreeTematicheHome extends PanelContenutiGenerico {
     }
     
     public void inserisciRigaInTableAreeTematiche(Object[] row) {
-        DefaultTableModel modelTableAreeTematiche = (DefaultTableModel) tableAreeTematiche.getModel();
-        modelTableAreeTematiche.addRow(row);
+        inserisciRigaInTable(tableAreeTematiche, row);
     }
     
     public void inserisciRigaInTableCorsiDellArea(Object[] row) {
-        DefaultTableModel modelTableCorsiDellArea = (DefaultTableModel) tableCorsiDellArea.getModel();
-        modelTableCorsiDellArea.addRow(row);
+        inserisciRigaInTable(tableCorsiDellArea, row);
     }
     
     

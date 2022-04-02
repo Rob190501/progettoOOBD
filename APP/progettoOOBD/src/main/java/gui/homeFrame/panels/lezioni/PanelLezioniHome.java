@@ -3,7 +3,6 @@ package gui.homeFrame.panels.lezioni;
 import controller.Controller;
 import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.panelContenutiGenerico.PanelContenutiGenerico;
-import javax.swing.table.DefaultTableModel;
 
 
 public class PanelLezioniHome extends PanelContenutiGenerico {
@@ -11,7 +10,6 @@ public class PanelLezioniHome extends PanelContenutiGenerico {
     
     public PanelLezioniHome(Controller controller, HomeFrameOperatore homeFrame) {
         super(controller, homeFrame);
-        getController().setPanelLezioniHome(this);
         initComponents();
         nascondiTutteColonneOggetto();
     }
@@ -208,14 +206,13 @@ public class PanelLezioniHome extends PanelContenutiGenerico {
 
     private void tableLezioniMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableLezioniMouseClicked
         // TODO add your handling code here:
-        Object lezioneSelezionata = tableLezioni.getModel().getValueAt(tableLezioni.getSelectedRow(), 0);
-        svuotaTable(tableStudentiPresenti);
+        svuotaTableSecondarie();
+        Object lezioneSelezionata = ottieniOggettoSelezionato(tableLezioni);
         getController().inserisciStudentiPresentiInJTable(lezioneSelezionata);
-        svuotaTable(tableCorsoDellaLezione);
         getController().inserisciCorsoDellaLezioneInJTable(lezioneSelezionata);
     }//GEN-LAST:event_tableLezioniMouseClicked
 
-    public void nascondiTutteColonneOggetto() {
+    private void nascondiTutteColonneOggetto() {
         nascondiColonnaOggetto(tableLezioni);
         nascondiColonnaOggetto(tableStudentiPresenti);
         nascondiColonnaOggetto(tableCorsoDellaLezione);
@@ -227,19 +224,21 @@ public class PanelLezioniHome extends PanelContenutiGenerico {
         svuotaTable(tableCorsoDellaLezione);
     }
     
+    public void svuotaTableSecondarie() {
+        svuotaTable(tableStudentiPresenti);
+        svuotaTable(tableCorsoDellaLezione);
+    }
+    
     public void inserisciRigaInTableLezioni(Object[] row) {
-        DefaultTableModel modelTableLezioni = (DefaultTableModel) tableLezioni.getModel();
-        modelTableLezioni.addRow(row);
+        inserisciRigaInTable(tableLezioni, row);
     }
     
     public void inserisciRigaInTableStudentiPresenti(Object[] row) {
-        DefaultTableModel modelTableStudentiPresenti = (DefaultTableModel) tableStudentiPresenti.getModel();
-        modelTableStudentiPresenti.addRow(row);
+        inserisciRigaInTable(tableStudentiPresenti, row);
     }
     
     public void inserisciRigaInTableCorsoDellaLezione(Object[] row) {
-        DefaultTableModel modelTableCorsoDellaLezione = (DefaultTableModel) tableCorsoDellaLezione.getModel();
-        modelTableCorsoDellaLezione.addRow(row);
+        inserisciRigaInTable(tableCorsoDellaLezione, row);
     }
     
     
