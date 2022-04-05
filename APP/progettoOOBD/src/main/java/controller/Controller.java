@@ -19,8 +19,6 @@ import gui.homeFrame.panels.studenti.PanelStudentiHome;
 import gui.login.LoginFrame;
 import java.sql.Connection;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Controller {
     
@@ -58,54 +56,109 @@ public class Controller {
     
     //costruttore
     public Controller(){
-        loginFrame = new LoginFrame(this);
-        loginFrame.setVisible(true);
     }
     //fine costruttore
-
+    
     
     
     //getters e setters
-    public Connection getConnection() {
+    public Connection getConnection() {        
         return connection;
+    }
+
+    public LoginFrame getLoginFrame() {
+        return loginFrame;
+    }
+
+    public HomeFrameOperatore getHomeFrameOperatore() {
+        return homeFrameOperatore;
+    }
+
+    public PanelHomePage getPanelHomePage() {
+        return panelHomePage;
+    }
+
+    public PanelStudentiHome getPanelStudentiHome() {
+        return panelStudentiHome;
+    }
+
+    public PanelNuovoStudente getPanelNuovoStudente() {
+        return panelNuovoStudente;
+    }
+
+    public PanelAreeTematicheHome getPanelAreeTematicheHome() {
+        return panelAreeTematicheHome;
+    }
+
+    public PanelCorsiHome getPanelCorsiHome() {
+        return panelCorsiHome;
+    }
+
+    public PanelLezioniHome getPanelLezioniHome() {
+        return panelLezioniHome;
     }
 
     public LinkedList<AreaTematica> getListaAreeTematiche() {
         return listaAreeTematiche;
     }
 
+    public AreaTematicaDAOImplementazione getAreaTematicaDAO() {
+        return areaTematicaDAO;
+    }
+
     public LinkedList<Corso> getListaCorsi() {
         return listaCorsi;
+    }
+
+    public CorsoDAOImplementazione getCorsoDAO() {
+        return corsoDAO;
     }
 
     public LinkedList<Lezione> getListaLezioni() {
         return listaLezioni;
     }
 
+    public LezioneDAOImplementazione getLezioneDAO() {
+        return lezioneDAO;
+    }
+
     public LinkedList<Studente> getListaStudenti() {
         return listaStudenti;
     }
+
     
-    private void setConnection(Connection connection) {
+    public StudenteDAOImplementazione getStudenteDAO() {    
+        return studenteDAO;
+    }
+
+    public void setConnection(Connection connection) {
         this.connection = connection;
     }
-    
+
+    public void setLoginFrame(LoginFrame loginFrame) {
+        this.loginFrame = loginFrame;
+    }
+
+    public void setHomeFrameOperatore(HomeFrameOperatore homeFrameOperatore) {
+        this.homeFrameOperatore = homeFrameOperatore;
+    }
+
     public void setPanelHomePage(PanelHomePage panelHomePage) {
         this.panelHomePage = panelHomePage;
     }
-    
+
     public void setPanelStudentiHome(PanelStudentiHome panelStudentiHome) {
         this.panelStudentiHome = panelStudentiHome;
     }
-    
+
     public void setPanelNuovoStudente(PanelNuovoStudente panelNuovoStudente) {
         this.panelNuovoStudente = panelNuovoStudente;
     }
-    
+
     public void setPanelAreeTematicheHome(PanelAreeTematicheHome panelAreeTematicheHome) {
         this.panelAreeTematicheHome = panelAreeTematicheHome;
     }
-    
+
     public void setPanelCorsiHome(PanelCorsiHome panelCorsiHome) {
         this.panelCorsiHome = panelCorsiHome;
     }
@@ -113,21 +166,37 @@ public class Controller {
     public void setPanelLezioniHome(PanelLezioniHome panelLezioniHome) {
         this.panelLezioniHome = panelLezioniHome;
     }
-    
-    private void setListaAreeTematiche(LinkedList<AreaTematica> listaAreeTematiche) {
+
+    public void setListaAreeTematiche(LinkedList<AreaTematica> listaAreeTematiche) {
         this.listaAreeTematiche = listaAreeTematiche;
     }
 
-    private void setListaCorsi(LinkedList<Corso> listaCorsi) {
+    public void setAreaTematicaDAO(AreaTematicaDAOImplementazione areaTematicaDAO) {
+        this.areaTematicaDAO = areaTematicaDAO;
+    }
+
+    public void setListaCorsi(LinkedList<Corso> listaCorsi) {
         this.listaCorsi = listaCorsi;
     }
 
-    private void setListaLezioni(LinkedList<Lezione> listaLezioni) {
+    public void setCorsoDAO(CorsoDAOImplementazione corsoDAO) {
+        this.corsoDAO = corsoDAO;
+    }
+
+    public void setListaLezioni(LinkedList<Lezione> listaLezioni) {
         this.listaLezioni = listaLezioni;
     }
 
-    private void setListaStudenti(LinkedList<Studente> listaStudenti) {
+    public void setLezioneDAO(LezioneDAOImplementazione lezioneDAO) {
+        this.lezioneDAO = lezioneDAO;
+    }
+
+    public void setListaStudenti(LinkedList<Studente> listaStudenti) {
         this.listaStudenti = listaStudenti;
+    }
+
+    public void setStudenteDAO(StudenteDAOImplementazione studenteDAO) {
+        this.studenteDAO = studenteDAO;
     }
     //fine getters e setters
     
@@ -208,16 +277,37 @@ public class Controller {
         
         if(homeFrameOperatore == null) {
             homeFrameOperatore = new HomeFrameOperatore(this);
+            creaPanels();
+            homeFrameOperatore.aggiungiPanels();
         }
         
         riempiTablePrincipali();
-        
         homeFrameOperatore.setVisible(true);
     }
     
     public void esciDaOperatore() {
         loginFrame.setVisible(true);
         homeFrameOperatore.setVisible(false);
+    }
+    
+    private void creaPanels() {
+        panelHomePage = new PanelHomePage(this, homeFrameOperatore);
+        homeFrameOperatore.setPanelHomePage(panelHomePage);
+        
+        panelStudentiHome = new PanelStudentiHome(this, homeFrameOperatore);
+        homeFrameOperatore.setPanelStudentiHome(panelStudentiHome);
+        
+        panelNuovoStudente = new PanelNuovoStudente(this, homeFrameOperatore);
+        homeFrameOperatore.setPanelNuovoStudente(panelNuovoStudente);
+        
+        panelAreeTematicheHome = new PanelAreeTematicheHome(this, homeFrameOperatore);
+        homeFrameOperatore.setPanelAreeTematicheHome(panelAreeTematicheHome);
+        
+        panelCorsiHome = new PanelCorsiHome(this, homeFrameOperatore);
+        homeFrameOperatore.setPanelCorsiHome(panelCorsiHome);
+        
+        panelLezioniHome = new PanelLezioniHome(this, homeFrameOperatore);
+        homeFrameOperatore.setPanelLezioniHome(panelLezioniHome);
     }
     
     private void riempiTablePrincipali() {
@@ -238,7 +328,7 @@ public class Controller {
     
     
     //panel home page
-    public void informazioniHomePage() {
+    public void aggiornaInformazioniHomePage() {
         panelHomePage.impostaInformazioniHomePage(listaStudenti.size(), listaAreeTematiche.size(), listaCorsi.size(), listaLezioni.size());
     }
     //fine panel home page
@@ -283,7 +373,8 @@ public class Controller {
             studenteDAO.createStudente(studente);
             listaStudenti.add(studente);
             inserisciStudenteInJTable(studente);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             homeFrameOperatore.mostraEccezione(e);
         }
     }
@@ -383,7 +474,8 @@ public class Controller {
     
     //main
     public static void main(String[] args){        
-        Controller c = new Controller();
-        
+        Controller controller = new Controller();
+        controller.setLoginFrame(new LoginFrame(controller));
+        controller.getLoginFrame().setVisible(true);
     }
 }

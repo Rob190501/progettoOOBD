@@ -38,7 +38,6 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     public HomeFrameOperatore(Controller controller) {
         setController(controller);
         initComponents();
-        creaPanels();
     }
     
     
@@ -46,6 +45,32 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     private void setController(Controller controller) {
         this.controller = controller;
     }
+
+    public void setPanelHomePage(PanelHomePage panelHomePage) {
+        this.panelHomePage = panelHomePage;
+    }
+
+    public void setPanelStudentiHome(PanelStudentiHome panelStudentiHome) {
+        this.panelStudentiHome = panelStudentiHome;
+    }
+
+    public void setPanelNuovoStudente(PanelNuovoStudente panelNuovoStudente) {
+        this.panelNuovoStudente = panelNuovoStudente;
+    }
+
+    public void setPanelAreeTematicheHome(PanelAreeTematicheHome panelAreeTematicheHome) {
+        this.panelAreeTematicheHome = panelAreeTematicheHome;
+    }
+
+    public void setPanelCorsiHome(PanelCorsiHome panelCorsiHome) {
+        this.panelCorsiHome = panelCorsiHome;
+    }
+
+    public void setPanelLezioniHome(PanelLezioniHome panelLezioniHome) {
+        this.panelLezioniHome = panelLezioniHome;
+    }
+    
+    
     
     
     
@@ -67,10 +92,10 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         labelRidimensiona = new javax.swing.JLabel();
         labelChiudi = new javax.swing.JLabel();
         panelContenuti = new javax.swing.JPanel();
-        panelStudenti = new javax.swing.JPanel();
-        panelAreeTematiche = new javax.swing.JPanel();
-        panelCorsi = new javax.swing.JPanel();
-        panelLezioni = new javax.swing.JPanel();
+        panelSezioneStudenti = new javax.swing.JPanel();
+        panelSezioneAreeTematiche = new javax.swing.JPanel();
+        panelSezioneCorsi = new javax.swing.JPanel();
+        panelSezioneLezioni = new javax.swing.JPanel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -89,7 +114,6 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(1000, 600));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1000, 600));
         setSize(new java.awt.Dimension(1000, 600));
 
         panelTotale.setBackground(new java.awt.Color(255, 255, 255));
@@ -268,21 +292,21 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         panelContenuti.setBackground(new java.awt.Color(255, 255, 255));
         panelContenuti.setLayout(new java.awt.CardLayout());
 
-        panelStudenti.setBackground(new java.awt.Color(255, 255, 255));
-        panelStudenti.setLayout(new java.awt.CardLayout());
-        panelContenuti.add(panelStudenti, "cardStudenti");
+        panelSezioneStudenti.setBackground(new java.awt.Color(255, 255, 255));
+        panelSezioneStudenti.setLayout(new java.awt.CardLayout());
+        panelContenuti.add(panelSezioneStudenti, "cardStudenti");
 
-        panelAreeTematiche.setBackground(new java.awt.Color(255, 255, 255));
-        panelAreeTematiche.setLayout(new java.awt.CardLayout());
-        panelContenuti.add(panelAreeTematiche, "cardAreeTematiche");
+        panelSezioneAreeTematiche.setBackground(new java.awt.Color(255, 255, 255));
+        panelSezioneAreeTematiche.setLayout(new java.awt.CardLayout());
+        panelContenuti.add(panelSezioneAreeTematiche, "cardAreeTematiche");
 
-        panelCorsi.setBackground(new java.awt.Color(255, 255, 255));
-        panelCorsi.setLayout(new java.awt.CardLayout());
-        panelContenuti.add(panelCorsi, "cardCorsi");
+        panelSezioneCorsi.setBackground(new java.awt.Color(255, 255, 255));
+        panelSezioneCorsi.setLayout(new java.awt.CardLayout());
+        panelContenuti.add(panelSezioneCorsi, "cardCorsi");
 
-        panelLezioni.setBackground(new java.awt.Color(255, 255, 255));
-        panelLezioni.setLayout(new java.awt.CardLayout());
-        panelContenuti.add(panelLezioni, "cardLezioni");
+        panelSezioneLezioni.setBackground(new java.awt.Color(255, 255, 255));
+        panelSezioneLezioni.setLayout(new java.awt.CardLayout());
+        panelContenuti.add(panelSezioneLezioni, "cardLezioni");
 
         javax.swing.GroupLayout panelTotaleLayout = new javax.swing.GroupLayout(panelTotale);
         panelTotale.setLayout(panelTotaleLayout);
@@ -319,36 +343,18 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
-    
-    
-    private void creaPanels() {
-        panelHomePage = new PanelHomePage(controller, this);
+    public void aggiungiPanels() {
         panelContenuti.add(panelHomePage, "cardHomePage");
-        controller.setPanelHomePage(panelHomePage);
+        panelSezioneStudenti.add(panelStudentiHome, "cardStudentiHome");
+        panelSezioneStudenti.add(panelNuovoStudente, "cardNuovoStudente");
+        panelSezioneAreeTematiche.add(panelAreeTematicheHome, "cardAreeTematicheHome");
+        panelSezioneCorsi.add(panelCorsiHome, "cardPanelCorsiHome");
+        panelSezioneLezioni.add(panelLezioniHome, "cardPanelLezioniHome");
         
-        panelStudentiHome = new PanelStudentiHome(controller, this);
-        panelStudenti.add(panelStudentiHome, "cardStudentiHome");
-        controller.setPanelStudentiHome(panelStudentiHome);
-        
-        panelNuovoStudente = new PanelNuovoStudente(controller, this);
-        panelStudenti.add(panelNuovoStudente, "cardNuovoStudente");
-        controller.setPanelNuovoStudente(panelNuovoStudente);
-        
-        panelAreeTematicheHome = new PanelAreeTematicheHome(controller, this);
-        panelAreeTematiche.add(panelAreeTematicheHome, "cardAreeTematicheHome");
-        controller.setPanelAreeTematicheHome(panelAreeTematicheHome);
-        
-        panelCorsiHome = new PanelCorsiHome(controller, this);
-        panelCorsi.add(panelCorsiHome, "cardPanelCorsiHome");
-        controller.setPanelCorsiHome(panelCorsiHome);
-        
-        panelLezioniHome = new PanelLezioniHome(controller, this);
-        panelLezioni.add(panelLezioniHome, "cardPanelLezioniHome");
-        controller.setPanelLezioniHome(panelLezioniHome);
     }
     
     public void mostraCardHomePage() {
-        controller.informazioniHomePage();
+        controller.aggiornaInformazioniHomePage();
         CardLayout card = (CardLayout) panelContenuti.getLayout();
         card.show(panelContenuti, "cardHomePage");
     }
@@ -359,13 +365,13 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     }
     
     public void mostraCardStudentiHome() {
-        CardLayout card = (CardLayout) panelStudenti.getLayout();
-        card.show(panelStudenti, "cardStudentiHome");
+        CardLayout card = (CardLayout) panelSezioneStudenti.getLayout();
+        card.show(panelSezioneStudenti, "cardStudentiHome");
     }
     
     public void mostraCardNuovoStudente() {
-        CardLayout card = (CardLayout) panelStudenti.getLayout();
-        card.show(panelStudenti, "cardNuovoStudente");
+        CardLayout card = (CardLayout) panelSezioneStudenti.getLayout();
+        card.show(panelSezioneStudenti, "cardNuovoStudente");
     }
     
     public void mostraCardAreeTematiche() {
@@ -535,12 +541,12 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     private javax.swing.JLabel labelMinimizza;
     private javax.swing.JLabel labelRidimensiona;
     private javax.swing.JLabel labelTitolo;
-    private javax.swing.JPanel panelAreeTematiche;
     private javax.swing.JPanel panelContenuti;
-    private javax.swing.JPanel panelCorsi;
-    private javax.swing.JPanel panelLezioni;
     private javax.swing.JPanel panelMenu;
-    private javax.swing.JPanel panelStudenti;
+    private javax.swing.JPanel panelSezioneAreeTematiche;
+    private javax.swing.JPanel panelSezioneCorsi;
+    private javax.swing.JPanel panelSezioneLezioni;
+    private javax.swing.JPanel panelSezioneStudenti;
     private javax.swing.JPanel panelSuperiore;
     private javax.swing.JPanel panelTotale;
     // End of variables declaration//GEN-END:variables
