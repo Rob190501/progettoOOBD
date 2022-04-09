@@ -18,6 +18,7 @@ import gui.homeFrame.panels.studenti.PanelNuovoStudente;
 import gui.homeFrame.panels.studenti.PanelStudentiHome;
 import gui.login.LoginFrame;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 public class Controller {
@@ -53,13 +54,10 @@ public class Controller {
     private StudenteDAOImplementazione studenteDAO;
     //fine attributi
     
-    
     //costruttore
     public Controller(){
     }
     //fine costruttore
-    
-    
     
     //getters e setters
     public Connection getConnection() {        
@@ -200,8 +198,6 @@ public class Controller {
     }
     //fine getters e setters
     
-    
-    
     //connessione
     public boolean avviaConnessione(String userName, String password, String ip, String porta, String db) {        
         chiudiConnessione();
@@ -210,18 +206,18 @@ public class Controller {
             avviaDAO();
             return true;
         }
-        catch(Exception e) {
+        catch(SQLException | ClassNotFoundException e) {
             loginFrame.mostraEccezione(e);
             return false;
         }
     }
     
     public void chiudiConnessione() {
-        if(connection != null){
+        if(connection != null){   
             try {
                 connection.close();
             }
-            catch(Exception e) {
+            catch(SQLException e) {
                 if(loginFrame.isVisible()) {
                     loginFrame.mostraEccezione(e);
                 }
@@ -233,8 +229,6 @@ public class Controller {
     }
     //fine connessione
     
-    
-    
     //esci
     public void terminaEsecuzione() {
         chiudiConnessione();
@@ -242,25 +236,21 @@ public class Controller {
     }
     //fine esci
     
-    
+    arrivato qui, controllare eccezioni nei DAO prima di continuare
     
     //DAO
     private void avviaDAO() {
         try {
             areaTematicaDAO = new AreaTematicaDAOImplementazione(this, connection);
-            
             setListaAreeTematiche(areaTematicaDAO.retrieveAllAreaTematica());
             
             corsoDAO = new CorsoDAOImplementazione(this, connection);
-            
             setListaCorsi(corsoDAO.retrieveAllCorso(listaAreeTematiche));
             
             lezioneDAO = new LezioneDAOImplementazione(this, connection);
-            
             setListaLezioni(lezioneDAO.retrieveAllLezione(listaCorsi));
             
             studenteDAO = new StudenteDAOImplementazione(this, connection);
-            
             setListaStudenti(studenteDAO.retrieveAllStudente(listaCorsi, listaLezioni));
         }
         catch (Exception e) {

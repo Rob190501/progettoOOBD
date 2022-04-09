@@ -6,6 +6,7 @@ import dto.AreaTematica;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfaccia {
@@ -35,8 +36,8 @@ public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfacci
     }
 
     @Override
-    public LinkedList<AreaTematica> retrieveAllAreaTematica() throws Exception {
-        LinkedList<AreaTematica> listaAreeTematiche = new LinkedList<AreaTematica>();
+    public LinkedList<AreaTematica> retrieveAllAreaTematica() throws SQLException {
+        LinkedList<AreaTematica> listaAreeTematiche = new LinkedList<>();
         
         PreparedStatement pst = connection.prepareStatement(query);
         
