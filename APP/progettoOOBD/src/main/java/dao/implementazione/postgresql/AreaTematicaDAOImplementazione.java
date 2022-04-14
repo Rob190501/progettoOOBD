@@ -31,7 +31,7 @@ public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfacci
     }
     
     @Override
-    public boolean createAreaTematica(AreaTematica area) {
+    public void createAreaTematica(AreaTematica area) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -60,12 +60,12 @@ public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfacci
     }
 
     @Override
-    public boolean updateAreaTematica(AreaTematica areaTematica) {
+    public void updateAreaTematica(AreaTematica areaTematica) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public boolean deleteAreaTematica(AreaTematica areaTematica) {
+    public void deleteAreaTematica(AreaTematica areaTematica) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

@@ -1,6 +1,7 @@
 package gui.homeFrame.panels.studenti;
 
 import controller.Controller;
+import eccezioni.campi.NessunaRigaSelezionataException;
 import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.panelContenutiGenerico.PanelContenutiGenerico;
 
@@ -243,9 +244,17 @@ public class PanelStudentiHome extends PanelContenutiGenerico {
 
     private void buttonEliminaStudenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEliminaStudenteActionPerformed
         // TODO add your handling code here:
-        Object studenteSelezionato = ottieniOggettoSelezionato(tableStudenti);
-        getController().eliminaStudente(studenteSelezionato);
-        rimuoviRigaDaTable(tableStudenti);
+        try {
+            if(tableStudenti.getSelectedRow() == -1) {
+                throw new NessunaRigaSelezionataException("Studenti");
+            }
+            Object studenteSelezionato = ottieniOggettoSelezionato(tableStudenti);
+            getController().eliminaStudente(studenteSelezionato);
+            rimuoviRigaDaTable(tableStudenti);
+        }
+        catch (NessunaRigaSelezionataException e) {
+            getHomeFrame().mostraEccezione(e.getMessage());
+        }
     }//GEN-LAST:event_buttonEliminaStudenteActionPerformed
 
     private void nascondiTutteColonneOggetti() {

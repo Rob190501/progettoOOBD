@@ -9,6 +9,12 @@ import dto.AreaTematica;
 import dto.Corso;
 import dto.Lezione;
 import dto.Studente;
+import eccezioni.associazioni.AssociazioneCorsoAreaTematicaFallitaException;
+import eccezioni.associazioni.AssociazioneLezioneCorsoFallitaException;
+import eccezioni.associazioni.AssociazioneStudenteCorsoFallitaException;
+import eccezioni.associazioni.AssociazioneStudenteLezioneFallitaException;
+import eccezioni.create.CreateStudenteFallitoException;
+import eccezioni.delete.DeleteStudenteFallitoException;
 import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.areeTematiche.PanelAreeTematicheHome;
 import gui.homeFrame.panels.corsi.PanelCorsiHome;
@@ -24,7 +30,7 @@ import java.util.LinkedList;
 public class Controller {
     
     //attributi
-    private Connection connection = null;
+    private Connection connection;
     
     private LoginFrame loginFrame;
     
@@ -199,16 +205,18 @@ public class Controller {
     //fine getters e setters
     
     //connessione
-    public boolean avviaConnessione(String userName, String password, String ip, String porta, String db) {        
+    public void avviaConnessione(String userName, String password, String ip, String porta, String db) {        
         chiudiConnessione();
         try {
             setConnection(ConnessioneDB.getIstanza(userName, password, ip, porta, db).getConnection());
             avviaDAO();
-            return true;
+            retrieveAllDTO();
+            loginFrame.connessioneStabilita();
         }
-        catch(SQLException | ClassNotFoundException e) {
-            loginFrame.mostraEccezione(e);
-            return false;
+        catch(SQLException | ClassNotFoundException | AssociazioneCorsoAreaTematicaFallitaException |
+              AssociazioneLezioneCorsoFallitaException | AssociazioneStudenteCorsoFallitaException | AssociazioneStudenteLezioneFallitaException e) {
+            loginFrame.connessioneNonStabilita();
+            loginFrame.mostraEccezione(e.getMessage());
         }
     }
     
@@ -219,13 +227,19 @@ public class Controller {
             }
             catch(SQLException e) {
                 if(loginFrame.isVisible()) {
-                    loginFrame.mostraEccezione(e);
+                    loginFrame.mostraEccezione(e.getMessage());
                 }
                 if(homeFrameOperatore.isVisible()) {
-                    homeFrameOperatore.mostraEccezione(e);
+                    homeFrameOperatore.mostraEccezione(e.getMessage());
                 }
             }
         }
+    }
+    
+    public void chiudiConnessionePerErrori() {
+        chiudiConnessione();
+        esciDaOperatore();
+        loginFrame.connessioneNonStabilita();
     }
     //fine connessione
     
@@ -236,26 +250,22 @@ public class Controller {
     }
     //fine esci
     
-    arrivato qui, controllare eccezioni nei DAO prima di continuare
+    
     
     //DAO
     private void avviaDAO() {
-        try {
-            areaTematicaDAO = new AreaTematicaDAOImplementazione(this, connection);
-            setListaAreeTematiche(areaTematicaDAO.retrieveAllAreaTematica());
-            
-            corsoDAO = new CorsoDAOImplementazione(this, connection);
-            setListaCorsi(corsoDAO.retrieveAllCorso(listaAreeTematiche));
-            
-            lezioneDAO = new LezioneDAOImplementazione(this, connection);
-            setListaLezioni(lezioneDAO.retrieveAllLezione(listaCorsi));
-            
-            studenteDAO = new StudenteDAOImplementazione(this, connection);
-            setListaStudenti(studenteDAO.retrieveAllStudente(listaCorsi, listaLezioni));
-        }
-        catch (Exception e) {
-            loginFrame.mostraEccezione(e);
-        }
+        areaTematicaDAO = new AreaTematicaDAOImplementazione(this, connection);
+        corsoDAO = new CorsoDAOImplementazione(this, connection);
+        lezioneDAO = new LezioneDAOImplementazione(this, connection);    
+        studenteDAO = new StudenteDAOImplementazione(this, connection);
+    }
+    
+    public void retrieveAllDTO() throws SQLException, AssociazioneCorsoAreaTematicaFallitaException, AssociazioneLezioneCorsoFallitaException,
+                                        AssociazioneStudenteCorsoFallitaException, AssociazioneStudenteLezioneFallitaException {
+        setListaAreeTematiche(areaTematicaDAO.retrieveAllAreaTematica());
+        setListaCorsi(corsoDAO.retrieveAllCorso(listaAreeTematiche));
+        setListaLezioni(lezioneDAO.retrieveAllLezione(listaCorsi));
+        setListaStudenti(studenteDAO.retrieveAllStudente(listaCorsi, listaLezioni));
     }
     //fine DAO
     
@@ -364,8 +374,9 @@ public class Controller {
             listaStudenti.add(studente);
             inserisciStudenteInJTable(studente);
         }
-        catch (Exception e) {
-            homeFrameOperatore.mostraEccezione(e);
+        catch (SQLException | CreateStudenteFallitoException e) {
+            homeFrameOperatore.mostraEccezione(e.getMessage());
+            chiudiConnessionePerErrori();
         }
     }
     
@@ -377,8 +388,9 @@ public class Controller {
             studente.rimuoviStudenteDaAssociazioni();
             listaStudenti.remove(studente);
         }
-        catch(Exception e) {
-            homeFrameOperatore.mostraEccezione(e);
+        catch(SQLException | DeleteStudenteFallitoException e) {
+            homeFrameOperatore.mostraEccezione(e.getMessage());
+            chiudiConnessionePerErrori();
         }
     }
     //fine panel studenti

@@ -5,12 +5,12 @@ import java.util.LinkedList;
 
 public interface AreaTematicaDAOInterfaccia {
     
-    public boolean createAreaTematica(AreaTematica area);
+    public void createAreaTematica(AreaTematica area);
     
     public LinkedList<AreaTematica> retrieveAllAreaTematica() throws Exception;
     
-    public boolean updateAreaTematica(AreaTematica areaTematica);
+    public void updateAreaTematica(AreaTematica areaTematica);
     
-    public boolean deleteAreaTematica(AreaTematica areaTematica);
+    public void deleteAreaTematica(AreaTematica areaTematica);
     
 }

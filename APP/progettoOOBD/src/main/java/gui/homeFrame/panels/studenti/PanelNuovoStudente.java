@@ -1,6 +1,7 @@
 package gui.homeFrame.panels.studenti;
 
 import controller.Controller;
+import eccezioni.campi.CampoVuotoException;
 import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.panelContenutiGenerico.PanelContenutiGenerico;
 
@@ -135,11 +136,17 @@ public class PanelNuovoStudente extends PanelContenutiGenerico {
         String nome = textFieldNomeStudente.getText();
         String cognome = textFieldCognomeStudente.getText();
 
-        getController().nuovoStudente(nome, cognome);
-        
-        svuotaCampi();
-        
-        getHomeFrame().mostraCardStudentiHome();
+        try {
+            if (nome.equals("") || cognome.equals("")) {
+                throw new CampoVuotoException();
+            }
+            getController().nuovoStudente(nome, cognome);
+            svuotaCampi();
+            getHomeFrame().mostraCardStudentiHome();
+        }
+        catch(CampoVuotoException e) {
+            getHomeFrame().mostraEccezione(e.getMessage());
+        }
     }//GEN-LAST:event_buttonRegistraStudenteActionPerformed
 
     private void buttonIndietroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIndietroActionPerformed

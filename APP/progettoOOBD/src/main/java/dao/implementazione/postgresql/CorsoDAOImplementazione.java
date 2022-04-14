@@ -4,9 +4,12 @@ import controller.Controller;
 import dao.interfaccia.CorsoDAOInterfaccia;
 import dto.AreaTematica;
 import dto.Corso;
+import eccezioni.associazioni.AssociazioneCorsoAreaTematicaFallitaException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 
 public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
@@ -34,65 +37,68 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
     }
     
     @Override
-    public boolean createCorso(Corso corso) {
+    public void createCorso(Corso corso) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public LinkedList<Corso> retrieveAllCorso(LinkedList<AreaTematica> listaAreeTematiche) throws Exception {
-        LinkedList listaCorsi = new LinkedList<Corso>();
-        
-        PreparedStatement pstRetrieveAllCorso = connection.prepareStatement(querySelectAllCorso);
-        
-        ResultSet rsRetrieveAllCorso = pstRetrieveAllCorso.executeQuery();
-        
-        while(rsRetrieveAllCorso.next()) {
-            int codice_corso = rsRetrieveAllCorso.getInt("codice_corso");
-            String nome_corso = rsRetrieveAllCorso.getString("nome_corso");
-            String descrizione_corso = rsRetrieveAllCorso.getString("descrizione_corso");
-            int tasso_presenze_min = rsRetrieveAllCorso.getInt("tasso_presenze_min");
-            int partecipanti_max = rsRetrieveAllCorso.getInt("partecipanti_max");
+    public LinkedList<Corso> retrieveAllCorso(LinkedList<AreaTematica> listaAreeTematiche) throws SQLException, AssociazioneCorsoAreaTematicaFallitaException {
+        try (Statement stmtRetrieveAllCorso = connection.createStatement()) {
             
-            Corso corso = new Corso(codice_corso, nome_corso, descrizione_corso, tasso_presenze_min, partecipanti_max);
-            
-            aggiungiAreeTematiche(corso, listaAreeTematiche);
-            
-            listaCorsi.add(corso);
+            try (ResultSet rsRetrieveAllCorso = stmtRetrieveAllCorso.executeQuery(querySelectAllCorso)) {
+                LinkedList listaCorsi = new LinkedList<Corso>();
+                
+                while (rsRetrieveAllCorso.next()) {
+                    int codice_corso = rsRetrieveAllCorso.getInt("codice_corso");
+                    String nome_corso = rsRetrieveAllCorso.getString("nome_corso");
+                    String descrizione_corso = rsRetrieveAllCorso.getString("descrizione_corso");
+                    int tasso_presenze_min = rsRetrieveAllCorso.getInt("tasso_presenze_min");
+                    int partecipanti_max = rsRetrieveAllCorso.getInt("partecipanti_max");
+
+                    Corso corso = new Corso(codice_corso, nome_corso, descrizione_corso, tasso_presenze_min, partecipanti_max);
+                    aggiungiAreeTematiche(corso, listaAreeTematiche);
+
+                    listaCorsi.add(corso);
+                }
+                
+                return listaCorsi;
+            }
         }
-        
-        pstRetrieveAllCorso.close();
-        rsRetrieveAllCorso.close();
-        
-        return listaCorsi;
     }
     
-    private void aggiungiAreeTematiche(Corso corso, LinkedList<AreaTematica> listaAreeTematiche) throws Exception{
-        PreparedStatement pstAreeDelCorso = connection.prepareStatement(querySelectAreeDelCorso);
+    private void aggiungiAreeTematiche(Corso corso, LinkedList<AreaTematica> listaAreeTematiche) throws SQLException, AssociazioneCorsoAreaTematicaFallitaException {
+        try (PreparedStatement pstAreeDelCorso = connection.prepareStatement(querySelectAreeDelCorso)) {
+            pstAreeDelCorso.setInt(1, corso.getCodice());
             
-        pstAreeDelCorso.setInt(1, corso.getCodice());
-            
-        ResultSet rsAreeDelCorso = pstAreeDelCorso.executeQuery();
-        
-        while(rsAreeDelCorso.next()) {
-            for(AreaTematica areaTematica : listaAreeTematiche) {
-                if(rsAreeDelCorso.getInt("codice_area_tematica") == areaTematica.getCodice()) {
-                    corso.addAreaTematica(areaTematica);
-                    areaTematica.addCorso(corso);
+            try (ResultSet rsAreeDelCorso = pstAreeDelCorso.executeQuery()) {
+                boolean flagAreaTematicaAssegnata = true;
+
+                while (rsAreeDelCorso.next()) {
+                    flagAreaTematicaAssegnata = false;
+                    
+                    for (AreaTematica areaTematica : listaAreeTematiche) {
+                        if(rsAreeDelCorso.getInt("codice_area_tematica") == areaTematica.getCodice()) {
+                            corso.addAreaTematica(areaTematica);
+                            areaTematica.addCorso(corso);
+                            flagAreaTematicaAssegnata = true;
+                        }
+                    }
+                }
+                
+                if (!flagAreaTematicaAssegnata){
+                    throw new AssociazioneCorsoAreaTematicaFallitaException();
                 }
             }
         }
-            
-        pstAreeDelCorso.close();
-        rsAreeDelCorso.close();
     }
 
     @Override
-    public boolean updateCorso(Corso corso) {
+    public void updateCorso(Corso corso) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public boolean deleteCorso(Corso corso) {
+    public void deleteCorso(Corso corso) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

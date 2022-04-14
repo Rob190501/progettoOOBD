@@ -338,12 +338,7 @@ public class LoginFrame extends javax.swing.JFrame {
     
     private void buttonConnettitiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConnettitiActionPerformed
         // TODO add your handling code here:
-        if(controller.avviaConnessione(textFieldUserName.getText(), passwordField.getText(), textFieldIP.getText(), textFieldPorta.getText(), textFieldDatabase.getText())) {
-            connessioneStabilita();
-        }
-        else {
-            connessioneNonStabilita();
-        }
+        controller.avviaConnessione(textFieldUserName.getText(), passwordField.getText(), textFieldIP.getText(), textFieldPorta.getText(), textFieldDatabase.getText());
     }//GEN-LAST:event_buttonConnettitiActionPerformed
 
     private void buttonAccediOperatoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAccediOperatoreActionPerformed
@@ -386,20 +381,20 @@ public class LoginFrame extends javax.swing.JFrame {
 
     
     
-    private void connessioneStabilita() {
+    public void connessioneStabilita() {
         labelStatoConnessione.setForeground(new java.awt.Color(0, 204, 0));
         labelStatoConnessione.setText("Stato: connesso");    
         buttonAccediOperatore.setEnabled(true);
     }
     
-    private void connessioneNonStabilita() {
+    public void connessioneNonStabilita() {
         labelStatoConnessione.setForeground(new java.awt.Color(204, 0, 0));
         labelStatoConnessione.setText("Stato: non connesso");    
         buttonAccediOperatore.setEnabled(false);
     }
     
-    public void mostraEccezione(Exception e) {
-        JOptionPane.showMessageDialog(this, e.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+    public void mostraEccezione(String messaggioEccezione) {
+        JOptionPane.showMessageDialog(this, messaggioEccezione, "Errore", JOptionPane.ERROR_MESSAGE);
     }
     
     

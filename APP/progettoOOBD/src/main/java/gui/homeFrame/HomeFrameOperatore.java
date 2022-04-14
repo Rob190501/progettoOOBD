@@ -38,6 +38,7 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     public HomeFrameOperatore(Controller controller) {
         setController(controller);
         initComponents();
+        setLabelSelezionata(labelMenuHomePage);
     }
     
     
@@ -176,14 +177,14 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         panelMenuLayout.setHorizontalGroup(
             panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMenuLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(labelMenuAreeTematiche, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelMenuAreeTematiche, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
                     .addComponent(labelMenuStudenti, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelMenuHomePage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(labelMenuCorsi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelMenuLezioni, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelMenuHomePage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(labelMenuLezioni, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         panelMenuLayout.setVerticalGroup(
             panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,7 +274,7 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSuperioreLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelTitolo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 722, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 737, Short.MAX_VALUE)
                 .addComponent(labelMinimizza, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelRidimensiona, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -354,12 +355,14 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     }
     
     public void mostraCardHomePage() {
+        aggiornaLabelSelezionata(labelMenuHomePage);
         controller.aggiornaInformazioniHomePage();
         CardLayout card = (CardLayout) panelContenuti.getLayout();
         card.show(panelContenuti, "cardHomePage");
     }
     
     public void mostraCardStudenti() {
+        aggiornaLabelSelezionata(labelMenuStudenti);
         CardLayout card = (CardLayout) panelContenuti.getLayout();
         card.show(panelContenuti, "cardStudenti");
     }
@@ -375,16 +378,19 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     }
     
     public void mostraCardAreeTematiche() {
+        aggiornaLabelSelezionata(labelMenuAreeTematiche);
         CardLayout card = (CardLayout) panelContenuti.getLayout();
         card.show(panelContenuti, "cardAreeTematiche");
     }
     
     public void mostraCardCorsi() {
+        aggiornaLabelSelezionata(labelMenuCorsi);
         CardLayout card = (CardLayout) panelContenuti.getLayout();
         card.show(panelContenuti, "cardCorsi");
     }
     
     public void mostraCardLezioni() {
+        aggiornaLabelSelezionata(labelMenuLezioni);
         CardLayout card = (CardLayout) panelContenuti.getLayout();
         card.show(panelContenuti, "cardLezioni");
     }
@@ -394,7 +400,6 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     @Override
     public void setVisible(boolean b) {
         if(b) {
-            setLabelSelezionata(labelMenuHomePage);
             mostraCardHomePage();
         }
         super.setVisible(b);
@@ -497,36 +502,31 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     
     private void labelMenuStudentiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMenuStudentiMouseClicked
         // TODO add your handling code here:
-        aggiornaLabelSelezionata(labelMenuStudenti);
         mostraCardStudenti();
     }//GEN-LAST:event_labelMenuStudentiMouseClicked
 
     private void labelMenuHomePageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMenuHomePageMouseClicked
         // TODO add your handling code here:
-        aggiornaLabelSelezionata(labelMenuHomePage);
         mostraCardHomePage();
     }//GEN-LAST:event_labelMenuHomePageMouseClicked
 
     private void labelMenuCorsiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMenuCorsiMouseClicked
         // TODO add your handling code here:
-        aggiornaLabelSelezionata(labelMenuCorsi);
         mostraCardCorsi();
     }//GEN-LAST:event_labelMenuCorsiMouseClicked
 
     private void labelMenuLezioniMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMenuLezioniMouseClicked
         // TODO add your handling code here:
-        aggiornaLabelSelezionata(labelMenuLezioni);
         mostraCardLezioni();
     }//GEN-LAST:event_labelMenuLezioniMouseClicked
 
     private void labelMenuAreeTematicheMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMenuAreeTematicheMouseClicked
         // TODO add your handling code here:
-        aggiornaLabelSelezionata(labelMenuAreeTematiche);
         mostraCardAreeTematiche();
     }//GEN-LAST:event_labelMenuAreeTematicheMouseClicked
     
-    public void mostraEccezione(Exception e) {
-        JOptionPane.showMessageDialog(this, e.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+    public void mostraEccezione(String messaggioEccezione) {
+        JOptionPane.showMessageDialog(this, messaggioEccezione, "Errore", JOptionPane.ERROR_MESSAGE);
     }
     
     
