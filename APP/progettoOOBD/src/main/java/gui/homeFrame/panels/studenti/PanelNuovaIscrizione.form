@@ -39,9 +39,9 @@
                           <Group type="102" attributes="0">
                               <Component id="buttonIndietro" min="-2" pref="147" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
-                              <Component id="buttonBasta" min="-2" pref="147" max="-2" attributes="0"/>
+                              <Component id="buttonDisiscrivi" min="-2" pref="147" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="buttonFrequenta" min="-2" pref="147" max="-2" attributes="0"/>
+                              <Component id="buttonIscrivi" min="-2" pref="147" max="-2" attributes="0"/>
                           </Group>
                           <Component id="scrollPaneTableStudenteSelezionato" alignment="0" pref="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
@@ -87,9 +87,9 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="buttonFrequenta" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="buttonIscrivi" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="buttonIndietro" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="buttonBasta" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="buttonDisiscrivi" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
           </Group>
@@ -150,7 +150,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="buttonFrequenta">
+    <Component class="javax.swing.JButton" name="buttonIscrivi">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="cc" red="99" type="rgb"/>
@@ -161,7 +161,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Frequenta"/>
+        <Property name="text" type="java.lang.String" value="Iscrivi"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
         </Property>
@@ -170,7 +170,7 @@
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonFrequentaActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonIscriviActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="labelCorsiFrequentabili">
@@ -309,7 +309,7 @@
         <Property name="text" type="java.lang.String" value="Corsi frequentati"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonBasta">
+    <Component class="javax.swing.JButton" name="buttonDisiscrivi">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="cc" red="99" type="rgb"/>
@@ -320,7 +320,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="basta"/>
+        <Property name="text" type="java.lang.String" value="Disiscrivi"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
         </Property>
@@ -329,7 +329,7 @@
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonBastaActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDisiscriviActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

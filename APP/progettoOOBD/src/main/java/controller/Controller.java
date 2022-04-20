@@ -360,7 +360,7 @@ public class Controller {
     
     private void riempiTablePrincipali() {
         svuotaTutteTable();
-        inserisciTuttiStudenti();
+        impostaPanelStudenti();
         inserisciTutteAreeTematiche();
         inserisciTuttiICorsi();
         inserisciTutteLezioni();
@@ -377,7 +377,7 @@ public class Controller {
     
     
     //sezione home page
-    public void aggiornaInformazioniHomePage() {
+    public void aggiornaHomePage() {
         panelHomePage.impostaInformazioniHomePage(listaStudenti.size(), listaAreeTematiche.size(), listaCorsi.size(), listaLezioni.size());
     }
     //sezione panel home page
@@ -400,7 +400,7 @@ public class Controller {
     
     
     
-    public void inserisciTuttiStudenti() {
+    public void impostaPanelStudenti() {
         for(Studente studente : listaStudenti) {
             panelStudentiHome.inserisciInTableStudenti(studente.creaRiga());
         }
@@ -455,13 +455,10 @@ public class Controller {
         aggiornaPanelNuovaIscrizione(studenteSelezionato);
         Studente studente = (Studente) studenteSelezionato;
         panelNuovaIscrizione.inserisciStudenteSelezionato(studente.creaRiga());
-        /*inserisciCorsiFrequentati(studente);
-        inserisciCorsiFrequentabili(studente);*/
     }
     
     public void aggiornaPanelNuovaIscrizione(Object studenteSelezionato) {
         Studente studente = (Studente) studenteSelezionato;
-        panelNuovaIscrizione.svuotaTableAssociazioni();
         inserisciCorsiFrequentati(studente);
         inserisciCorsiFrequentabili(studente);
     }

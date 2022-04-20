@@ -22,7 +22,7 @@ public class PanelNuovaIscrizione extends PanelGenerico {
         labelNuovaIscrizione = new javax.swing.JLabel();
         scrollPaneTableCorsiFrequentabili = new javax.swing.JScrollPane();
         tableCorsiFrequentabili = new javax.swing.JTable();
-        buttonFrequenta = new javax.swing.JButton();
+        buttonIscrivi = new javax.swing.JButton();
         labelCorsiFrequentabili = new javax.swing.JLabel();
         buttonIndietro = new javax.swing.JButton();
         scrollPaneTableStudenteSelezionato = new javax.swing.JScrollPane();
@@ -31,7 +31,7 @@ public class PanelNuovaIscrizione extends PanelGenerico {
         scrollPaneTableCorsiFrequentati = new javax.swing.JScrollPane();
         tableCorsiFrequentati = new javax.swing.JTable();
         labelCorsiFrequentati = new javax.swing.JLabel();
-        buttonBasta = new javax.swing.JButton();
+        buttonDisiscrivi = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(745, 566));
@@ -73,17 +73,17 @@ public class PanelNuovaIscrizione extends PanelGenerico {
         tableCorsiFrequentabili.getTableHeader().setReorderingAllowed(false);
         scrollPaneTableCorsiFrequentabili.setViewportView(tableCorsiFrequentabili);
 
-        buttonFrequenta.setBackground(new java.awt.Color(153, 204, 255));
-        buttonFrequenta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonFrequenta.setForeground(new java.awt.Color(255, 255, 255));
-        buttonFrequenta.setText("Frequenta");
-        buttonFrequenta.setBorder(null);
-        buttonFrequenta.setBorderPainted(false);
-        buttonFrequenta.setFocusPainted(false);
-        buttonFrequenta.setOpaque(true);
-        buttonFrequenta.addActionListener(new java.awt.event.ActionListener() {
+        buttonIscrivi.setBackground(new java.awt.Color(153, 204, 255));
+        buttonIscrivi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonIscrivi.setForeground(new java.awt.Color(255, 255, 255));
+        buttonIscrivi.setText("Iscrivi");
+        buttonIscrivi.setBorder(null);
+        buttonIscrivi.setBorderPainted(false);
+        buttonIscrivi.setFocusPainted(false);
+        buttonIscrivi.setOpaque(true);
+        buttonIscrivi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonFrequentaActionPerformed(evt);
+                buttonIscriviActionPerformed(evt);
             }
         });
 
@@ -177,17 +177,17 @@ public class PanelNuovaIscrizione extends PanelGenerico {
         labelCorsiFrequentati.setForeground(new java.awt.Color(153, 204, 255));
         labelCorsiFrequentati.setText("Corsi frequentati");
 
-        buttonBasta.setBackground(new java.awt.Color(153, 204, 255));
-        buttonBasta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonBasta.setForeground(new java.awt.Color(255, 255, 255));
-        buttonBasta.setText("basta");
-        buttonBasta.setBorder(null);
-        buttonBasta.setBorderPainted(false);
-        buttonBasta.setFocusPainted(false);
-        buttonBasta.setOpaque(true);
-        buttonBasta.addActionListener(new java.awt.event.ActionListener() {
+        buttonDisiscrivi.setBackground(new java.awt.Color(153, 204, 255));
+        buttonDisiscrivi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonDisiscrivi.setForeground(new java.awt.Color(255, 255, 255));
+        buttonDisiscrivi.setText("Disiscrivi");
+        buttonDisiscrivi.setBorder(null);
+        buttonDisiscrivi.setBorderPainted(false);
+        buttonDisiscrivi.setFocusPainted(false);
+        buttonDisiscrivi.setOpaque(true);
+        buttonDisiscrivi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonBastaActionPerformed(evt);
+                buttonDisiscriviActionPerformed(evt);
             }
         });
 
@@ -206,9 +206,9 @@ public class PanelNuovaIscrizione extends PanelGenerico {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(buttonIndietro, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(130, 130, 130)
-                                .addComponent(buttonBasta, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(buttonDisiscrivi, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(buttonFrequenta, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(buttonIscrivi, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(scrollPaneTableStudenteSelezionato, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,9 +242,9 @@ public class PanelNuovaIscrizione extends PanelGenerico {
                     .addComponent(scrollPaneTableCorsiFrequentati, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonFrequenta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonIscrivi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonIndietro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonBasta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonDisiscrivi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -254,7 +254,7 @@ public class PanelNuovaIscrizione extends PanelGenerico {
         getHomeFrame().mostraCardStudenti();
     }//GEN-LAST:event_buttonIndietroActionPerformed
 
-    private void buttonFrequentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFrequentaActionPerformed
+    private void buttonIscriviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIscriviActionPerformed
         // TODO add your handling code here:
         try {
             if(tableCorsiFrequentabili.getSelectedRow() == -1) {
@@ -263,14 +263,15 @@ public class PanelNuovaIscrizione extends PanelGenerico {
             Object studenteSelezionato = ((DefaultTableModel)tableStudenteSelezionato.getModel()).getValueAt(0, 0);
             Object corsoSelezionato = ottieniOggettoSelezionato(tableCorsiFrequentabili);
             getController().iscriviAlCorso(studenteSelezionato, corsoSelezionato);
-            getController().aggiornaPanelNuovaIscrizione( ((DefaultTableModel)tableStudenteSelezionato.getModel()).getValueAt(0, 0) );
+            svuotaTableAssociazioni();
+            getController().aggiornaPanelNuovaIscrizione(studenteSelezionato);
         }
         catch (NessunaRigaSelezionataException e) {
             getHomeFrame().mostraEccezione(e.getMessage());
         }
-    }//GEN-LAST:event_buttonFrequentaActionPerformed
+    }//GEN-LAST:event_buttonIscriviActionPerformed
 
-    private void buttonBastaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBastaActionPerformed
+    private void buttonDisiscriviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDisiscriviActionPerformed
         // TODO add your handling code here:
         try {
             if(tableCorsiFrequentati.getSelectedRow() == -1) {
@@ -279,12 +280,13 @@ public class PanelNuovaIscrizione extends PanelGenerico {
             Object studenteSelezionato = ((DefaultTableModel)tableStudenteSelezionato.getModel()).getValueAt(0, 0);
             Object corsoSelezionato = ottieniOggettoSelezionato(tableCorsiFrequentati);
             getController().disiscriviDalCorso(studenteSelezionato, corsoSelezionato);
-            getController().aggiornaPanelNuovaIscrizione( ((DefaultTableModel)tableStudenteSelezionato.getModel()).getValueAt(0, 0) );
+            svuotaTableAssociazioni();
+            getController().aggiornaPanelNuovaIscrizione(studenteSelezionato);
         }
         catch (NessunaRigaSelezionataException e) {
             getHomeFrame().mostraEccezione(e.getMessage());
         }
-    }//GEN-LAST:event_buttonBastaActionPerformed
+    }//GEN-LAST:event_buttonDisiscriviActionPerformed
     
     public void nascondiTutteColonneOggetto() {
         nascondiColonnaOggetto(tableStudenteSelezionato);
@@ -320,9 +322,9 @@ public class PanelNuovaIscrizione extends PanelGenerico {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonBasta;
-    private javax.swing.JButton buttonFrequenta;
+    private javax.swing.JButton buttonDisiscrivi;
     private javax.swing.JButton buttonIndietro;
+    private javax.swing.JButton buttonIscrivi;
     private javax.swing.JLabel labelCorsiFrequentabili;
     private javax.swing.JLabel labelCorsiFrequentati;
     private javax.swing.JLabel labelNuovaIscrizione;

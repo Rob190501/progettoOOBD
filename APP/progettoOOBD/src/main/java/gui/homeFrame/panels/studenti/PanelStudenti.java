@@ -323,13 +323,13 @@ public class PanelStudenti extends PanelGenerico {
         svuotaTable(tablePresenze);
     }
     
-    public void svuotaTableSecondarie() {
+    public void svuotaTableAssociazioni() {
         svuotaTable(tableCorsiFrequentati);
         svuotaTable(tablePresenze);
     }
     
     private void aggiornaSelezione() {
-        svuotaTableSecondarie();
+        svuotaTableAssociazioni();
         Object studenteSelezionato = ottieniOggettoSelezionato(tableStudenti);
         getController().aggiornaPanelStudenti(studenteSelezionato);
     }

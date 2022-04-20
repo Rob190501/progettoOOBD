@@ -345,14 +345,14 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     
     public void mostraCardHomePage() {
         aggiornaLabelSelezionata(labelMenuHomePage);
-        controller.aggiornaInformazioniHomePage();
+        controller.aggiornaHomePage();
         CardLayout card = (CardLayout) panelContenuti.getLayout();
         card.show(panelContenuti, "cardHomePage");
     }
     
     public void mostraCardStudenti() {
         aggiornaLabelSelezionata(labelMenuStudenti);
-        panelStudentiHome.svuotaTableSecondarie();
+        panelStudentiHome.svuotaTableAssociazioni();
         CardLayout card = (CardLayout) panelContenuti.getLayout();
         card.show(panelContenuti, "cardStudenti");
     }
