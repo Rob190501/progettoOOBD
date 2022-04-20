@@ -16,6 +16,9 @@ FROM presenze;
 SELECT *
 FROM studente;
 
+SELECT *
+FROM studenti_del_corso;
+
 /*Seleziona tutte le informazioni relative alle presenze di un determinato studente*/
 SELECT *
 FROM studente INNER JOIN (lezione INNER JOIN presenze

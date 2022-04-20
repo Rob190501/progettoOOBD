@@ -1,16 +1,16 @@
-package gui.homeFrame.panels.panelContenutiGenerico;
+package gui.homeFrame.panels.panelGenerico;
 
 import controller.Controller;
 import gui.homeFrame.HomeFrameOperatore;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public abstract class PanelContenutiGenerico extends javax.swing.JPanel {
+public abstract class PanelGenerico extends javax.swing.JPanel {
 
     private Controller controller;
     private HomeFrameOperatore homeFrame;
 
-    public PanelContenutiGenerico(Controller controller, HomeFrameOperatore homeFrame) {
+    public PanelGenerico(Controller controller, HomeFrameOperatore homeFrame) {
         setController(controller);
         setHomeFrame(homeFrame);
     }
@@ -38,23 +38,19 @@ public abstract class PanelContenutiGenerico extends javax.swing.JPanel {
     }
     
     public Object ottieniOggettoSelezionato(JTable table) {
-        DefaultTableModel modelTable = (DefaultTableModel) table.getModel();
-        return modelTable.getValueAt(table.getSelectedRow(), 0);
+        return ((DefaultTableModel) table.getModel()).getValueAt(table.getSelectedRow(), 0);
     }
     
     public void svuotaTable(JTable table) {
-        DefaultTableModel modelTable = (DefaultTableModel) table.getModel();
-        modelTable.setRowCount(0);
+        ((DefaultTableModel) table.getModel()).setRowCount(0);
     }
     
-    public void inserisciRigaInTable(JTable table, Object[] row) {
-        DefaultTableModel modelTable = (DefaultTableModel) table.getModel();
-        modelTable.addRow(row);
+    public void inserisciRigaInJTable(JTable table, Object[] row) {
+        ((DefaultTableModel) table.getModel()).addRow(row);
     }
     
-    public void rimuoviRigaDaTable(JTable table) {
-        DefaultTableModel modelTable = (DefaultTableModel) table.getModel();
-        modelTable.removeRow(table.getSelectedRow());
+    public void rimuoviRigaSelezionataDaJTable(JTable table) {
+        ((DefaultTableModel) table.getModel()).removeRow(table.getSelectedRow());
     }
     
     

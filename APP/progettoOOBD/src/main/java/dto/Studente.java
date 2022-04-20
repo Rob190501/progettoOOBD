@@ -62,11 +62,19 @@ public class Studente {
         corsiFrequentati.add(corso);
     }
     
+    public void removeCorso(Corso corso) {
+        corsiFrequentati.remove(corso);
+    }
+    
     public void addPresenza(Lezione lezione) {
         presenze.add(lezione);
     }
     
-    public void rimuoviStudenteDaAssociazioni() {
+    public void removePresenza(Lezione lezione) {
+        presenze.remove(lezione);
+    }
+    
+    public void rimuoviDaAssociazioni() {
         for(Lezione lezione : presenze) {
             lezione.getStudentiPresenti().remove(this);
         }
@@ -74,6 +82,11 @@ public class Studente {
         for(Corso corso : corsiFrequentati) {
             corso.getStudentiIscritti().remove(this);
         }
+    }
+    
+    public Object[] creaRiga() {
+        Object[] riga = {this, matricola, nome, cognome};
+        return riga;
     }
     
     public String toString() {

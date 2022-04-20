@@ -1,4 +1,4 @@
-package eccezioni.campi;
+package eccezioni.elementiGui;
 
 public class CampoVuotoException extends Exception {
     public CampoVuotoException() {

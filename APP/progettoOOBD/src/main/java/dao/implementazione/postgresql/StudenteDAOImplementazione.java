@@ -7,7 +7,9 @@ import dto.Lezione;
 import dto.Studente;
 import eccezioni.associazioni.AssociazioneStudenteCorsoFallitaException;
 import eccezioni.associazioni.AssociazioneStudenteLezioneFallitaException;
+import eccezioni.create.CreateStudenteDelCorsoFallitoException;
 import eccezioni.create.CreateStudenteFallitoException;
+import eccezioni.delete.DeleteStudenteDelCorsoFallitoException;
 import eccezioni.delete.DeleteStudenteFallitoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,20 +27,28 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
                                   + "INTO studente (nome, cognome) "
                                   + "VALUES (?, ?)";
     
-    private String querySelectAllStudente = "SELECT * "
-                                          + "FROM studente";
+    private String selectAllStudente = "SELECT * "
+                                     + "FROM studente";
     
-    private String querySelectCorsiFrequentati = "SELECT * "
-                                               + "FROM studenti_del_corso "
-                                               + "WHERE matricola = ?";
+    private String selectCorsiFrequentati = "SELECT * "
+                                          + "FROM studenti_del_corso "
+                                          + "WHERE matricola = ?";
     
-    private String querySelectPresenze = "SELECT * "
-                                       + "FROM presenze "
-                                       + "WHERE matricola = ?";
+    private String selectPresenze = "SELECT * "
+                                  + "FROM presenze "
+                                  + "WHERE matricola = ?";
     
     private String deleteStudente = "DELETE "
                                   + "FROM studente "
                                   + "WHERE matricola = ?";
+    
+    private String insertStudenteDelCorso = "INSERT "
+                                          + "INTO studenti_del_corso (matricola, codice_corso) "
+                                          + "VALUES (?, ?)";
+    
+    private String deleteStudenteDelCorso = "DELETE "
+                                          + "FROM studenti_del_corso "
+                                          + "WHERE matricola = ? AND codice_corso = ?";
     
     public StudenteDAOImplementazione(Controller controller, Connection connection) {
         setController(controller);
@@ -60,8 +70,9 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
         try (PreparedStatement pstInsertStudente = connection.prepareStatement(insertStudente, Statement.RETURN_GENERATED_KEYS)) {
             pstInsertStudente.setString(1, studente.getNome());
             pstInsertStudente.setString(2, studente.getCognome());
-            pstInsertStudente.executeUpdate();
-
+            if (pstInsertStudente.executeUpdate() != 1) {
+                throw new CreateStudenteFallitoException();
+            }
             try (ResultSet rsInsertStudente = pstInsertStudente.getGeneratedKeys()) {
                 if(rsInsertStudente.next()) {
                     studente.setMatricola(rsInsertStudente.getInt(1));
@@ -78,7 +89,7 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
         try (Statement stmtRetrieveAllStudente = connection.createStatement()) {
             LinkedList<Studente> listaStudenti = new LinkedList<>();
             
-            try (ResultSet rsRetrieveAllStudente = stmtRetrieveAllStudente.executeQuery(querySelectAllStudente)) {
+            try (ResultSet rsRetrieveAllStudente = stmtRetrieveAllStudente.executeQuery(selectAllStudente)) {
                 while(rsRetrieveAllStudente.next()) {
                     int matricola = rsRetrieveAllStudente.getInt("matricola");
                     String nome = rsRetrieveAllStudente.getString("nome");
@@ -96,7 +107,7 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
     }
     
     private void retrieveCorsiFrequentati(Studente studente, LinkedList<Corso> listaCorsi) throws SQLException, AssociazioneStudenteCorsoFallitaException {
-        try (PreparedStatement pstRetrieveCorsiFrequentati = connection.prepareStatement(querySelectCorsiFrequentati)) {
+        try (PreparedStatement pstRetrieveCorsiFrequentati = connection.prepareStatement(selectCorsiFrequentati)) {
             pstRetrieveCorsiFrequentati.setInt(1, studente.getMatricola());
 
             try (ResultSet rsRetrieveCorsiFrequentati = pstRetrieveCorsiFrequentati.executeQuery()) {
@@ -121,7 +132,7 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
     }
     
     private void retrievePresenze(Studente studente, LinkedList<Lezione> listaLezioni) throws SQLException, AssociazioneStudenteLezioneFallitaException {
-        try (PreparedStatement pstRetrievePresenze = connection.prepareStatement(querySelectPresenze)) {
+        try (PreparedStatement pstRetrievePresenze = connection.prepareStatement(selectPresenze)) {
             pstRetrievePresenze.setInt(1, studente.getMatricola());
 
             try (ResultSet rsRetrievePresenze = pstRetrievePresenze.executeQuery()) {
@@ -157,6 +168,26 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
             pstDeleteStudente.setInt(1, studente.getMatricola());
             if (pstDeleteStudente.executeUpdate() != 1) {
                 throw new DeleteStudenteFallitoException();
+            }
+        }
+    }
+    
+    public void createStudenteDelCorso(Studente studente, Corso corso) throws SQLException, CreateStudenteDelCorsoFallitoException {
+        try (PreparedStatement pstInsertStudenteDelCorso = connection.prepareStatement(insertStudenteDelCorso)) {
+            pstInsertStudenteDelCorso.setInt(1, studente.getMatricola());
+            pstInsertStudenteDelCorso.setInt(2, corso.getCodice());
+            if (pstInsertStudenteDelCorso.executeUpdate() != 1) {
+                throw new CreateStudenteDelCorsoFallitoException();
+            }
+        }
+    }
+    
+    public void deleteStudenteDelCorso(Studente studente, Corso corso) throws SQLException, DeleteStudenteDelCorsoFallitoException {
+        try (PreparedStatement pstDeleteStudenteDelCorso = connection.prepareStatement(deleteStudenteDelCorso)) {
+            pstDeleteStudenteDelCorso.setInt(1, studente.getMatricola());
+            pstDeleteStudenteDelCorso.setInt(2, corso.getCodice());
+            if (pstDeleteStudenteDelCorso.executeUpdate() != 1) {
+                throw new DeleteStudenteDelCorsoFallitoException();
             }
         }
     }

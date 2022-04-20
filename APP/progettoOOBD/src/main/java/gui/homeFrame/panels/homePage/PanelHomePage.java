@@ -2,9 +2,9 @@ package gui.homeFrame.panels.homePage;
 
 import controller.Controller;
 import gui.homeFrame.HomeFrameOperatore;
-import gui.homeFrame.panels.panelContenutiGenerico.PanelContenutiGenerico;
+import gui.homeFrame.panels.panelGenerico.PanelGenerico;
 
-public class PanelHomePage extends PanelContenutiGenerico {
+public class PanelHomePage extends PanelGenerico {
 
     public PanelHomePage(Controller controller, HomeFrameOperatore homeFrame) {
         super(controller, homeFrame);

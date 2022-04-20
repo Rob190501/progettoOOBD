@@ -1,11 +1,11 @@
 package gui.homeFrame.panels.studenti;
 
 import controller.Controller;
-import eccezioni.campi.CampoVuotoException;
+import eccezioni.elementiGui.CampoVuotoException;
 import gui.homeFrame.HomeFrameOperatore;
-import gui.homeFrame.panels.panelContenutiGenerico.PanelContenutiGenerico;
+import gui.homeFrame.panels.panelGenerico.PanelGenerico;
 
-public class PanelNuovoStudente extends PanelContenutiGenerico {
+public class PanelNuovoStudente extends PanelGenerico {
     
     public PanelNuovoStudente(Controller controller, HomeFrameOperatore homeFrame) {
         super(controller, homeFrame);        
@@ -142,7 +142,7 @@ public class PanelNuovoStudente extends PanelContenutiGenerico {
             }
             getController().nuovoStudente(nome, cognome);
             svuotaCampi();
-            getHomeFrame().mostraCardStudentiHome();
+            getHomeFrame().mostraCardStudenti();
         }
         catch(CampoVuotoException e) {
             getHomeFrame().mostraEccezione(e.getMessage());
@@ -152,7 +152,7 @@ public class PanelNuovoStudente extends PanelContenutiGenerico {
     private void buttonIndietroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIndietroActionPerformed
         // TODO add your handling code here:
         svuotaCampi();
-        getHomeFrame().mostraCardStudentiHome();
+        getHomeFrame().mostraCardStudenti();
     }//GEN-LAST:event_buttonIndietroActionPerformed
 
     private void svuotaCampi() {

@@ -2,13 +2,13 @@ package gui.homeFrame.panels.corsi;
 
 import controller.Controller;
 import gui.homeFrame.HomeFrameOperatore;
-import gui.homeFrame.panels.panelContenutiGenerico.PanelContenutiGenerico;
+import gui.homeFrame.panels.panelGenerico.PanelGenerico;
 
 
-public class PanelCorsiHome extends PanelContenutiGenerico {
+public class PanelCorsi extends PanelGenerico {
 
     
-    public PanelCorsiHome(Controller controller, HomeFrameOperatore homeFrame) {
+    public PanelCorsi(Controller controller, HomeFrameOperatore homeFrame) {
         super(controller, homeFrame);
         initComponents();
         nascondiTutteColonneOggetto();
@@ -25,7 +25,7 @@ public class PanelCorsiHome extends PanelContenutiGenerico {
         scrollPaneTableLezioniDelCorso = new javax.swing.JScrollPane();
         tableLezioniDelCorso = new javax.swing.JTable();
         scrollPaneTableStudentiIscritti = new javax.swing.JScrollPane();
-        tableStudentiIscritti = new javax.swing.JTable();
+        tableStudentiDelCorso = new javax.swing.JTable();
         buttonNuovoCorso = new javax.swing.JButton();
         labelLezioniDelCorso = new javax.swing.JLabel();
         labelStudentiIscritti = new javax.swing.JLabel();
@@ -68,8 +68,14 @@ public class PanelCorsiHome extends PanelContenutiGenerico {
         });
         tableCorsi.setGridColor(new java.awt.Color(0, 0, 0));
         tableCorsi.setRowHeight(40);
+        tableCorsi.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tableCorsi.setShowGrid(true);
         tableCorsi.getTableHeader().setReorderingAllowed(false);
+        tableCorsi.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                tableCorsiMouseDragged(evt);
+            }
+        });
         tableCorsi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableCorsiMouseClicked(evt);
@@ -104,13 +110,14 @@ public class PanelCorsiHome extends PanelContenutiGenerico {
         });
         tableLezioniDelCorso.setGridColor(new java.awt.Color(0, 0, 0));
         tableLezioniDelCorso.setRowHeight(40);
+        tableLezioniDelCorso.setRowSelectionAllowed(false);
         tableLezioniDelCorso.setShowGrid(true);
         tableLezioniDelCorso.getTableHeader().setReorderingAllowed(false);
         scrollPaneTableLezioniDelCorso.setViewportView(tableLezioniDelCorso);
 
-        tableStudentiIscritti.setBackground(new java.awt.Color(255, 255, 255));
-        tableStudentiIscritti.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        tableStudentiIscritti.setModel(new javax.swing.table.DefaultTableModel(
+        tableStudentiDelCorso.setBackground(new java.awt.Color(255, 255, 255));
+        tableStudentiDelCorso.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        tableStudentiDelCorso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -133,11 +140,12 @@ public class PanelCorsiHome extends PanelContenutiGenerico {
                 return canEdit [columnIndex];
             }
         });
-        tableStudentiIscritti.setGridColor(new java.awt.Color(0, 0, 0));
-        tableStudentiIscritti.setRowHeight(40);
-        tableStudentiIscritti.setShowGrid(true);
-        tableStudentiIscritti.getTableHeader().setReorderingAllowed(false);
-        scrollPaneTableStudentiIscritti.setViewportView(tableStudentiIscritti);
+        tableStudentiDelCorso.setGridColor(new java.awt.Color(0, 0, 0));
+        tableStudentiDelCorso.setRowHeight(40);
+        tableStudentiDelCorso.setRowSelectionAllowed(false);
+        tableStudentiDelCorso.setShowGrid(true);
+        tableStudentiDelCorso.getTableHeader().setReorderingAllowed(false);
+        scrollPaneTableStudentiIscritti.setViewportView(tableStudentiDelCorso);
 
         buttonNuovoCorso.setBackground(new java.awt.Color(153, 204, 255));
         buttonNuovoCorso.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -189,6 +197,7 @@ public class PanelCorsiHome extends PanelContenutiGenerico {
         });
         tableAreeDelCorso.setGridColor(new java.awt.Color(0, 0, 0));
         tableAreeDelCorso.setRowHeight(40);
+        tableAreeDelCorso.setRowSelectionAllowed(false);
         tableAreeDelCorso.setShowGrid(true);
         tableAreeDelCorso.getTableHeader().setReorderingAllowed(false);
         scrollPaneTableAreeDelCorso.setViewportView(tableAreeDelCorso);
@@ -251,45 +260,50 @@ public class PanelCorsiHome extends PanelContenutiGenerico {
         // TODO add your handling code here:
         svuotaTableSecondarie();
         Object corsoSelezionato = ottieniOggettoSelezionato(tableCorsi);
-        getController().inserisciLezioniDelCorsoInJTable(corsoSelezionato);
-        getController().inserisciStudenteDelCorsoInJTable(corsoSelezionato);
+        getController().inserisciLezioniDelCorso(corsoSelezionato);
+        getController().inserisciStudentiDelCorso(corsoSelezionato);
         getController().inserisciAreeDelCorsoInJTable(corsoSelezionato);
     }//GEN-LAST:event_tableCorsiMouseClicked
+
+    private void tableCorsiMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCorsiMouseDragged
+        // TODO add your handling code here:
+        tableCorsiMouseClicked(evt);
+    }//GEN-LAST:event_tableCorsiMouseDragged
 
     private void nascondiTutteColonneOggetto() {
         nascondiColonnaOggetto(tableCorsi);
         nascondiColonnaOggetto(tableLezioniDelCorso);
-        nascondiColonnaOggetto(tableStudentiIscritti);
+        nascondiColonnaOggetto(tableStudentiDelCorso);
         nascondiColonnaOggetto(tableAreeDelCorso);
     }
     
     public void svuotaTutteTable() {
         svuotaTable(tableCorsi);
         svuotaTable(tableLezioniDelCorso);
-        svuotaTable(tableStudentiIscritti);
+        svuotaTable(tableStudentiDelCorso);
         svuotaTable(tableAreeDelCorso);
     }
     
     public void svuotaTableSecondarie() {
         svuotaTable(tableLezioniDelCorso);
-        svuotaTable(tableStudentiIscritti);
+        svuotaTable(tableStudentiDelCorso);
         svuotaTable(tableAreeDelCorso);
     }
     
-    public void inserisciRigaInTableCorsi(Object[] row) {
-        inserisciRigaInTable(tableCorsi, row);
+    public void inserisciInTableCorsi(Object[] row) {
+        inserisciRigaInJTable(tableCorsi, row);
     }
     
-    public void inserisciRigaInTableLezioniDelCorso(Object[] row) {
-        inserisciRigaInTable(tableLezioniDelCorso, row);
+    public void inserisciInTableLezioniDelCorso(Object[] row) {
+        inserisciRigaInJTable(tableLezioniDelCorso, row);
     }
     
-    public void inserisciRigaInTableStudentiIscritti(Object[] row) {
-        inserisciRigaInTable(tableStudentiIscritti, row);
+    public void inserisciInTableStudentiDelCorso(Object[] row) {
+        inserisciRigaInJTable(tableStudentiDelCorso, row);
     }
     
-    public void inserisciRigaInTableAreeDelCorso(Object[] row) {
-        inserisciRigaInTable(tableAreeDelCorso, row);
+    public void inserisciInTableAreeDelCorso(Object[] row) {
+        inserisciRigaInJTable(tableAreeDelCorso, row);
     }
     
     
@@ -308,6 +322,6 @@ public class PanelCorsiHome extends PanelContenutiGenerico {
     private javax.swing.JTable tableAreeDelCorso;
     private javax.swing.JTable tableCorsi;
     private javax.swing.JTable tableLezioniDelCorso;
-    private javax.swing.JTable tableStudentiIscritti;
+    private javax.swing.JTable tableStudentiDelCorso;
     // End of variables declaration//GEN-END:variables
 }

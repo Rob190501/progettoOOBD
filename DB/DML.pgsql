@@ -29,3 +29,6 @@ INSERT INTO presenze (matricola, codice_lezione) VALUES
 INSERT INTO lezione (titolo_lezione, descrizione_lezione, durata_lezione, data_inizio, ora_inizio, codice_corso) VALUES
 ('Lezione 1', 'Lezione di presentazione', '02:00:00', '17-09-2021', '09:00:00', 0),
 ('Lezione 1', 'Lezione di presentazione del corso di Matematica', '02:00:00', '2021-09-17', '11:00:00', 1);
+
+DELETE FROM studente
+WHERE matricola = 6;

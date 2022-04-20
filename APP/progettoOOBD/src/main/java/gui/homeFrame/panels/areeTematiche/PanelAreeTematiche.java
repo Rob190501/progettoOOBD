@@ -2,13 +2,13 @@ package gui.homeFrame.panels.areeTematiche;
 
 import controller.Controller;
 import gui.homeFrame.HomeFrameOperatore;
-import gui.homeFrame.panels.panelContenutiGenerico.PanelContenutiGenerico;
+import gui.homeFrame.panels.panelGenerico.PanelGenerico;
 
 
-public class PanelAreeTematicheHome extends PanelContenutiGenerico {
+public class PanelAreeTematiche extends PanelGenerico {
 
     //costruttore
-    public PanelAreeTematicheHome(Controller controller, HomeFrameOperatore homeFrame) {
+    public PanelAreeTematiche(Controller controller, HomeFrameOperatore homeFrame) {
         super(controller, homeFrame);
         initComponents();
         nascondiTutteColonneOggetto();
@@ -63,8 +63,14 @@ public class PanelAreeTematicheHome extends PanelContenutiGenerico {
         });
         tableAreeTematiche.setGridColor(new java.awt.Color(0, 0, 0));
         tableAreeTematiche.setRowHeight(40);
+        tableAreeTematiche.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tableAreeTematiche.setShowGrid(true);
         tableAreeTematiche.getTableHeader().setReorderingAllowed(false);
+        tableAreeTematiche.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                tableAreeTematicheMouseDragged(evt);
+            }
+        });
         tableAreeTematiche.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableAreeTematicheMouseClicked(evt);
@@ -99,6 +105,7 @@ public class PanelAreeTematicheHome extends PanelContenutiGenerico {
         });
         tableCorsiDellArea.setGridColor(new java.awt.Color(0, 0, 0));
         tableCorsiDellArea.setRowHeight(40);
+        tableCorsiDellArea.setRowSelectionAllowed(false);
         tableCorsiDellArea.setShowGrid(true);
         tableCorsiDellArea.getTableHeader().setReorderingAllowed(false);
         scrollPaneTableCorsiDellArea.setViewportView(tableCorsiDellArea);
@@ -160,8 +167,13 @@ public class PanelAreeTematicheHome extends PanelContenutiGenerico {
         // TODO add your handling code here:
         Object areaSelezionata = ottieniOggettoSelezionato(tableAreeTematiche);
         svuotaTable(tableCorsiDellArea);
-        getController().inserisciCorsiDellAreaInJTable(areaSelezionata);
+        getController().inserisciTuttiCorsiDellArea(areaSelezionata);
     }//GEN-LAST:event_tableAreeTematicheMouseClicked
+
+    private void tableAreeTematicheMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableAreeTematicheMouseDragged
+        // TODO add your handling code here:
+        tableAreeTematicheMouseClicked(evt);
+    }//GEN-LAST:event_tableAreeTematicheMouseDragged
     
     
     private void nascondiTutteColonneOggetto() {
@@ -174,12 +186,12 @@ public class PanelAreeTematicheHome extends PanelContenutiGenerico {
         svuotaTable(tableCorsiDellArea);
     }
     
-    public void inserisciRigaInTableAreeTematiche(Object[] row) {
-        inserisciRigaInTable(tableAreeTematiche, row);
+    public void inserisciInTableAreeTematiche(Object[] row) {
+        inserisciRigaInJTable(tableAreeTematiche, row);
     }
     
-    public void inserisciRigaInTableCorsiDellArea(Object[] row) {
-        inserisciRigaInTable(tableCorsiDellArea, row);
+    public void inserisciInTableCorsiDellArea(Object[] row) {
+        inserisciRigaInJTable(tableCorsiDellArea, row);
     }
     
     

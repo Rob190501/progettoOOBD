@@ -89,6 +89,15 @@ public class Lezione {
         studentiPresenti.add(studente);
     }
     
+    public void removeStudente(Studente studente) {
+        studentiPresenti.remove(studente);
+    }
+    
+    public Object[] creaRiga() {
+        Object[] riga = {this, codice, titolo, descrizione, dataInizio, oraInizio, durata};
+        return riga;
+    }
+    
     public String toString() {
         return codice + " | " + titolo + " | " + descrizione + " | " + durata + " | " + dataInizio + " | " + oraInizio + " | " + corsoDellaLezione.getNome();
     }

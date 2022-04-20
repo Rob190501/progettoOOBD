@@ -8,17 +8,17 @@ public class Corso {
     private String nome;
     private String descrizione;
     private int tassoPresenzeMinime;
-    private int NumeroMassimoIscritti;
+    private int numeroMassimoIscritti;
     private LinkedList<Studente> studentiIscritti;
     private LinkedList<Lezione> lezioniDelCorso;
     private LinkedList<AreaTematica> areeTematicheDelCorso;
 
-    public Corso(int codiceCorso, String nomeCorso, String descrizioneCorso, int tassoPresenzeMin, int partecipantiMax) {
-        setCodice(codiceCorso);
-        setNome(nomeCorso);
-        setDescrizione(descrizioneCorso);
+    public Corso(int codice, String nome, String descrizione, int tassoPresenzeMin, int numeroMassimoIscritti) {
+        setCodice(codice);
+        setNome(nome);
+        setDescrizione(descrizione);
         setTassoPresenzeMinime(tassoPresenzeMin);
-        setNumeroMassimoIscritti(partecipantiMax);
+        setNumeroMassimoIscritti(numeroMassimoIscritti);
         studentiIscritti = new LinkedList<>();
         lezioniDelCorso = new LinkedList<>();
         areeTematicheDelCorso = new LinkedList<>();
@@ -41,7 +41,7 @@ public class Corso {
     }
 
     public int getNumeroMassimoIscritti() {
-        return NumeroMassimoIscritti;
+        return numeroMassimoIscritti;
     }
     
     public LinkedList<Studente> getStudentiIscritti() {
@@ -72,20 +72,44 @@ public class Corso {
         this.tassoPresenzeMinime = tassoPresenzeMinime;
     }
 
-    public void setNumeroMassimoIscritti(int NumeroMassimoIscritti) {
-        this.NumeroMassimoIscritti = NumeroMassimoIscritti;
+    public void setNumeroMassimoIscritti(int numeroMassimoIscritti) {
+        this.numeroMassimoIscritti = numeroMassimoIscritti;
     }
     
     public void addStudente(Studente studente) {
         studentiIscritti.add(studente);
     }
     
+    public void removeStudente(Studente studente) {
+        studentiIscritti.remove(studente);
+    }
+    
     public void addLezione(Lezione lezione) {
         lezioniDelCorso.add(lezione);
     }
     
+    public void removeLezione(Lezione lezione) {
+        lezioniDelCorso.remove(lezione);
+    }
+    
     public void addAreaTematica(AreaTematica areaTematica) {
         areeTematicheDelCorso.add(areaTematica);
+    }
+    
+    public void removeAreaTematica(AreaTematica areaTematica) {
+        areeTematicheDelCorso.remove(areaTematica);
+    }
+    
+    public Object[] creaRiga() {
+        Object[] riga = {this, codice, nome, descrizione, tassoPresenzeMinime, numeroMassimoIscritti};
+        return riga;
+    }
+    
+    public boolean eFrequentabile(Studente studente) {
+        if(!studentiIscritti.contains(studente) && studentiIscritti.size() < numeroMassimoIscritti) {
+            return true;
+        }
+        return false;
     }
     
     public String toString() {

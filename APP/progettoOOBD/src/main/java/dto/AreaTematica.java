@@ -48,6 +48,15 @@ public class AreaTematica {
         corsiDellAreaTematica.add(corso);
     }
     
+    public void removeCorso(Corso corso) {
+        corsiDellAreaTematica.remove(corso);
+    }
+    
+    public Object[] creaRiga() {
+        Object[] riga = {this, codice, nome, descrizione};
+        return riga;
+    }
+    
     public String toString() {
         return getCodice() + " | " + getNome() + " | " + getDescrizione();
     }

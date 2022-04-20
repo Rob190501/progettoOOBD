@@ -2,13 +2,13 @@ package gui.homeFrame.panels.lezioni;
 
 import controller.Controller;
 import gui.homeFrame.HomeFrameOperatore;
-import gui.homeFrame.panels.panelContenutiGenerico.PanelContenutiGenerico;
+import gui.homeFrame.panels.panelGenerico.PanelGenerico;
 
 
-public class PanelLezioniHome extends PanelContenutiGenerico {
+public class PanelLezioni extends PanelGenerico {
 
     
-    public PanelLezioniHome(Controller controller, HomeFrameOperatore homeFrame) {
+    public PanelLezioni(Controller controller, HomeFrameOperatore homeFrame) {
         super(controller, homeFrame);
         initComponents();
         nascondiTutteColonneOggetto();
@@ -64,8 +64,14 @@ public class PanelLezioniHome extends PanelContenutiGenerico {
         });
         tableLezioni.setGridColor(new java.awt.Color(0, 0, 0));
         tableLezioni.setRowHeight(40);
+        tableLezioni.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tableLezioni.setShowGrid(true);
         tableLezioni.getTableHeader().setReorderingAllowed(false);
+        tableLezioni.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                tableLezioniMouseDragged(evt);
+            }
+        });
         tableLezioni.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableLezioniMouseClicked(evt);
@@ -100,6 +106,7 @@ public class PanelLezioniHome extends PanelContenutiGenerico {
         });
         tableStudentiPresenti.setGridColor(new java.awt.Color(0, 0, 0));
         tableStudentiPresenti.setRowHeight(40);
+        tableStudentiPresenti.setRowSelectionAllowed(false);
         tableStudentiPresenti.setShowGrid(true);
         tableStudentiPresenti.getTableHeader().setReorderingAllowed(false);
         scrollPaneTableStudentiPresenti.setViewportView(tableStudentiPresenti);
@@ -111,14 +118,14 @@ public class PanelLezioniHome extends PanelContenutiGenerico {
 
             },
             new String [] {
-                "Oggetto", "Codice", "Nome", "Descrizione"
+                "Oggetto", "Codice", "Nome", "Descrizione", "Tasso presenze minimo", "Numero massimo iscritti"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -131,6 +138,7 @@ public class PanelLezioniHome extends PanelContenutiGenerico {
         });
         tableCorsoDellaLezione.setGridColor(new java.awt.Color(0, 0, 0));
         tableCorsoDellaLezione.setRowHeight(40);
+        tableCorsoDellaLezione.setRowSelectionAllowed(false);
         tableCorsoDellaLezione.setShowGrid(true);
         tableCorsoDellaLezione.getTableHeader().setReorderingAllowed(false);
         scrollPaneTableCorsoDellaLezione.setViewportView(tableCorsoDellaLezione);
@@ -208,9 +216,14 @@ public class PanelLezioniHome extends PanelContenutiGenerico {
         // TODO add your handling code here:
         svuotaTableSecondarie();
         Object lezioneSelezionata = ottieniOggettoSelezionato(tableLezioni);
-        getController().inserisciStudentiPresentiInJTable(lezioneSelezionata);
-        getController().inserisciCorsoDellaLezioneInJTable(lezioneSelezionata);
+        getController().inserisciStudentiPresenti(lezioneSelezionata);
+        getController().inserisciCorsoDellaLezione(lezioneSelezionata);
     }//GEN-LAST:event_tableLezioniMouseClicked
+
+    private void tableLezioniMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableLezioniMouseDragged
+        // TODO add your handling code here:
+        tableLezioniMouseClicked(evt);
+    }//GEN-LAST:event_tableLezioniMouseDragged
 
     private void nascondiTutteColonneOggetto() {
         nascondiColonnaOggetto(tableLezioni);
@@ -229,16 +242,16 @@ public class PanelLezioniHome extends PanelContenutiGenerico {
         svuotaTable(tableCorsoDellaLezione);
     }
     
-    public void inserisciRigaInTableLezioni(Object[] row) {
-        inserisciRigaInTable(tableLezioni, row);
+    public void inserisciInTableLezioni(Object[] row) {
+        inserisciRigaInJTable(tableLezioni, row);
     }
     
-    public void inserisciRigaInTableStudentiPresenti(Object[] row) {
-        inserisciRigaInTable(tableStudentiPresenti, row);
+    public void inserisciInTableStudentiPresenti(Object[] row) {
+        inserisciRigaInJTable(tableStudentiPresenti, row);
     }
     
-    public void inserisciRigaInTableCorsoDellaLezione(Object[] row) {
-        inserisciRigaInTable(tableCorsoDellaLezione, row);
+    public void inserisciInTableCorsoDellaLezione(Object[] row) {
+        inserisciRigaInJTable(tableCorsoDellaLezione, row);
     }
     
     
