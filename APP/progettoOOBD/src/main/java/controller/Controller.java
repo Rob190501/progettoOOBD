@@ -22,16 +22,13 @@ import gui.homeFrame.panels.areeTematiche.PanelAreeTematiche;
 import gui.homeFrame.panels.corsi.PanelCorsi;
 import gui.homeFrame.panels.homePage.PanelHomePage;
 import gui.homeFrame.panels.lezioni.PanelLezioni;
-import gui.homeFrame.panels.studenti.PanelNuovaIscrizione;
+import gui.homeFrame.panels.studenti.PanelIscrizioni;
 import gui.homeFrame.panels.studenti.PanelNuovoStudente;
 import gui.homeFrame.panels.studenti.PanelStudenti;
 import gui.login.LoginFrame;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.table.TableModel;
 
 public class Controller {
     
@@ -44,15 +41,15 @@ public class Controller {
     
     private PanelHomePage panelHomePage;
     
-    private PanelStudenti panelStudentiHome;
+    private PanelStudenti panelStudenti;
     private PanelNuovoStudente panelNuovoStudente;
-    private PanelNuovaIscrizione panelNuovaIscrizione;
+    private PanelIscrizioni panelIscrizioni;
     
-    private PanelAreeTematiche panelAreeTematicheHome;
+    private PanelAreeTematiche panelAreeTematiche;
     
-    private PanelCorsi panelCorsiHome;
+    private PanelCorsi panelCorsi;
     
-    private PanelLezioni panelLezioniHome;
+    private PanelLezioni panelLezioni;
     
     private LinkedList<AreaTematica> listaAreeTematiche;
     private AreaTematicaDAOImplementazione areaTematicaDAO;
@@ -65,12 +62,12 @@ public class Controller {
     
     private LinkedList<Studente> listaStudenti;
     private StudenteDAOImplementazione studenteDAO;
-    //fine attributi
+    //attributi
     
     //costruttore
     public Controller(){
     }
-    //fine costruttore
+    //costruttore
     
     //getters e setters
     public Connection getConnection() {        
@@ -89,24 +86,24 @@ public class Controller {
         return panelHomePage;
     }
 
-    public PanelStudenti getPanelStudentiHome() {
-        return panelStudentiHome;
+    public PanelStudenti getPanelStudenti() {
+        return panelStudenti;
     }
 
     public PanelNuovoStudente getPanelNuovoStudente() {
         return panelNuovoStudente;
     }
 
-    public PanelAreeTematiche getPanelAreeTematicheHome() {
-        return panelAreeTematicheHome;
+    public PanelAreeTematiche getPanelAreeTematiche() {
+        return panelAreeTematiche;
     }
 
-    public PanelCorsi getPanelCorsiHome() {
-        return panelCorsiHome;
+    public PanelCorsi getPanelCorsi() {
+        return panelCorsi;
     }
 
-    public PanelLezioni getPanelLezioniHome() {
-        return panelLezioniHome;
+    public PanelLezioni getPanelLezioni() {
+        return panelLezioni;
     }
 
     public LinkedList<AreaTematica> getListaAreeTematiche() {
@@ -158,24 +155,24 @@ public class Controller {
         this.panelHomePage = panelHomePage;
     }
 
-    public void setPanelStudentiHome(PanelStudenti panelStudentiHome) {
-        this.panelStudentiHome = panelStudentiHome;
+    public void setPanelStudenti(PanelStudenti panelStudenti) {
+        this.panelStudenti = panelStudenti;
     }
 
     public void setPanelNuovoStudente(PanelNuovoStudente panelNuovoStudente) {
         this.panelNuovoStudente = panelNuovoStudente;
     }
 
-    public void setPanelAreeTematicheHome(PanelAreeTematiche panelAreeTematicheHome) {
-        this.panelAreeTematicheHome = panelAreeTematicheHome;
+    public void setPanelAreeTematiche(PanelAreeTematiche panelAreeTematiche) {
+        this.panelAreeTematiche = panelAreeTematiche;
     }
 
-    public void setPanelCorsiHome(PanelCorsi panelCorsiHome) {
-        this.panelCorsiHome = panelCorsiHome;
+    public void setPanelCorsi(PanelCorsi panelCorsi) {
+        this.panelCorsi = panelCorsi;
     }
 
-    public void setPanelLezioniHome(PanelLezioni panelLezioniHome) {
-        this.panelLezioniHome = panelLezioniHome;
+    public void setPanelLezioni(PanelLezioni panelLezioni) {
+        this.panelLezioni = panelLezioni;
     }
 
     public void setListaAreeTematiche(LinkedList<AreaTematica> listaAreeTematiche) {
@@ -209,14 +206,14 @@ public class Controller {
     public void setStudenteDAO(StudenteDAOImplementazione studenteDAO) {
         this.studenteDAO = studenteDAO;
     }
-    //fine getters e setters
+    //getters e setters
     
     //connessione
     public void avviaConnessione(String userName, String password, String ip, String porta, String db) {        
         chiudiConnessione();
         try {
             setConnection(ConnessioneDB.getIstanza(userName, password, ip, porta, db).getConnection());
-            avviaDAO();
+            creaDAO();
             retrieveAllDTO();
             loginFrame.connessioneStabilita();
         }
@@ -248,19 +245,17 @@ public class Controller {
         esciDaOperatore();
         loginFrame.connessioneNonStabilita();
     }
-    //fine connessione
+    //connessione
     
     //esci
     public void terminaEsecuzione() {
         chiudiConnessione();
         System.exit(0);
     }
-    //fine esci
-    
-    
+    //esci
     
     //DAO
-    private void avviaDAO() {
+    private void creaDAO() {
         areaTematicaDAO = new AreaTematicaDAOImplementazione(this, connection);
         corsoDAO = new CorsoDAOImplementazione(this, connection);
         lezioneDAO = new LezioneDAOImplementazione(this, connection);    
@@ -274,59 +269,18 @@ public class Controller {
         setListaLezioni(lezioneDAO.retrieveAllLezione(listaCorsi));
         setListaStudenti(studenteDAO.retrieveAllStudente(listaCorsi, listaLezioni));
     }
-    //fine DAO
-    
-    //ricerca
-    /*
-    public AreaTematica cercaAreaTematica(int codice) throws AreaTematicaNonTrovataException {
-        for(AreaTematica areaTematica : listaAreeTematiche) {
-            if(areaTematica.getCodice() == codice) {
-                return areaTematica;
-            }
-        }
-        throw new AreaTematicaNonTrovataException();
-    }
-    
-    public Corso cercaCorso(int codice) throws CorsoNonTrovatoException {
-        for(Corso corso : listaCorsi) {
-            if(corso.getCodice() == codice) {
-                return corso;
-            }
-        }
-        throw new CorsoNonTrovatoException();
-    }
-    
-    public Lezione cercaLezione(int codice) throws AreaTematicaNonTrovataException {
-        for(Lezione lezione : listaLezioni) {
-            if(lezione.getCodice() == codice) {
-                return lezione;
-            }
-        }
-        throw new AreaTematicaNonTrovataException();
-    }
-    
-    public Studente cercaStudente(int matricola) throws StudenteNonTrovatoException {
-        for(Studente studente : listaStudenti) {
-            if(studente.getMatricola() == matricola) {
-                return studente;
-            }
-        }
-        throw new StudenteNonTrovatoException();
-    }
-    */
-    //fine ricerca
+    //DAO
     
     //cambio frame
     public void accessoOperatore(){
-        loginFrame.setVisible(false);
-        
         if(homeFrameOperatore == null) {
             homeFrameOperatore = new HomeFrameOperatore(this);
             creaPanels();
             homeFrameOperatore.aggiungiPanels();
         }
+        impostaPanelsPrincipali();
         
-        riempiTablePrincipali();
+        loginFrame.setVisible(false);
         homeFrameOperatore.setVisible(true);
     }
     
@@ -339,88 +293,90 @@ public class Controller {
         panelHomePage = new PanelHomePage(this, homeFrameOperatore);
         homeFrameOperatore.setPanelHomePage(panelHomePage);
         
-        panelStudentiHome = new PanelStudenti(this, homeFrameOperatore);
-        homeFrameOperatore.setPanelStudentiHome(panelStudentiHome);
+        panelStudenti = new PanelStudenti(this, homeFrameOperatore);
+        homeFrameOperatore.setPanelStudenti(panelStudenti);
         
         panelNuovoStudente = new PanelNuovoStudente(this, homeFrameOperatore);
         homeFrameOperatore.setPanelNuovoStudente(panelNuovoStudente);
         
-        panelNuovaIscrizione = new PanelNuovaIscrizione(this, homeFrameOperatore);
-        homeFrameOperatore.setPanelNuovaIscrizione(panelNuovaIscrizione);
+        panelIscrizioni = new PanelIscrizioni(this, homeFrameOperatore);
+        homeFrameOperatore.setPanelIscrizioni(panelIscrizioni);
         
-        panelAreeTematicheHome = new PanelAreeTematiche(this, homeFrameOperatore);
-        homeFrameOperatore.setPanelAreeTematicheHome(panelAreeTematicheHome);
+        panelAreeTematiche = new PanelAreeTematiche(this, homeFrameOperatore);
+        homeFrameOperatore.setPanelAreeTematiche(panelAreeTematiche);
         
-        panelCorsiHome = new PanelCorsi(this, homeFrameOperatore);
-        homeFrameOperatore.setPanelCorsiHome(panelCorsiHome);
+        panelCorsi = new PanelCorsi(this, homeFrameOperatore);
+        homeFrameOperatore.setPanelCorsi(panelCorsi);
         
-        panelLezioniHome = new PanelLezioni(this, homeFrameOperatore);
-        homeFrameOperatore.setPanelLezioniHome(panelLezioniHome);
+        panelLezioni = new PanelLezioni(this, homeFrameOperatore);
+        homeFrameOperatore.setPanelLezioni(panelLezioni);
     }
     
-    private void riempiTablePrincipali() {
-        svuotaTutteTable();
+    private void impostaPanelsPrincipali() {
         impostaPanelStudenti();
-        inserisciTutteAreeTematiche();
-        inserisciTuttiICorsi();
-        inserisciTutteLezioni();
+        impostaPanelAreeTematiche();
+        impostaPanelCorsi();
+        impostaPanelLezioni();
+    }
+    //cambio frame
+    
+    //imposta panels
+    public void impostaPanelStudenti() {
+        panelStudenti.svuotaTutteTable();
+        for(Studente studente : listaStudenti) {
+            panelStudenti.inserisciInTableStudenti(studente.creaRiga());
+        }
     }
     
-    private void svuotaTutteTable() {
-        panelStudentiHome.svuotaTutteTable();
-        panelAreeTematicheHome.svuotaTutteTable();
-        panelCorsiHome.svuotaTutteTable();
-        panelLezioniHome.svuotaTutteTable();        
+    public void impostaPanelIscrizioni(Object studenteSelezionato) {
+        Studente studente = (Studente) studenteSelezionato;
+        panelIscrizioni.svuotaTutteTable();
+        panelIscrizioni.inserisciStudenteSelezionato(studente.creaRiga());
+        aggiornaPanelIscrizioni(studenteSelezionato);
     }
-    //fine cambio frame
     
+    public void impostaPanelAreeTematiche() {
+        panelAreeTematiche.svuotaTutteTable();
+        for(AreaTematica areaTematica : listaAreeTematiche) {
+            panelAreeTematiche.inserisciInTableAreeTematiche(areaTematica.creaRiga());
+        }
+    }
     
+    public void impostaPanelCorsi() {
+        panelCorsi.svuotaTutteTable();
+        for(Corso corso : listaCorsi) {
+            panelCorsi.inserisciInTableCorsi(corso.creaRiga());
+        }
+    }
+    
+    public void impostaPanelLezioni() {
+        panelLezioni.svuotaTutteTable(); 
+        for(Lezione lezione : listaLezioni) {
+            panelLezioni.inserisciInTableLezioni(lezione.creaRiga());
+        }
+    }
+    //imposta panels
     
     //sezione home page
     public void aggiornaHomePage() {
         panelHomePage.impostaInformazioniHomePage(listaStudenti.size(), listaAreeTematiche.size(), listaCorsi.size(), listaLezioni.size());
     }
-    //sezione panel home page
-    
-    
+    //sezione home page
     
     //sezione studenti
-    
     public void aggiornaPanelStudenti(Object studenteSelezionato) {
         Studente studente = (Studente) studenteSelezionato;
         
+        panelStudenti.svuotaTableAssociazioni();
+        
         for(Corso corso : studente.getCorsiFrequentati()) {
-            panelStudentiHome.inserisciInTableCorsiFrequentati(corso.creaRiga());
+            panelStudenti.inserisciInTableCorsiFrequentati(corso.creaRiga());
         }
         
         for(Lezione lezione : studente.getPresenze()) {
-            panelStudentiHome.inserisciInTablePresenze(lezione.creaRiga());
+            panelStudenti.inserisciInTablePresenze(lezione.creaRiga());
         }
     }
-    
-    
-    
-    public void impostaPanelStudenti() {
-        for(Studente studente : listaStudenti) {
-            panelStudentiHome.inserisciInTableStudenti(studente.creaRiga());
-        }
-    }
-    
-    /*public void inserisciCorsiFrequentati(Object studenteSelezionato) {
-        Studente studente = (Studente) studenteSelezionato;
-        
-        for(Corso corso : studente.getCorsiFrequentati()) {
-            panelStudentiHome.inserisciInTableCorsiFrequentati(corso.creaRiga());
-        }
-    }
-    
-    public void inserisciPresenze(Object studenteSelezionato) {
-        Studente studente = (Studente) studenteSelezionato;
-        
-        for(Lezione lezione : studente.getPresenze()) {
-            panelStudentiHome.inserisciInTablePresenze(lezione.creaRiga());
-        }
-    }*/
     
     public void nuovoStudente(String nome, String cognome) {
         Studente studente = new Studente(nome, cognome);
@@ -428,7 +384,7 @@ public class Controller {
         try {
             studenteDAO.createStudente(studente);
             listaStudenti.add(studente);
-            panelStudentiHome.inserisciInTableStudenti(studente.creaRiga());
+            panelStudenti.inserisciInTableStudenti(studente.creaRiga());
         }
         catch (SQLException | CreateStudenteFallitoException e) {
             homeFrameOperatore.mostraEccezione(e.getMessage());
@@ -450,38 +406,25 @@ public class Controller {
         }
     }
     
-    public void impostaPanelNuovaIscrizione(Object studenteSelezionato) {
-        panelNuovaIscrizione.svuotaTutteTable();
-        aggiornaPanelNuovaIscrizione(studenteSelezionato);
+    public void aggiornaPanelIscrizioni(Object studenteSelezionato) {
         Studente studente = (Studente) studenteSelezionato;
-        panelNuovaIscrizione.inserisciStudenteSelezionato(studente.creaRiga());
-    }
-    
-    public void aggiornaPanelNuovaIscrizione(Object studenteSelezionato) {
-        Studente studente = (Studente) studenteSelezionato;
-        inserisciCorsiFrequentati(studente);
-        inserisciCorsiFrequentabili(studente);
-    }
-    
-    public void inserisciCorsiFrequentati(Studente studente) {
+        
+        panelIscrizioni.svuotaTableAssociazioni();
+        
         for(Corso corso : studente.getCorsiFrequentati()) {
-            panelNuovaIscrizione.inserisciInTableCorsiFrequentati(corso.creaRiga());
+            panelIscrizioni.inserisciInTableCorsiFrequentati(corso.creaRiga());
         }
-    }
-    
-    public void inserisciCorsiFrequentabili(Studente studente) {
         for (Corso corso : listaCorsi) {
             if(corso.eFrequentabile(studente)) {
-                panelNuovaIscrizione.inserisciInTableCorsiFrequentabili(corso.creaRiga());
+                panelIscrizioni.inserisciInTableCorsiFrequentabili(corso.creaRiga());
             }
         }
     }
     
-    
-    
     public void iscriviAlCorso(Object studenteSelezionato, Object corsoSelezionato) {
         Studente studente = (Studente) studenteSelezionato;
         Corso corso = (Corso) corsoSelezionato;
+        
         try {
             studenteDAO.createStudenteDelCorso(studente, corso);
             studente.addCorso(corso);
@@ -496,6 +439,7 @@ public class Controller {
     public void disiscriviDalCorso(Object studenteSelezionato, Object corsoSelezionato) {
         Studente studente = (Studente) studenteSelezionato;
         Corso corso = (Corso) corsoSelezionato;
+        
         try {
             studenteDAO.deleteStudenteDelCorso(studente, corso);
             studente.removeCorso(corso);
@@ -506,77 +450,51 @@ public class Controller {
             chiudiConnessionePerErrori();
         }
     }
-    //fine sezione studenti
-    
+    //sezione studenti
     
     //sezione aree tematiche
-    public void inserisciTutteAreeTematiche() {
-        for(AreaTematica areaTematica : listaAreeTematiche) {
-            panelAreeTematicheHome.inserisciInTableAreeTematiche(areaTematica.creaRiga());
-        }
-    }
-    
-    public void inserisciTuttiCorsiDellArea(Object areaSelezionata) {
+    public void aggiornaPanelAreeTematiche(Object areaSelezionata) {
         AreaTematica areaTematica = (AreaTematica) areaSelezionata;
+        
+        panelAreeTematiche.svuotaTableAssociazioni();
+        
         for(Corso corso : areaTematica.getCorsiDellAreaTematica()) {
-            panelAreeTematicheHome.inserisciInTableCorsiDellArea(corso.creaRiga());
+            panelAreeTematiche.inserisciInTableCorsiDellArea(corso.creaRiga());
         }
     }
-    //fine sezione aree tematiche
+    //sezione aree tematiche
     
     //sezione corsi
-    public void inserisciTuttiICorsi() {
-        for(Corso corso : listaCorsi) {
-            panelCorsiHome.inserisciInTableCorsi(corso.creaRiga());
-        }
-    }
-    
-    public void inserisciLezioniDelCorso(Object corsoSelezionato) {
+    public void aggiornaPanelCorsi(Object corsoSelezionato) {
         Corso corso = (Corso) corsoSelezionato;
+        
+        panelCorsi.svuotaTableAssociazioni();
+        
         for(Lezione lezione : corso.getLezioniDelCorso()) {
-            panelCorsiHome.inserisciInTableLezioniDelCorso(lezione.creaRiga());
+            panelCorsi.inserisciInTableLezioniDelCorso(lezione.creaRiga());
         }
-    }
-    
-    public void inserisciStudentiDelCorso(Object corsoSelezionato) {
-        Corso corso = (Corso) corsoSelezionato;
         for(Studente studente : corso.getStudentiIscritti()) {
-            panelCorsiHome.inserisciInTableStudentiDelCorso(studente.creaRiga());
+            panelCorsi.inserisciInTableStudentiDelCorso(studente.creaRiga());
         }
-    }
-    
-    public void inserisciAreeDelCorsoInJTable(Object corsoSelezionato) {
-        Corso corso = (Corso) corsoSelezionato;
         for(AreaTematica areaTematica : corso.getAreeTematicheDelCorso()) {
-            panelCorsiHome.inserisciInTableAreeDelCorso(areaTematica.creaRiga());
+            panelCorsi.inserisciInTableAreeDelCorso(areaTematica.creaRiga());
         }
     }
-    //fine sezione corsi
+    //sezione corsi
     
     //sezione lezioni
-    public void inserisciTutteLezioni() {
-        for(Lezione lezione : listaLezioni) {
-            panelLezioniHome.inserisciInTableLezioni(lezione.creaRiga());
-        }
-    }
-    
-    public void inserisciStudentiPresenti(Object lezioneSelezionata) {
+    public void aggiornaPanelLezioni(Object lezioneSelezionata) {
         Lezione lezione = (Lezione) lezioneSelezionata;
+        
+        panelLezioni.svuotaTableAssociazioni();
+        
         for(Studente studente : lezione.getStudentiPresenti()) {
-            panelLezioniHome.inserisciInTableStudentiPresenti(studente.creaRiga());
+            panelLezioni.inserisciInTableStudentiPresenti(studente.creaRiga());
         }
+        
+        panelLezioni.inserisciInTableCorsoDellaLezione(lezione.getCorsoDellaLezione().creaRiga());
     }
-    
-    public void inserisciCorsoDellaLezione(Object lezioneSelezionata) {
-        Lezione lezione = (Lezione) lezioneSelezionata;
-        Corso corso = lezione.getCorsoDellaLezione();
-        panelLezioniHome.inserisciInTableCorsoDellaLezione(corso.creaRiga());
-    }
-    //fine sezione lezioni
-    
-    
-    
-    
+    //sezione lezioni
     
     //main
     public static void main(String[] args){        

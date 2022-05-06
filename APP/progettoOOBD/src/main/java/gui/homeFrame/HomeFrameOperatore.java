@@ -5,7 +5,7 @@ import gui.homeFrame.panels.areeTematiche.PanelAreeTematiche;
 import gui.homeFrame.panels.corsi.PanelCorsi;
 import gui.homeFrame.panels.homePage.PanelHomePage;
 import gui.homeFrame.panels.lezioni.PanelLezioni;
-import gui.homeFrame.panels.studenti.PanelNuovaIscrizione;
+import gui.homeFrame.panels.studenti.PanelIscrizioni;
 import gui.homeFrame.panels.studenti.PanelNuovoStudente;
 import gui.homeFrame.panels.studenti.PanelStudenti;
 
@@ -29,15 +29,15 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     
     private PanelHomePage panelHomePage;
     
-    private PanelStudenti panelStudentiHome;
+    private PanelStudenti panelStudenti;
     private PanelNuovoStudente panelNuovoStudente;
-    private PanelNuovaIscrizione panelNuovaIscrizione;
+    private PanelIscrizioni panelIscrizioni;
     
-    private PanelAreeTematiche panelAreeTematicheHome;
+    private PanelAreeTematiche panelAreeTematiche;
     
-    private PanelCorsi panelCorsiHome;
+    private PanelCorsi panelCorsi;
     
-    private PanelLezioni panelLezioniHome;
+    private PanelLezioni panelLezioni;
     
     public HomeFrameOperatore(Controller controller) {
         setController(controller);
@@ -55,33 +55,29 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         this.panelHomePage = panelHomePage;
     }
 
-    public void setPanelStudentiHome(PanelStudenti panelStudentiHome) {
-        this.panelStudentiHome = panelStudentiHome;
+    public void setPanelStudenti(PanelStudenti panelStudenti) {
+        this.panelStudenti = panelStudenti;
     }
 
     public void setPanelNuovoStudente(PanelNuovoStudente panelNuovoStudente) {
         this.panelNuovoStudente = panelNuovoStudente;
     }
 
-    public void setPanelNuovaIscrizione(PanelNuovaIscrizione panelNuovaIscrizione) {
-        this.panelNuovaIscrizione = panelNuovaIscrizione;
+    public void setPanelIscrizioni(PanelIscrizioni panelIscrizioni) {
+        this.panelIscrizioni = panelIscrizioni;
     }
 
-    public void setPanelAreeTematicheHome(PanelAreeTematiche panelAreeTematicheHome) {
-        this.panelAreeTematicheHome = panelAreeTematicheHome;
+    public void setPanelAreeTematiche(PanelAreeTematiche panelAreeTematiche) {
+        this.panelAreeTematiche = panelAreeTematiche;
     }
 
-    public void setPanelCorsiHome(PanelCorsi panelCorsiHome) {
-        this.panelCorsiHome = panelCorsiHome;
+    public void setPanelCorsi(PanelCorsi panelCorsi) {
+        this.panelCorsi = panelCorsi;
     }
 
-    public void setPanelLezioniHome(PanelLezioni panelLezioniHome) {
-        this.panelLezioniHome = panelLezioniHome;
+    public void setPanelLezioni(PanelLezioni panelLezioni) {
+        this.panelLezioni = panelLezioni;
     }
-    
-    
-    
-    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -334,58 +330,56 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     
     public void aggiungiPanels() {
         panelContenuti.add(panelHomePage, "cardHomePage");
-        panelContenuti.add(panelStudentiHome, "cardStudenti");
+        panelContenuti.add(panelStudenti, "cardStudenti");
         panelContenuti.add(panelNuovoStudente, "cardNuovoStudente");
-        panelContenuti.add(panelNuovaIscrizione, "cardNuovaIscrizione");
-        panelContenuti.add(panelAreeTematicheHome, "cardAreeTematiche");
-        panelContenuti.add(panelCorsiHome, "cardCorsi");
-        panelContenuti.add(panelLezioniHome, "cardLezioni");
+        panelContenuti.add(panelIscrizioni, "cardIscrizioni");
+        panelContenuti.add(panelAreeTematiche, "cardAreeTematiche");
+        panelContenuti.add(panelCorsi, "cardCorsi");
+        panelContenuti.add(panelLezioni, "cardLezioni");
         
+    }
+    
+    public void cambiaCard(String cardDesiderata) {
+        ((CardLayout) panelContenuti.getLayout()).show(panelContenuti, cardDesiderata);
     }
     
     public void mostraCardHomePage() {
         aggiornaLabelSelezionata(labelMenuHomePage);
         controller.aggiornaHomePage();
-        CardLayout card = (CardLayout) panelContenuti.getLayout();
-        card.show(panelContenuti, "cardHomePage");
+        cambiaCard("cardHomePage");
     }
     
     public void mostraCardStudenti() {
+        panelStudenti.aggiornaSelezione();
         aggiornaLabelSelezionata(labelMenuStudenti);
-        panelStudentiHome.svuotaTableAssociazioni();
-        CardLayout card = (CardLayout) panelContenuti.getLayout();
-        card.show(panelContenuti, "cardStudenti");
+        cambiaCard("cardStudenti");
     }
     
     public void mostraCardNuovoStudente() {
-        CardLayout card = (CardLayout) panelContenuti.getLayout();
-        card.show(panelContenuti, "cardNuovoStudente");
+        cambiaCard("cardNuovoStudente");
     }
     
-    public void mostraCardNuovaIscrizione() {
-        CardLayout card = (CardLayout) panelContenuti.getLayout();
-        card.show(panelContenuti, "cardNuovaIscrizione");
+    public void mostraCardIscrizioni() {
+        cambiaCard("cardIscrizioni");
     }
     
     public void mostraCardAreeTematiche() {
+        panelAreeTematiche.aggiornaSelezione();
         aggiornaLabelSelezionata(labelMenuAreeTematiche);
-        CardLayout card = (CardLayout) panelContenuti.getLayout();
-        card.show(panelContenuti, "cardAreeTematiche");
+        cambiaCard("cardAreeTematiche");
     }
     
     public void mostraCardCorsi() {
+        panelCorsi.aggiornaSelezione();
         aggiornaLabelSelezionata(labelMenuCorsi);
-        CardLayout card = (CardLayout) panelContenuti.getLayout();
-        card.show(panelContenuti, "cardCorsi");
+        cambiaCard("cardCorsi");
     }
     
     public void mostraCardLezioni() {
+        panelLezioni.aggiornaSelezione();
         aggiornaLabelSelezionata(labelMenuLezioni);
-        CardLayout card = (CardLayout) panelContenuti.getLayout();
-        card.show(panelContenuti, "cardLezioni");
+        cambiaCard("cardLezioni");
     }
-    
-    
     
     @Override
     public void setVisible(boolean b) {
@@ -394,8 +388,6 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         }
         super.setVisible(b);
     }
-    
-    
     
     private void panelSuperioreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelSuperioreMousePressed
         // TODO add your handling code here:

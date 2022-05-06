@@ -165,14 +165,12 @@ public class PanelAreeTematiche extends PanelGenerico {
     
     private void tableAreeTematicheMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableAreeTematicheMouseClicked
         // TODO add your handling code here:
-        Object areaSelezionata = ottieniOggettoSelezionato(tableAreeTematiche);
-        svuotaTable(tableCorsiDellArea);
-        getController().inserisciTuttiCorsiDellArea(areaSelezionata);
+        aggiornaSelezione();
     }//GEN-LAST:event_tableAreeTematicheMouseClicked
 
     private void tableAreeTematicheMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableAreeTematicheMouseDragged
         // TODO add your handling code here:
-        tableAreeTematicheMouseClicked(evt);
+        aggiornaSelezione();
     }//GEN-LAST:event_tableAreeTematicheMouseDragged
     
     
@@ -184,6 +182,17 @@ public class PanelAreeTematiche extends PanelGenerico {
     public void svuotaTutteTable() {
         svuotaTable(tableAreeTematiche);
         svuotaTable(tableCorsiDellArea);
+    }
+    
+    public void svuotaTableAssociazioni() {
+        svuotaTable(tableCorsiDellArea);
+    }
+    
+    public void aggiornaSelezione() {
+        if(tableAreeTematiche.getSelectedRow() != -1) {
+            Object areaSelezionata = ottieniOggettoSelezionato(tableAreeTematiche);
+            getController().aggiornaPanelAreeTematiche(areaSelezionata);
+        }
     }
     
     public void inserisciInTableAreeTematiche(Object[] row) {

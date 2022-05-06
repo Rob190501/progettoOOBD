@@ -28,8 +28,8 @@ public class PanelStudenti extends PanelGenerico {
         labelCorsiFrequentati = new javax.swing.JLabel();
         labelPresenze = new javax.swing.JLabel();
         buttonEliminaStudente = new javax.swing.JButton();
-        buttonNuovaIscrizione = new javax.swing.JButton();
-        buttonNuovaIscrizione1 = new javax.swing.JButton();
+        buttonIscrizioni = new javax.swing.JButton();
+        buttonPresenze = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(745, 566));
@@ -181,28 +181,28 @@ public class PanelStudenti extends PanelGenerico {
             }
         });
 
-        buttonNuovaIscrizione.setBackground(new java.awt.Color(153, 204, 255));
-        buttonNuovaIscrizione.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonNuovaIscrizione.setForeground(new java.awt.Color(255, 255, 255));
-        buttonNuovaIscrizione.setText("Nuova iscrizione");
-        buttonNuovaIscrizione.setBorder(null);
-        buttonNuovaIscrizione.setBorderPainted(false);
-        buttonNuovaIscrizione.setFocusPainted(false);
-        buttonNuovaIscrizione.setOpaque(true);
-        buttonNuovaIscrizione.addActionListener(new java.awt.event.ActionListener() {
+        buttonIscrizioni.setBackground(new java.awt.Color(153, 204, 255));
+        buttonIscrizioni.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonIscrizioni.setForeground(new java.awt.Color(255, 255, 255));
+        buttonIscrizioni.setText("Iscrizioni");
+        buttonIscrizioni.setBorder(null);
+        buttonIscrizioni.setBorderPainted(false);
+        buttonIscrizioni.setFocusPainted(false);
+        buttonIscrizioni.setOpaque(true);
+        buttonIscrizioni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonNuovaIscrizioneActionPerformed(evt);
+                buttonIscrizioniActionPerformed(evt);
             }
         });
 
-        buttonNuovaIscrizione1.setBackground(new java.awt.Color(153, 204, 255));
-        buttonNuovaIscrizione1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonNuovaIscrizione1.setForeground(new java.awt.Color(255, 255, 255));
-        buttonNuovaIscrizione1.setText("Nuova presenza");
-        buttonNuovaIscrizione1.setBorder(null);
-        buttonNuovaIscrizione1.setBorderPainted(false);
-        buttonNuovaIscrizione1.setFocusPainted(false);
-        buttonNuovaIscrizione1.setOpaque(true);
+        buttonPresenze.setBackground(new java.awt.Color(153, 204, 255));
+        buttonPresenze.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonPresenze.setForeground(new java.awt.Color(255, 255, 255));
+        buttonPresenze.setText("Presenze");
+        buttonPresenze.setBorder(null);
+        buttonPresenze.setBorderPainted(false);
+        buttonPresenze.setFocusPainted(false);
+        buttonPresenze.setOpaque(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -216,28 +216,29 @@ public class PanelStudenti extends PanelGenerico {
                         .addGap(400, 400, 400))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(scrollPaneTableStudenti, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(buttonNuovoStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                                .addComponent(buttonNuovaIscrizione, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 17, Short.MAX_VALUE))
-                            .addComponent(scrollPaneTableStudenti, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                                .addComponent(buttonEliminaStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(labelCorsiFrequentati, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(labelCorsiFrequentati, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(16, 16, 16)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(buttonNuovaIscrizione1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                                        .addComponent(buttonEliminaStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
                                         .addComponent(labelPresenze)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 270, Short.MAX_VALUE))
                                     .addComponent(scrollPaneTableCorsiFrequentati, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
-                                    .addComponent(scrollPaneTablePresenze, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                                    .addComponent(scrollPaneTablePresenze, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                                .addComponent(buttonIscrizioni, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                                .addComponent(buttonPresenze, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(20, 20, 20))))
         );
         layout.setVerticalGroup(
@@ -260,8 +261,8 @@ public class PanelStudenti extends PanelGenerico {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonNuovoStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonEliminaStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonNuovaIscrizione, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonNuovaIscrizione1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonIscrizioni, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonPresenze, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -291,20 +292,20 @@ public class PanelStudenti extends PanelGenerico {
         }
     }//GEN-LAST:event_buttonEliminaStudenteActionPerformed
 
-    private void buttonNuovaIscrizioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNuovaIscrizioneActionPerformed
+    private void buttonIscrizioniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIscrizioniActionPerformed
         // TODO add your handling code here:
         try {
             if(tableStudenti.getSelectedRow() == -1) {
                 throw new NessunaRigaSelezionataException("Studenti");
             }
             Object studenteSelezionato = ottieniOggettoSelezionato(tableStudenti);
-            getController().impostaPanelNuovaIscrizione(studenteSelezionato);
-            getHomeFrame().mostraCardNuovaIscrizione();
+            getController().impostaPanelIscrizioni(studenteSelezionato);
+            getHomeFrame().mostraCardIscrizioni();
         }
         catch (NessunaRigaSelezionataException e) {
             getHomeFrame().mostraEccezione(e.getMessage());
         }
-    }//GEN-LAST:event_buttonNuovaIscrizioneActionPerformed
+    }//GEN-LAST:event_buttonIscrizioniActionPerformed
 
     private void tableStudentiMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableStudentiMouseDragged
         // TODO add your handling code here:
@@ -328,10 +329,11 @@ public class PanelStudenti extends PanelGenerico {
         svuotaTable(tablePresenze);
     }
     
-    private void aggiornaSelezione() {
-        svuotaTableAssociazioni();
-        Object studenteSelezionato = ottieniOggettoSelezionato(tableStudenti);
-        getController().aggiornaPanelStudenti(studenteSelezionato);
+    public void aggiornaSelezione() {
+        if(tableStudenti.getSelectedRow() != -1) {
+            Object studenteSelezionato = ottieniOggettoSelezionato(tableStudenti);
+            getController().aggiornaPanelStudenti(studenteSelezionato);
+        }
     }
     
     public void inserisciInTableStudenti(Object[] row) {
@@ -348,9 +350,9 @@ public class PanelStudenti extends PanelGenerico {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonEliminaStudente;
-    private javax.swing.JButton buttonNuovaIscrizione;
-    private javax.swing.JButton buttonNuovaIscrizione1;
+    private javax.swing.JButton buttonIscrizioni;
     private javax.swing.JButton buttonNuovoStudente;
+    private javax.swing.JButton buttonPresenze;
     private javax.swing.JLabel labelCorsiFrequentati;
     private javax.swing.JLabel labelPresenze;
     private javax.swing.JLabel labelStudenti;

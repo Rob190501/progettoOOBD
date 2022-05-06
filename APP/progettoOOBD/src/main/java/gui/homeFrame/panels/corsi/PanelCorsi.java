@@ -258,16 +258,12 @@ public class PanelCorsi extends PanelGenerico {
 
     private void tableCorsiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCorsiMouseClicked
         // TODO add your handling code here:
-        svuotaTableSecondarie();
-        Object corsoSelezionato = ottieniOggettoSelezionato(tableCorsi);
-        getController().inserisciLezioniDelCorso(corsoSelezionato);
-        getController().inserisciStudentiDelCorso(corsoSelezionato);
-        getController().inserisciAreeDelCorsoInJTable(corsoSelezionato);
+        aggiornaSelezione();
     }//GEN-LAST:event_tableCorsiMouseClicked
 
     private void tableCorsiMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCorsiMouseDragged
         // TODO add your handling code here:
-        tableCorsiMouseClicked(evt);
+        aggiornaSelezione();
     }//GEN-LAST:event_tableCorsiMouseDragged
 
     private void nascondiTutteColonneOggetto() {
@@ -284,10 +280,17 @@ public class PanelCorsi extends PanelGenerico {
         svuotaTable(tableAreeDelCorso);
     }
     
-    public void svuotaTableSecondarie() {
+    public void svuotaTableAssociazioni() {
         svuotaTable(tableLezioniDelCorso);
         svuotaTable(tableStudentiDelCorso);
         svuotaTable(tableAreeDelCorso);
+    }
+    
+    public void aggiornaSelezione() {
+        if(tableCorsi.getSelectedRow() != -1) {
+            Object corsoSelezionato = ottieniOggettoSelezionato(tableCorsi);
+            getController().aggiornaPanelCorsi(corsoSelezionato);
+        }
     }
     
     public void inserisciInTableCorsi(Object[] row) {

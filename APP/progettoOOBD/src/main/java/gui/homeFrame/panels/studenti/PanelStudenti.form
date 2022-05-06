@@ -36,27 +36,22 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="scrollPaneTableStudenti" pref="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="buttonNuovoStudente" min="-2" pref="147" max="-2" attributes="0"/>
-                              <EmptySpace pref="33" max="32767" attributes="0"/>
-                              <Component id="buttonNuovaIscrizione" min="-2" pref="147" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="17" max="32767" attributes="0"/>
+                              <EmptySpace pref="40" max="32767" attributes="0"/>
+                              <Component id="buttonEliminaStudente" min="-2" pref="147" max="-2" attributes="0"/>
+                              <EmptySpace pref="10" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="scrollPaneTableStudenti" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                              <Component id="labelCorsiFrequentati" max="32767" attributes="0"/>
+                              <Component id="labelCorsiFrequentati" pref="343" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="buttonNuovaIscrizione1" min="-2" pref="147" max="-2" attributes="0"/>
-                                      <EmptySpace pref="51" max="32767" attributes="0"/>
-                                      <Component id="buttonEliminaStudente" min="-2" pref="147" max="-2" attributes="0"/>
-                                  </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="labelPresenze" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace pref="270" max="32767" attributes="0"/>
@@ -64,6 +59,12 @@
                                   <Component id="scrollPaneTableCorsiFrequentati" alignment="0" pref="345" max="32767" attributes="0"/>
                                   <Component id="scrollPaneTablePresenze" alignment="1" pref="0" max="32767" attributes="0"/>
                               </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace pref="27" max="32767" attributes="0"/>
+                              <Component id="buttonIscrizioni" min="-2" pref="147" max="-2" attributes="0"/>
+                              <EmptySpace pref="40" max="32767" attributes="0"/>
+                              <Component id="buttonPresenze" min="-2" pref="147" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -94,8 +95,8 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="buttonNuovoStudente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="buttonEliminaStudente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="buttonNuovaIscrizione" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="buttonNuovaIscrizione1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="buttonIscrizioni" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="buttonPresenze" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
           </Group>
@@ -380,7 +381,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonEliminaStudenteActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonNuovaIscrizione">
+    <Component class="javax.swing.JButton" name="buttonIscrizioni">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="cc" red="99" type="rgb"/>
@@ -391,7 +392,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Nuova iscrizione"/>
+        <Property name="text" type="java.lang.String" value="Iscrizioni"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
         </Property>
@@ -400,10 +401,10 @@
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonNuovaIscrizioneActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonIscrizioniActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonNuovaIscrizione1">
+    <Component class="javax.swing.JButton" name="buttonPresenze">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="cc" red="99" type="rgb"/>
@@ -414,7 +415,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Nuova presenza"/>
+        <Property name="text" type="java.lang.String" value="Presenze"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
         </Property>

@@ -13,7 +13,6 @@ public class PanelLezioni extends PanelGenerico {
         initComponents();
         nascondiTutteColonneOggetto();
     }
-
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -214,15 +213,12 @@ public class PanelLezioni extends PanelGenerico {
 
     private void tableLezioniMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableLezioniMouseClicked
         // TODO add your handling code here:
-        svuotaTableSecondarie();
-        Object lezioneSelezionata = ottieniOggettoSelezionato(tableLezioni);
-        getController().inserisciStudentiPresenti(lezioneSelezionata);
-        getController().inserisciCorsoDellaLezione(lezioneSelezionata);
+        aggiornaSelezione();
     }//GEN-LAST:event_tableLezioniMouseClicked
 
     private void tableLezioniMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableLezioniMouseDragged
         // TODO add your handling code here:
-        tableLezioniMouseClicked(evt);
+        aggiornaSelezione();
     }//GEN-LAST:event_tableLezioniMouseDragged
 
     private void nascondiTutteColonneOggetto() {
@@ -237,9 +233,16 @@ public class PanelLezioni extends PanelGenerico {
         svuotaTable(tableCorsoDellaLezione);
     }
     
-    public void svuotaTableSecondarie() {
+    public void svuotaTableAssociazioni() {
         svuotaTable(tableStudentiPresenti);
         svuotaTable(tableCorsoDellaLezione);
+    }
+    
+    public void aggiornaSelezione() {
+        if (tableLezioni.getSelectedRow() != -1) {
+            Object lezioneSelezionata = ottieniOggettoSelezionato(tableLezioni);
+            getController().aggiornaPanelLezioni(lezioneSelezionata);
+        }
     }
     
     public void inserisciInTableLezioni(Object[] row) {

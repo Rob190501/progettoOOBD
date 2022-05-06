@@ -37,6 +37,10 @@ public abstract class PanelGenerico extends javax.swing.JPanel {
         }
     }
     
+    public Object ottieniPrimoOggetto(JTable table) {
+        return ((DefaultTableModel) table.getModel()).getValueAt(0, 0);
+    }
+    
     public Object ottieniOggettoSelezionato(JTable table) {
         return ((DefaultTableModel) table.getModel()).getValueAt(table.getSelectedRow(), 0);
     }
