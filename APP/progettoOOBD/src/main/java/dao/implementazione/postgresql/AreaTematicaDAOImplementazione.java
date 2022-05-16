@@ -3,10 +3,12 @@ package dao.implementazione.postgresql;
 import controller.Controller;
 import dao.interfaccia.AreaTematicaDAOInterfaccia;
 import dto.AreaTematica;
+import eccezioni.create.CreateAreaTematicaFallitaException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 
 public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfaccia {
@@ -14,8 +16,12 @@ public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfacci
     private Controller controller;
     private Connection connection;
     
-    private String query = "SELECT * " +
-                           "FROM area_tematica";
+    private String selectAllAreaTematica = "SELECT * "
+                                         + "FROM area_tematica";
+    
+    private String insertAreaTematica = "INSERT "
+                                      + "INTO area_tematica (nome_area_tematica, descrizione_area_tematica)"
+                                      + "VALUES (?, ?)";
 
     public AreaTematicaDAOImplementazione(Controller controller, Connection connection) {
         setController(controller);
@@ -31,15 +37,29 @@ public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfacci
     }
     
     @Override
-    public void createAreaTematica(AreaTematica area) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void createAreaTematica(AreaTematica area) throws SQLException, CreateAreaTematicaFallitaException {
+        try (PreparedStatement pstInsertAreaTematica = connection.prepareStatement(insertAreaTematica, Statement.RETURN_GENERATED_KEYS)) {
+            pstInsertAreaTematica.setString(1, area.getNome());
+            pstInsertAreaTematica.setString(2, area.getDescrizione());
+            if (pstInsertAreaTematica.executeUpdate() != 1) {
+                throw new CreateAreaTematicaFallitaException();
+            }
+            try (ResultSet rsInsertAreaTematica = pstInsertAreaTematica.getGeneratedKeys()) {
+                if(rsInsertAreaTematica.next()) {
+                    area.setCodice(rsInsertAreaTematica.getInt(1));
+                }
+                else {
+                    throw new CreateAreaTematicaFallitaException();
+                }
+            }
+        }
     }
 
     @Override
     public LinkedList<AreaTematica> retrieveAllAreaTematica() throws SQLException {
         LinkedList<AreaTematica> listaAreeTematiche = new LinkedList<>();
         
-        PreparedStatement pst = connection.prepareStatement(query);
+        PreparedStatement pst = connection.prepareStatement(selectAllAreaTematica);
         
         ResultSet rs = pst.executeQuery();
         

@@ -13,12 +13,14 @@ import eccezioni.associazioni.AssociazioneCorsoAreaTematicaFallitaException;
 import eccezioni.associazioni.AssociazioneLezioneCorsoFallitaException;
 import eccezioni.associazioni.AssociazioneStudenteCorsoFallitaException;
 import eccezioni.associazioni.AssociazioneStudenteLezioneFallitaException;
+import eccezioni.create.CreateAreaTematicaFallitaException;
 import eccezioni.create.CreateStudenteDelCorsoFallitoException;
 import eccezioni.create.CreateStudenteFallitoException;
 import eccezioni.delete.DeleteStudenteDelCorsoFallitoException;
 import eccezioni.delete.DeleteStudenteFallitoException;
 import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.areeTematiche.PanelAreeTematiche;
+import gui.homeFrame.panels.areeTematiche.PanelNuovaAreaTematica;
 import gui.homeFrame.panels.corsi.PanelCorsi;
 import gui.homeFrame.panels.homePage.PanelHomePage;
 import gui.homeFrame.panels.lezioni.PanelLezioni;
@@ -46,6 +48,7 @@ public class Controller {
     private PanelIscrizioni panelIscrizioni;
     
     private PanelAreeTematiche panelAreeTematiche;
+    private PanelNuovaAreaTematica panelNuovaAreaTematica;
     
     private PanelCorsi panelCorsi;
     
@@ -165,6 +168,10 @@ public class Controller {
 
     public void setPanelAreeTematiche(PanelAreeTematiche panelAreeTematiche) {
         this.panelAreeTematiche = panelAreeTematiche;
+    }
+
+    public void setPanelNuovaAreaTematica(PanelNuovaAreaTematica panelNuovaAreaTematica) {
+        this.panelNuovaAreaTematica = panelNuovaAreaTematica;
     }
 
     public void setPanelCorsi(PanelCorsi panelCorsi) {
@@ -304,6 +311,9 @@ public class Controller {
         
         panelAreeTematiche = new PanelAreeTematiche(this, homeFrameOperatore);
         homeFrameOperatore.setPanelAreeTematiche(panelAreeTematiche);
+        
+        panelNuovaAreaTematica = new PanelNuovaAreaTematica(this, homeFrameOperatore);
+        homeFrameOperatore.setPanelNuovaAreaTematica(panelNuovaAreaTematica);
         
         panelCorsi = new PanelCorsi(this, homeFrameOperatore);
         homeFrameOperatore.setPanelCorsi(panelCorsi);
@@ -460,6 +470,20 @@ public class Controller {
         
         for(Corso corso : areaTematica.getCorsiDellAreaTematica()) {
             panelAreeTematiche.inserisciInTableCorsiDellArea(corso.creaRiga());
+        }
+    }
+    
+    public void nuovaAreaTematica(String nome, String descrizione) {
+        AreaTematica area = new AreaTematica(nome, descrizione);
+        
+        try {
+            areaTematicaDAO.createAreaTematica(area);
+            listaAreeTematiche.add(area);
+            panelAreeTematiche.inserisciInTableAreeTematiche(area.creaRiga());
+        }
+        catch (SQLException | CreateAreaTematicaFallitaException e) {
+            homeFrameOperatore.mostraEccezione(e.getMessage());
+            chiudiConnessionePerErrori();
         }
     }
     //sezione aree tematiche

@@ -9,12 +9,22 @@ public class AreaTematica {
     private String descrizione;
     private LinkedList<Corso> corsiDellAreaTematica;
 
-    public AreaTematica(int codiceAreaTematica, String nomeAreaTematica, String descrizioneAreaTematica) {
-        setCodice(codiceAreaTematica);
-        setNome(nomeAreaTematica);
-        setDescrizione(descrizioneAreaTematica);
+    public AreaTematica(int codice, String nome, String descrizione) {
+        setCodice(codice);
+        setNome(nome);
+        setDescrizione(descrizione);
         corsiDellAreaTematica = new LinkedList<>();
     }
+
+    
+
+    public AreaTematica(String nome, String descrizione) {
+        setNome(nome);
+        setDescrizione(descrizione);
+        corsiDellAreaTematica = new LinkedList<>();
+    }
+    
+    
 
     public int getCodice() {
         return codice;
