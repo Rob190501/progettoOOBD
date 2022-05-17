@@ -16,6 +16,7 @@ import eccezioni.associazioni.AssociazioneStudenteLezioneFallitaException;
 import eccezioni.create.CreateAreaTematicaFallitaException;
 import eccezioni.create.CreateStudenteDelCorsoFallitoException;
 import eccezioni.create.CreateStudenteFallitoException;
+import eccezioni.delete.DeleteAreaTematicaFallitaException;
 import eccezioni.delete.DeleteStudenteDelCorsoFallitoException;
 import eccezioni.delete.DeleteStudenteFallitoException;
 import gui.homeFrame.HomeFrameOperatore;
@@ -482,6 +483,20 @@ public class Controller {
             panelAreeTematiche.inserisciInTableAreeTematiche(area.creaRiga());
         }
         catch (SQLException | CreateAreaTematicaFallitaException e) {
+            homeFrameOperatore.mostraEccezione(e.getMessage());
+            chiudiConnessionePerErrori();
+        }
+    }
+    
+    public void eliminaAreaTematica(Object areaTematicaSelezionata) {
+        AreaTematica areaTematica = (AreaTematica) areaTematicaSelezionata;
+        
+        try {
+            areaTematicaDAO.deleteAreaTematica(areaTematica);
+            areaTematica.rimuoviDaAssociazioni();
+            listaAreeTematiche.remove(areaTematica);
+        }
+        catch(SQLException | DeleteAreaTematicaFallitaException e) {
             homeFrameOperatore.mostraEccezione(e.getMessage());
             chiudiConnessionePerErrori();
         }

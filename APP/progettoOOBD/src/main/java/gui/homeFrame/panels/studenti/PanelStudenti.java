@@ -283,8 +283,7 @@ public class PanelStudenti extends PanelGenerico {
             if(tableStudenti.getSelectedRow() == -1) {
                 throw new NessunaRigaSelezionataException("Studenti");
             }
-            Object studenteSelezionato = ottieniOggettoSelezionato(tableStudenti);
-            getController().eliminaStudente(studenteSelezionato);
+            getController().eliminaStudente(ottieniOggettoSelezionato(tableStudenti));
             rimuoviRigaSelezionataDaJTable(tableStudenti);
         }
         catch (NessunaRigaSelezionataException e) {

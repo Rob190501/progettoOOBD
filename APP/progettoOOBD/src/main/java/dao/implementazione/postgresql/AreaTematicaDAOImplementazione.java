@@ -4,6 +4,7 @@ import controller.Controller;
 import dao.interfaccia.AreaTematicaDAOInterfaccia;
 import dto.AreaTematica;
 import eccezioni.create.CreateAreaTematicaFallitaException;
+import eccezioni.delete.DeleteAreaTematicaFallitaException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,6 +23,10 @@ public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfacci
     private String insertAreaTematica = "INSERT "
                                       + "INTO area_tematica (nome_area_tematica, descrizione_area_tematica)"
                                       + "VALUES (?, ?)";
+    
+    private String deleteAreaTematica = "DELETE "
+                                      + "FROM area_tematica "
+                                      + "WHERE codice_area_tematica = ?";
 
     public AreaTematicaDAOImplementazione(Controller controller, Connection connection) {
         setController(controller);
@@ -85,8 +90,13 @@ public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfacci
     }
 
     @Override
-    public void deleteAreaTematica(AreaTematica areaTematica) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void deleteAreaTematica(AreaTematica areaTematica) throws SQLException, DeleteAreaTematicaFallitaException {
+        try (PreparedStatement pstDeleteAreaTematica = connection.prepareStatement(deleteAreaTematica)) {
+            pstDeleteAreaTematica.setInt(1, areaTematica.getCodice());
+            if (pstDeleteAreaTematica.executeUpdate() != 1) {
+                throw new DeleteAreaTematicaFallitaException();
+            }
+        }
     }
     
 }

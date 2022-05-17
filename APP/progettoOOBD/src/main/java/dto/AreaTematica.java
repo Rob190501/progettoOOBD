@@ -71,5 +71,11 @@ public class AreaTematica {
         return getCodice() + " | " + getNome() + " | " + getDescrizione();
     }
     
+    public void rimuoviDaAssociazioni() {
+        for(Corso corso : corsiDellAreaTematica) {
+            corso.getAreeTematicheDelCorso().remove(this);
+        }
+    }
+    
     
 }
