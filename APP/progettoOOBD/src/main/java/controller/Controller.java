@@ -16,13 +16,14 @@ import eccezioni.associazioni.AssociazioneStudenteLezioneFallitaException;
 import eccezioni.create.CreateAreaTematicaFallitaException;
 import eccezioni.create.CreateStudenteDelCorsoFallitoException;
 import eccezioni.create.CreateStudenteFallitoException;
-import eccezioni.delete.DeleteAreaTematicaFallitaException;
+import eccezioni.delete.DeleteAreaTematicaFallitoException;
 import eccezioni.delete.DeleteStudenteDelCorsoFallitoException;
 import eccezioni.delete.DeleteStudenteFallitoException;
 import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.areeTematiche.PanelAreeTematiche;
 import gui.homeFrame.panels.areeTematiche.PanelNuovaAreaTematica;
 import gui.homeFrame.panels.corsi.PanelCorsi;
+import gui.homeFrame.panels.corsi.PanelNuovoCorso;
 import gui.homeFrame.panels.homePage.PanelHomePage;
 import gui.homeFrame.panels.lezioni.PanelLezioni;
 import gui.homeFrame.panels.studenti.PanelIscrizioni;
@@ -52,6 +53,7 @@ public class Controller {
     private PanelNuovaAreaTematica panelNuovaAreaTematica;
     
     private PanelCorsi panelCorsi;
+    private PanelNuovoCorso panelNuovoCorso;
     
     private PanelLezioni panelLezioni;
     
@@ -319,6 +321,9 @@ public class Controller {
         panelCorsi = new PanelCorsi(this, homeFrameOperatore);
         homeFrameOperatore.setPanelCorsi(panelCorsi);
         
+        panelNuovoCorso = new PanelNuovoCorso(this, homeFrameOperatore);
+        homeFrameOperatore.setPanelNuovoCorso(panelNuovoCorso);
+        
         panelLezioni = new PanelLezioni(this, homeFrameOperatore);
         homeFrameOperatore.setPanelLezioni(panelLezioni);
     }
@@ -496,7 +501,7 @@ public class Controller {
             areaTematica.rimuoviDaAssociazioni();
             listaAreeTematiche.remove(areaTematica);
         }
-        catch(SQLException | DeleteAreaTematicaFallitaException e) {
+        catch(SQLException | DeleteAreaTematicaFallitoException e) {
             homeFrameOperatore.mostraEccezione(e.getMessage());
             chiudiConnessionePerErrori();
         }

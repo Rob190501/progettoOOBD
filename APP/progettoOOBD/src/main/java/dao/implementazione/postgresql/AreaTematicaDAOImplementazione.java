@@ -4,7 +4,7 @@ import controller.Controller;
 import dao.interfaccia.AreaTematicaDAOInterfaccia;
 import dto.AreaTematica;
 import eccezioni.create.CreateAreaTematicaFallitaException;
-import eccezioni.delete.DeleteAreaTematicaFallitaException;
+import eccezioni.delete.DeleteAreaTematicaFallitoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -90,11 +90,11 @@ public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfacci
     }
 
     @Override
-    public void deleteAreaTematica(AreaTematica areaTematica) throws SQLException, DeleteAreaTematicaFallitaException {
+    public void deleteAreaTematica(AreaTematica areaTematica) throws SQLException, DeleteAreaTematicaFallitoException {
         try (PreparedStatement pstDeleteAreaTematica = connection.prepareStatement(deleteAreaTematica)) {
             pstDeleteAreaTematica.setInt(1, areaTematica.getCodice());
             if (pstDeleteAreaTematica.executeUpdate() != 1) {
-                throw new DeleteAreaTematicaFallitaException();
+                throw new DeleteAreaTematicaFallitoException();
             }
         }
     }

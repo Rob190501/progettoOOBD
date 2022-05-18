@@ -141,9 +141,9 @@ public class PanelAreeTematiche extends PanelGenerico {
         });
 
         buttonRimuoviAreaTematica.setBackground(new java.awt.Color(153, 204, 255));
-        buttonRimuoviAreaTematica.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        buttonRimuoviAreaTematica.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         buttonRimuoviAreaTematica.setForeground(new java.awt.Color(255, 255, 255));
-        buttonRimuoviAreaTematica.setText("Rimuovi area tematica");
+        buttonRimuoviAreaTematica.setText("Elimina area tematica");
         buttonRimuoviAreaTematica.setBorder(null);
         buttonRimuoviAreaTematica.setBorderPainted(false);
         buttonRimuoviAreaTematica.setFocusPainted(false);

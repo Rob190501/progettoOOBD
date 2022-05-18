@@ -32,6 +32,7 @@ public class PanelCorsi extends PanelGenerico {
         labelStudentiIscritti1 = new javax.swing.JLabel();
         scrollPaneTableAreeDelCorso = new javax.swing.JScrollPane();
         tableAreeDelCorso = new javax.swing.JTable();
+        buttonNuovoCorso1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(745, 566));
@@ -155,6 +156,11 @@ public class PanelCorsi extends PanelGenerico {
         buttonNuovoCorso.setBorderPainted(false);
         buttonNuovoCorso.setFocusPainted(false);
         buttonNuovoCorso.setOpaque(true);
+        buttonNuovoCorso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonNuovoCorsoActionPerformed(evt);
+            }
+        });
 
         labelLezioniDelCorso.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         labelLezioniDelCorso.setForeground(new java.awt.Color(153, 204, 255));
@@ -202,6 +208,15 @@ public class PanelCorsi extends PanelGenerico {
         tableAreeDelCorso.getTableHeader().setReorderingAllowed(false);
         scrollPaneTableAreeDelCorso.setViewportView(tableAreeDelCorso);
 
+        buttonNuovoCorso1.setBackground(new java.awt.Color(153, 204, 255));
+        buttonNuovoCorso1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonNuovoCorso1.setForeground(new java.awt.Color(255, 255, 255));
+        buttonNuovoCorso1.setText("Nuovo corso");
+        buttonNuovoCorso1.setBorder(null);
+        buttonNuovoCorso1.setBorderPainted(false);
+        buttonNuovoCorso1.setFocusPainted(false);
+        buttonNuovoCorso1.setOpaque(true);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -211,6 +226,8 @@ public class PanelCorsi extends PanelGenerico {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(buttonNuovoCorso, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonNuovoCorso1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -249,9 +266,11 @@ public class PanelCorsi extends PanelGenerico {
                         .addComponent(labelStudentiIscritti1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(scrollPaneTableAreeDelCorso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(scrollPaneTableCorsi, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(scrollPaneTableCorsi, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE))
                 .addGap(20, 20, 20)
-                .addComponent(buttonNuovoCorso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonNuovoCorso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonNuovoCorso1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -265,6 +284,11 @@ public class PanelCorsi extends PanelGenerico {
         // TODO add your handling code here:
         aggiornaSelezione();
     }//GEN-LAST:event_tableCorsiMouseDragged
+
+    private void buttonNuovoCorsoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNuovoCorsoActionPerformed
+        // TODO add your handling code here:
+        getHomeFrame().mostraCardNuovoCorso();
+    }//GEN-LAST:event_buttonNuovoCorsoActionPerformed
 
     private void nascondiTutteColonneOggetto() {
         nascondiColonnaOggetto(tableCorsi);
@@ -314,6 +338,7 @@ public class PanelCorsi extends PanelGenerico {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonNuovoCorso;
+    private javax.swing.JButton buttonNuovoCorso1;
     private javax.swing.JLabel labelCorsi;
     private javax.swing.JLabel labelLezioniDelCorso;
     private javax.swing.JLabel labelStudentiIscritti;

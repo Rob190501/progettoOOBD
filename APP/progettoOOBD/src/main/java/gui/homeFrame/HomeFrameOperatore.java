@@ -4,6 +4,7 @@ import controller.Controller;
 import gui.homeFrame.panels.areeTematiche.PanelAreeTematiche;
 import gui.homeFrame.panels.areeTematiche.PanelNuovaAreaTematica;
 import gui.homeFrame.panels.corsi.PanelCorsi;
+import gui.homeFrame.panels.corsi.PanelNuovoCorso;
 import gui.homeFrame.panels.homePage.PanelHomePage;
 import gui.homeFrame.panels.lezioni.PanelLezioni;
 import gui.homeFrame.panels.studenti.PanelIscrizioni;
@@ -38,6 +39,7 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     private PanelNuovaAreaTematica panelNuovaAreaTematica;
     
     private PanelCorsi panelCorsi;
+    private PanelNuovoCorso panelNuovoCorso;
     
     private PanelLezioni panelLezioni;
     
@@ -79,6 +81,10 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
 
     public void setPanelCorsi(PanelCorsi panelCorsi) {
         this.panelCorsi = panelCorsi;
+    }
+
+    public void setPanelNuovoCorso(PanelNuovoCorso panelNuovoCorso) {
+        this.panelNuovoCorso = panelNuovoCorso;
     }
 
     public void setPanelLezioni(PanelLezioni panelLezioni) {
@@ -330,6 +336,7 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         panelContenuti.add(panelAreeTematiche, "cardAreeTematiche");
         panelContenuti.add(panelNuovaAreaTematica, "cardNuovaAreaTematica");
         panelContenuti.add(panelCorsi, "cardCorsi");
+        panelContenuti.add(panelNuovoCorso, "cardNuovoCorso");
         panelContenuti.add(panelLezioni, "cardLezioni");
         
     }
@@ -372,6 +379,10 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         panelCorsi.aggiornaSelezione();
         aggiornaLabelSelezionata(labelMenuCorsi);
         cambiaCard("cardCorsi");
+    }
+    
+    public void mostraCardNuovoCorso() {
+        cambiaCard("cardNuovoCorso");
     }
     
     public void mostraCardLezioni() {
