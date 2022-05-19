@@ -524,6 +524,10 @@ public class Controller {
             panelCorsi.inserisciInTableAreeDelCorso(areaTematica.creaRiga());
         }
     }
+    
+    public void nuovoCorso(String nome, String descrizione, int tassoPresenzeMinime, int numeroMassimoIscritti) {
+        
+    }
     //sezione corsi
     
     //sezione lezioni
