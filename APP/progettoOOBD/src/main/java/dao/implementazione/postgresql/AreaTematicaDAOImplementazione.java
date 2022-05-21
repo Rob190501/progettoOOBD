@@ -3,7 +3,7 @@ package dao.implementazione.postgresql;
 import controller.Controller;
 import dao.interfaccia.AreaTematicaDAOInterfaccia;
 import dto.AreaTematica;
-import eccezioni.create.CreateAreaTematicaFallitaException;
+import eccezioni.create.CreateAreaTematicaFallitoException;
 import eccezioni.delete.DeleteAreaTematicaFallitoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,19 +42,19 @@ public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfacci
     }
     
     @Override
-    public void createAreaTematica(AreaTematica area) throws SQLException, CreateAreaTematicaFallitaException {
+    public void createAreaTematica(AreaTematica area) throws SQLException, CreateAreaTematicaFallitoException {
         try (PreparedStatement pstInsertAreaTematica = connection.prepareStatement(insertAreaTematica, Statement.RETURN_GENERATED_KEYS)) {
             pstInsertAreaTematica.setString(1, area.getNome());
             pstInsertAreaTematica.setString(2, area.getDescrizione());
             if (pstInsertAreaTematica.executeUpdate() != 1) {
-                throw new CreateAreaTematicaFallitaException();
+                throw new CreateAreaTematicaFallitoException();
             }
             try (ResultSet rsInsertAreaTematica = pstInsertAreaTematica.getGeneratedKeys()) {
                 if(rsInsertAreaTematica.next()) {
                     area.setCodice(rsInsertAreaTematica.getInt(1));
                 }
                 else {
-                    throw new CreateAreaTematicaFallitaException();
+                    throw new CreateAreaTematicaFallitoException();
                 }
             }
         }

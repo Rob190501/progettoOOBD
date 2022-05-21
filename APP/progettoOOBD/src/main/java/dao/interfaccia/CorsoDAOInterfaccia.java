@@ -2,11 +2,13 @@ package dao.interfaccia;
 
 import dto.AreaTematica;
 import dto.Corso;
+import eccezioni.create.CreateCorsoFallitoException;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 public interface CorsoDAOInterfaccia {
     
-    public void createCorso(Corso corso);
+    public void createCorso(Corso corso) throws SQLException, CreateCorsoFallitoException;
     
     public LinkedList<Corso> retrieveAllCorso(LinkedList<AreaTematica> listaAreeTematiche) throws Exception;
     

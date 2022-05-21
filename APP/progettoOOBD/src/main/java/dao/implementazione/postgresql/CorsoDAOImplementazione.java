@@ -5,6 +5,7 @@ import dao.interfaccia.CorsoDAOInterfaccia;
 import dto.AreaTematica;
 import dto.Corso;
 import eccezioni.associazioni.AssociazioneCorsoAreaTematicaFallitaException;
+import eccezioni.create.CreateCorsoFallitoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,8 +18,13 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
     private Controller controller;
     private Connection connection;
     
+    private String insertCorso = "INSERT "
+                                      + "INTO corso (nome_corso, descrizione_corso, tasso_presenze_min, partecipanti_max) "
+                                      + "VALUES (?, ?, ?, ?)";
+    
     private String querySelectAllCorso = "SELECT * " +
                                          "FROM corso";
+    
     private String querySelectAreeDelCorso = "SELECT codice_area_tematica " +
                                              "FROM area_del_corso " +
                                              "WHERE codice_corso = ?";
@@ -37,8 +43,24 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
     }
     
     @Override
-    public void createCorso(Corso corso) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void createCorso(Corso corso) throws SQLException, CreateCorsoFallitoException {
+        try (PreparedStatement pstInsertCorso = connection.prepareStatement(insertCorso, Statement.RETURN_GENERATED_KEYS)) {
+            pstInsertCorso.setString(1, corso.getNome());
+            pstInsertCorso.setString(2, corso.getDescrizione());
+            pstInsertCorso.setInt(3, corso.getTassoPresenzeMinime());
+            pstInsertCorso.setInt(4, corso.getNumeroMassimoIscritti());
+            if (pstInsertCorso.executeUpdate() != 1) {
+                throw new CreateCorsoFallitoException();
+            }
+            try (ResultSet rsInsertAreaTematica = pstInsertCorso.getGeneratedKeys()) {
+                if(rsInsertAreaTematica.next()) {
+                    corso.setCodice(rsInsertAreaTematica.getInt(1));
+                }
+                else {
+                    throw new CreateCorsoFallitoException();
+                }
+            }
+        }
     }
 
     @Override

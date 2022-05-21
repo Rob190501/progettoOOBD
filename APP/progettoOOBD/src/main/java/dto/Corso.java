@@ -24,6 +24,16 @@ public class Corso {
         areeTematicheDelCorso = new LinkedList<>();
     }
     
+    public Corso(String nome, String descrizione, int tassoPresenzeMin, int numeroMassimoIscritti) {
+        setNome(nome);
+        setDescrizione(descrizione);
+        setTassoPresenzeMinime(tassoPresenzeMin);
+        setNumeroMassimoIscritti(numeroMassimoIscritti);
+        studentiIscritti = new LinkedList<>();
+        lezioniDelCorso = new LinkedList<>();
+        areeTematicheDelCorso = new LinkedList<>();
+    }
+    
     public int getCodice() {
         return codice;
     }

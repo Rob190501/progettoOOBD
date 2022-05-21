@@ -13,7 +13,8 @@ import eccezioni.associazioni.AssociazioneCorsoAreaTematicaFallitaException;
 import eccezioni.associazioni.AssociazioneLezioneCorsoFallitaException;
 import eccezioni.associazioni.AssociazioneStudenteCorsoFallitaException;
 import eccezioni.associazioni.AssociazioneStudenteLezioneFallitaException;
-import eccezioni.create.CreateAreaTematicaFallitaException;
+import eccezioni.create.CreateAreaTematicaFallitoException;
+import eccezioni.create.CreateCorsoFallitoException;
 import eccezioni.create.CreateStudenteDelCorsoFallitoException;
 import eccezioni.create.CreateStudenteFallitoException;
 import eccezioni.delete.DeleteAreaTematicaFallitoException;
@@ -487,7 +488,7 @@ public class Controller {
             listaAreeTematiche.add(area);
             panelAreeTematiche.inserisciInTableAreeTematiche(area.creaRiga());
         }
-        catch (SQLException | CreateAreaTematicaFallitaException e) {
+        catch (SQLException | CreateAreaTematicaFallitoException e) {
             homeFrameOperatore.mostraEccezione(e.getMessage());
             chiudiConnessionePerErrori();
         }
@@ -526,7 +527,17 @@ public class Controller {
     }
     
     public void nuovoCorso(String nome, String descrizione, int tassoPresenzeMinime, int numeroMassimoIscritti) {
+        Corso corso = new Corso(nome, descrizione, tassoPresenzeMinime, numeroMassimoIscritti);
         
+        try {
+            corsoDAO.createCorso(corso);
+            listaCorsi.add(corso);
+            panelCorsi.inserisciInTableCorsi(corso.creaRiga());
+        }
+        catch (SQLException | CreateCorsoFallitoException e) {
+            homeFrameOperatore.mostraEccezione(e.getMessage());
+            chiudiConnessionePerErrori();
+        }
     }
     //sezione corsi
     
