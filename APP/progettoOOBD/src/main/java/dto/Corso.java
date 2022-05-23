@@ -126,4 +126,14 @@ public class Corso {
         return nome + areeTematicheDelCorso.toString();
     }
     
+    public void rimuoviDaAssociazioni() {
+        for(Studente studente : studentiIscritti) {
+            studente.getCorsiFrequentati().remove(this);
+        }
+        
+        for(AreaTematica areaTematica : areeTematicheDelCorso) {
+            areaTematica.removeCorso(this);
+        }
+    }
+    
 }

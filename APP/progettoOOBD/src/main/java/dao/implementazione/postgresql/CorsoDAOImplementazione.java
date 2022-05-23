@@ -6,6 +6,7 @@ import dto.AreaTematica;
 import dto.Corso;
 import eccezioni.associazioni.AssociazioneCorsoAreaTematicaFallitaException;
 import eccezioni.create.CreateCorsoFallitoException;
+import eccezioni.delete.DeleteCorsoFallitoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,6 +29,10 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
     private String querySelectAreeDelCorso = "SELECT codice_area_tematica " +
                                              "FROM area_del_corso " +
                                              "WHERE codice_corso = ?";
+    
+    private String deleteCorso = "DELETE "
+                               + "FROM corso "
+                               + "WHERE codice_corso = ?";
     
     public CorsoDAOImplementazione(Controller controller, Connection connection) {
         setController(controller);
@@ -120,8 +125,13 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
     }
 
     @Override
-    public void deleteCorso(Corso corso) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void deleteCorso(Corso corso) throws SQLException, DeleteCorsoFallitoException {
+        try (PreparedStatement pstDeleteAreaCorso = connection.prepareStatement(deleteCorso)) {
+            pstDeleteAreaCorso.setInt(1, corso.getCodice());
+            if (pstDeleteAreaCorso.executeUpdate() != 1) {
+                throw new DeleteCorsoFallitoException();
+            }
+        }
     }
     
 }

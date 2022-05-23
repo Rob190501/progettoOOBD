@@ -18,6 +18,7 @@ import eccezioni.create.CreateCorsoFallitoException;
 import eccezioni.create.CreateStudenteDelCorsoFallitoException;
 import eccezioni.create.CreateStudenteFallitoException;
 import eccezioni.delete.DeleteAreaTematicaFallitoException;
+import eccezioni.delete.DeleteCorsoFallitoException;
 import eccezioni.delete.DeleteStudenteDelCorsoFallitoException;
 import eccezioni.delete.DeleteStudenteFallitoException;
 import gui.homeFrame.HomeFrameOperatore;
@@ -349,7 +350,7 @@ public class Controller {
         Studente studente = (Studente) studenteSelezionato;
         panelIscrizioni.svuotaTutteTable();
         panelIscrizioni.inserisciStudenteSelezionato(studente.creaRiga());
-        aggiornaPanelIscrizioni(studenteSelezionato);
+        aggiornaSelezionePanelIscrizioni(studenteSelezionato);
     }
     
     public void impostaPanelAreeTematiche() {
@@ -381,7 +382,7 @@ public class Controller {
     //sezione home page
     
     //sezione studenti
-    public void aggiornaPanelStudenti(Object studenteSelezionato) {
+    public void aggiornaSelezionePanelStudenti(Object studenteSelezionato) {
         Studente studente = (Studente) studenteSelezionato;
         
         panelStudenti.svuotaTableAssociazioni();
@@ -423,7 +424,7 @@ public class Controller {
         }
     }
     
-    public void aggiornaPanelIscrizioni(Object studenteSelezionato) {
+    public void aggiornaSelezionePanelIscrizioni(Object studenteSelezionato) {
         Studente studente = (Studente) studenteSelezionato;
         
         panelIscrizioni.svuotaTableAssociazioni();
@@ -470,7 +471,7 @@ public class Controller {
     //sezione studenti
     
     //sezione aree tematiche
-    public void aggiornaPanelAreeTematiche(Object areaSelezionata) {
+    public void aggiornaSelezionePanelAreeTematiche(Object areaSelezionata) {
         AreaTematica areaTematica = (AreaTematica) areaSelezionata;
         
         panelAreeTematiche.svuotaTableAssociazioni();
@@ -510,7 +511,7 @@ public class Controller {
     //sezione aree tematiche
     
     //sezione corsi
-    public void aggiornaPanelCorsi(Object corsoSelezionato) {
+    public void aggiornaSelezionePanelCorsi(Object corsoSelezionato) {
         Corso corso = (Corso) corsoSelezionato;
         
         panelCorsi.svuotaTableAssociazioni();
@@ -539,10 +540,26 @@ public class Controller {
             chiudiConnessionePerErrori();
         }
     }
+    
+    public void eliminaCorso(Object corsoSelezionato) {
+        Corso corso = (Corso) corsoSelezionato;
+        
+        try {
+            corsoDAO.deleteCorso(corso);
+            listaLezioni.removeAll(corso.getLezioniDelCorso());
+            corso.rimuoviDaAssociazioni();
+            listaCorsi.remove(corso);
+            impostaPanelLezioni();
+        }
+        catch(SQLException | DeleteCorsoFallitoException e) {
+            homeFrameOperatore.mostraEccezione(e.getMessage());
+            chiudiConnessionePerErrori();
+        }
+    }
     //sezione corsi
     
     //sezione lezioni
-    public void aggiornaPanelLezioni(Object lezioneSelezionata) {
+    public void aggiornaSelezionePanelLezioni(Object lezioneSelezionata) {
         Lezione lezione = (Lezione) lezioneSelezionata;
         
         panelLezioni.svuotaTableAssociazioni();

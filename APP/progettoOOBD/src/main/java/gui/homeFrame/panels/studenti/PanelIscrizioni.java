@@ -261,7 +261,7 @@ public class PanelIscrizioni extends PanelGenerico {
             Object studenteSelezionato = ottieniPrimoOggetto(tableStudenteSelezionato);
             Object corsoSelezionato = ottieniOggettoSelezionato(tableCorsiFrequentabili);
             getController().iscriviAlCorso(studenteSelezionato, corsoSelezionato);
-            getController().aggiornaPanelIscrizioni(studenteSelezionato);
+            getController().aggiornaSelezionePanelIscrizioni(studenteSelezionato);
         }
         catch (NessunaRigaSelezionataException e) {
             getHomeFrame().mostraEccezione(e.getMessage());
@@ -277,7 +277,7 @@ public class PanelIscrizioni extends PanelGenerico {
             Object studenteSelezionato = ottieniPrimoOggetto(tableStudenteSelezionato);
             Object corsoSelezionato = ottieniOggettoSelezionato(tableCorsiFrequentati);
             getController().disiscriviDalCorso(studenteSelezionato, corsoSelezionato);
-            getController().aggiornaPanelIscrizioni(studenteSelezionato);
+            getController().aggiornaSelezionePanelIscrizioni(studenteSelezionato);
         }
         catch (NessunaRigaSelezionataException e) {
             getHomeFrame().mostraEccezione(e.getMessage());

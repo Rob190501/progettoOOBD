@@ -241,7 +241,7 @@ public class PanelLezioni extends PanelGenerico {
     public void aggiornaSelezione() {
         if (tableLezioni.getSelectedRow() != -1) {
             Object lezioneSelezionata = ottieniOggettoSelezionato(tableLezioni);
-            getController().aggiornaPanelLezioni(lezioneSelezionata);
+            getController().aggiornaSelezionePanelLezioni(lezioneSelezionata);
         }
     }
     

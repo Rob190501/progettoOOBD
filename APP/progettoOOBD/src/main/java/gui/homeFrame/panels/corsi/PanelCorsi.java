@@ -1,6 +1,7 @@
 package gui.homeFrame.panels.corsi;
 
 import controller.Controller;
+import eccezioni.elementiGui.NessunaRigaSelezionataException;
 import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.panelGenerico.PanelGenerico;
 
@@ -32,7 +33,8 @@ public class PanelCorsi extends PanelGenerico {
         labelStudentiIscritti1 = new javax.swing.JLabel();
         scrollPaneTableAreeDelCorso = new javax.swing.JScrollPane();
         tableAreeDelCorso = new javax.swing.JTable();
-        buttonNuovoCorso1 = new javax.swing.JButton();
+        buttonEliminaCorso = new javax.swing.JButton();
+        buttonNuovoCorso2 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(745, 566));
@@ -208,14 +210,28 @@ public class PanelCorsi extends PanelGenerico {
         tableAreeDelCorso.getTableHeader().setReorderingAllowed(false);
         scrollPaneTableAreeDelCorso.setViewportView(tableAreeDelCorso);
 
-        buttonNuovoCorso1.setBackground(new java.awt.Color(153, 204, 255));
-        buttonNuovoCorso1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonNuovoCorso1.setForeground(new java.awt.Color(255, 255, 255));
-        buttonNuovoCorso1.setText("Nuovo corso");
-        buttonNuovoCorso1.setBorder(null);
-        buttonNuovoCorso1.setBorderPainted(false);
-        buttonNuovoCorso1.setFocusPainted(false);
-        buttonNuovoCorso1.setOpaque(true);
+        buttonEliminaCorso.setBackground(new java.awt.Color(153, 204, 255));
+        buttonEliminaCorso.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonEliminaCorso.setForeground(new java.awt.Color(255, 255, 255));
+        buttonEliminaCorso.setText("Elimina corso");
+        buttonEliminaCorso.setBorder(null);
+        buttonEliminaCorso.setBorderPainted(false);
+        buttonEliminaCorso.setFocusPainted(false);
+        buttonEliminaCorso.setOpaque(true);
+        buttonEliminaCorso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEliminaCorsoActionPerformed(evt);
+            }
+        });
+
+        buttonNuovoCorso2.setBackground(new java.awt.Color(153, 204, 255));
+        buttonNuovoCorso2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonNuovoCorso2.setForeground(new java.awt.Color(255, 255, 255));
+        buttonNuovoCorso2.setText("A");
+        buttonNuovoCorso2.setBorder(null);
+        buttonNuovoCorso2.setBorderPainted(false);
+        buttonNuovoCorso2.setFocusPainted(false);
+        buttonNuovoCorso2.setOpaque(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -227,7 +243,9 @@ public class PanelCorsi extends PanelGenerico {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(buttonNuovoCorso, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(buttonNuovoCorso1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonEliminaCorso, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonNuovoCorso2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -270,7 +288,8 @@ public class PanelCorsi extends PanelGenerico {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonNuovoCorso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonNuovoCorso1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonEliminaCorso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonNuovoCorso2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -289,6 +308,20 @@ public class PanelCorsi extends PanelGenerico {
         // TODO add your handling code here:
         getHomeFrame().mostraCardNuovoCorso();
     }//GEN-LAST:event_buttonNuovoCorsoActionPerformed
+
+    private void buttonEliminaCorsoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEliminaCorsoActionPerformed
+        // TODO add your handling code here:
+        try {
+            if(tableCorsi.getSelectedRow() == -1) {
+                throw new NessunaRigaSelezionataException("Studenti");
+            }
+            getController().eliminaCorso(ottieniOggettoSelezionato(tableCorsi));
+            rimuoviRigaSelezionataDaJTable(tableCorsi);
+        }
+        catch (NessunaRigaSelezionataException e) {
+            getHomeFrame().mostraEccezione(e.getMessage());
+        }
+    }//GEN-LAST:event_buttonEliminaCorsoActionPerformed
 
     private void nascondiTutteColonneOggetto() {
         nascondiColonnaOggetto(tableCorsi);
@@ -313,7 +346,7 @@ public class PanelCorsi extends PanelGenerico {
     public void aggiornaSelezione() {
         if(tableCorsi.getSelectedRow() != -1) {
             Object corsoSelezionato = ottieniOggettoSelezionato(tableCorsi);
-            getController().aggiornaPanelCorsi(corsoSelezionato);
+            getController().aggiornaSelezionePanelCorsi(corsoSelezionato);
         }
     }
     
@@ -337,8 +370,9 @@ public class PanelCorsi extends PanelGenerico {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonEliminaCorso;
     private javax.swing.JButton buttonNuovoCorso;
-    private javax.swing.JButton buttonNuovoCorso1;
+    private javax.swing.JButton buttonNuovoCorso2;
     private javax.swing.JLabel labelCorsi;
     private javax.swing.JLabel labelLezioniDelCorso;
     private javax.swing.JLabel labelStudentiIscritti;

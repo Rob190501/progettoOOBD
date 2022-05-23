@@ -248,7 +248,7 @@ public class PanelAreeTematiche extends PanelGenerico {
     public void aggiornaSelezione() {
         if(tableAreeTematiche.getSelectedRow() != -1) {
             Object areaSelezionata = ottieniOggettoSelezionato(tableAreeTematiche);
-            getController().aggiornaPanelAreeTematiche(areaSelezionata);
+            getController().aggiornaSelezionePanelAreeTematiche(areaSelezionata);
         }
     }
     
