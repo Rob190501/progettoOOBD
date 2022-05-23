@@ -1,8 +1,8 @@
-INSERTT INTO corso (nome_corso, descrizione_corso, tasso_presenze_min, partecipanti_max) VALUES
-('Enformatica', 'Si studia informatica', 50, 150),
-('enformatica', 'Si studia matematica', 50, 150);
+INSERT INTO corso (nome_corso, descrizione_corso, tasso_presenze_min, partecipanti_max) VALUES
+('Informatica', 'Si studia informatica', 50, 3),
+('Matematica', 'Si studia matematica', 50, 10);
 
-INSERTT INTO area_tematica (nome_area_tematica, descrizione_area_tematica) VALUES
+INSERT INTO area_tematica (nome_area_tematica, descrizione_area_tematica) VALUES
 ('Informatica', 'Area di informatica'),
 ('Matematica', 'Area di matematica'),
 ('Medicina', 'Area di medicina');
@@ -27,8 +27,11 @@ INSERT INTO presenze (matricola, codice_lezione) VALUES
 (0, 0);
 
 INSERT INTO lezione (titolo_lezione, descrizione_lezione, durata_lezione, data_inizio, ora_inizio, codice_corso) VALUES
-('Lezione 1', 'Lezione di presentazione', '02:00:00', '17-09-2021', '09:00:00', 0),
-('Lezione 1', 'Lezione di presentazione del corso di Matematica', '02:00:00', '2021-09-17', '11:00:00', 1);
+('Lezione 1', 'Lezione di presentazione', '02:00:00', '2021-09-17 09:00:00+02', '09:00:00', 3);
 
-DELETE FROM studente
+SELECT CURRENT_TIMESTAMP;
+
+SELECT LOCALTIMESTAMP;
+
+DELETE FROM lezione;
 WHERE matricola = 6;

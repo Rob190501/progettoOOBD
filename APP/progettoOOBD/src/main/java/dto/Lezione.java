@@ -1,6 +1,7 @@
 
 package dto;
 
+import java.util.Date;
 import java.util.LinkedList;
 
 public class Lezione {
@@ -9,18 +10,16 @@ public class Lezione {
     private String titolo;
     private String descrizione;
     private String durata;
-    private String dataInizio;
-    private String oraInizio;
+    private Date dataInizio;
     private Corso corsoDellaLezione;
     private LinkedList<Studente> studentiPresenti;
 
-    public Lezione(int codiceLezione, String titoloLezione, String descrizioneLezione, String durataLezione, String dataInizio, String oraInizio, Corso corsoDellaLezione) {
+    public Lezione(int codiceLezione, String titoloLezione, String descrizioneLezione, String durataLezione, Date dataInizio, Corso corsoDellaLezione) {
         setCodice(codiceLezione);
         setTitolo(titoloLezione);
         setDescrizione(descrizioneLezione);
         setDurata(durataLezione);
         setDataInizio(dataInizio);
-        setOraInizio(oraInizio);
         setCorsoDellaLezione(corsoDellaLezione);
         studentiPresenti = new LinkedList<>();
     }
@@ -41,12 +40,8 @@ public class Lezione {
         return durata;
     }
 
-    public String getDataInizio() {
+    public Date getDataInizio() {
         return dataInizio;
-    }
-
-    public String getOraInizio() {
-        return oraInizio;
     }
 
     public Corso getCorsoDellaLezione() {
@@ -73,12 +68,8 @@ public class Lezione {
         this.durata = durata;
     }
 
-    public void setDataInizio(String dataInizio) {
+    public void setDataInizio(Date dataInizio) {
         this.dataInizio = dataInizio;
-    }
-
-    public void setOraInizio(String oraInizio) {
-        this.oraInizio = oraInizio;
     }
 
     public void setCorsoDellaLezione(Corso corsoDellaLezione) {
@@ -94,12 +85,12 @@ public class Lezione {
     }
     
     public Object[] creaRiga() {
-        Object[] riga = {this, codice, titolo, descrizione, dataInizio, oraInizio, durata};
+        Object[] riga = {this, codice, titolo, descrizione, dataInizio, durata};
         return riga;
     }
     
     public String toString() {
-        return codice + " | " + titolo + " | " + descrizione + " | " + durata + " | " + dataInizio + " | " + oraInizio + " | " + corsoDellaLezione.getNome();
+        return codice + " | " + titolo + " | " + descrizione + " | " + durata + " | " + dataInizio + " | " + corsoDellaLezione.getNome();
     }
     
 }

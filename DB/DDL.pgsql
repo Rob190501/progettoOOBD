@@ -44,6 +44,9 @@ CREATE TABLE lezione (
     ON UPDATE CASCADE
 );
 
+alter table lezione
+alter column data_inizio TYPE TIMESTAMP WITH TIME ZONE;
+
 CREATE TABLE studente (
     matricola INTEGER GENERATED ALWAYS AS IDENTITY
                       (START WITH 0

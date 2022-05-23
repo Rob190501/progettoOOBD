@@ -279,6 +279,9 @@ public class Controller {
         setListaAreeTematiche(areaTematicaDAO.retrieveAllAreaTematica());
         setListaCorsi(corsoDAO.retrieveAllCorso(listaAreeTematiche));
         setListaLezioni(lezioneDAO.retrieveAllLezione(listaCorsi));
+        for(Lezione lezione : listaLezioni) {
+            System.out.println(lezione.toString());
+        }
         setListaStudenti(studenteDAO.retrieveAllStudente(listaCorsi, listaLezioni));
     }
     //DAO

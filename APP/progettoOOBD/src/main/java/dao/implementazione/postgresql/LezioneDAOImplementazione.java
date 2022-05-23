@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import java.util.LinkedList;
 
 public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
@@ -48,12 +49,17 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
                     String titolo_lezione = rsRetrieveAllLezione.getString("titolo_lezione");
                     String descrizione_lezione = rsRetrieveAllLezione.getString("descrizione_lezione");
                     String durata_lezione = rsRetrieveAllLezione.getString("durata_lezione");
-                    String data_inizio = rsRetrieveAllLezione.getString("data_inizio");
-                    String ora_inizio = rsRetrieveAllLezione.getString("ora_inizio");
+                    //String data_inizio = rsRetrieveAllLezione.getString("data_inizio");
+                    //String ora_inizio = rsRetrieveAllLezione.getString("ora_inizio");
+                    
+                    Date x = (Date) rsRetrieveAllLezione.getTimestamp("data_inizio");
+                    System.out.println(rsRetrieveAllLezione.getTimestamp("data_inizio"));
+                    
                     int codice_corso = rsRetrieveAllLezione.getInt("codice_corso");
 
                     Corso corsoDellaLezione = trovaCorso(codice_corso, listaCorsi);
-                    Lezione lezione = new Lezione(codice_lezione, titolo_lezione, descrizione_lezione, durata_lezione, data_inizio, ora_inizio, corsoDellaLezione);
+                    //Lezione lezione = new Lezione(codice_lezione, titolo_lezione, descrizione_lezione, durata_lezione, data_inizio, ora_inizio, corsoDellaLezione);
+                    Lezione lezione = new Lezione(codice_lezione, titolo_lezione, descrizione_lezione, durata_lezione, x, corsoDellaLezione);
                     corsoDellaLezione.addLezione(lezione);
                     listaLezioni.add(lezione);
                 }
