@@ -27,29 +27,36 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <EmptySpace pref="20" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="labelNomeCorso" pref="350" max="32767" attributes="0"/>
-                      <Component id="labelTassoPresenze" alignment="0" max="32767" attributes="0"/>
-                      <Component id="textFieldNome" alignment="0" max="32767" attributes="0"/>
-                      <Component id="labelNuovoCorso" alignment="0" min="-2" pref="349" max="-2" attributes="0"/>
-                      <Component id="spinnerTassoPresenze" alignment="1" max="32767" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace pref="15" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="scrollPaneTableCorsi" alignment="1" max="32767" attributes="0"/>
+                  <Component id="labelCorsoDellaLezione" alignment="1" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="labelDurata" alignment="0" max="32767" attributes="0"/>
+                          <Component id="textFieldTitolo" alignment="0" max="32767" attributes="0"/>
+                          <Component id="labelNuovaLezione" alignment="0" pref="350" max="32767" attributes="0"/>
+                          <Component id="labelTitolo" alignment="0" max="32767" attributes="0"/>
+                          <Component id="textFieldDurata" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="labelDescrizione" alignment="0" max="32767" attributes="0"/>
+                          <Component id="labelDataOraInizio" alignment="0" pref="350" max="32767" attributes="0"/>
+                          <Component id="textFieldDescrizione" alignment="0" max="32767" attributes="0"/>
+                          <Component id="spinnerDataOraInizio" alignment="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-                  <Component id="buttonIndietro" min="-2" pref="147" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="labelDescrizione" alignment="0" max="32767" attributes="0"/>
-                      <Component id="labelNumeroMassimoIscritti" alignment="0" max="32767" attributes="0"/>
-                      <Component id="textFieldDescrizione" alignment="0" pref="350" max="32767" attributes="0"/>
-                      <Component id="spinnerNumeroMassimoIscritti" alignment="1" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
+                      <Component id="buttonIndietro" min="-2" pref="147" max="-2" attributes="0"/>
+                      <EmptySpace pref="184" max="32767" attributes="0"/>
+                      <Component id="buttonRegistraLezione" min="-2" pref="147" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="buttonRegistraCorso" min="-2" pref="147" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="13" max="32767" attributes="0"/>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -57,32 +64,34 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-              <Component id="labelNuovoCorso" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="84" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="labelNomeCorso" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="textFieldNome" min="-2" pref="50" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                      <Component id="labelTassoPresenze" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="spinnerNumeroMassimoIscritti" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="spinnerTassoPresenze" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="labelDescrizione" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="textFieldDescrizione" min="-2" pref="50" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                      <Component id="labelNumeroMassimoIscritti" min="-2" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-              <EmptySpace pref="132" max="32767" attributes="0"/>
+              <Component id="labelNuovaLezione" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="44" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="buttonRegistraCorso" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="labelDescrizione" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelTitolo" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="textFieldDescrizione" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                  <Component id="textFieldTitolo" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="labelDurata" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelDataOraInizio" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="textFieldDurata" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                  <Component id="spinnerDataOraInizio" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="labelCorsoDellaLezione" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="scrollPaneTableCorsi" pref="87" max="32767" attributes="0"/>
+              <EmptySpace pref="45" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="buttonRegistraLezione" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="buttonIndietro" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
@@ -91,7 +100,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JTextField" name="textFieldNome">
+    <Component class="javax.swing.JTextField" name="textFieldTitolo">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -114,7 +123,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonRegistraCorso">
+    <Component class="javax.swing.JButton" name="buttonRegistraLezione">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="cc" red="99" type="rgb"/>
@@ -125,7 +134,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Registra corso"/>
+        <Property name="text" type="java.lang.String" value="Registra Lezione"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
         </Property>
@@ -134,7 +143,7 @@
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRegistraCorsoActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRegistraLezioneActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="buttonIndietro">
@@ -160,7 +169,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonIndietroActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="labelNuovoCorso">
+    <Component class="javax.swing.JLabel" name="labelNuovaLezione">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="36" style="1"/>
@@ -168,10 +177,11 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="cc" red="99" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Nuovo corso"/>
+        <Property name="text" type="java.lang.String" value="Nuova Lezione"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="labelNomeCorso">
+    <Component class="javax.swing.JLabel" name="labelTitolo">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -182,10 +192,10 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="cc" red="99" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Nome corso"/>
+        <Property name="text" type="java.lang.String" value="Titolo"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="labelTassoPresenze">
+    <Component class="javax.swing.JLabel" name="labelDurata">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -196,7 +206,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="cc" red="99" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Tasso presenze minime"/>
+        <Property name="text" type="java.lang.String" value="Durata"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="labelDescrizione">
@@ -236,7 +246,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="labelNumeroMassimoIscritti">
+    <Component class="javax.swing.JLabel" name="labelDataOraInizio">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -247,16 +257,98 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="cc" red="99" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Numero massimo iscritti"/>
+        <Property name="text" type="java.lang.String" value="Data e ora inizio"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JSpinner" name="spinnerNumeroMassimoIscritti">
+    <Container class="javax.swing.JScrollPane" name="scrollPaneTableCorsi">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTable" name="tableCorsi">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+                <MatteColorBorder bottom="1" left="0" right="0" top="1"/>
+              </Border>
+            </Property>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+              <Table columnCount="6" rowCount="0">
+                <Column editable="false" title="Oggetto" type="java.lang.Object"/>
+                <Column editable="false" title="Codice" type="java.lang.String"/>
+                <Column editable="false" title="Nome" type="java.lang.String"/>
+                <Column editable="false" title="Descrizione" type="java.lang.String"/>
+                <Column editable="false" title="Tasso presenze minime" type="java.lang.String"/>
+                <Column editable="false" title="Numero massimo iscritti" type="java.lang.Object"/>
+              </Table>
+            </Property>
+            <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
+            <Property name="rowHeight" type="int" value="40"/>
+            <Property name="selectionMode" type="int" value="0"/>
+            <Property name="showGrid" type="boolean" value="true"/>
+            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+              <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
+            </Property>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JLabel" name="labelCorsoDellaLezione">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="24" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="cc" red="99" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Corso della lezione"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textFieldDurata">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="24" style="0"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Color.GRAY" type="code"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="HH:MM"/>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+            <MatteColorBorder bottom="5" left="0" right="0" top="0">
+              <Color PropertyName="color" blue="ff" green="cc" red="99" type="rgb"/>
+            </MatteColorBorder>
+          </Border>
+        </Property>
+        <Property name="selectionColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="99" red="33" type="rgb"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="textFieldDurataFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="textFieldDurataFocusLost"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="spinnerDataOraInizio">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Helvetica Neue" size="24" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+          <SpinnerModel initial="now" stepSize="5" type="date"/>
         </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
@@ -269,30 +361,7 @@
           <Color id="Default Cursor"/>
         </Property>
         <Property name="editor" type="javax.swing.JComponent" editor="org.netbeans.modules.form.editors.SpinnerEditorEditor">
-          <SpinnerEditor format="" type="3"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JSpinner" name="spinnerTassoPresenze">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Helvetica Neue" size="24" style="0"/>
-        </Property>
-        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
-        </Property>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
-            <MatteColorBorder bottom="5" left="0" right="0" top="0">
-              <Color PropertyName="color" blue="ff" green="cc" red="99" type="rgb"/>
-            </MatteColorBorder>
-          </Border>
-        </Property>
-        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Default Cursor"/>
-        </Property>
-        <Property name="editor" type="javax.swing.JComponent" editor="org.netbeans.modules.form.editors.SpinnerEditorEditor">
-          <SpinnerEditor format="" type="3"/>
+          <SpinnerEditor format="yyyy-MM-dd HH:mm" type="1"/>
         </Property>
       </Properties>
     </Component>

@@ -31,9 +31,8 @@ CREATE TABLE lezione (
                             MINVALUE 0),
     titolo_lezione VARCHAR (200) NOT NULL,
     descrizione_lezione VARCHAR (300) NOT NULL,
-    durata_lezione TIME NOT NULL,
-    data_inizio DATE NOT NULL,
-    ora_inizio TIME NOT NULL,
+    durata_lezione INTERVAL NOT NULL,
+    data_inizio TIMESTAMP WITH TIME ZONE NOT NULL,
     codice_corso INTEGER NOT NULL,
 
     CONSTRAINT pk_lezione PRIMARY KEY (codice_lezione),
@@ -45,7 +44,7 @@ CREATE TABLE lezione (
 );
 
 alter table lezione
-alter column data_inizio TYPE TIMESTAMP WITH TIME ZONE;
+alter column durata_lezione type interval;
 
 CREATE TABLE studente (
     matricola INTEGER GENERATED ALWAYS AS IDENTITY

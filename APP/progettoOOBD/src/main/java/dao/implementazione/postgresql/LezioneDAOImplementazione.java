@@ -5,12 +5,17 @@ import dao.interfaccia.LezioneDAOInterfaccia;
 import dto.Corso;
 import dto.Lezione;
 import eccezioni.associazioni.AssociazioneLezioneCorsoFallitaException;
+import eccezioni.create.CreateLezioneFallitoException;
+import eccezioni.delete.DeleteLezioneFallitoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
+import java.sql.Timestamp;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.LinkedList;
 
 public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
@@ -18,8 +23,16 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
     private Controller controller;
     private Connection connection;
     
+    private String insertLezione = "INSERT "
+                                 + "INTO lezione (titolo_lezione, descrizione_lezione, durata_lezione, data_inizio, codice_corso) "
+                                 + "VALUES (?, ?, ?::INTERVAL, ?, ?)";
+    
     private String querySelectAllLezione = "SELECT * "+
                                            "FROM lezione";
+    
+    private String deleteLezione = "DELETE "
+                                  + "FROM lezione "
+                                  + "WHERE codice_lezione = ?";
     
     public LezioneDAOImplementazione(Controller controller, Connection connection) {
         setController(controller);
@@ -35,7 +48,27 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
     }
     
     @Override
-    public void createLezione(Lezione lez) {
+    public void createLezione(Lezione lezione) throws SQLException, CreateLezioneFallitoException {
+        try (PreparedStatement pstInsertLezione = connection.prepareStatement(insertLezione, Statement.RETURN_GENERATED_KEYS)) {
+            pstInsertLezione.setString(1, lezione.getTitolo());
+            pstInsertLezione.setString(2, lezione.getDescrizione());
+            pstInsertLezione.setString(3, lezione.getDurata());
+            pstInsertLezione.setTimestamp(4, Timestamp.valueOf(lezione.getDataInizio().toLocalDateTime()));
+            pstInsertLezione.setInt(5, lezione.getCorsoDellaLezione().getCodice());
+            
+            
+            if (pstInsertLezione.executeUpdate() != 1) {
+                throw new CreateLezioneFallitoException();
+            }
+            try (ResultSet rsInsertLezione = pstInsertLezione.getGeneratedKeys()) {
+                if(rsInsertLezione.next()) {
+                    lezione.setCodice(rsInsertLezione.getInt(1));
+                }
+                else {
+                    throw new CreateLezioneFallitoException();
+                }
+            }
+        }
     }
 
     @Override
@@ -49,17 +82,17 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
                     String titolo_lezione = rsRetrieveAllLezione.getString("titolo_lezione");
                     String descrizione_lezione = rsRetrieveAllLezione.getString("descrizione_lezione");
                     String durata_lezione = rsRetrieveAllLezione.getString("durata_lezione");
-                    //String data_inizio = rsRetrieveAllLezione.getString("data_inizio");
-                    //String ora_inizio = rsRetrieveAllLezione.getString("ora_inizio");
                     
-                    Date x = (Date) rsRetrieveAllLezione.getTimestamp("data_inizio");
-                    System.out.println(rsRetrieveAllLezione.getTimestamp("data_inizio"));
+                    durata_lezione = durata_lezione.substring(0, 5);
+                    
+                    ZonedDateTime data_inizio = ZonedDateTime.ofInstant(rsRetrieveAllLezione.getTimestamp("data_inizio").toInstant(), ZoneId.of("Europe/Rome"));
+                    
+                    data_inizio = data_inizio.truncatedTo(ChronoUnit.MINUTES);
                     
                     int codice_corso = rsRetrieveAllLezione.getInt("codice_corso");
 
                     Corso corsoDellaLezione = trovaCorso(codice_corso, listaCorsi);
-                    //Lezione lezione = new Lezione(codice_lezione, titolo_lezione, descrizione_lezione, durata_lezione, data_inizio, ora_inizio, corsoDellaLezione);
-                    Lezione lezione = new Lezione(codice_lezione, titolo_lezione, descrizione_lezione, durata_lezione, x, corsoDellaLezione);
+                    Lezione lezione = new Lezione(codice_lezione, titolo_lezione, descrizione_lezione, durata_lezione, data_inizio, corsoDellaLezione);
                     corsoDellaLezione.addLezione(lezione);
                     listaLezioni.add(lezione);
                 }
@@ -83,7 +116,13 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
     }
 
     @Override
-    public void deleteLezione(Lezione lez) {
+    public void deleteLezione(Lezione lezione) throws SQLException, DeleteLezioneFallitoException {
+        try (PreparedStatement pstDeleteLezione = connection.prepareStatement(deleteLezione)) {
+            pstDeleteLezione.setInt(1, lezione.getCodice());
+            if (pstDeleteLezione.executeUpdate() != 1) {
+                throw new DeleteLezioneFallitoException();
+            }
+        }
     }
     
 }

@@ -6,18 +6,17 @@ import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.panelGenerico.PanelGenerico;
 
 
+
 public class PanelAreeTematiche extends PanelGenerico {
 
-    //costruttore
+
     public PanelAreeTematiche(Controller controller, HomeFrameOperatore homeFrame) {
         super(controller, homeFrame);
         initComponents();
-        nascondiTutteColonneOggetto();
+        nascondiColonnaOggetto(tableAreeTematiche);
+        nascondiColonnaOggetto(tableCorsiDellArea);
     }
-    //fine costruttore
-
     
-    //initComponents
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -28,7 +27,7 @@ public class PanelAreeTematiche extends PanelGenerico {
         scrollPaneTableCorsiDellArea = new javax.swing.JScrollPane();
         tableCorsiDellArea = new javax.swing.JTable();
         labelCorsiDellAreaSelezionata = new javax.swing.JLabel();
-        buttonA = new javax.swing.JButton();
+        buttonAggiornaAreaTematica = new javax.swing.JButton();
         buttonNuovaAreaTematica = new javax.swing.JButton();
         buttonRimuoviAreaTematica = new javax.swing.JButton();
 
@@ -117,14 +116,19 @@ public class PanelAreeTematiche extends PanelGenerico {
         labelCorsiDellAreaSelezionata.setForeground(new java.awt.Color(153, 204, 255));
         labelCorsiDellAreaSelezionata.setText("Corsi dell'area selezionata");
 
-        buttonA.setBackground(new java.awt.Color(153, 204, 255));
-        buttonA.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonA.setForeground(new java.awt.Color(255, 255, 255));
-        buttonA.setText("A");
-        buttonA.setBorder(null);
-        buttonA.setBorderPainted(false);
-        buttonA.setFocusPainted(false);
-        buttonA.setOpaque(true);
+        buttonAggiornaAreaTematica.setBackground(new java.awt.Color(153, 204, 255));
+        buttonAggiornaAreaTematica.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        buttonAggiornaAreaTematica.setForeground(new java.awt.Color(255, 255, 255));
+        buttonAggiornaAreaTematica.setText("Aggiorna area tematica");
+        buttonAggiornaAreaTematica.setBorder(null);
+        buttonAggiornaAreaTematica.setBorderPainted(false);
+        buttonAggiornaAreaTematica.setFocusPainted(false);
+        buttonAggiornaAreaTematica.setOpaque(true);
+        buttonAggiornaAreaTematica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAggiornaAreaTematicaActionPerformed(evt);
+            }
+        });
 
         buttonNuovaAreaTematica.setBackground(new java.awt.Color(153, 204, 255));
         buttonNuovaAreaTematica.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -162,22 +166,21 @@ public class PanelAreeTematiche extends PanelGenerico {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonA, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(buttonNuovaAreaTematica, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(buttonRimuoviAreaTematica, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(labelCorsiDellAreaSelezionata, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(scrollPaneTableAreeTematiche, javax.swing.GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
-                            .addComponent(scrollPaneTableCorsiDellArea, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(buttonNuovaAreaTematica, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(buttonRimuoviAreaTematica, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(buttonAggiornaAreaTematica, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(scrollPaneTableCorsiDellArea, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(labelAreeTematiche, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(scrollPaneTableAreeTematiche, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(20, 20, 20))))
         );
         layout.setVerticalGroup(
@@ -193,48 +196,32 @@ public class PanelAreeTematiche extends PanelGenerico {
                 .addComponent(scrollPaneTableCorsiDellArea, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonA, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonAggiornaAreaTematica, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonNuovaAreaTematica, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonRimuoviAreaTematica, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
         );
     }// </editor-fold>//GEN-END:initComponents
-    //fine initComponents
-    
+
     private void tableAreeTematicheMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableAreeTematicheMouseClicked
-        // TODO add your handling code here:
         aggiornaSelezione();
     }//GEN-LAST:event_tableAreeTematicheMouseClicked
 
     private void tableAreeTematicheMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableAreeTematicheMouseDragged
-        // TODO add your handling code here:
         aggiornaSelezione();
     }//GEN-LAST:event_tableAreeTematicheMouseDragged
 
     private void buttonNuovaAreaTematicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNuovaAreaTematicaActionPerformed
-        // TODO add your handling code here:
         getHomeFrame().mostraCardNuovaAreaTematica();
     }//GEN-LAST:event_buttonNuovaAreaTematicaActionPerformed
 
     private void buttonRimuoviAreaTematicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRimuoviAreaTematicaActionPerformed
-        // TODO add your handling code here:
-        try {
-            if(tableAreeTematiche.getSelectedRow() == -1) {
-                throw new NessunaRigaSelezionataException("aree tematiche");
-            }
-            getController().eliminaAreaTematica(ottieniOggettoSelezionato(tableAreeTematiche));
-            rimuoviRigaSelezionataDaJTable(tableAreeTematiche);
-        }
-        catch (NessunaRigaSelezionataException e) {
-            getHomeFrame().mostraEccezione(e.getMessage());
-        }
+        getController().eliminaAreaTematica(ottieniOggettoSelezionato(tableAreeTematiche));
     }//GEN-LAST:event_buttonRimuoviAreaTematicaActionPerformed
-    
-    
-    private void nascondiTutteColonneOggetto() {
-        nascondiColonnaOggetto(tableAreeTematiche);
-        nascondiColonnaOggetto(tableCorsiDellArea);
-    }
+
+    private void buttonAggiornaAreaTematicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAggiornaAreaTematicaActionPerformed
+        getHomeFrame().mostraCardAggiornaAreaTematica();
+    }//GEN-LAST:event_buttonAggiornaAreaTematicaActionPerformed
     
     public void svuotaTutteTable() {
         svuotaTable(tableAreeTematiche);
@@ -260,12 +247,12 @@ public class PanelAreeTematiche extends PanelGenerico {
         inserisciRigaInJTable(tableCorsiDellArea, row);
     }
     
-    
-    
-    
+    public void rimuoviAreaTematicaSelezionata() {
+        rimuoviRigaSelezionataDaJTable(tableAreeTematiche);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonA;
+    private javax.swing.JButton buttonAggiornaAreaTematica;
     private javax.swing.JButton buttonNuovaAreaTematica;
     private javax.swing.JButton buttonRimuoviAreaTematica;
     private javax.swing.JLabel labelAreeTematiche;
@@ -275,4 +262,5 @@ public class PanelAreeTematiche extends PanelGenerico {
     private javax.swing.JTable tableAreeTematiche;
     private javax.swing.JTable tableCorsiDellArea;
     // End of variables declaration//GEN-END:variables
+
 }

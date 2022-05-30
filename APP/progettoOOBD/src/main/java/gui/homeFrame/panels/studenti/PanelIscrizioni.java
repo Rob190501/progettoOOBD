@@ -5,12 +5,16 @@ import eccezioni.elementiGui.NessunaRigaSelezionataException;
 import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.panelGenerico.PanelGenerico;
 
+
+
 public class PanelIscrizioni extends PanelGenerico {
 
     public PanelIscrizioni(Controller controller, HomeFrameOperatore homeFrame) {
         super(controller, homeFrame);
         initComponents();
-        nascondiTutteColonneOggetto();
+        nascondiColonnaOggetto(tableStudenteSelezionato);
+        nascondiColonnaOggetto(tableCorsiFrequentati);
+        nascondiColonnaOggetto(tableCorsiFrequentabili);
     }
 
     @SuppressWarnings("unchecked")
@@ -248,20 +252,13 @@ public class PanelIscrizioni extends PanelGenerico {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonIndietroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIndietroActionPerformed
-        // TODO add your handling code here:
         getHomeFrame().mostraCardStudenti();
     }//GEN-LAST:event_buttonIndietroActionPerformed
 
     private void buttonIscriviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIscriviActionPerformed
-        // TODO add your handling code here:
         try {
-            if(tableCorsiFrequentabili.getSelectedRow() == -1) {
-                throw new NessunaRigaSelezionataException("Corsi frequentabili");
-            }
-            Object studenteSelezionato = ottieniPrimoOggetto(tableStudenteSelezionato);
-            Object corsoSelezionato = ottieniOggettoSelezionato(tableCorsiFrequentabili);
-            getController().iscriviAlCorso(studenteSelezionato, corsoSelezionato);
-            getController().aggiornaSelezionePanelIscrizioni(studenteSelezionato);
+            controllaRigaSelezionata(tableCorsiFrequentabili, "corsi frequentabili");
+            getController().iscriviAlCorso(ottieniPrimoOggetto(tableStudenteSelezionato), ottieniOggettoSelezionato(tableCorsiFrequentabili));
         }
         catch (NessunaRigaSelezionataException e) {
             getHomeFrame().mostraEccezione(e.getMessage());
@@ -269,26 +266,14 @@ public class PanelIscrizioni extends PanelGenerico {
     }//GEN-LAST:event_buttonIscriviActionPerformed
 
     private void buttonDisiscriviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDisiscriviActionPerformed
-        // TODO add your handling code here:
         try {
-            if(tableCorsiFrequentati.getSelectedRow() == -1) {
-                throw new NessunaRigaSelezionataException("Corsi frequentabili");
-            }
-            Object studenteSelezionato = ottieniPrimoOggetto(tableStudenteSelezionato);
-            Object corsoSelezionato = ottieniOggettoSelezionato(tableCorsiFrequentati);
-            getController().disiscriviDalCorso(studenteSelezionato, corsoSelezionato);
-            getController().aggiornaSelezionePanelIscrizioni(studenteSelezionato);
+            controllaRigaSelezionata(tableCorsiFrequentati, "corsi frequentati");
+            getController().disiscriviDalCorso(ottieniPrimoOggetto(tableStudenteSelezionato), ottieniOggettoSelezionato(tableCorsiFrequentati));
         }
         catch (NessunaRigaSelezionataException e) {
             getHomeFrame().mostraEccezione(e.getMessage());
         }
     }//GEN-LAST:event_buttonDisiscriviActionPerformed
-    
-    public void nascondiTutteColonneOggetto() {
-        nascondiColonnaOggetto(tableStudenteSelezionato);
-        nascondiColonnaOggetto(tableCorsiFrequentati);
-        nascondiColonnaOggetto(tableCorsiFrequentabili);
-    }
     
     public void svuotaTutteTable() {
         svuotaTable(tableStudenteSelezionato);
@@ -300,8 +285,6 @@ public class PanelIscrizioni extends PanelGenerico {
         svuotaTable(tableCorsiFrequentati);
         svuotaTable(tableCorsiFrequentabili);
     }
-    
-    
     
     public void inserisciStudenteSelezionato(Object[] studenteSelezionato) {
         inserisciRigaInJTable(tableStudenteSelezionato, studenteSelezionato);
@@ -330,4 +313,5 @@ public class PanelIscrizioni extends PanelGenerico {
     private javax.swing.JTable tableCorsiFrequentati;
     private javax.swing.JTable tableStudenteSelezionato;
     // End of variables declaration//GEN-END:variables
+
 }

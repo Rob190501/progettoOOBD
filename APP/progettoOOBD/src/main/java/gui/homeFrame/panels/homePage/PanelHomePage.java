@@ -4,6 +4,8 @@ import controller.Controller;
 import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.panelGenerico.PanelGenerico;
 
+
+
 public class PanelHomePage extends PanelGenerico {
 
     public PanelHomePage(Controller controller, HomeFrameOperatore homeFrame) {
@@ -95,10 +97,8 @@ public class PanelHomePage extends PanelGenerico {
     }
     
     private void buttonEsciHomePageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEsciHomePageActionPerformed
-        // TODO add your handling code here:
         getController().esciDaOperatore();
     }//GEN-LAST:event_buttonEsciHomePageActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonEsciHomePage;

@@ -1,7 +1,7 @@
 
 package dto;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 import java.util.LinkedList;
 
 public class Lezione {
@@ -10,12 +10,21 @@ public class Lezione {
     private String titolo;
     private String descrizione;
     private String durata;
-    private Date dataInizio;
+    private ZonedDateTime dataInizio;
     private Corso corsoDellaLezione;
     private LinkedList<Studente> studentiPresenti;
 
-    public Lezione(int codiceLezione, String titoloLezione, String descrizioneLezione, String durataLezione, Date dataInizio, Corso corsoDellaLezione) {
+    public Lezione(int codiceLezione, String titoloLezione, String descrizioneLezione, String durataLezione, ZonedDateTime dataInizio, Corso corsoDellaLezione) {
         setCodice(codiceLezione);
+        setTitolo(titoloLezione);
+        setDescrizione(descrizioneLezione);
+        setDurata(durataLezione);
+        setDataInizio(dataInizio);
+        setCorsoDellaLezione(corsoDellaLezione);
+        studentiPresenti = new LinkedList<>();
+    }
+    
+    public Lezione(String titoloLezione, String descrizioneLezione, String durataLezione, ZonedDateTime dataInizio, Corso corsoDellaLezione) {
         setTitolo(titoloLezione);
         setDescrizione(descrizioneLezione);
         setDurata(durataLezione);
@@ -40,7 +49,7 @@ public class Lezione {
         return durata;
     }
 
-    public Date getDataInizio() {
+    public ZonedDateTime getDataInizio() {
         return dataInizio;
     }
 
@@ -68,7 +77,7 @@ public class Lezione {
         this.durata = durata;
     }
 
-    public void setDataInizio(Date dataInizio) {
+    public void setDataInizio(ZonedDateTime dataInizio) {
         this.dataInizio = dataInizio;
     }
 
@@ -91,6 +100,14 @@ public class Lezione {
     
     public String toString() {
         return codice + " | " + titolo + " | " + descrizione + " | " + durata + " | " + dataInizio + " | " + corsoDellaLezione.getNome();
+    }
+    
+    public void rimuoviDaAssociazioni() {
+        corsoDellaLezione.getLezioniDelCorso().remove(this);
+        
+        for(Studente studente : studentiPresenti) {
+            studente.getPresenze().remove(this);
+        }
     }
     
 }

@@ -5,6 +5,8 @@ import eccezioni.elementiGui.CampoVuotoException;
 import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.panelGenerico.PanelGenerico;
 
+
+
 public class PanelNuovoCorso extends PanelGenerico {
     
     public PanelNuovoCorso(Controller controller, HomeFrameOperatore homeFrame) {
@@ -16,7 +18,7 @@ public class PanelNuovoCorso extends PanelGenerico {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        textFieldNomeCorso = new javax.swing.JTextField();
+        textFieldNome = new javax.swing.JTextField();
         buttonRegistraCorso = new javax.swing.JButton();
         buttonIndietro = new javax.swing.JButton();
         labelNuovoCorso = new javax.swing.JLabel();
@@ -32,11 +34,11 @@ public class PanelNuovoCorso extends PanelGenerico {
         setMinimumSize(new java.awt.Dimension(745, 566));
         setPreferredSize(new java.awt.Dimension(745, 566));
 
-        textFieldNomeCorso.setBackground(new java.awt.Color(255, 255, 255));
-        textFieldNomeCorso.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        textFieldNomeCorso.setForeground(new java.awt.Color(0, 0, 0));
-        textFieldNomeCorso.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(153, 204, 255)));
-        textFieldNomeCorso.setSelectionColor(new java.awt.Color(51, 153, 255));
+        textFieldNome.setBackground(new java.awt.Color(255, 255, 255));
+        textFieldNome.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        textFieldNome.setForeground(new java.awt.Color(0, 0, 0));
+        textFieldNome.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(153, 204, 255)));
+        textFieldNome.setSelectionColor(new java.awt.Color(51, 153, 255));
 
         buttonRegistraCorso.setBackground(new java.awt.Color(153, 204, 255));
         buttonRegistraCorso.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -113,27 +115,23 @@ public class PanelNuovoCorso extends PanelGenerico {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(buttonIndietro, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
-                        .addComponent(buttonRegistraCorso, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(20, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(labelNomeCorso, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
-                            .addComponent(labelTassoPresenze, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textFieldNomeCorso)
-                            .addComponent(labelNuovoCorso, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(spinnerTassoPresenze, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(labelDescrizione, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(labelNumeroMassimoIscritti, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textFieldDescrizione, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
-                            .addComponent(spinnerNumeroMassimoIscritti, javax.swing.GroupLayout.Alignment.TRAILING))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(labelNomeCorso, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                        .addComponent(labelTassoPresenze, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textFieldNome)
+                        .addComponent(labelNuovoCorso, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(spinnerTassoPresenze, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(buttonIndietro, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(labelDescrizione, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(labelNumeroMassimoIscritti, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textFieldDescrizione, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                        .addComponent(spinnerNumeroMassimoIscritti, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(buttonRegistraCorso, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -146,7 +144,7 @@ public class PanelNuovoCorso extends PanelGenerico {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelNomeCorso)
                         .addGap(18, 18, 18)
-                        .addComponent(textFieldNomeCorso, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44)
                         .addComponent(labelTassoPresenze)
                         .addGap(18, 18, 18)
@@ -167,18 +165,13 @@ public class PanelNuovoCorso extends PanelGenerico {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
     private void buttonRegistraCorsoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegistraCorsoActionPerformed
-        // TODO add your handling code here:
         try {
-            if (verificaCampiVuoti()) {
-                throw new CampoVuotoException();
-            }
-            getController().nuovoCorso( textFieldNomeCorso.getText(),
-                                        textFieldDescrizione.getText(),
-                                        (int) spinnerTassoPresenze.getValue(),
-                                        (int) spinnerNumeroMassimoIscritti.getValue() );
+            controllaCampi();
+            getController().nuovoCorso(textFieldNome.getText(),
+                                       textFieldDescrizione.getText(),
+                                       (int) spinnerTassoPresenze.getValue(),
+                                       (int) spinnerNumeroMassimoIscritti.getValue());
             svuotaCampi();
             getHomeFrame().mostraCardCorsi();
         }
@@ -188,21 +181,21 @@ public class PanelNuovoCorso extends PanelGenerico {
     }//GEN-LAST:event_buttonRegistraCorsoActionPerformed
 
     private void buttonIndietroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIndietroActionPerformed
-        // TODO add your handling code here:
         svuotaCampi();
         getHomeFrame().mostraCardCorsi();
     }//GEN-LAST:event_buttonIndietroActionPerformed
     
     private void svuotaCampi() {
-        textFieldNomeCorso.setText("");
+        textFieldNome.setText("");
         textFieldDescrizione.setText("");
         spinnerTassoPresenze.setValue(0);
         spinnerNumeroMassimoIscritti.setValue(0);
     }
 
-    private boolean verificaCampiVuoti() {
-        return textFieldNomeCorso.getText().equals("") ||
-               textFieldDescrizione.getText().equals("");
+    private void controllaCampi() throws CampoVuotoException {
+        if (textFieldNome.getText().equals("") || textFieldDescrizione.getText().equals("")) {
+            throw new CampoVuotoException();
+        }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -216,6 +209,7 @@ public class PanelNuovoCorso extends PanelGenerico {
     private javax.swing.JSpinner spinnerNumeroMassimoIscritti;
     private javax.swing.JSpinner spinnerTassoPresenze;
     private javax.swing.JTextField textFieldDescrizione;
-    private javax.swing.JTextField textFieldNomeCorso;
+    private javax.swing.JTextField textFieldNome;
     // End of variables declaration//GEN-END:variables
+
 }

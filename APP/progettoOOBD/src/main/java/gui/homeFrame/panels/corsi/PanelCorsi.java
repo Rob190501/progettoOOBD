@@ -6,16 +6,18 @@ import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.panelGenerico.PanelGenerico;
 
 
+
 public class PanelCorsi extends PanelGenerico {
 
-    
     public PanelCorsi(Controller controller, HomeFrameOperatore homeFrame) {
         super(controller, homeFrame);
         initComponents();
-        nascondiTutteColonneOggetto();
+        nascondiColonnaOggetto(tableCorsi);
+        nascondiColonnaOggetto(tableLezioniDelCorso);
+        nascondiColonnaOggetto(tableStudentiDelCorso);
+        nascondiColonnaOggetto(tableAreeDelCorso);
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -93,14 +95,14 @@ public class PanelCorsi extends PanelGenerico {
 
             },
             new String [] {
-                "Oggetto", "Codice", "Titolo", "Descrizione", "Data inizio", "Ora inizio", "Durata"
+                "Oggetto", "Codice", "Titolo", "Descrizione", "Data e ora inizio", "Durata"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -295,40 +297,26 @@ public class PanelCorsi extends PanelGenerico {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tableCorsiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCorsiMouseClicked
-        // TODO add your handling code here:
         aggiornaSelezione();
     }//GEN-LAST:event_tableCorsiMouseClicked
 
     private void tableCorsiMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCorsiMouseDragged
-        // TODO add your handling code here:
         aggiornaSelezione();
     }//GEN-LAST:event_tableCorsiMouseDragged
 
     private void buttonNuovoCorsoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNuovoCorsoActionPerformed
-        // TODO add your handling code here:
         getHomeFrame().mostraCardNuovoCorso();
     }//GEN-LAST:event_buttonNuovoCorsoActionPerformed
 
     private void buttonEliminaCorsoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEliminaCorsoActionPerformed
-        // TODO add your handling code here:
         try {
-            if(tableCorsi.getSelectedRow() == -1) {
-                throw new NessunaRigaSelezionataException("Studenti");
-            }
+            controllaRigaSelezionata(tableCorsi, "corsi");
             getController().eliminaCorso(ottieniOggettoSelezionato(tableCorsi));
-            rimuoviRigaSelezionataDaJTable(tableCorsi);
         }
         catch (NessunaRigaSelezionataException e) {
             getHomeFrame().mostraEccezione(e.getMessage());
         }
     }//GEN-LAST:event_buttonEliminaCorsoActionPerformed
-
-    private void nascondiTutteColonneOggetto() {
-        nascondiColonnaOggetto(tableCorsi);
-        nascondiColonnaOggetto(tableLezioniDelCorso);
-        nascondiColonnaOggetto(tableStudentiDelCorso);
-        nascondiColonnaOggetto(tableAreeDelCorso);
-    }
     
     public void svuotaTutteTable() {
         svuotaTable(tableCorsi);
@@ -350,6 +338,10 @@ public class PanelCorsi extends PanelGenerico {
         }
     }
     
+    public void rimuoviCorsoSelezionato() {
+        rimuoviRigaSelezionataDaJTable(tableCorsi);
+    }
+    
     public void inserisciInTableCorsi(Object[] row) {
         inserisciRigaInJTable(tableCorsi, row);
     }
@@ -365,9 +357,6 @@ public class PanelCorsi extends PanelGenerico {
     public void inserisciInTableAreeDelCorso(Object[] row) {
         inserisciRigaInJTable(tableAreeDelCorso, row);
     }
-    
-    
-    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonEliminaCorso;
@@ -386,4 +375,5 @@ public class PanelCorsi extends PanelGenerico {
     private javax.swing.JTable tableLezioniDelCorso;
     private javax.swing.JTable tableStudentiDelCorso;
     // End of variables declaration//GEN-END:variables
+
 }

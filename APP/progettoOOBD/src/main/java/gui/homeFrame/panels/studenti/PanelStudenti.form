@@ -29,42 +29,46 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelStudenti" min="-2" pref="185" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="400" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="scrollPaneTableStudenti" pref="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="buttonNuovoStudente" min="-2" pref="147" max="-2" attributes="0"/>
-                              <EmptySpace pref="40" max="32767" attributes="0"/>
+                              <EmptySpace pref="43" max="32767" attributes="0"/>
                               <Component id="buttonEliminaStudente" min="-2" pref="147" max="-2" attributes="0"/>
-                              <EmptySpace pref="10" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="buttonAggiornaStudente" min="-2" pref="147" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                              <Component id="labelCorsiFrequentati" pref="343" max="32767" attributes="0"/>
+                              <Component id="labelCorsiFrequentati" pref="348" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="labelPresenze" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="270" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Component id="scrollPaneTableCorsiFrequentati" alignment="0" pref="345" max="32767" attributes="0"/>
+                                  <Component id="scrollPaneTableCorsiFrequentati" alignment="0" pref="0" max="32767" attributes="0"/>
                                   <Component id="scrollPaneTablePresenze" alignment="1" pref="0" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="labelPresenze" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="buttonIscrizioni" min="-2" pref="147" max="-2" attributes="0"/>
+                                      <EmptySpace pref="56" max="32767" attributes="0"/>
+                                      <Component id="buttonPresenze" min="-2" pref="147" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace pref="27" max="32767" attributes="0"/>
-                              <Component id="buttonIscrizioni" min="-2" pref="147" max="-2" attributes="0"/>
-                              <EmptySpace pref="40" max="32767" attributes="0"/>
-                              <Component id="buttonPresenze" min="-2" pref="147" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -89,16 +93,18 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="scrollPaneTablePresenze" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="scrollPaneTableStudenti" alignment="0" pref="374" max="32767" attributes="0"/>
+                  <Component id="scrollPaneTableStudenti" alignment="0" pref="385" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="buttonNuovoStudente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="buttonEliminaStudente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="buttonIscrizioni" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="buttonPresenze" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="buttonAggiornaStudente" min="-2" pref="30" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -251,23 +257,17 @@
               </Border>
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="7" rowCount="0">
+              <Table columnCount="6" rowCount="0">
                 <Column editable="false" title="Oggetto" type="java.lang.Object"/>
                 <Column editable="false" title="Codice" type="java.lang.String"/>
                 <Column editable="false" title="Titolo" type="java.lang.String"/>
                 <Column editable="false" title="Descrizione" type="java.lang.String"/>
-                <Column editable="false" title="Data inizio" type="java.lang.String"/>
-                <Column editable="false" title="Ora inizio" type="java.lang.String"/>
+                <Column editable="false" title="Data e ora inizio" type="java.lang.String"/>
                 <Column editable="false" title="Durata" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
@@ -423,6 +423,29 @@
         <Property name="focusPainted" type="boolean" value="false"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonAggiornaStudente">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="cc" red="99" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="14" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Aggiorna studente"/>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="null"/>
+        </Property>
+        <Property name="borderPainted" type="boolean" value="false"/>
+        <Property name="focusPainted" type="boolean" value="false"/>
+        <Property name="opaque" type="boolean" value="true"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAggiornaStudenteActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

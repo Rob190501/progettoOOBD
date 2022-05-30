@@ -1,17 +1,20 @@
 package gui.homeFrame.panels.lezioni;
 
 import controller.Controller;
+import eccezioni.elementiGui.NessunaRigaSelezionataException;
 import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.panelGenerico.PanelGenerico;
 
 
-public class PanelLezioni extends PanelGenerico {
 
+public class PanelLezioni extends PanelGenerico {
     
     public PanelLezioni(Controller controller, HomeFrameOperatore homeFrame) {
         super(controller, homeFrame);
         initComponents();
-        nascondiTutteColonneOggetto();
+        nascondiColonnaOggetto(tableLezioni);
+        nascondiColonnaOggetto(tableStudentiPresenti);
+        nascondiColonnaOggetto(tableCorsoDellaLezione);
     }
     
     @SuppressWarnings("unchecked")
@@ -28,6 +31,8 @@ public class PanelLezioni extends PanelGenerico {
         buttonNuovaLezione = new javax.swing.JButton();
         labelStudentiPresenti = new javax.swing.JLabel();
         labelCorsoDellaLezione = new javax.swing.JLabel();
+        buttonEliminaLezione = new javax.swing.JButton();
+        buttonNuovaLezione2 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(745, 566));
@@ -43,14 +48,14 @@ public class PanelLezioni extends PanelGenerico {
 
             },
             new String [] {
-                "Oggetto", "Codice", "Titolo", "Descrizione", "Data inizio", "Ora inizio", "Durata"
+                "Oggetto", "Codice", "Titolo", "Descrizione", "Data e ora inizio", "Durata"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -150,6 +155,11 @@ public class PanelLezioni extends PanelGenerico {
         buttonNuovaLezione.setBorderPainted(false);
         buttonNuovaLezione.setFocusPainted(false);
         buttonNuovaLezione.setOpaque(true);
+        buttonNuovaLezione.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonNuovaLezioneActionPerformed(evt);
+            }
+        });
 
         labelStudentiPresenti.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         labelStudentiPresenti.setForeground(new java.awt.Color(153, 204, 255));
@@ -159,11 +169,39 @@ public class PanelLezioni extends PanelGenerico {
         labelCorsoDellaLezione.setForeground(new java.awt.Color(153, 204, 255));
         labelCorsoDellaLezione.setText("Corso della lezione");
 
+        buttonEliminaLezione.setBackground(new java.awt.Color(153, 204, 255));
+        buttonEliminaLezione.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonEliminaLezione.setForeground(new java.awt.Color(255, 255, 255));
+        buttonEliminaLezione.setText("Elimina lezione");
+        buttonEliminaLezione.setBorder(null);
+        buttonEliminaLezione.setBorderPainted(false);
+        buttonEliminaLezione.setFocusPainted(false);
+        buttonEliminaLezione.setOpaque(true);
+        buttonEliminaLezione.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEliminaLezioneActionPerformed(evt);
+            }
+        });
+
+        buttonNuovaLezione2.setBackground(new java.awt.Color(153, 204, 255));
+        buttonNuovaLezione2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonNuovaLezione2.setForeground(new java.awt.Color(255, 255, 255));
+        buttonNuovaLezione2.setText("Nuova lezione");
+        buttonNuovaLezione2.setBorder(null);
+        buttonNuovaLezione2.setBorderPainted(false);
+        buttonNuovaLezione2.setFocusPainted(false);
+        buttonNuovaLezione2.setOpaque(true);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 745, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(188, 188, 188)
+                .addComponent(buttonEliminaLezione, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
+                .addComponent(buttonNuovaLezione2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(225, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(20, 20, 20)
@@ -189,7 +227,12 @@ public class PanelLezioni extends PanelGenerico {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 566, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(517, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonEliminaLezione, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonNuovaLezione2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(19, 19, 19)
@@ -212,19 +255,30 @@ public class PanelLezioni extends PanelGenerico {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tableLezioniMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableLezioniMouseClicked
-        // TODO add your handling code here:
         aggiornaSelezione();
     }//GEN-LAST:event_tableLezioniMouseClicked
 
     private void tableLezioniMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableLezioniMouseDragged
-        // TODO add your handling code here:
         aggiornaSelezione();
     }//GEN-LAST:event_tableLezioniMouseDragged
 
-    private void nascondiTutteColonneOggetto() {
-        nascondiColonnaOggetto(tableLezioni);
-        nascondiColonnaOggetto(tableStudentiPresenti);
-        nascondiColonnaOggetto(tableCorsoDellaLezione);
+    private void buttonNuovaLezioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNuovaLezioneActionPerformed
+        getController().impostaPanelNuovaLezione();
+        getHomeFrame().mostraCardNuovaLezione();
+    }//GEN-LAST:event_buttonNuovaLezioneActionPerformed
+
+    private void buttonEliminaLezioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEliminaLezioneActionPerformed
+        try {
+            controllaRigaSelezionata(tableLezioni, "lezioni");
+            getController().eliminaLezione(ottieniOggettoSelezionato(tableLezioni));
+        }
+        catch (NessunaRigaSelezionataException e) {
+            getHomeFrame().mostraEccezione(e.getMessage());
+        }
+    }//GEN-LAST:event_buttonEliminaLezioneActionPerformed
+
+    public void rimuoviLezioneSelezionata() {
+        rimuoviRigaSelezionataDaJTable(tableLezioni);
     }
     
     public void svuotaTutteTable() {
@@ -257,9 +311,10 @@ public class PanelLezioni extends PanelGenerico {
         inserisciRigaInJTable(tableCorsoDellaLezione, row);
     }
     
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonEliminaLezione;
     private javax.swing.JButton buttonNuovaLezione;
+    private javax.swing.JButton buttonNuovaLezione2;
     private javax.swing.JLabel labelCorsoDellaLezione;
     private javax.swing.JLabel labelLezioni;
     private javax.swing.JLabel labelStudentiPresenti;
@@ -270,4 +325,5 @@ public class PanelLezioni extends PanelGenerico {
     private javax.swing.JTable tableLezioni;
     private javax.swing.JTable tableStudentiPresenti;
     // End of variables declaration//GEN-END:variables
+
 }

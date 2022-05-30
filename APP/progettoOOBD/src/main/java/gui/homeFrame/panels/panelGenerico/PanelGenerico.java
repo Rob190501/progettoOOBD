@@ -1,9 +1,12 @@
 package gui.homeFrame.panels.panelGenerico;
 
 import controller.Controller;
+import eccezioni.elementiGui.NessunaRigaSelezionataException;
 import gui.homeFrame.HomeFrameOperatore;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+
 
 public abstract class PanelGenerico extends javax.swing.JPanel {
 
@@ -49,6 +52,12 @@ public abstract class PanelGenerico extends javax.swing.JPanel {
         ((DefaultTableModel) table.getModel()).setRowCount(0);
     }
     
+    public void controllaRigaSelezionata(JTable table, String nomeTable) throws NessunaRigaSelezionataException {
+        if(table.getSelectedRow() == -1) {
+            throw new NessunaRigaSelezionataException(nomeTable);
+        }
+    }
+    
     public void inserisciRigaInJTable(JTable table, Object[] row) {
         ((DefaultTableModel) table.getModel()).addRow(row);
     }
@@ -57,5 +66,10 @@ public abstract class PanelGenerico extends javax.swing.JPanel {
         ((DefaultTableModel) table.getModel()).removeRow(table.getSelectedRow());
     }
     
+    public void sostituisciRigaSelezionata(JTable table, Object[] row) {
+        int riga = table.getSelectedRow();
+        ((DefaultTableModel) table.getModel()).removeRow(riga);
+        ((DefaultTableModel) table.getModel()).insertRow(riga, row);
+    }
     
 }

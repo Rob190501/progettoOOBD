@@ -4,6 +4,15 @@ FROM corso;
 SELECT *
 FROM lezione;
 
+delete from lezione
+where codice_lezione = 13;
+
+select titolo_lezione, descrizione_lezione, durata_lezione, data_inizio  at time zone 'cest', codice_corso
+from lezione;
+
+select durata_lezione + data_inizio  at time zone 'cest', codice_corso
+from lezione;
+
 SELECT *
 FROM area_tematica;
 
@@ -15,6 +24,10 @@ FROM presenze;
 
 SELECT *
 FROM studente;
+
+update studente
+set nome = 'mario', cognome = 'rossi'
+where matricola = 3;
 
 SELECT *
 FROM studenti_del_corso;

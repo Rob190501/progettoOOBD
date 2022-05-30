@@ -11,6 +11,7 @@ import eccezioni.create.CreateStudenteDelCorsoFallitoException;
 import eccezioni.create.CreateStudenteFallitoException;
 import eccezioni.delete.DeleteStudenteDelCorsoFallitoException;
 import eccezioni.delete.DeleteStudenteFallitoException;
+import eccezioni.update.UpdateStudenteFallitoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -45,6 +46,10 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
     private String insertStudenteDelCorso = "INSERT "
                                           + "INTO studenti_del_corso (matricola, codice_corso) "
                                           + "VALUES (?, ?)";
+    
+    private String updateStudente = "UPDATE studente "
+                                  + "SET nome = ?, cognome = ?"
+                                  + "WHERE matricola = ?";
     
     private String deleteStudenteDelCorso = "DELETE "
                                           + "FROM studenti_del_corso "
@@ -158,8 +163,15 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
     }
 
     @Override
-    public void updateStudente(Studente studente) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void updateStudente(Studente studente) throws SQLException, UpdateStudenteFallitoException {
+        try (PreparedStatement pstUpdateStudente = connection.prepareStatement(updateStudente)) {
+            pstUpdateStudente.setString(1, studente.getNome());
+            pstUpdateStudente.setString(2, studente.getCognome());
+            pstUpdateStudente.setInt(3, studente.getMatricola());
+            if (pstUpdateStudente.executeUpdate() != 1) {
+                throw new UpdateStudenteFallitoException();
+            }
+        }
     }
 
     @Override

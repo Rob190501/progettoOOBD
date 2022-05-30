@@ -5,6 +5,8 @@ import eccezioni.elementiGui.CampoVuotoException;
 import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.panelGenerico.PanelGenerico;
 
+
+
 public class PanelNuovaAreaTematica extends PanelGenerico {
     
     public PanelNuovaAreaTematica(Controller controller, HomeFrameOperatore homeFrame) {
@@ -16,8 +18,8 @@ public class PanelNuovaAreaTematica extends PanelGenerico {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        textFieldNomeAreaTematica = new javax.swing.JTextField();
-        textFieldDescrizioneAreaTematica = new javax.swing.JTextField();
+        textFieldNome = new javax.swing.JTextField();
+        textFieldDescrizione = new javax.swing.JTextField();
         buttonRegistraAreaTematica = new javax.swing.JButton();
         buttonIndietro = new javax.swing.JButton();
         labelNuovaAreaTematica = new javax.swing.JLabel();
@@ -28,17 +30,17 @@ public class PanelNuovaAreaTematica extends PanelGenerico {
         setMinimumSize(new java.awt.Dimension(745, 566));
         setPreferredSize(new java.awt.Dimension(745, 566));
 
-        textFieldNomeAreaTematica.setBackground(new java.awt.Color(255, 255, 255));
-        textFieldNomeAreaTematica.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        textFieldNomeAreaTematica.setForeground(new java.awt.Color(0, 0, 0));
-        textFieldNomeAreaTematica.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(153, 204, 255)));
-        textFieldNomeAreaTematica.setSelectionColor(new java.awt.Color(51, 153, 255));
+        textFieldNome.setBackground(new java.awt.Color(255, 255, 255));
+        textFieldNome.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        textFieldNome.setForeground(new java.awt.Color(0, 0, 0));
+        textFieldNome.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(153, 204, 255)));
+        textFieldNome.setSelectionColor(new java.awt.Color(51, 153, 255));
 
-        textFieldDescrizioneAreaTematica.setBackground(new java.awt.Color(255, 255, 255));
-        textFieldDescrizioneAreaTematica.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        textFieldDescrizioneAreaTematica.setForeground(new java.awt.Color(0, 0, 0));
-        textFieldDescrizioneAreaTematica.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(153, 204, 255)));
-        textFieldDescrizioneAreaTematica.setSelectionColor(new java.awt.Color(51, 153, 255));
+        textFieldDescrizione.setBackground(new java.awt.Color(255, 255, 255));
+        textFieldDescrizione.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        textFieldDescrizione.setForeground(new java.awt.Color(0, 0, 0));
+        textFieldDescrizione.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 5, 0, new java.awt.Color(153, 204, 255)));
+        textFieldDescrizione.setSelectionColor(new java.awt.Color(51, 153, 255));
 
         buttonRegistraAreaTematica.setBackground(new java.awt.Color(153, 204, 255));
         buttonRegistraAreaTematica.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -99,8 +101,8 @@ public class PanelNuovaAreaTematica extends PanelGenerico {
                                 .addComponent(buttonIndietro, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                                 .addComponent(buttonRegistraAreaTematica, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(textFieldDescrizioneAreaTematica)
-                            .addComponent(textFieldNomeAreaTematica))))
+                            .addComponent(textFieldDescrizione)
+                            .addComponent(textFieldNome))))
                 .addContainerGap(200, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -114,11 +116,11 @@ public class PanelNuovaAreaTematica extends PanelGenerico {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(labelNomeAreaTematica)
                         .addGap(18, 18, 18)
-                        .addComponent(textFieldNomeAreaTematica, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44)
                         .addComponent(labelDescrizioneAreaTematica)
                         .addGap(18, 18, 18)
-                        .addComponent(textFieldDescrizioneAreaTematica, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textFieldDescrizione, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(183, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -128,18 +130,10 @@ public class PanelNuovaAreaTematica extends PanelGenerico {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
     private void buttonRegistraAreaTematicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegistraAreaTematicaActionPerformed
-        // TODO add your handling code here:
-        String nome = textFieldNomeAreaTematica.getText();
-        String descrizione = textFieldDescrizioneAreaTematica.getText();
-
         try {
-            if (nome.equals("") || descrizione.equals("")) {
-                throw new CampoVuotoException();
-            }
-            getController().nuovaAreaTematica(nome, descrizione);
+            controllaCampi();
+            getController().nuovaAreaTematica(textFieldNome.getText(), textFieldDescrizione.getText());
             svuotaCampi();
             getHomeFrame().mostraCardAreeTematiche();
         }
@@ -149,14 +143,19 @@ public class PanelNuovaAreaTematica extends PanelGenerico {
     }//GEN-LAST:event_buttonRegistraAreaTematicaActionPerformed
 
     private void buttonIndietroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIndietroActionPerformed
-        // TODO add your handling code here:
         svuotaCampi();
         getHomeFrame().mostraCardAreeTematiche();
     }//GEN-LAST:event_buttonIndietroActionPerformed
 
+    private void controllaCampi() throws CampoVuotoException {
+        if (textFieldNome.getText().equals("") || textFieldDescrizione.equals("")) {
+            throw new CampoVuotoException();
+        }
+    }
+    
     private void svuotaCampi() {
-        textFieldNomeAreaTematica.setText("");
-        textFieldDescrizioneAreaTematica.setText("");
+        textFieldNome.setText("");
+        textFieldDescrizione.setText("");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -165,7 +164,8 @@ public class PanelNuovaAreaTematica extends PanelGenerico {
     private javax.swing.JLabel labelDescrizioneAreaTematica;
     private javax.swing.JLabel labelNomeAreaTematica;
     private javax.swing.JLabel labelNuovaAreaTematica;
-    private javax.swing.JTextField textFieldDescrizioneAreaTematica;
-    private javax.swing.JTextField textFieldNomeAreaTematica;
+    private javax.swing.JTextField textFieldDescrizione;
+    private javax.swing.JTextField textFieldNome;
     // End of variables declaration//GEN-END:variables
+
 }

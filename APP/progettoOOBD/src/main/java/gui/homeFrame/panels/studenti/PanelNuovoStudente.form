@@ -43,8 +43,8 @@
                               <EmptySpace pref="56" max="32767" attributes="0"/>
                               <Component id="buttonRegistraStudente" min="-2" pref="147" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="textFieldCognomeStudente" alignment="0" max="32767" attributes="0"/>
-                          <Component id="textFieldNomeStudente" alignment="0" max="32767" attributes="0"/>
+                          <Component id="textFieldCognome" alignment="0" max="32767" attributes="0"/>
+                          <Component id="textFieldNome" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -63,11 +63,11 @@
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Component id="labelNome" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="textFieldNomeStudente" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="textFieldNome" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                       <Component id="labelCognome" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="textFieldCognomeStudente" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="textFieldCognome" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace pref="179" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
@@ -83,7 +83,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JTextField" name="textFieldNomeStudente">
+    <Component class="javax.swing.JTextField" name="textFieldNome">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -106,7 +106,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="textFieldCognomeStudente">
+    <Component class="javax.swing.JTextField" name="textFieldCognome">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>

@@ -1,12 +1,15 @@
 package gui.homeFrame;
 
 import controller.Controller;
+import gui.homeFrame.panels.areeTematiche.PanelAggiornaAreaTematica;
 import gui.homeFrame.panels.areeTematiche.PanelAreeTematiche;
 import gui.homeFrame.panels.areeTematiche.PanelNuovaAreaTematica;
 import gui.homeFrame.panels.corsi.PanelCorsi;
 import gui.homeFrame.panels.corsi.PanelNuovoCorso;
 import gui.homeFrame.panels.homePage.PanelHomePage;
 import gui.homeFrame.panels.lezioni.PanelLezioni;
+import gui.homeFrame.panels.lezioni.PanelNuovaLezione;
+import gui.homeFrame.panels.studenti.PanelAggiornaStudente;
 import gui.homeFrame.panels.studenti.PanelIscrizioni;
 import gui.homeFrame.panels.studenti.PanelNuovoStudente;
 import gui.homeFrame.panels.studenti.PanelStudenti;
@@ -33,15 +36,18 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     
     private PanelStudenti panelStudenti;
     private PanelNuovoStudente panelNuovoStudente;
+    private PanelAggiornaStudente panelAggiornaStudente;
     private PanelIscrizioni panelIscrizioni;
     
     private PanelAreeTematiche panelAreeTematiche;
     private PanelNuovaAreaTematica panelNuovaAreaTematica;
+    private PanelAggiornaAreaTematica panelAggiornaAreaTematica;
     
     private PanelCorsi panelCorsi;
     private PanelNuovoCorso panelNuovoCorso;
     
     private PanelLezioni panelLezioni;
+    private PanelNuovaLezione panelNuovaLezione;
     
     public HomeFrameOperatore(Controller controller) {
         setController(controller);
@@ -67,6 +73,10 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         this.panelNuovoStudente = panelNuovoStudente;
     }
 
+    public void setPanelAggiornaStudente(PanelAggiornaStudente panelAggiornaStudente) {
+        this.panelAggiornaStudente = panelAggiornaStudente;
+    }
+
     public void setPanelIscrizioni(PanelIscrizioni panelIscrizioni) {
         this.panelIscrizioni = panelIscrizioni;
     }
@@ -79,6 +89,10 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         this.panelNuovaAreaTematica = panelNuovaAreaTematica;
     }
 
+    public void setPanelAggiornaAreaTematica(PanelAggiornaAreaTematica panelAggiornaAreaTematica) {
+        this.panelAggiornaAreaTematica = panelAggiornaAreaTematica;
+    }
+
     public void setPanelCorsi(PanelCorsi panelCorsi) {
         this.panelCorsi = panelCorsi;
     }
@@ -89,6 +103,10 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
 
     public void setPanelLezioni(PanelLezioni panelLezioni) {
         this.panelLezioni = panelLezioni;
+    }
+
+    public void setPanelNuovaLezione(PanelNuovaLezione panelNuovaLezione) {
+        this.panelNuovaLezione = panelNuovaLezione;
     }
     
     @SuppressWarnings("unchecked")
@@ -330,15 +348,21 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     
     public void aggiungiPanels() {
         panelContenuti.add(panelHomePage, "cardHomePage");
+        
         panelContenuti.add(panelStudenti, "cardStudenti");
         panelContenuti.add(panelNuovoStudente, "cardNuovoStudente");
+        panelContenuti.add(panelAggiornaStudente, "cardAggiornaStudente");
         panelContenuti.add(panelIscrizioni, "cardIscrizioni");
+        
         panelContenuti.add(panelAreeTematiche, "cardAreeTematiche");
         panelContenuti.add(panelNuovaAreaTematica, "cardNuovaAreaTematica");
+        panelContenuti.add(panelAggiornaAreaTematica, "cardAggiornaAreaTematica");
+        
         panelContenuti.add(panelCorsi, "cardCorsi");
         panelContenuti.add(panelNuovoCorso, "cardNuovoCorso");
-        panelContenuti.add(panelLezioni, "cardLezioni");
         
+        panelContenuti.add(panelLezioni, "cardLezioni");
+        panelContenuti.add(panelNuovaLezione, "cardNuovaLezione");
     }
     
     public void cambiaCard(String cardDesiderata) {
@@ -361,6 +385,10 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         cambiaCard("cardNuovoStudente");
     }
     
+    public void mostraCardAggiornaStudente() {
+        cambiaCard("cardAggiornaStudente");
+    }
+    
     public void mostraCardIscrizioni() {
         cambiaCard("cardIscrizioni");
     }
@@ -373,6 +401,10 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     
     public void mostraCardNuovaAreaTematica() {
         cambiaCard("cardNuovaAreaTematica");
+    }
+    
+    public void mostraCardAggiornaAreaTematica() {
+        cambiaCard("cardAggiornaAreaTematica");
     }
     
     public void mostraCardCorsi() {
@@ -389,6 +421,10 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         panelLezioni.aggiornaSelezione();
         aggiornaLabelSelezionata(labelMenuLezioni);
         cambiaCard("cardLezioni");
+    }
+    
+    public void mostraCardNuovaLezione() {
+        cambiaCard("cardNuovaLezione");
     }
     
     @Override

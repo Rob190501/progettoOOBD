@@ -9,7 +9,8 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.3.2</version>
+            <version>42.3.5</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
     <properties>
