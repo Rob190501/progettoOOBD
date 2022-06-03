@@ -766,11 +766,4 @@ public class Controller {
         }
     }
     //sezione lezioni
-    
-    //main
-    public static void main(String[] args){        
-        Controller controller = new Controller();
-        controller.setLoginFrame(new LoginFrame(controller));
-        controller.getLoginFrame().setVisible(true);
-    }
 }
