@@ -1,12 +1,12 @@
 package dao.implementazione.postgresql;
 
 import controller.Controller;
-import dao.interfaccia.CorsoDAOInterfaccia;
+import dao.interfaccia.SQL.CorsoDAOInterfaccia;
 import dto.AreaTematica;
 import dto.Corso;
-import eccezioni.associazioni.AssociazioneCorsoAreaTematicaFallitaException;
 import eccezioni.create.CreateCorsoFallitoException;
 import eccezioni.delete.DeleteCorsoFallitoException;
+import eccezioni.update.UpdateCorsoFallitoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,6 +29,10 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
     private String querySelectAreeDelCorso = "SELECT codice_area_tematica " +
                                              "FROM area_del_corso " +
                                              "WHERE codice_corso = ?";
+    
+    private String updateCorso = "UPDATE corso "
+                               + "SET nome_corso = ?, descrizione_corso = ?, tasso_presenze_min = ?, partecipanti_max = ?"
+                               + "WHERE codice_corso = ?";
     
     private String deleteCorso = "DELETE "
                                + "FROM corso "
@@ -69,7 +73,7 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
     }
 
     @Override
-    public LinkedList<Corso> retrieveAllCorso(LinkedList<AreaTematica> listaAreeTematiche) throws SQLException, AssociazioneCorsoAreaTematicaFallitaException {
+    public LinkedList<Corso> retrieveAllCorso(LinkedList<AreaTematica> listaAreeTematiche) throws SQLException {
         try (Statement stmtRetrieveAllCorso = connection.createStatement()) {
             
             try (ResultSet rsRetrieveAllCorso = stmtRetrieveAllCorso.executeQuery(querySelectAllCorso)) {
@@ -93,35 +97,34 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
         }
     }
     
-    private void aggiungiAreeTematiche(Corso corso, LinkedList<AreaTematica> listaAreeTematiche) throws SQLException, AssociazioneCorsoAreaTematicaFallitaException {
+    private void aggiungiAreeTematiche(Corso corso, LinkedList<AreaTematica> listaAreeTematiche) throws SQLException {
         try (PreparedStatement pstAreeDelCorso = connection.prepareStatement(querySelectAreeDelCorso)) {
             pstAreeDelCorso.setInt(1, corso.getCodice());
-            
             try (ResultSet rsAreeDelCorso = pstAreeDelCorso.executeQuery()) {
-                boolean flagAreaTematicaAssegnata = true;
-
                 while (rsAreeDelCorso.next()) {
-                    flagAreaTematicaAssegnata = false;
-                    
                     for (AreaTematica areaTematica : listaAreeTematiche) {
                         if(rsAreeDelCorso.getInt("codice_area_tematica") == areaTematica.getCodice()) {
                             corso.addAreaTematica(areaTematica);
                             areaTematica.addCorso(corso);
-                            flagAreaTematicaAssegnata = true;
                         }
                     }
-                }
-                
-                if (!flagAreaTematicaAssegnata){
-                    throw new AssociazioneCorsoAreaTematicaFallitaException();
                 }
             }
         }
     }
 
     @Override
-    public void updateCorso(Corso corso) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void updateCorso(Corso corso) throws SQLException, UpdateCorsoFallitoException {
+        try (PreparedStatement pstUpdateCorso = connection.prepareStatement(updateCorso)) {
+            pstUpdateCorso.setString(1, corso.getNome());
+            pstUpdateCorso.setString(2, corso.getDescrizione());
+            pstUpdateCorso.setInt(3, corso.getTassoPresenzeMinime());
+            pstUpdateCorso.setInt(4, corso.getNumeroMassimoIscritti());
+            pstUpdateCorso.setInt(5, corso.getCodice());
+            if (pstUpdateCorso.executeUpdate() != 1) {
+                throw new UpdateCorsoFallitoException();
+            }
+        }
     }
 
     @Override

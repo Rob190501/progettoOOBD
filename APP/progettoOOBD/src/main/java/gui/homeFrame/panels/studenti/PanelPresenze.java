@@ -252,7 +252,7 @@ public class PanelPresenze extends PanelGenerico {
 
     private void buttonIndietroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIndietroActionPerformed
         // TODO add your handling code here:
-        getHomeFrame().mostraCardStudenti();
+        getHomeFrame().mostraPanelStudenti();
     }//GEN-LAST:event_buttonIndietroActionPerformed
 
     private void buttonRimuoviPresenzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRimuoviPresenzaActionPerformed

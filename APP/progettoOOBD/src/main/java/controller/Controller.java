@@ -5,14 +5,12 @@ import dao.implementazione.postgresql.AreaTematicaDAOImplementazione;
 import dao.implementazione.postgresql.CorsoDAOImplementazione;
 import dao.implementazione.postgresql.LezioneDAOImplementazione;
 import dao.implementazione.postgresql.StudenteDAOImplementazione;
+import dao.implementazione.postgresql.StudenteDelCorsoDAOImplementazione;
 import dto.AreaTematica;
 import dto.Corso;
 import dto.Lezione;
 import dto.Studente;
-import eccezioni.associazioni.AssociazioneCorsoAreaTematicaFallitaException;
 import eccezioni.associazioni.AssociazioneLezioneCorsoFallitaException;
-import eccezioni.associazioni.AssociazioneStudenteCorsoFallitaException;
-import eccezioni.associazioni.AssociazioneStudenteLezioneFallitaException;
 import eccezioni.create.CreateAreaTematicaFallitoException;
 import eccezioni.create.CreateCorsoFallitoException;
 import eccezioni.create.CreateLezioneFallitoException;
@@ -23,14 +21,19 @@ import eccezioni.delete.DeleteCorsoFallitoException;
 import eccezioni.delete.DeleteLezioneFallitoException;
 import eccezioni.delete.DeleteStudenteDelCorsoFallitoException;
 import eccezioni.delete.DeleteStudenteFallitoException;
+import eccezioni.update.UpdateAreaTematicaFallitoException;
+import eccezioni.update.UpdateCorsoFallitoException;
+import eccezioni.update.UpdateLezioneFallitoException;
 import eccezioni.update.UpdateStudenteFallitoException;
 import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.areeTematiche.PanelAggiornaAreaTematica;
 import gui.homeFrame.panels.areeTematiche.PanelAreeTematiche;
 import gui.homeFrame.panels.areeTematiche.PanelNuovaAreaTematica;
+import gui.homeFrame.panels.corsi.PanelAggiornaCorso;
 import gui.homeFrame.panels.corsi.PanelCorsi;
 import gui.homeFrame.panels.corsi.PanelNuovoCorso;
 import gui.homeFrame.panels.homePage.PanelHomePage;
+import gui.homeFrame.panels.lezioni.PanelAggiornaLezione;
 import gui.homeFrame.panels.lezioni.PanelLezioni;
 import gui.homeFrame.panels.lezioni.PanelNuovaLezione;
 import gui.homeFrame.panels.studenti.PanelAggiornaStudente;
@@ -68,9 +71,11 @@ public class Controller {
     
     private PanelCorsi panelCorsi;
     private PanelNuovoCorso panelNuovoCorso;
+    private PanelAggiornaCorso panelAggiornaCorso;
     
     private PanelLezioni panelLezioni;
     private PanelNuovaLezione panelNuovaLezione;
+    private PanelAggiornaLezione panelAggiornaLezione;
     
     private LinkedList<AreaTematica> listaAreeTematiche;
     private AreaTematicaDAOImplementazione areaTematicaDAO;
@@ -83,6 +88,8 @@ public class Controller {
     
     private LinkedList<Studente> listaStudenti;
     private StudenteDAOImplementazione studenteDAO;
+    
+    private StudenteDelCorsoDAOImplementazione studenteDelCorsoDAO;
     //attributi
     
     //costruttore
@@ -242,8 +249,7 @@ public class Controller {
             retrieveAllDTO();
             loginFrame.connessioneStabilita();
         }
-        catch(SQLException | ClassNotFoundException | AssociazioneCorsoAreaTematicaFallitaException |
-              AssociazioneLezioneCorsoFallitaException | AssociazioneStudenteCorsoFallitaException | AssociazioneStudenteLezioneFallitaException e) {
+        catch(SQLException | ClassNotFoundException | AssociazioneLezioneCorsoFallitaException e) {
             loginFrame.connessioneNonStabilita();
             loginFrame.mostraEccezione(e.getMessage());
         }
@@ -285,14 +291,15 @@ public class Controller {
         corsoDAO = new CorsoDAOImplementazione(this, connection);
         lezioneDAO = new LezioneDAOImplementazione(this, connection);    
         studenteDAO = new StudenteDAOImplementazione(this, connection);
+        
+        studenteDelCorsoDAO = new StudenteDelCorsoDAOImplementazione(this, connection);
     }
     
-    public void retrieveAllDTO() throws SQLException, AssociazioneCorsoAreaTematicaFallitaException, AssociazioneLezioneCorsoFallitaException,
-                                        AssociazioneStudenteCorsoFallitaException, AssociazioneStudenteLezioneFallitaException {
-        setListaAreeTematiche(areaTematicaDAO.retrieveAllAreaTematica());
-        setListaCorsi(corsoDAO.retrieveAllCorso(listaAreeTematiche));
-        setListaLezioni(lezioneDAO.retrieveAllLezione(listaCorsi));
-        setListaStudenti(studenteDAO.retrieveAllStudente(listaCorsi, listaLezioni));
+    public void retrieveAllDTO() throws SQLException, AssociazioneLezioneCorsoFallitaException {
+        this.listaAreeTematiche = areaTematicaDAO.retrieveAllAreaTematica();
+        this.listaCorsi = corsoDAO.retrieveAllCorso(listaAreeTematiche);
+        this.listaLezioni = lezioneDAO.retrieveAllLezione(listaCorsi);
+        this.listaStudenti = studenteDAO.retrieveAllStudente(listaCorsi, listaLezioni);
     }
     //DAO
     
@@ -300,7 +307,7 @@ public class Controller {
     public void accessoOperatore(){
         if(homeFrameOperatore == null) {
             homeFrameOperatore = new HomeFrameOperatore(this);
-            creaPanels();
+            creaPanel();
             homeFrameOperatore.aggiungiPanels();
         }
         impostaPanelsPrincipali();
@@ -314,7 +321,7 @@ public class Controller {
         homeFrameOperatore.setVisible(false);
     }
     
-    private void creaPanels() {
+    private void creaPanel() {
         panelHomePage = new PanelHomePage(this, homeFrameOperatore);
         homeFrameOperatore.setPanelHomePage(panelHomePage);
         
@@ -345,11 +352,17 @@ public class Controller {
         panelNuovoCorso = new PanelNuovoCorso(this, homeFrameOperatore);
         homeFrameOperatore.setPanelNuovoCorso(panelNuovoCorso);
         
+        panelAggiornaCorso = new PanelAggiornaCorso(this, homeFrameOperatore);
+        homeFrameOperatore.setPanelAggiornaCorso(panelAggiornaCorso);
+        
         panelLezioni = new PanelLezioni(this, homeFrameOperatore);
         homeFrameOperatore.setPanelLezioni(panelLezioni);
         
         panelNuovaLezione = new PanelNuovaLezione(this, homeFrameOperatore);
         homeFrameOperatore.setPanelNuovaLezione(panelNuovaLezione);
+        
+        panelAggiornaLezione = new PanelAggiornaLezione(this, homeFrameOperatore);
+        homeFrameOperatore.setPanelAggiornaLezione(panelAggiornaLezione);
     }
     
     private void impostaPanelsPrincipali() {
@@ -443,7 +456,7 @@ public class Controller {
         Corso corso = (Corso) corsoSelezionato;
         
         try {
-            studenteDAO.createStudenteDelCorso(studente, corso);
+            studenteDelCorsoDAO.createStudenteDelCorso(studente, corso);
             studente.addCorso(corso);
             corso.addStudente(studente);
             aggiornaPanelIscrizioni(studente);
@@ -459,7 +472,7 @@ public class Controller {
         Corso corso = (Corso) corsoSelezionato;
         
         try {
-            studenteDAO.deleteStudenteDelCorso(studente, corso);
+            studenteDelCorsoDAO.deleteStudenteDelCorso(studente, corso);
             studente.removeCorso(corso);
             corso.removeStudente(studente);
             aggiornaPanelIscrizioni(studente);
@@ -473,7 +486,7 @@ public class Controller {
     public void impostaPanelAggiornaStudente(Object studenteSelezionato) {
         Studente studente = (Studente) studenteSelezionato;
         
-        panelAggiornaStudente.svuotaTutteTable();
+        panelAggiornaStudente.svuotaCampi();
         panelAggiornaStudente.inserisciStudenteSelezionato(studente.creaRiga());
         panelAggiornaStudente.setNome(studente.getNome());
         panelAggiornaStudente.setCognome(studente.getCognome());
@@ -543,6 +556,31 @@ public class Controller {
             chiudiConnessionePerErrori();
         }
     }
+    
+    public void impostaPanelAggiornaAreaTematica(Object areaTematicaSelezionata) {
+        AreaTematica areaTematica = (AreaTematica) areaTematicaSelezionata;
+        
+        panelAggiornaAreaTematica.svuotaCampi();
+        panelAggiornaAreaTematica.inserisciAreaTematicaSelezionata(areaTematica.creaRiga());
+        panelAggiornaAreaTematica.setNome(areaTematica.getNome());
+        panelAggiornaAreaTematica.setDescrizione(areaTematica.getDescrizione());
+    }
+    
+    public void aggiornaAreaTematica(Object areaTematicaSelezionata, String nome, String descrizione) {
+        AreaTematica areaTematica = (AreaTematica) areaTematicaSelezionata;
+        
+        areaTematica.setNome(nome);
+        areaTematica.setDescrizione(descrizione);
+        try {
+            areaTematicaDAO.updateAreaTematica(areaTematica);
+            panelAreeTematiche.aggiornaAreaTematicaSelezionata(areaTematica.creaRiga());
+            panelAreeTematiche.svuotaTableAssociazioni();
+        }
+        catch(SQLException | UpdateAreaTematicaFallitoException e) {
+            homeFrameOperatore.mostraEccezione(e.getMessage());
+            chiudiConnessionePerErrori();
+        }
+    }
     //sezione aree tematiche
     
     //sezione corsi
@@ -600,6 +638,35 @@ public class Controller {
             chiudiConnessionePerErrori();
         }
     }
+    
+    public void impostaPanelAggiornaCorso(Object corsoSelezionato) {
+        Corso corso = (Corso) corsoSelezionato;
+        
+        panelAggiornaCorso.svuotaCampi();
+        panelAggiornaCorso.inserisciCorsoSelezionato(corso.creaRiga());
+        panelAggiornaCorso.setNome(corso.getNome());
+        panelAggiornaCorso.setDescrizione(corso.getDescrizione());
+        panelAggiornaCorso.setTassoPresenzeMinimo(corso.getTassoPresenzeMinime());
+        panelAggiornaCorso.setNumeroMassimoIscritti(corso.getNumeroMassimoIscritti());
+    }
+    
+    public void aggiornaCorso(Object corsoSelezionato, String nome, String descrizione, int tassoPresenzeMinime, int numeroMassimoIscritti) {
+        Corso corso = (Corso) corsoSelezionato;
+        
+        corso.setNome(nome);
+        corso.setDescrizione(descrizione);
+        corso.setTassoPresenzeMinime(tassoPresenzeMinime);
+        corso.setNumeroMassimoIscritti(numeroMassimoIscritti);
+        try {
+            corsoDAO.updateCorso(corso);
+            panelCorsi.aggiornaCorsoSelezionato(corso.creaRiga());
+            panelCorsi.svuotaTableAssociazioni();
+        }
+        catch(SQLException | UpdateCorsoFallitoException e) {
+            homeFrameOperatore.mostraEccezione(e.getMessage());
+            chiudiConnessionePerErrori();
+        }
+    }
     //sezione corsi
     
     //sezione lezioni
@@ -623,7 +690,7 @@ public class Controller {
     }
     
     public void impostaPanelNuovaLezione() {
-        panelNuovaLezione.svuotaTutteTable();
+        panelNuovaLezione.svuotaCampi();
         for(Corso corso : listaCorsi) {
             panelNuovaLezione.inserisciInTableCorsi(corso.creaRiga());
         }
@@ -634,6 +701,8 @@ public class Controller {
         dataInizio = dataInizio.truncatedTo(ChronoUnit.MINUTES);
         Corso corso = (Corso) corsoSelezionato;
         Lezione lezione = new Lezione (titolo, descrizione, durata, dataInizio, corso);
+        
+        corso.getLezioniDelCorso().add(lezione);
         
         try {
             lezioneDAO.createLezione(lezione);
@@ -657,6 +726,41 @@ public class Controller {
             panelLezioni.svuotaTableAssociazioni();
         }
         catch(SQLException | DeleteLezioneFallitoException e) {
+            homeFrameOperatore.mostraEccezione(e.getMessage());
+            chiudiConnessionePerErrori();
+        }
+    }
+    
+    public void impostaPanelAggiornaLezione(Object lezioneSelezionata)  {
+        Lezione lezione = (Lezione) lezioneSelezionata;
+        
+        panelAggiornaLezione.svuotaCampi();
+        panelAggiornaLezione.inserisciLezioneSelezionata(lezione.creaRiga());
+        panelAggiornaLezione.setTitolo(lezione.getTitolo());
+        panelAggiornaLezione.setDescrizione(lezione.getDescrizione());
+        panelAggiornaLezione.setDurata(lezione.getDurata());
+        panelAggiornaLezione.setDataOraInizio(Date.from(lezione.getDataInizio().toInstant()));
+        
+        //System.out.println(Date.from(lezione.getDataInizio().toInstant()));
+    }
+    
+    public void aggiornaLezione(Object lezioneSelezionata, String titolo, String descrizione, String durata, Object dataInizioSelezionata) {
+        Lezione lezione = (Lezione) lezioneSelezionata;
+        
+        ZonedDateTime dataInizio = ZonedDateTime.ofInstant( ((Date) dataInizioSelezionata).toInstant(), ZoneId.of("Europe/Rome"));
+        dataInizio = dataInizio.truncatedTo(ChronoUnit.MINUTES);
+        
+        lezione.setTitolo(titolo);
+        lezione.setDescrizione(descrizione);
+        lezione.setDurata(durata);
+        lezione.setDataInizio(dataInizio);
+        
+        try {
+            lezioneDAO.updateLezione(lezione);
+            panelLezioni.aggiornaLezioneSelezionata(lezione.creaRiga());
+            panelLezioni.svuotaTableAssociazioni();
+        }
+        catch(SQLException | UpdateLezioneFallitoException e) {
             homeFrameOperatore.mostraEccezione(e.getMessage());
             chiudiConnessionePerErrori();
         }

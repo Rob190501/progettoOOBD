@@ -212,15 +212,28 @@ public class PanelAreeTematiche extends PanelGenerico {
     }//GEN-LAST:event_tableAreeTematicheMouseDragged
 
     private void buttonNuovaAreaTematicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNuovaAreaTematicaActionPerformed
-        getHomeFrame().mostraCardNuovaAreaTematica();
+        getHomeFrame().mostraPanelNuovaAreaTematica();
     }//GEN-LAST:event_buttonNuovaAreaTematicaActionPerformed
 
     private void buttonRimuoviAreaTematicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRimuoviAreaTematicaActionPerformed
-        getController().eliminaAreaTematica(ottieniOggettoSelezionato(tableAreeTematiche));
+        try {
+            controllaRigaSelezionata(tableAreeTematiche, "aree tematiche");
+            getController().eliminaAreaTematica(ottieniOggettoSelezionato(tableAreeTematiche));
+        }
+        catch (NessunaRigaSelezionataException e) {
+            getHomeFrame().mostraEccezione(e.getMessage());
+        }
     }//GEN-LAST:event_buttonRimuoviAreaTematicaActionPerformed
 
     private void buttonAggiornaAreaTematicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAggiornaAreaTematicaActionPerformed
-        getHomeFrame().mostraCardAggiornaAreaTematica();
+        try {
+            controllaRigaSelezionata(tableAreeTematiche, "aree tematiche");
+            getController().impostaPanelAggiornaAreaTematica(ottieniOggettoSelezionato(tableAreeTematiche));
+            getHomeFrame().mostraPanelAggiornaAreaTematica();
+        }
+        catch (NessunaRigaSelezionataException e) {
+            getHomeFrame().mostraEccezione(e.getMessage());
+        }
     }//GEN-LAST:event_buttonAggiornaAreaTematicaActionPerformed
     
     public void svuotaTutteTable() {
@@ -237,6 +250,10 @@ public class PanelAreeTematiche extends PanelGenerico {
             Object areaSelezionata = ottieniOggettoSelezionato(tableAreeTematiche);
             getController().aggiornaSelezionePanelAreeTematiche(areaSelezionata);
         }
+    }
+    
+    public void aggiornaAreaTematicaSelezionata(Object[] row) {
+        sostituisciRigaSelezionata(tableAreeTematiche, row);
     }
     
     public void inserisciInTableAreeTematiche(Object[] row) {

@@ -28,7 +28,7 @@
               <EmptySpace min="-2" pref="188" max="-2" attributes="0"/>
               <Component id="buttonEliminaLezione" min="-2" pref="147" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-              <Component id="buttonNuovaLezione2" min="-2" pref="147" max="-2" attributes="0"/>
+              <Component id="buttonAggiornaLezione" min="-2" pref="147" max="-2" attributes="0"/>
               <EmptySpace pref="225" max="32767" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
@@ -71,7 +71,7 @@
               <EmptySpace pref="517" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="buttonEliminaLezione" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="buttonNuovaLezione2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="buttonAggiornaLezione" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
           </Group>
@@ -136,7 +136,7 @@
                 <Column editable="false" title="Titolo" type="java.lang.String"/>
                 <Column editable="false" title="Descrizione" type="java.lang.String"/>
                 <Column editable="false" title="Data e ora inizio" type="java.lang.String"/>
-                <Column editable="false" title="Durata" type="java.lang.String"/>
+                <Column editable="false" title="Durata (HH:MM)" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -396,7 +396,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonEliminaLezioneActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonNuovaLezione2">
+    <Component class="javax.swing.JButton" name="buttonAggiornaLezione">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="cc" red="99" type="rgb"/>
@@ -407,7 +407,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Nuova lezione"/>
+        <Property name="text" type="java.lang.String" value="Aggiorna lezione"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
         </Property>
@@ -415,6 +415,9 @@
         <Property name="focusPainted" type="boolean" value="false"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAggiornaLezioneActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

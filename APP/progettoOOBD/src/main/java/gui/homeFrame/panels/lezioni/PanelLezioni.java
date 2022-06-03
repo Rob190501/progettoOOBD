@@ -32,7 +32,7 @@ public class PanelLezioni extends PanelGenerico {
         labelStudentiPresenti = new javax.swing.JLabel();
         labelCorsoDellaLezione = new javax.swing.JLabel();
         buttonEliminaLezione = new javax.swing.JButton();
-        buttonNuovaLezione2 = new javax.swing.JButton();
+        buttonAggiornaLezione = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(745, 566));
@@ -48,7 +48,7 @@ public class PanelLezioni extends PanelGenerico {
 
             },
             new String [] {
-                "Oggetto", "Codice", "Titolo", "Descrizione", "Data e ora inizio", "Durata"
+                "Oggetto", "Codice", "Titolo", "Descrizione", "Data e ora inizio", "Durata (HH:MM)"
             }
         ) {
             Class[] types = new Class [] {
@@ -183,14 +183,19 @@ public class PanelLezioni extends PanelGenerico {
             }
         });
 
-        buttonNuovaLezione2.setBackground(new java.awt.Color(153, 204, 255));
-        buttonNuovaLezione2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonNuovaLezione2.setForeground(new java.awt.Color(255, 255, 255));
-        buttonNuovaLezione2.setText("Nuova lezione");
-        buttonNuovaLezione2.setBorder(null);
-        buttonNuovaLezione2.setBorderPainted(false);
-        buttonNuovaLezione2.setFocusPainted(false);
-        buttonNuovaLezione2.setOpaque(true);
+        buttonAggiornaLezione.setBackground(new java.awt.Color(153, 204, 255));
+        buttonAggiornaLezione.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonAggiornaLezione.setForeground(new java.awt.Color(255, 255, 255));
+        buttonAggiornaLezione.setText("Aggiorna lezione");
+        buttonAggiornaLezione.setBorder(null);
+        buttonAggiornaLezione.setBorderPainted(false);
+        buttonAggiornaLezione.setFocusPainted(false);
+        buttonAggiornaLezione.setOpaque(true);
+        buttonAggiornaLezione.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAggiornaLezioneActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -200,7 +205,7 @@ public class PanelLezioni extends PanelGenerico {
                 .addGap(188, 188, 188)
                 .addComponent(buttonEliminaLezione, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
-                .addComponent(buttonNuovaLezione2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonAggiornaLezione, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(225, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -231,7 +236,7 @@ public class PanelLezioni extends PanelGenerico {
                 .addContainerGap(517, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonEliminaLezione, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonNuovaLezione2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonAggiornaLezione, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -263,8 +268,7 @@ public class PanelLezioni extends PanelGenerico {
     }//GEN-LAST:event_tableLezioniMouseDragged
 
     private void buttonNuovaLezioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNuovaLezioneActionPerformed
-        getController().impostaPanelNuovaLezione();
-        getHomeFrame().mostraCardNuovaLezione();
+        getHomeFrame().mostraPanelNuovaLezione();
     }//GEN-LAST:event_buttonNuovaLezioneActionPerformed
 
     private void buttonEliminaLezioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEliminaLezioneActionPerformed
@@ -277,8 +281,23 @@ public class PanelLezioni extends PanelGenerico {
         }
     }//GEN-LAST:event_buttonEliminaLezioneActionPerformed
 
+    private void buttonAggiornaLezioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAggiornaLezioneActionPerformed
+        try {
+            controllaRigaSelezionata(tableLezioni, "lezioni");
+            getController().impostaPanelAggiornaLezione(ottieniOggettoSelezionato(tableLezioni));
+            getHomeFrame().mostraPanelAggiornaLezione();
+        }
+        catch (NessunaRigaSelezionataException e) {
+            getHomeFrame().mostraEccezione(e.getMessage());
+        }
+    }//GEN-LAST:event_buttonAggiornaLezioneActionPerformed
+
     public void rimuoviLezioneSelezionata() {
         rimuoviRigaSelezionataDaJTable(tableLezioni);
+    }
+    
+    public void aggiornaLezioneSelezionata(Object[] row) {
+        sostituisciRigaSelezionata(tableLezioni, row);
     }
     
     public void svuotaTutteTable() {
@@ -312,9 +331,9 @@ public class PanelLezioni extends PanelGenerico {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonAggiornaLezione;
     private javax.swing.JButton buttonEliminaLezione;
     private javax.swing.JButton buttonNuovaLezione;
-    private javax.swing.JButton buttonNuovaLezione2;
     private javax.swing.JLabel labelCorsoDellaLezione;
     private javax.swing.JLabel labelLezioni;
     private javax.swing.JLabel labelStudentiPresenti;

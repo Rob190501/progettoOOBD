@@ -183,8 +183,7 @@ public class PanelAggiornaStudente extends PanelGenerico {
             getController().aggiornaStudente(ottieniPrimoOggetto(tableStudenteSelezionato),
                                              textFieldNome.getText(),
                                              textFieldCognome.getText());
-            svuotaCampi();
-            getHomeFrame().mostraCardStudenti();
+            getHomeFrame().mostraPanelStudenti();
         }
         catch(CampoVuotoException e) {
             getHomeFrame().mostraEccezione(e.getMessage());
@@ -192,13 +191,8 @@ public class PanelAggiornaStudente extends PanelGenerico {
     }//GEN-LAST:event_buttonAggiornaStudenteActionPerformed
 
     private void buttonIndietroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIndietroActionPerformed
-        svuotaCampi();
-        getHomeFrame().mostraCardStudenti();
+        getHomeFrame().mostraPanelStudenti();
     }//GEN-LAST:event_buttonIndietroActionPerformed
-
-    public void svuotaTutteTable() {
-        svuotaTable(tableStudenteSelezionato);
-    }
     
     public void inserisciStudenteSelezionato(Object[] studenteSelezionato) {
         inserisciRigaInJTable(tableStudenteSelezionato, studenteSelezionato);
@@ -218,9 +212,10 @@ public class PanelAggiornaStudente extends PanelGenerico {
         }
     }
     
-    private void svuotaCampi() {
+    public void svuotaCampi() {
         textFieldNome.setText("");
         textFieldCognome.setText("");
+        svuotaTable(tableStudenteSelezionato);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

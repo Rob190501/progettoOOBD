@@ -1,12 +1,13 @@
 package dao.implementazione.postgresql;
 
 import controller.Controller;
-import dao.interfaccia.LezioneDAOInterfaccia;
+import dao.interfaccia.SQL.LezioneDAOInterfaccia;
 import dto.Corso;
 import dto.Lezione;
 import eccezioni.associazioni.AssociazioneLezioneCorsoFallitaException;
 import eccezioni.create.CreateLezioneFallitoException;
 import eccezioni.delete.DeleteLezioneFallitoException;
+import eccezioni.update.UpdateLezioneFallitoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,8 +28,12 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
                                  + "INTO lezione (titolo_lezione, descrizione_lezione, durata_lezione, data_inizio, codice_corso) "
                                  + "VALUES (?, ?, ?::INTERVAL, ?, ?)";
     
-    private String querySelectAllLezione = "SELECT * "+
-                                           "FROM lezione";
+    private String querySelectAllLezione = "SELECT * "
+                                         + "FROM lezione";
+    
+    private String updateLezione = "UPDATE lezione "
+                                 + "SET titolo_lezione = ?, descrizione_lezione = ?, durata_lezione = ?::INTERVAL, data_inizio = ?"
+                                 + "WHERE codice_lezione = ?";
     
     private String deleteLezione = "DELETE "
                                   + "FROM lezione "
@@ -81,17 +86,13 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
                     int codice_lezione = rsRetrieveAllLezione.getInt("codice_lezione");
                     String titolo_lezione = rsRetrieveAllLezione.getString("titolo_lezione");
                     String descrizione_lezione = rsRetrieveAllLezione.getString("descrizione_lezione");
-                    String durata_lezione = rsRetrieveAllLezione.getString("durata_lezione");
-                    
-                    durata_lezione = durata_lezione.substring(0, 5);
-                    
+                    String durata_lezione = rsRetrieveAllLezione.getString("durata_lezione").substring(0, 5);
                     ZonedDateTime data_inizio = ZonedDateTime.ofInstant(rsRetrieveAllLezione.getTimestamp("data_inizio").toInstant(), ZoneId.of("Europe/Rome"));
-                    
                     data_inizio = data_inizio.truncatedTo(ChronoUnit.MINUTES);
                     
                     int codice_corso = rsRetrieveAllLezione.getInt("codice_corso");
-
                     Corso corsoDellaLezione = trovaCorso(codice_corso, listaCorsi);
+                    
                     Lezione lezione = new Lezione(codice_lezione, titolo_lezione, descrizione_lezione, durata_lezione, data_inizio, corsoDellaLezione);
                     corsoDellaLezione.addLezione(lezione);
                     listaLezioni.add(lezione);
@@ -112,7 +113,17 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
     }
 
     @Override
-    public void updateLezione(Lezione lez) {
+    public void updateLezione(Lezione lezione) throws SQLException, UpdateLezioneFallitoException {
+        try (PreparedStatement pstUpdateLezione = connection.prepareStatement(updateLezione)) {
+            pstUpdateLezione.setString(1, lezione.getTitolo());
+            pstUpdateLezione.setString(2, lezione.getDescrizione());
+            pstUpdateLezione.setString(3, lezione.getDurata());
+            pstUpdateLezione.setTimestamp(4, Timestamp.valueOf(lezione.getDataInizio().toLocalDateTime()));
+            pstUpdateLezione.setInt(5, lezione.getCodice());
+            if (pstUpdateLezione.executeUpdate() != 1) {
+                throw new UpdateLezioneFallitoException();
+            }
+        }
     }
 
     @Override

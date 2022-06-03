@@ -4,9 +4,11 @@ import controller.Controller;
 import gui.homeFrame.panels.areeTematiche.PanelAggiornaAreaTematica;
 import gui.homeFrame.panels.areeTematiche.PanelAreeTematiche;
 import gui.homeFrame.panels.areeTematiche.PanelNuovaAreaTematica;
+import gui.homeFrame.panels.corsi.PanelAggiornaCorso;
 import gui.homeFrame.panels.corsi.PanelCorsi;
 import gui.homeFrame.panels.corsi.PanelNuovoCorso;
 import gui.homeFrame.panels.homePage.PanelHomePage;
+import gui.homeFrame.panels.lezioni.PanelAggiornaLezione;
 import gui.homeFrame.panels.lezioni.PanelLezioni;
 import gui.homeFrame.panels.lezioni.PanelNuovaLezione;
 import gui.homeFrame.panels.studenti.PanelAggiornaStudente;
@@ -45,9 +47,11 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     
     private PanelCorsi panelCorsi;
     private PanelNuovoCorso panelNuovoCorso;
+    private PanelAggiornaCorso panelAggiornaCorso;
     
     private PanelLezioni panelLezioni;
     private PanelNuovaLezione panelNuovaLezione;
+    private PanelAggiornaLezione panelAggiornaLezione;
     
     public HomeFrameOperatore(Controller controller) {
         setController(controller);
@@ -101,12 +105,20 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         this.panelNuovoCorso = panelNuovoCorso;
     }
 
+    public void setPanelAggiornaCorso(PanelAggiornaCorso panelAggiornaCorso) {
+        this.panelAggiornaCorso = panelAggiornaCorso;
+    }
+
     public void setPanelLezioni(PanelLezioni panelLezioni) {
         this.panelLezioni = panelLezioni;
     }
 
     public void setPanelNuovaLezione(PanelNuovaLezione panelNuovaLezione) {
         this.panelNuovaLezione = panelNuovaLezione;
+    }
+
+    public void setPanelAggiornaLezione(PanelAggiornaLezione panelAggiornaLezione) {
+        this.panelAggiornaLezione = panelAggiornaLezione;
     }
     
     @SuppressWarnings("unchecked")
@@ -360,77 +372,91 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         
         panelContenuti.add(panelCorsi, "cardCorsi");
         panelContenuti.add(panelNuovoCorso, "cardNuovoCorso");
+        panelContenuti.add(panelAggiornaCorso, "cardAggiornaCorso");
         
         panelContenuti.add(panelLezioni, "cardLezioni");
         panelContenuti.add(panelNuovaLezione, "cardNuovaLezione");
+        panelContenuti.add(panelAggiornaLezione, "cardAggiornaLezione");
     }
     
     public void cambiaCard(String cardDesiderata) {
         ((CardLayout) panelContenuti.getLayout()).show(panelContenuti, cardDesiderata);
     }
     
-    public void mostraCardHomePage() {
+    public void mostraPanelHomePage() {
         aggiornaLabelSelezionata(labelMenuHomePage);
         controller.aggiornaHomePage();
         cambiaCard("cardHomePage");
     }
     
-    public void mostraCardStudenti() {
+    public void mostraPanelStudenti() {
         panelStudenti.aggiornaSelezione();
         aggiornaLabelSelezionata(labelMenuStudenti);
         cambiaCard("cardStudenti");
     }
     
-    public void mostraCardNuovoStudente() {
+    public void mostraPanelNuovoStudente() {
+        panelNuovoStudente.svuotaCampi();
         cambiaCard("cardNuovoStudente");
     }
     
-    public void mostraCardAggiornaStudente() {
+    public void mostraPanelAggiornaStudente() {
         cambiaCard("cardAggiornaStudente");
     }
     
-    public void mostraCardIscrizioni() {
+    public void mostraPanelIscrizioni() {
         cambiaCard("cardIscrizioni");
     }
     
-    public void mostraCardAreeTematiche() {
+    public void mostraPanelAreeTematiche() {
         panelAreeTematiche.aggiornaSelezione();
         aggiornaLabelSelezionata(labelMenuAreeTematiche);
         cambiaCard("cardAreeTematiche");
     }
     
-    public void mostraCardNuovaAreaTematica() {
+    public void mostraPanelNuovaAreaTematica() {
+        panelNuovaAreaTematica.svuotaCampi();
         cambiaCard("cardNuovaAreaTematica");
     }
     
-    public void mostraCardAggiornaAreaTematica() {
+    public void mostraPanelAggiornaAreaTematica() {
         cambiaCard("cardAggiornaAreaTematica");
     }
     
-    public void mostraCardCorsi() {
+    public void mostraPanelCorsi() {
         panelCorsi.aggiornaSelezione();
         aggiornaLabelSelezionata(labelMenuCorsi);
         cambiaCard("cardCorsi");
     }
     
-    public void mostraCardNuovoCorso() {
+    public void mostraPanelNuovoCorso() {
+        panelNuovoCorso.svuotaCampi();
         cambiaCard("cardNuovoCorso");
     }
     
-    public void mostraCardLezioni() {
+    public void mostraPanelAggiornaCorso() {
+        cambiaCard("cardAggiornaCorso");
+    }
+    
+    public void mostraPanelLezioni() {
         panelLezioni.aggiornaSelezione();
         aggiornaLabelSelezionata(labelMenuLezioni);
         cambiaCard("cardLezioni");
     }
     
-    public void mostraCardNuovaLezione() {
+    public void mostraPanelNuovaLezione() {
+        controller.impostaPanelNuovaLezione();
         cambiaCard("cardNuovaLezione");
+    }
+    
+    public void mostraPanelAggiornaLezione() {
+        cambiaCard("cardAggiornaLezione");
     }
     
     @Override
     public void setVisible(boolean b) {
         if(b) {
-            mostraCardHomePage();
+            mostraPanelHomePage();
         }
         super.setVisible(b);
     }
@@ -530,27 +556,27 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     
     private void labelMenuStudentiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMenuStudentiMouseClicked
         // TODO add your handling code here:
-        mostraCardStudenti();
+        mostraPanelStudenti();
     }//GEN-LAST:event_labelMenuStudentiMouseClicked
 
     private void labelMenuHomePageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMenuHomePageMouseClicked
         // TODO add your handling code here:
-        mostraCardHomePage();
+        mostraPanelHomePage();
     }//GEN-LAST:event_labelMenuHomePageMouseClicked
 
     private void labelMenuCorsiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMenuCorsiMouseClicked
         // TODO add your handling code here:
-        mostraCardCorsi();
+        mostraPanelCorsi();
     }//GEN-LAST:event_labelMenuCorsiMouseClicked
 
     private void labelMenuLezioniMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMenuLezioniMouseClicked
         // TODO add your handling code here:
-        mostraCardLezioni();
+        mostraPanelLezioni();
     }//GEN-LAST:event_labelMenuLezioniMouseClicked
 
     private void labelMenuAreeTematicheMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMenuAreeTematicheMouseClicked
         // TODO add your handling code here:
-        mostraCardAreeTematiche();
+        mostraPanelAreeTematiche();
     }//GEN-LAST:event_labelMenuAreeTematicheMouseClicked
     
     public void mostraEccezione(String messaggioEccezione) {

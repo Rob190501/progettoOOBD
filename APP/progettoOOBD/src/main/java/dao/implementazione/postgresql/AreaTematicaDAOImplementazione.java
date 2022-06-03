@@ -1,10 +1,11 @@
 package dao.implementazione.postgresql;
 
 import controller.Controller;
-import dao.interfaccia.AreaTematicaDAOInterfaccia;
+import dao.interfaccia.SQL.AreaTematicaDAOInterfaccia;
 import dto.AreaTematica;
 import eccezioni.create.CreateAreaTematicaFallitoException;
 import eccezioni.delete.DeleteAreaTematicaFallitoException;
+import eccezioni.update.UpdateAreaTematicaFallitoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,6 +27,10 @@ public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfacci
     
     private String deleteAreaTematica = "DELETE "
                                       + "FROM area_tematica "
+                                      + "WHERE codice_area_tematica = ?";
+    
+    private String updateAreaTematica = "UPDATE area_tematica "
+                                      + "SET nome_area_tematica = ?, descrizione_area_tematica = ?"
                                       + "WHERE codice_area_tematica = ?";
 
     public AreaTematicaDAOImplementazione(Controller controller, Connection connection) {
@@ -85,8 +90,15 @@ public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfacci
     }
 
     @Override
-    public void updateAreaTematica(AreaTematica areaTematica) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void updateAreaTematica(AreaTematica areaTematica) throws SQLException, UpdateAreaTematicaFallitoException {
+        try (PreparedStatement pstUpdateAreaTematica = connection.prepareStatement(updateAreaTematica)) {
+            pstUpdateAreaTematica.setString(1, areaTematica.getNome());
+            pstUpdateAreaTematica.setString(2, areaTematica.getDescrizione());
+            pstUpdateAreaTematica.setInt(3, areaTematica.getCodice());
+            if (pstUpdateAreaTematica.executeUpdate() != 1) {
+                throw new UpdateAreaTematicaFallitoException();
+            }
+        }
     }
 
     @Override

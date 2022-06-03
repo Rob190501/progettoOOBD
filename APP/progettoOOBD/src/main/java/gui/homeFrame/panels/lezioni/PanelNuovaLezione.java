@@ -17,6 +17,7 @@ public class PanelNuovaLezione extends PanelGenerico {
     public PanelNuovaLezione(Controller controller, HomeFrameOperatore homeFrame) {
         super(controller, homeFrame);        
         initComponents();
+        nascondiColonnaOggetto(tableCorsi);
     }
     
     @SuppressWarnings("unchecked")
@@ -236,8 +237,7 @@ public class PanelNuovaLezione extends PanelGenerico {
                                          textFieldDurata.getText(),
                                          spinnerDataOraInizio.getValue(),
                                          ottieniOggettoSelezionato(tableCorsi));
-            svuotaCampi();
-            getHomeFrame().mostraCardLezioni();
+            getHomeFrame().mostraPanelLezioni();
         }
         catch(CampoVuotoException | NessunaRigaSelezionataException | FormatoSbagliatoException e) {
             getHomeFrame().mostraEccezione(e.getMessage());
@@ -245,8 +245,7 @@ public class PanelNuovaLezione extends PanelGenerico {
     }//GEN-LAST:event_buttonRegistraLezioneActionPerformed
 
     private void buttonIndietroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIndietroActionPerformed
-        svuotaCampi();
-        getHomeFrame().mostraCardLezioni();
+        getHomeFrame().mostraPanelLezioni();
     }//GEN-LAST:event_buttonIndietroActionPerformed
 
     private void textFieldDurataFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textFieldDurataFocusGained
@@ -263,28 +262,25 @@ public class PanelNuovaLezione extends PanelGenerico {
         }
     }//GEN-LAST:event_textFieldDurataFocusLost
     
-    public void svuotaTutteTable() {
-        svuotaTable(tableCorsi);
-    }
-    
     public void inserisciInTableCorsi(Object[] riga) {
         inserisciRigaInJTable(tableCorsi, riga);
     }
     
-    private void svuotaCampi() {
+    public void svuotaCampi() {
         textFieldTitolo.setText("");
         textFieldDescrizione.setText("");
         textFieldDurata.setForeground(Color.GRAY);
         textFieldDurata.setText("HH:MM");
+        svuotaTable(tableCorsi);
     }
 
     private void controllaCampi() throws NessunaRigaSelezionataException, CampoVuotoException, FormatoSbagliatoException  {
         controllaRigaSelezionata(tableCorsi, "corsi");
         
-        if ( textFieldTitolo.getText().equals("") ||
-             textFieldDescrizione.getText().equals("") ||
-             textFieldDurata.getText().equals("") ||
-             textFieldDurata.getText().equals("HH:MM") ) {
+        if (textFieldTitolo.getText().equals("") ||
+            textFieldDescrizione.getText().equals("") ||
+            textFieldDurata.getText().equals("") ||
+            textFieldDurata.getText().equals("HH:MM")) {
             throw new CampoVuotoException();
         }
         

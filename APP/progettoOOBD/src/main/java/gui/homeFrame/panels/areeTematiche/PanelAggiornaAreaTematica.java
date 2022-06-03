@@ -179,11 +179,10 @@ public class PanelAggiornaAreaTematica extends PanelGenerico {
     private void buttonAggiornaAreaTematicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAggiornaAreaTematicaActionPerformed
         try {
             controllaCampi();
-            /*getController().aggiornaStudente(ottieniPrimoOggetto(tableStudenteSelezionato),
-                                             textFieldNome.getText(),
-                                             textFieldCognome.getText());
-            svuotaCampi();
-            getHomeFrame().mostraCardStudenti();*/
+            getController().aggiornaAreaTematica(ottieniPrimoOggetto(tableAreaTematicaSelezionata),
+                                                 textFieldNome.getText(),
+                                                 textFieldDescrizione.getText());
+            getHomeFrame().mostraPanelAreeTematiche();
         }
         catch(CampoVuotoException e) {
             getHomeFrame().mostraEccezione(e.getMessage());
@@ -191,15 +190,10 @@ public class PanelAggiornaAreaTematica extends PanelGenerico {
     }//GEN-LAST:event_buttonAggiornaAreaTematicaActionPerformed
 
     private void buttonIndietroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIndietroActionPerformed
-        svuotaCampi();
-        getHomeFrame().mostraCardStudenti();
+        getHomeFrame().mostraPanelAreeTematiche();
     }//GEN-LAST:event_buttonIndietroActionPerformed
-
-    public void svuotaTutteTable() {
-        svuotaTable(tableAreaTematicaSelezionata);
-    }
     
-    public void inserisciStudenteSelezionato(Object[] studenteSelezionato) {
+    public void inserisciAreaTematicaSelezionata(Object[] studenteSelezionato) {
         inserisciRigaInJTable(tableAreaTematicaSelezionata, studenteSelezionato);
     }
     
@@ -207,7 +201,7 @@ public class PanelAggiornaAreaTematica extends PanelGenerico {
         textFieldNome.setText(nome);
     }
     
-    public void setCognome(String cognome) {
+    public void setDescrizione(String cognome) {
         textFieldDescrizione.setText(cognome);
     }
     
@@ -217,9 +211,10 @@ public class PanelAggiornaAreaTematica extends PanelGenerico {
         }
     }
     
-    private void svuotaCampi() {
+    public void svuotaCampi() {
         textFieldNome.setText("");
         textFieldDescrizione.setText("");
+        svuotaTable(tableAreaTematicaSelezionata);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

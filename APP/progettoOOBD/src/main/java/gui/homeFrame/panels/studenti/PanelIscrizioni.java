@@ -252,7 +252,7 @@ public class PanelIscrizioni extends PanelGenerico {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonIndietroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIndietroActionPerformed
-        getHomeFrame().mostraCardStudenti();
+        getHomeFrame().mostraPanelStudenti();
     }//GEN-LAST:event_buttonIndietroActionPerformed
 
     private void buttonIscriviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIscriviActionPerformed

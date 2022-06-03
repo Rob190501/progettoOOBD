@@ -1,15 +1,11 @@
 package dao.implementazione.postgresql;
 
 import controller.Controller;
-import dao.interfaccia.StudenteDAOInterfaccia;
+import dao.interfaccia.SQL.StudenteDAOInterfaccia;
 import dto.Corso;
 import dto.Lezione;
 import dto.Studente;
-import eccezioni.associazioni.AssociazioneStudenteCorsoFallitaException;
-import eccezioni.associazioni.AssociazioneStudenteLezioneFallitaException;
-import eccezioni.create.CreateStudenteDelCorsoFallitoException;
 import eccezioni.create.CreateStudenteFallitoException;
-import eccezioni.delete.DeleteStudenteDelCorsoFallitoException;
 import eccezioni.delete.DeleteStudenteFallitoException;
 import eccezioni.update.UpdateStudenteFallitoException;
 import java.sql.Connection;
@@ -39,21 +35,13 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
                                   + "FROM presenze "
                                   + "WHERE matricola = ?";
     
-    private String deleteStudente = "DELETE "
-                                  + "FROM studente "
-                                  + "WHERE matricola = ?";
-    
-    private String insertStudenteDelCorso = "INSERT "
-                                          + "INTO studenti_del_corso (matricola, codice_corso) "
-                                          + "VALUES (?, ?)";
-    
     private String updateStudente = "UPDATE studente "
                                   + "SET nome = ?, cognome = ?"
                                   + "WHERE matricola = ?";
     
-    private String deleteStudenteDelCorso = "DELETE "
-                                          + "FROM studenti_del_corso "
-                                          + "WHERE matricola = ? AND codice_corso = ?";
+    private String deleteStudente = "DELETE "
+                                  + "FROM studente "
+                                  + "WHERE matricola = ?";
     
     public StudenteDAOImplementazione(Controller controller, Connection connection) {
         setController(controller);
@@ -67,8 +55,6 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
     private void setConnection(Connection connection) {
         this.connection = connection;
     }
-    
-    
     
     @Override
     public void createStudente(Studente studente) throws SQLException, CreateStudenteFallitoException {
@@ -90,7 +76,7 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
     }
 
     @Override
-    public LinkedList<Studente> retrieveAllStudente(LinkedList<Corso>listaCorsi, LinkedList<Lezione> listaLezioni) throws SQLException, AssociazioneStudenteCorsoFallitaException, AssociazioneStudenteLezioneFallitaException {
+    public LinkedList<Studente> retrieveAllStudente(LinkedList<Corso>listaCorsi, LinkedList<Lezione> listaLezioni) throws SQLException {
         try (Statement stmtRetrieveAllStudente = connection.createStatement()) {
             LinkedList<Studente> listaStudenti = new LinkedList<>();
             
@@ -111,52 +97,33 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
         }
     }
     
-    private void retrieveCorsiFrequentati(Studente studente, LinkedList<Corso> listaCorsi) throws SQLException, AssociazioneStudenteCorsoFallitaException {
+    private void retrieveCorsiFrequentati(Studente studente, LinkedList<Corso> listaCorsi) throws SQLException {
         try (PreparedStatement pstRetrieveCorsiFrequentati = connection.prepareStatement(selectCorsiFrequentati)) {
             pstRetrieveCorsiFrequentati.setInt(1, studente.getMatricola());
-
             try (ResultSet rsRetrieveCorsiFrequentati = pstRetrieveCorsiFrequentati.executeQuery()) {
-                boolean flagCorsoAssegnato = true;
-
                 while (rsRetrieveCorsiFrequentati.next()) {
-                    flagCorsoAssegnato = false;
                     for (Corso corso : listaCorsi) {
                         if(rsRetrieveCorsiFrequentati.getInt("codice_corso") == corso.getCodice()) {
                             studente.addCorso(corso);
                             corso.addStudente(studente);
-                            flagCorsoAssegnato = true;
                         }
                     }
-                }
-
-                if(!flagCorsoAssegnato) {
-                    throw new AssociazioneStudenteCorsoFallitaException();
                 }
             }
         }
     }
     
-    private void retrievePresenze(Studente studente, LinkedList<Lezione> listaLezioni) throws SQLException, AssociazioneStudenteLezioneFallitaException {
+    private void retrievePresenze(Studente studente, LinkedList<Lezione> listaLezioni) throws SQLException {
         try (PreparedStatement pstRetrievePresenze = connection.prepareStatement(selectPresenze)) {
             pstRetrievePresenze.setInt(1, studente.getMatricola());
-
             try (ResultSet rsRetrievePresenze = pstRetrievePresenze.executeQuery()) {
-                boolean flagLezioneAssegnata = true;
-                
                 while (rsRetrievePresenze.next()) {
-                    flagLezioneAssegnata = false;
-                    
                     for (Lezione lezione : listaLezioni) {
                         if(rsRetrievePresenze.getInt("codice_lezione") == lezione.getCodice()) {
                             studente.addPresenza(lezione);
                             lezione.addStudente(studente);
-                            flagLezioneAssegnata = true;
                         }
                     }
-                }
-                
-                if (!flagLezioneAssegnata) {
-                    throw new AssociazioneStudenteLezioneFallitaException();
                 }
             }
         }
@@ -180,26 +147,6 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
             pstDeleteStudente.setInt(1, studente.getMatricola());
             if (pstDeleteStudente.executeUpdate() != 1) {
                 throw new DeleteStudenteFallitoException();
-            }
-        }
-    }
-    
-    public void createStudenteDelCorso(Studente studente, Corso corso) throws SQLException, CreateStudenteDelCorsoFallitoException {
-        try (PreparedStatement pstInsertStudenteDelCorso = connection.prepareStatement(insertStudenteDelCorso)) {
-            pstInsertStudenteDelCorso.setInt(1, studente.getMatricola());
-            pstInsertStudenteDelCorso.setInt(2, corso.getCodice());
-            if (pstInsertStudenteDelCorso.executeUpdate() != 1) {
-                throw new CreateStudenteDelCorsoFallitoException();
-            }
-        }
-    }
-    
-    public void deleteStudenteDelCorso(Studente studente, Corso corso) throws SQLException, DeleteStudenteDelCorsoFallitoException {
-        try (PreparedStatement pstDeleteStudenteDelCorso = connection.prepareStatement(deleteStudenteDelCorso)) {
-            pstDeleteStudenteDelCorso.setInt(1, studente.getMatricola());
-            pstDeleteStudenteDelCorso.setInt(2, corso.getCodice());
-            if (pstDeleteStudenteDelCorso.executeUpdate() != 1) {
-                throw new DeleteStudenteDelCorsoFallitoException();
             }
         }
     }

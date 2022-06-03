@@ -135,8 +135,7 @@ public class PanelNuovoStudente extends PanelGenerico {
         try {
             controllaCampi();
             getController().nuovoStudente(textFieldNome.getText(), textFieldCognome.getText());
-            svuotaCampi();
-            getHomeFrame().mostraCardStudenti();
+            getHomeFrame().mostraPanelStudenti();
         }
         catch(CampoVuotoException e) {
             getHomeFrame().mostraEccezione(e.getMessage());
@@ -144,8 +143,7 @@ public class PanelNuovoStudente extends PanelGenerico {
     }//GEN-LAST:event_buttonRegistraStudenteActionPerformed
 
     private void buttonIndietroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIndietroActionPerformed
-        svuotaCampi();
-        getHomeFrame().mostraCardStudenti();
+        getHomeFrame().mostraPanelStudenti();
     }//GEN-LAST:event_buttonIndietroActionPerformed
 
     private void controllaCampi() throws CampoVuotoException {
@@ -154,7 +152,7 @@ public class PanelNuovoStudente extends PanelGenerico {
         }
     }
     
-    private void svuotaCampi() {
+    public void svuotaCampi() {
         textFieldNome.setText("");
         textFieldCognome.setText("");
     }

@@ -172,8 +172,7 @@ public class PanelNuovoCorso extends PanelGenerico {
                                        textFieldDescrizione.getText(),
                                        (int) spinnerTassoPresenze.getValue(),
                                        (int) spinnerNumeroMassimoIscritti.getValue());
-            svuotaCampi();
-            getHomeFrame().mostraCardCorsi();
+            getHomeFrame().mostraPanelCorsi();
         }
         catch(CampoVuotoException e) {
             getHomeFrame().mostraEccezione(e.getMessage());
@@ -181,11 +180,10 @@ public class PanelNuovoCorso extends PanelGenerico {
     }//GEN-LAST:event_buttonRegistraCorsoActionPerformed
 
     private void buttonIndietroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIndietroActionPerformed
-        svuotaCampi();
-        getHomeFrame().mostraCardCorsi();
+        getHomeFrame().mostraPanelCorsi();
     }//GEN-LAST:event_buttonIndietroActionPerformed
     
-    private void svuotaCampi() {
+    public void svuotaCampi() {
         textFieldNome.setText("");
         textFieldDescrizione.setText("");
         spinnerTassoPresenze.setValue(0);

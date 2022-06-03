@@ -240,11 +240,7 @@ public class PanelStudenti extends PanelGenerico {
                                 .addComponent(buttonNuovoStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                                 .addComponent(buttonEliminaStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(2, 2, 2))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(buttonAggiornaStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(2, 2, 2)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -262,6 +258,10 @@ public class PanelStudenti extends PanelGenerico {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                                         .addComponent(buttonPresenze, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(20, 20, 20))))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buttonAggiornaStudente, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,7 +296,7 @@ public class PanelStudenti extends PanelGenerico {
     }//GEN-LAST:event_tableStudentiMouseClicked
 
     private void buttonNuovoStudenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNuovoStudenteActionPerformed
-        getHomeFrame().mostraCardNuovoStudente();
+        getHomeFrame().mostraPanelNuovoStudente();
     }//GEN-LAST:event_buttonNuovoStudenteActionPerformed
 
     private void buttonEliminaStudenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEliminaStudenteActionPerformed
@@ -313,7 +313,7 @@ public class PanelStudenti extends PanelGenerico {
         try {
             controllaRigaSelezionata(tableStudenti, "studenti");
             getController().impostaPanelIscrizioni(ottieniOggettoSelezionato(tableStudenti));
-            getHomeFrame().mostraCardIscrizioni();
+            getHomeFrame().mostraPanelIscrizioni();
         }
         catch (NessunaRigaSelezionataException e) {
             getHomeFrame().mostraEccezione(e.getMessage());
@@ -328,7 +328,7 @@ public class PanelStudenti extends PanelGenerico {
         try {
             controllaRigaSelezionata(tableStudenti, "studenti");
             getController().impostaPanelAggiornaStudente(ottieniOggettoSelezionato(tableStudenti));
-            getHomeFrame().mostraCardAggiornaStudente();
+            getHomeFrame().mostraPanelAggiornaStudente();
         }
         catch (NessunaRigaSelezionataException e) {
             getHomeFrame().mostraEccezione(e.getMessage());

@@ -134,8 +134,7 @@ public class PanelNuovaAreaTematica extends PanelGenerico {
         try {
             controllaCampi();
             getController().nuovaAreaTematica(textFieldNome.getText(), textFieldDescrizione.getText());
-            svuotaCampi();
-            getHomeFrame().mostraCardAreeTematiche();
+            getHomeFrame().mostraPanelAreeTematiche();
         }
         catch(CampoVuotoException e) {
             getHomeFrame().mostraEccezione(e.getMessage());
@@ -143,8 +142,7 @@ public class PanelNuovaAreaTematica extends PanelGenerico {
     }//GEN-LAST:event_buttonRegistraAreaTematicaActionPerformed
 
     private void buttonIndietroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIndietroActionPerformed
-        svuotaCampi();
-        getHomeFrame().mostraCardAreeTematiche();
+        getHomeFrame().mostraPanelAreeTematiche();
     }//GEN-LAST:event_buttonIndietroActionPerformed
 
     private void controllaCampi() throws CampoVuotoException {
@@ -153,7 +151,7 @@ public class PanelNuovaAreaTematica extends PanelGenerico {
         }
     }
     
-    private void svuotaCampi() {
+    public void svuotaCampi() {
         textFieldNome.setText("");
         textFieldDescrizione.setText("");
     }
