@@ -25,6 +25,13 @@ import eccezioni.delete.DeleteLezioneFallitoException;
 import eccezioni.delete.DeletePresenzaFallitoException;
 import eccezioni.delete.DeleteStudenteDelCorsoFallitoException;
 import eccezioni.delete.DeleteStudenteFallitoException;
+import eccezioni.retrieve.RetrieveAreaTematicaFallitoException;
+import eccezioni.retrieve.RetrieveAreaDelCorsoFallitoException;
+import eccezioni.retrieve.RetrieveCorsoFallitoException;
+import eccezioni.retrieve.RetrieveLezioneFallitoException;
+import eccezioni.retrieve.RetrievePresenzaFallitoException;
+import eccezioni.retrieve.RetrieveStudenteDelCorsoFallitoException;
+import eccezioni.retrieve.RetrieveStudenteFallitoException;
 import eccezioni.update.UpdateAreaTematicaFallitoException;
 import eccezioni.update.UpdateCorsoFallitoException;
 import eccezioni.update.UpdateLezioneFallitoException;
@@ -145,7 +152,7 @@ public class Controller {
             retrieveAllDTO();
             loginFrame.connessioneStabilita();
         }
-        catch(SQLException | ClassNotFoundException | AssociazioneLezioneCorsoFallitaException e) {
+        catch(ClassNotFoundException | SQLException | AssociazioneLezioneCorsoFallitaException | RetrieveAreaTematicaFallitoException | RetrieveCorsoFallitoException | RetrieveLezioneFallitoException | RetrieveStudenteFallitoException | RetrieveAreaDelCorsoFallitoException | RetrieveStudenteDelCorsoFallitoException | RetrievePresenzaFallitoException e) {
             loginFrame.connessioneNonStabilita();
             loginFrame.mostraEccezione(e.getMessage());
         }
@@ -194,22 +201,22 @@ public class Controller {
         presenzeDAO = new PresenzeDAOImplementazione(this, connection);
     }
     
-    public void retrieveAllDTO() throws SQLException, AssociazioneLezioneCorsoFallitaException {
+    public void retrieveAllDTO() throws AssociazioneLezioneCorsoFallitaException, RetrieveAreaTematicaFallitoException, RetrieveCorsoFallitoException, RetrieveLezioneFallitoException, RetrieveStudenteFallitoException, RetrieveAreaDelCorsoFallitoException, RetrieveStudenteDelCorsoFallitoException, RetrievePresenzaFallitoException {
         this.listaAreeTematiche = areaTematicaDAO.retrieveAllAreaTematica();
         this.listaCorsi = corsoDAO.retrieveAllCorso();
         this.listaLezioni = lezioneDAO.retrieveAllLezione(listaCorsi);
         this.listaStudenti = studenteDAO.retrieveAllStudente();
     }
     
-    public void setAreeTematiche(Corso corso) throws SQLException {
+    public void setAreeTematiche(Corso corso) throws RetrieveAreaDelCorsoFallitoException {
         areaDelCorsoDAO.retrieveAreeDelCorso(corso, listaAreeTematiche);
     }
     
-    public void setCorsiFrequentati(Studente studente) throws SQLException {
+    public void setCorsiFrequentati(Studente studente) throws RetrieveStudenteDelCorsoFallitoException {
         studenteDelCorsoDAO.retrieveCorsiFrequentati(studente, listaCorsi);
     }
     
-    public void setPresenze(Studente studente) throws SQLException {
+    public void setPresenze(Studente studente) throws RetrievePresenzaFallitoException {
         presenzeDAO.retrievePresenze(studente, listaLezioni);
     }
     
@@ -327,7 +334,7 @@ public class Controller {
             listaStudenti.add(studente);
             panelStudenti.inserisciInTableStudenti(studente.creaRiga());
         }
-        catch (SQLException | CreateStudenteFallitoException e) {
+        catch (CreateStudenteFallitoException e) {
             homeFrameOperatore.mostraEccezione(e.getMessage());
             chiudiConnessionePerErrori();
         }
@@ -343,7 +350,7 @@ public class Controller {
             panelStudenti.rimuoviStudenteSelezionato();
             panelStudenti.svuotaTableAssociazioni();
         }
-        catch(SQLException | DeleteStudenteFallitoException e) {
+        catch(DeleteStudenteFallitoException e) {
             homeFrameOperatore.mostraEccezione(e.getMessage());
             chiudiConnessionePerErrori();
         }
@@ -377,7 +384,7 @@ public class Controller {
             studenteDelCorsoDAO.createStudenteDelCorso(studente, corso);
             aggiornaPanelIscrizioni(studente);
         }
-        catch (SQLException | CreateStudenteDelCorsoFallitoException e) {
+        catch (CreateStudenteDelCorsoFallitoException e) {
             homeFrameOperatore.mostraEccezione(e.getMessage());
             chiudiConnessionePerErrori();
         }
@@ -391,7 +398,7 @@ public class Controller {
             studenteDelCorsoDAO.deleteStudenteDelCorso(studente, corso);
             aggiornaPanelIscrizioni(studente);
         }
-        catch (SQLException | DeleteStudenteDelCorsoFallitoException | DeletePresenzaFallitoException e) {
+        catch (DeleteStudenteDelCorsoFallitoException | DeletePresenzaFallitoException e) {
             homeFrameOperatore.mostraEccezione(e.getMessage());
             chiudiConnessionePerErrori();
         }
@@ -427,7 +434,7 @@ public class Controller {
             presenzeDAO.createPresenza(studente, lezione);
             aggiornaPanelPresenze(studente);
         }
-        catch (SQLException | CreatePresenzaFallitoException e) {
+        catch (CreatePresenzaFallitoException e) {
             homeFrameOperatore.mostraEccezione(e.getMessage());
             chiudiConnessionePerErrori();
         }
@@ -441,7 +448,7 @@ public class Controller {
             presenzeDAO.deletePresenza(studente, lezione);
             aggiornaPanelPresenze(studente);
         }
-        catch (SQLException | DeletePresenzaFallitoException e) {
+        catch (DeletePresenzaFallitoException e) {
             homeFrameOperatore.mostraEccezione(e.getMessage());
             chiudiConnessionePerErrori();
         }
@@ -466,7 +473,7 @@ public class Controller {
             panelStudenti.aggiornaStudenteSelezionato(studente.creaRiga());
             panelStudenti.svuotaTableAssociazioni();
         }
-        catch(SQLException | UpdateStudenteFallitoException e) {
+        catch(UpdateStudenteFallitoException e) {
             homeFrameOperatore.mostraEccezione(e.getMessage());
             chiudiConnessionePerErrori();
         }
@@ -499,7 +506,7 @@ public class Controller {
             listaAreeTematiche.add(area);
             panelAreeTematiche.inserisciInTableAreeTematiche(area.creaRiga());
         }
-        catch (SQLException | CreateAreaTematicaFallitoException e) {
+        catch (CreateAreaTematicaFallitoException e) {
             homeFrameOperatore.mostraEccezione(e.getMessage());
             chiudiConnessionePerErrori();
         }
@@ -515,7 +522,7 @@ public class Controller {
             panelAreeTematiche.rimuoviAreaTematicaSelezionata();
             panelAreeTematiche.svuotaTableAssociazioni();
         }
-        catch(SQLException | DeleteAreaTematicaFallitoException e) {
+        catch(DeleteAreaTematicaFallitoException e) {
             homeFrameOperatore.mostraEccezione(e.getMessage());
             chiudiConnessionePerErrori();
         }
@@ -540,7 +547,7 @@ public class Controller {
             panelAreeTematiche.aggiornaAreaTematicaSelezionata(areaTematica.creaRiga());
             panelAreeTematiche.svuotaTableAssociazioni();
         }
-        catch(SQLException | UpdateAreaTematicaFallitoException e) {
+        catch(UpdateAreaTematicaFallitoException e) {
             homeFrameOperatore.mostraEccezione(e.getMessage());
             chiudiConnessionePerErrori();
         }
@@ -579,7 +586,7 @@ public class Controller {
             listaCorsi.add(corso);
             panelCorsi.inserisciInTableCorsi(corso.creaRiga());
         }
-        catch (SQLException | CreateCorsoFallitoException e) {
+        catch (CreateCorsoFallitoException e) {
             homeFrameOperatore.mostraEccezione(e.getMessage());
             chiudiConnessionePerErrori();
         }
@@ -597,7 +604,7 @@ public class Controller {
             panelCorsi.rimuoviCorsoSelezionato();
             panelCorsi.svuotaTableAssociazioni();
         }
-        catch(SQLException | DeleteCorsoFallitoException e) {
+        catch(DeleteCorsoFallitoException e) {
             homeFrameOperatore.mostraEccezione(e.getMessage());
             chiudiConnessionePerErrori();
         }
@@ -626,7 +633,7 @@ public class Controller {
             panelCorsi.aggiornaCorsoSelezionato(corso.creaRiga());
             panelCorsi.svuotaTableAssociazioni();
         }
-        catch(SQLException | UpdateCorsoFallitoException e) {
+        catch(UpdateCorsoFallitoException e) {
             homeFrameOperatore.mostraEccezione(e.getMessage());
             chiudiConnessionePerErrori();
         }
@@ -673,7 +680,7 @@ public class Controller {
             listaLezioni.add(lezione);
             panelLezioni.inserisciInTableLezioni(lezione.creaRiga());
         }
-        catch (SQLException | CreateLezioneFallitoException e) {
+        catch (CreateLezioneFallitoException e) {
             homeFrameOperatore.mostraEccezione(e.getMessage());
             chiudiConnessionePerErrori();
         }
@@ -689,7 +696,7 @@ public class Controller {
             panelLezioni.rimuoviLezioneSelezionata();
             panelLezioni.svuotaTableAssociazioni();
         }
-        catch(SQLException | DeleteLezioneFallitoException e) {
+        catch(DeleteLezioneFallitoException e) {
             homeFrameOperatore.mostraEccezione(e.getMessage());
             chiudiConnessionePerErrori();
         }
@@ -722,7 +729,7 @@ public class Controller {
             panelLezioni.aggiornaLezioneSelezionata(lezione.creaRiga());
             panelLezioni.svuotaTableAssociazioni();
         }
-        catch(SQLException | UpdateLezioneFallitoException e) {
+        catch(UpdateLezioneFallitoException e) {
             homeFrameOperatore.mostraEccezione(e.getMessage());
             chiudiConnessionePerErrori();
         }

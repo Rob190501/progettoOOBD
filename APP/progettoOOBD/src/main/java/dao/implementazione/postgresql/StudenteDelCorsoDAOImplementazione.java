@@ -8,6 +8,7 @@ import dto.Studente;
 import eccezioni.create.CreateStudenteDelCorsoFallitoException;
 import eccezioni.delete.DeletePresenzaFallitoException;
 import eccezioni.delete.DeleteStudenteDelCorsoFallitoException;
+import eccezioni.retrieve.RetrieveStudenteDelCorsoFallitoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,7 +40,7 @@ public class StudenteDelCorsoDAOImplementazione implements StudenteDelCorsoDAOIn
                                           + "WHERE matricola = ? AND codice_corso = ?";
     
     @Override
-    public void createStudenteDelCorso(Studente studente, Corso corso) throws SQLException, CreateStudenteDelCorsoFallitoException {
+    public void createStudenteDelCorso(Studente studente, Corso corso) throws CreateStudenteDelCorsoFallitoException {
         try (PreparedStatement pstInsertStudenteDelCorso = connection.prepareStatement(insertStudenteDelCorso)) {
             pstInsertStudenteDelCorso.setInt(1, studente.getMatricola());
             pstInsertStudenteDelCorso.setInt(2, corso.getCodice());
@@ -49,9 +50,12 @@ public class StudenteDelCorsoDAOImplementazione implements StudenteDelCorsoDAOIn
             studente.addCorso(corso);
             corso.addStudente(studente);
         }
+        catch(SQLException e) {
+            throw new CreateStudenteDelCorsoFallitoException(e.getMessage());
+        }
     }
     
-    public void retrieveCorsiFrequentati(Studente studente, LinkedList<Corso> listaCorsi) throws SQLException {
+    public void retrieveCorsiFrequentati(Studente studente, LinkedList<Corso> listaCorsi) throws RetrieveStudenteDelCorsoFallitoException {
         try (PreparedStatement pstRetrieveCorsiFrequentati = connection.prepareStatement(selectCorsiFrequentati)) {
             pstRetrieveCorsiFrequentati.setInt(1, studente.getMatricola());
             try (ResultSet rsRetrieveCorsiFrequentati = pstRetrieveCorsiFrequentati.executeQuery()) {
@@ -65,10 +69,13 @@ public class StudenteDelCorsoDAOImplementazione implements StudenteDelCorsoDAOIn
                 }
             }
         }
+        catch(SQLException e) {
+            throw new RetrieveStudenteDelCorsoFallitoException(e.getMessage());
+        }
     }
 
     @Override
-    public void deleteStudenteDelCorso(Studente studente, Corso corso) throws SQLException, DeleteStudenteDelCorsoFallitoException, DeletePresenzaFallitoException {
+    public void deleteStudenteDelCorso(Studente studente, Corso corso) throws DeleteStudenteDelCorsoFallitoException, DeletePresenzaFallitoException {
         try (PreparedStatement pstDeleteStudenteDelCorso = connection.prepareStatement(deleteStudenteDelCorso)) {
             pstDeleteStudenteDelCorso.setInt(1, studente.getMatricola());
             pstDeleteStudenteDelCorso.setInt(2, corso.getCodice());
@@ -82,6 +89,9 @@ public class StudenteDelCorsoDAOImplementazione implements StudenteDelCorsoDAOIn
                     controller.removePresenza(studente, lezione);
                 }
             }
+        }
+        catch(SQLException e) {
+            throw new DeleteStudenteDelCorsoFallitoException(e.getMessage());
         }
     }
     

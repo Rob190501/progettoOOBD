@@ -5,6 +5,7 @@ import dao.interfaccia.SQL.AreaTematicaDAOInterfaccia;
 import dto.AreaTematica;
 import eccezioni.create.CreateAreaTematicaFallitoException;
 import eccezioni.delete.DeleteAreaTematicaFallitoException;
+import eccezioni.retrieve.RetrieveAreaTematicaFallitoException;
 import eccezioni.update.UpdateAreaTematicaFallitoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -47,7 +48,7 @@ public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfacci
     }
     
     @Override
-    public void createAreaTematica(AreaTematica area) throws SQLException, CreateAreaTematicaFallitoException {
+    public void createAreaTematica(AreaTematica area) throws CreateAreaTematicaFallitoException {
         try (PreparedStatement pstInsertAreaTematica = connection.prepareStatement(insertAreaTematica, Statement.RETURN_GENERATED_KEYS)) {
             pstInsertAreaTematica.setString(1, area.getNome());
             pstInsertAreaTematica.setString(2, area.getDescrizione());
@@ -63,34 +64,36 @@ public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfacci
                 }
             }
         }
-    }
-
-    @Override
-    public LinkedList<AreaTematica> retrieveAllAreaTematica() throws SQLException {
-        LinkedList<AreaTematica> listaAreeTematiche = new LinkedList<>();
-        
-        PreparedStatement pst = connection.prepareStatement(selectAllAreaTematica);
-        
-        ResultSet rs = pst.executeQuery();
-        
-        while(rs.next()) {
-            int codice_area_tematica = rs.getInt("codice_area_tematica");
-            String nome_area_tematica = rs.getString("nome_area_tematica");
-            String descrizione_area = rs.getString("descrizione_area_tematica");
-            
-            AreaTematica area = new AreaTematica(codice_area_tematica, nome_area_tematica, descrizione_area);
-            
-            listaAreeTematiche.add(area);
+        catch(SQLException e) {
+            throw new CreateAreaTematicaFallitoException(e.getMessage());
         }
-        
-        pst.close();
-        rs.close();
-        
-        return listaAreeTematiche;
     }
 
     @Override
-    public void updateAreaTematica(AreaTematica areaTematica) throws SQLException, UpdateAreaTematicaFallitoException {
+    public LinkedList<AreaTematica> retrieveAllAreaTematica() throws RetrieveAreaTematicaFallitoException {
+        try(PreparedStatement pst = connection.prepareStatement(selectAllAreaTematica); 
+            ResultSet rs = pst.executeQuery()) {
+            LinkedList<AreaTematica> listaAreeTematiche = new LinkedList<>();
+            
+            while(rs.next()) {
+                int codice_area_tematica = rs.getInt("codice_area_tematica");
+                String nome_area_tematica = rs.getString("nome_area_tematica");
+                String descrizione_area = rs.getString("descrizione_area_tematica");
+
+                AreaTematica area = new AreaTematica(codice_area_tematica, nome_area_tematica, descrizione_area);
+
+                listaAreeTematiche.add(area);
+            }
+            
+            return listaAreeTematiche;
+        }
+        catch(SQLException e) {
+            throw new RetrieveAreaTematicaFallitoException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void updateAreaTematica(AreaTematica areaTematica) throws UpdateAreaTematicaFallitoException {
         try (PreparedStatement pstUpdateAreaTematica = connection.prepareStatement(updateAreaTematica)) {
             pstUpdateAreaTematica.setString(1, areaTematica.getNome());
             pstUpdateAreaTematica.setString(2, areaTematica.getDescrizione());
@@ -99,15 +102,21 @@ public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfacci
                 throw new UpdateAreaTematicaFallitoException();
             }
         }
+        catch(SQLException e) {
+            throw new UpdateAreaTematicaFallitoException(e.getMessage());
+        }
     }
 
     @Override
-    public void deleteAreaTematica(AreaTematica areaTematica) throws SQLException, DeleteAreaTematicaFallitoException {
+    public void deleteAreaTematica(AreaTematica areaTematica) throws DeleteAreaTematicaFallitoException {
         try (PreparedStatement pstDeleteAreaTematica = connection.prepareStatement(deleteAreaTematica)) {
             pstDeleteAreaTematica.setInt(1, areaTematica.getCodice());
             if (pstDeleteAreaTematica.executeUpdate() != 1) {
                 throw new DeleteAreaTematicaFallitoException();
             }
+        }
+        catch(SQLException e) {
+            throw new DeleteAreaTematicaFallitoException(e.getMessage());
         }
     }
     

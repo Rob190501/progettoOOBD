@@ -5,6 +5,8 @@ import dao.interfaccia.SQL.CorsoDAOInterfaccia;
 import dto.Corso;
 import eccezioni.create.CreateCorsoFallitoException;
 import eccezioni.delete.DeleteCorsoFallitoException;
+import eccezioni.retrieve.RetrieveAreaDelCorsoFallitoException;
+import eccezioni.retrieve.RetrieveCorsoFallitoException;
 import eccezioni.update.UpdateCorsoFallitoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,8 +21,8 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
     private Connection connection;
     
     private String insertCorso = "INSERT "
-                                      + "INTO corso (nome_corso, descrizione_corso, tasso_presenze_min, partecipanti_max) "
-                                      + "VALUES (?, ?, ?, ?)";
+                               + "INTO corso (nome_corso, descrizione_corso, tasso_presenze_min, partecipanti_max) "
+                               + "VALUES (?, ?, ?, ?)";
     
     private String selectAllCorso = "SELECT * "
                                   + "FROM corso";
@@ -47,7 +49,7 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
     }
     
     @Override
-    public void createCorso(Corso corso) throws SQLException, CreateCorsoFallitoException {
+    public void createCorso(Corso corso) throws CreateCorsoFallitoException {
         try (PreparedStatement pstInsertCorso = connection.prepareStatement(insertCorso, Statement.RETURN_GENERATED_KEYS)) {
             pstInsertCorso.setString(1, corso.getNome());
             pstInsertCorso.setString(2, corso.getDescrizione());
@@ -65,36 +67,40 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
                 }
             }
         }
-    }
-
-    @Override
-    public LinkedList<Corso> retrieveAllCorso() throws SQLException {
-        try (Statement stmtRetrieveAllCorso = connection.createStatement()) {
-            
-            try (ResultSet rsRetrieveAllCorso = stmtRetrieveAllCorso.executeQuery(selectAllCorso)) {
-                LinkedList listaCorsi = new LinkedList<Corso>();
-                
-                while (rsRetrieveAllCorso.next()) {
-                    int codice_corso = rsRetrieveAllCorso.getInt("codice_corso");
-                    String nome_corso = rsRetrieveAllCorso.getString("nome_corso");
-                    String descrizione_corso = rsRetrieveAllCorso.getString("descrizione_corso");
-                    int tasso_presenze_min = rsRetrieveAllCorso.getInt("tasso_presenze_min");
-                    int partecipanti_max = rsRetrieveAllCorso.getInt("partecipanti_max");
-
-                    Corso corso = new Corso(codice_corso, nome_corso, descrizione_corso, tasso_presenze_min, partecipanti_max);
-                    
-                    controller.setAreeTematiche(corso);
-
-                    listaCorsi.add(corso);
-                }
-                
-                return listaCorsi;
-            }
+        catch(SQLException e) {
+            throw new CreateCorsoFallitoException(e.getMessage());
         }
     }
 
     @Override
-    public void updateCorso(Corso corso) throws SQLException, UpdateCorsoFallitoException {
+    public LinkedList<Corso> retrieveAllCorso() throws RetrieveCorsoFallitoException, RetrieveAreaDelCorsoFallitoException {
+        try (Statement stmtRetrieveAllCorso = connection.createStatement();
+             ResultSet rsRetrieveAllCorso = stmtRetrieveAllCorso.executeQuery(selectAllCorso)) {
+            LinkedList listaCorsi = new LinkedList<Corso>();
+            
+            while (rsRetrieveAllCorso.next()) {
+                int codice_corso = rsRetrieveAllCorso.getInt("codice_corso");
+                String nome_corso = rsRetrieveAllCorso.getString("nome_corso");
+                String descrizione_corso = rsRetrieveAllCorso.getString("descrizione_corso");
+                int tasso_presenze_min = rsRetrieveAllCorso.getInt("tasso_presenze_min");
+                int partecipanti_max = rsRetrieveAllCorso.getInt("partecipanti_max");
+
+                Corso corso = new Corso(codice_corso, nome_corso, descrizione_corso, tasso_presenze_min, partecipanti_max);
+                    
+                controller.setAreeTematiche(corso);
+
+                listaCorsi.add(corso);
+            } 
+            
+            return listaCorsi;
+        }
+        catch(SQLException e) {
+            throw new RetrieveCorsoFallitoException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void updateCorso(Corso corso) throws UpdateCorsoFallitoException {
         try (PreparedStatement pstUpdateCorso = connection.prepareStatement(updateCorso)) {
             pstUpdateCorso.setString(1, corso.getNome());
             pstUpdateCorso.setString(2, corso.getDescrizione());
@@ -105,15 +111,21 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
                 throw new UpdateCorsoFallitoException();
             }
         }
+        catch(SQLException e) {
+            throw new UpdateCorsoFallitoException(e.getMessage());
+        }
     }
 
     @Override
-    public void deleteCorso(Corso corso) throws SQLException, DeleteCorsoFallitoException {
+    public void deleteCorso(Corso corso) throws DeleteCorsoFallitoException {
         try (PreparedStatement pstDeleteAreaCorso = connection.prepareStatement(deleteCorso)) {
             pstDeleteAreaCorso.setInt(1, corso.getCodice());
             if (pstDeleteAreaCorso.executeUpdate() != 1) {
                 throw new DeleteCorsoFallitoException();
             }
+        }
+        catch(SQLException e) {
+            throw new DeleteCorsoFallitoException(e.getMessage());
         }
     }
     

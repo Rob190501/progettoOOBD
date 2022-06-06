@@ -3,18 +3,19 @@ package dao.interfaccia.SQL;
 import dto.Corso;
 import eccezioni.create.CreateCorsoFallitoException;
 import eccezioni.delete.DeleteCorsoFallitoException;
+import eccezioni.retrieve.RetrieveAreaDelCorsoFallitoException;
+import eccezioni.retrieve.RetrieveCorsoFallitoException;
 import eccezioni.update.UpdateCorsoFallitoException;
-import java.sql.SQLException;
 import java.util.LinkedList;
 
 public interface CorsoDAOInterfaccia {
     
-    public void createCorso(Corso corso) throws SQLException, CreateCorsoFallitoException;
+    public void createCorso(Corso corso) throws CreateCorsoFallitoException;
     
-    public LinkedList<Corso> retrieveAllCorso() throws SQLException;
+    public LinkedList<Corso> retrieveAllCorso() throws RetrieveCorsoFallitoException, RetrieveAreaDelCorsoFallitoException;
     
-    public void updateCorso(Corso corso) throws SQLException, UpdateCorsoFallitoException;
+    public void updateCorso(Corso corso) throws UpdateCorsoFallitoException;
     
-    public void deleteCorso(Corso corso) throws SQLException, DeleteCorsoFallitoException;
+    public void deleteCorso(Corso corso) throws DeleteCorsoFallitoException;
     
 }

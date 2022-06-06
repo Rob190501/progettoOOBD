@@ -6,6 +6,7 @@ import dto.AreaTematica;
 import dto.Corso;
 import eccezioni.create.CreateAreaDelCorsoFallitoException;
 import eccezioni.delete.DeleteAreaDelCorsoFallitoException;
+import eccezioni.retrieve.RetrieveAreaDelCorsoFallitoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,12 +30,12 @@ public class AreaDelCorsoDAOImplementazione implements AreaDelCorsoDAOInterfacci
     }
     
     @Override
-    public void createAreaDelCorso(Corso corso, AreaTematica areaTematica) throws SQLException, CreateAreaDelCorsoFallitoException {
+    public void createAreaDelCorso(Corso corso, AreaTematica areaTematica) throws CreateAreaDelCorsoFallitoException {
         
     }
 
     @Override
-    public void retrieveAreeDelCorso(Corso corso, LinkedList<AreaTematica> listaAreeTematiche) throws SQLException {
+    public void retrieveAreeDelCorso(Corso corso, LinkedList<AreaTematica> listaAreeTematiche) throws RetrieveAreaDelCorsoFallitoException {
         try (PreparedStatement pstAreeDelCorso = connection.prepareStatement(selectAreeDelCorso)) {
             pstAreeDelCorso.setInt(1, corso.getCodice());
             try (ResultSet rsAreeDelCorso = pstAreeDelCorso.executeQuery()) {
@@ -48,10 +49,13 @@ public class AreaDelCorsoDAOImplementazione implements AreaDelCorsoDAOInterfacci
                 }
             }
         }
+        catch(SQLException e) {
+            throw new RetrieveAreaDelCorsoFallitoException(e.getMessage());
+        }
     }
 
     @Override
-    public void deleteAreaDelCorso(Corso corso, AreaTematica areaTematica) throws SQLException, DeleteAreaDelCorsoFallitoException {
+    public void deleteAreaDelCorso(Corso corso, AreaTematica areaTematica) throws DeleteAreaDelCorsoFallitoException {
         
     }
     

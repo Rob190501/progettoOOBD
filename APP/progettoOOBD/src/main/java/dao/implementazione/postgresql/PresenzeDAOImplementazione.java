@@ -6,6 +6,7 @@ import dto.Lezione;
 import dto.Studente;
 import eccezioni.create.CreatePresenzaFallitoException;
 import eccezioni.delete.DeletePresenzaFallitoException;
+import eccezioni.retrieve.RetrievePresenzaFallitoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,7 +38,7 @@ public class PresenzeDAOImplementazione implements PresenzeDAOInterfaccia {
     }
     
     @Override
-    public void createPresenza(Studente studente, Lezione lezione) throws SQLException, CreatePresenzaFallitoException {
+    public void createPresenza(Studente studente, Lezione lezione) throws CreatePresenzaFallitoException {
         try (PreparedStatement pstInsertPresenza = connection.prepareStatement(insertPresenza)) {
             pstInsertPresenza.setInt(1, studente.getMatricola());
             pstInsertPresenza.setInt(2, lezione.getCodice());
@@ -47,10 +48,13 @@ public class PresenzeDAOImplementazione implements PresenzeDAOInterfaccia {
             studente.addPresenza(lezione);
             lezione.addStudente(studente);
         }
+        catch(SQLException e) {
+            throw new CreatePresenzaFallitoException(e.getMessage());
+        }
     }
 
     @Override
-    public void retrievePresenze(Studente studente, LinkedList<Lezione> listaLezioni) throws SQLException {
+    public void retrievePresenze(Studente studente, LinkedList<Lezione> listaLezioni) throws RetrievePresenzaFallitoException {
         try (PreparedStatement pstRetrievePresenze = connection.prepareStatement(selectPresenze)) {
             pstRetrievePresenze.setInt(1, studente.getMatricola());
             try (ResultSet rsRetrievePresenze = pstRetrievePresenze.executeQuery()) {
@@ -64,10 +68,13 @@ public class PresenzeDAOImplementazione implements PresenzeDAOInterfaccia {
                 }
             }
         }
+        catch(SQLException e) {
+            throw new RetrievePresenzaFallitoException(e.getMessage());
+        }
     }
 
     @Override
-    public void deletePresenza(Studente studente, Lezione lezione) throws SQLException, DeletePresenzaFallitoException {
+    public void deletePresenza(Studente studente, Lezione lezione) throws DeletePresenzaFallitoException {
         try (PreparedStatement pstDeletePresenza = connection.prepareStatement(deletePresenza)) {
             pstDeletePresenza.setInt(1, studente.getMatricola());
             pstDeletePresenza.setInt(2, lezione.getCodice());
@@ -76,6 +83,9 @@ public class PresenzeDAOImplementazione implements PresenzeDAOInterfaccia {
             }
             studente.removePresenza(lezione);
             lezione.removeStudente(studente);
+        }
+        catch(SQLException e) {
+            throw new DeletePresenzaFallitoException(e.getMessage());
         }
     }
     
