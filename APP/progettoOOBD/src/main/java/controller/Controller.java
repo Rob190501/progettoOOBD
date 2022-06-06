@@ -1,9 +1,11 @@
 package controller;
 
 import connessione.ConnessioneDB;
+import dao.implementazione.postgresql.AreaDelCorsoDAOImplementazione;
 import dao.implementazione.postgresql.AreaTematicaDAOImplementazione;
 import dao.implementazione.postgresql.CorsoDAOImplementazione;
 import dao.implementazione.postgresql.LezioneDAOImplementazione;
+import dao.implementazione.postgresql.PresenzeDAOImplementazione;
 import dao.implementazione.postgresql.StudenteDAOImplementazione;
 import dao.implementazione.postgresql.StudenteDelCorsoDAOImplementazione;
 import dto.AreaTematica;
@@ -14,11 +16,13 @@ import eccezioni.associazioni.AssociazioneLezioneCorsoFallitaException;
 import eccezioni.create.CreateAreaTematicaFallitoException;
 import eccezioni.create.CreateCorsoFallitoException;
 import eccezioni.create.CreateLezioneFallitoException;
+import eccezioni.create.CreatePresenzaFallitoException;
 import eccezioni.create.CreateStudenteDelCorsoFallitoException;
 import eccezioni.create.CreateStudenteFallitoException;
 import eccezioni.delete.DeleteAreaTematicaFallitoException;
 import eccezioni.delete.DeleteCorsoFallitoException;
 import eccezioni.delete.DeleteLezioneFallitoException;
+import eccezioni.delete.DeletePresenzaFallitoException;
 import eccezioni.delete.DeleteStudenteDelCorsoFallitoException;
 import eccezioni.delete.DeleteStudenteFallitoException;
 import eccezioni.update.UpdateAreaTematicaFallitoException;
@@ -39,6 +43,7 @@ import gui.homeFrame.panels.lezioni.PanelNuovaLezione;
 import gui.homeFrame.panels.studenti.PanelAggiornaStudente;
 import gui.homeFrame.panels.studenti.PanelIscrizioni;
 import gui.homeFrame.panels.studenti.PanelNuovoStudente;
+import gui.homeFrame.panels.studenti.PanelPresenze;
 import gui.homeFrame.panels.studenti.PanelStudenti;
 import gui.login.LoginFrame;
 import java.sql.Connection;
@@ -48,6 +53,8 @@ import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.LinkedList;
+
+
 
 public class Controller {
     
@@ -64,6 +71,7 @@ public class Controller {
     private PanelNuovoStudente panelNuovoStudente;
     private PanelAggiornaStudente panelAggiornaStudente;
     private PanelIscrizioni panelIscrizioni;
+    private PanelPresenze panelPresenze;
     
     private PanelAreeTematiche panelAreeTematiche;
     private PanelNuovaAreaTematica panelNuovaAreaTematica;
@@ -89,7 +97,11 @@ public class Controller {
     private LinkedList<Studente> listaStudenti;
     private StudenteDAOImplementazione studenteDAO;
     
+    private AreaDelCorsoDAOImplementazione areaDelCorsoDAO;
+    
     private StudenteDelCorsoDAOImplementazione studenteDelCorsoDAO;
+    
+    private PresenzeDAOImplementazione presenzeDAO;
     //attributi
     
     //costruttore
@@ -98,145 +110,29 @@ public class Controller {
     //costruttore
     
     //getters e setters
-    public Connection getConnection() {        
-        return connection;
-    }
 
     public LoginFrame getLoginFrame() {
         return loginFrame;
     }
 
-    public HomeFrameOperatore getHomeFrameOperatore() {
-        return homeFrameOperatore;
+    public void setLoginFrame(LoginFrame loginFrame) {
+        this.loginFrame = loginFrame;
     }
-
-    public PanelHomePage getPanelHomePage() {
-        return panelHomePage;
-    }
-
-    public PanelStudenti getPanelStudenti() {
-        return panelStudenti;
-    }
-
-    public PanelNuovoStudente getPanelNuovoStudente() {
-        return panelNuovoStudente;
-    }
-
-    public PanelAreeTematiche getPanelAreeTematiche() {
-        return panelAreeTematiche;
-    }
-
-    public PanelCorsi getPanelCorsi() {
-        return panelCorsi;
-    }
-
-    public PanelLezioni getPanelLezioni() {
-        return panelLezioni;
-    }
-
+    
     public LinkedList<AreaTematica> getListaAreeTematiche() {
         return listaAreeTematiche;
-    }
-
-    public AreaTematicaDAOImplementazione getAreaTematicaDAO() {
-        return areaTematicaDAO;
     }
 
     public LinkedList<Corso> getListaCorsi() {
         return listaCorsi;
     }
 
-    public CorsoDAOImplementazione getCorsoDAO() {
-        return corsoDAO;
-    }
-
     public LinkedList<Lezione> getListaLezioni() {
         return listaLezioni;
     }
 
-    public LezioneDAOImplementazione getLezioneDAO() {
-        return lezioneDAO;
-    }
-
     public LinkedList<Studente> getListaStudenti() {
         return listaStudenti;
-    }
-
-    
-    public StudenteDAOImplementazione getStudenteDAO() {    
-        return studenteDAO;
-    }
-
-    public void setConnection(Connection connection) {
-        this.connection = connection;
-    }
-
-    public void setLoginFrame(LoginFrame loginFrame) {
-        this.loginFrame = loginFrame;
-    }
-
-    public void setHomeFrameOperatore(HomeFrameOperatore homeFrameOperatore) {
-        this.homeFrameOperatore = homeFrameOperatore;
-    }
-
-    public void setPanelHomePage(PanelHomePage panelHomePage) {
-        this.panelHomePage = panelHomePage;
-    }
-
-    public void setPanelStudenti(PanelStudenti panelStudenti) {
-        this.panelStudenti = panelStudenti;
-    }
-
-    public void setPanelNuovoStudente(PanelNuovoStudente panelNuovoStudente) {
-        this.panelNuovoStudente = panelNuovoStudente;
-    }
-
-    public void setPanelAreeTematiche(PanelAreeTematiche panelAreeTematiche) {
-        this.panelAreeTematiche = panelAreeTematiche;
-    }
-
-    public void setPanelNuovaAreaTematica(PanelNuovaAreaTematica panelNuovaAreaTematica) {
-        this.panelNuovaAreaTematica = panelNuovaAreaTematica;
-    }
-
-    public void setPanelCorsi(PanelCorsi panelCorsi) {
-        this.panelCorsi = panelCorsi;
-    }
-
-    public void setPanelLezioni(PanelLezioni panelLezioni) {
-        this.panelLezioni = panelLezioni;
-    }
-
-    public void setListaAreeTematiche(LinkedList<AreaTematica> listaAreeTematiche) {
-        this.listaAreeTematiche = listaAreeTematiche;
-    }
-
-    public void setAreaTematicaDAO(AreaTematicaDAOImplementazione areaTematicaDAO) {
-        this.areaTematicaDAO = areaTematicaDAO;
-    }
-
-    public void setListaCorsi(LinkedList<Corso> listaCorsi) {
-        this.listaCorsi = listaCorsi;
-    }
-
-    public void setCorsoDAO(CorsoDAOImplementazione corsoDAO) {
-        this.corsoDAO = corsoDAO;
-    }
-
-    public void setListaLezioni(LinkedList<Lezione> listaLezioni) {
-        this.listaLezioni = listaLezioni;
-    }
-
-    public void setLezioneDAO(LezioneDAOImplementazione lezioneDAO) {
-        this.lezioneDAO = lezioneDAO;
-    }
-
-    public void setListaStudenti(LinkedList<Studente> listaStudenti) {
-        this.listaStudenti = listaStudenti;
-    }
-
-    public void setStudenteDAO(StudenteDAOImplementazione studenteDAO) {
-        this.studenteDAO = studenteDAO;
     }
     //getters e setters
     
@@ -244,7 +140,7 @@ public class Controller {
     public void avviaConnessione(String userName, String password, String ip, String porta, String db) {        
         chiudiConnessione();
         try {
-            setConnection(ConnessioneDB.getIstanza(userName, password, ip, porta, db).getConnection());
+            connection = ConnessioneDB.getIstanza(userName, password, ip, porta, db).getConnection();
             creaDAO();
             retrieveAllDTO();
             loginFrame.connessioneStabilita();
@@ -278,12 +174,12 @@ public class Controller {
     }
     //connessione
     
-    //esci
+    //termina esecuzione
     public void terminaEsecuzione() {
         chiudiConnessione();
         System.exit(0);
     }
-    //esci
+    //termina esecuzione
     
     //DAO
     private void creaDAO() {
@@ -292,14 +188,33 @@ public class Controller {
         lezioneDAO = new LezioneDAOImplementazione(this, connection);    
         studenteDAO = new StudenteDAOImplementazione(this, connection);
         
+        areaDelCorsoDAO =  new AreaDelCorsoDAOImplementazione(this, connection);
+        
         studenteDelCorsoDAO = new StudenteDelCorsoDAOImplementazione(this, connection);
+        presenzeDAO = new PresenzeDAOImplementazione(this, connection);
     }
     
     public void retrieveAllDTO() throws SQLException, AssociazioneLezioneCorsoFallitaException {
         this.listaAreeTematiche = areaTematicaDAO.retrieveAllAreaTematica();
-        this.listaCorsi = corsoDAO.retrieveAllCorso(listaAreeTematiche);
+        this.listaCorsi = corsoDAO.retrieveAllCorso();
         this.listaLezioni = lezioneDAO.retrieveAllLezione(listaCorsi);
-        this.listaStudenti = studenteDAO.retrieveAllStudente(listaCorsi, listaLezioni);
+        this.listaStudenti = studenteDAO.retrieveAllStudente();
+    }
+    
+    public void setAreeTematiche(Corso corso) throws SQLException {
+        areaDelCorsoDAO.retrieveAreeDelCorso(corso, listaAreeTematiche);
+    }
+    
+    public void setCorsiFrequentati(Studente studente) throws SQLException {
+        studenteDelCorsoDAO.retrieveCorsiFrequentati(studente, listaCorsi);
+    }
+    
+    public void setPresenze(Studente studente) throws SQLException {
+        presenzeDAO.retrievePresenze(studente, listaLezioni);
+    }
+    
+    public void removePresenza(Studente studente, Lezione lezione) throws SQLException, DeletePresenzaFallitoException {
+        presenzeDAO.deletePresenza(studente, lezione);
     }
     //DAO
     
@@ -310,7 +225,7 @@ public class Controller {
             creaPanel();
             homeFrameOperatore.aggiungiPanels();
         }
-        impostaPanelsPrincipali();
+        impostaPanelPrincipali();
         
         loginFrame.setVisible(false);
         homeFrameOperatore.setVisible(true);
@@ -336,6 +251,9 @@ public class Controller {
         
         panelIscrizioni = new PanelIscrizioni(this, homeFrameOperatore);
         homeFrameOperatore.setPanelIscrizioni(panelIscrizioni);
+        
+        panelPresenze = new PanelPresenze(this, homeFrameOperatore);
+        homeFrameOperatore.setPanelPresenze(panelPresenze);
         
         panelAreeTematiche = new PanelAreeTematiche(this, homeFrameOperatore);
         homeFrameOperatore.setPanelAreeTematiche(panelAreeTematiche);
@@ -365,7 +283,7 @@ public class Controller {
         homeFrameOperatore.setPanelAggiornaLezione(panelAggiornaLezione);
     }
     
-    private void impostaPanelsPrincipali() {
+    private void impostaPanelPrincipali() {
         impostaPanelStudenti();
         impostaPanelAreeTematiche();
         impostaPanelCorsi();
@@ -438,14 +356,14 @@ public class Controller {
         aggiornaPanelIscrizioni(studente);
     }
     
-    public void aggiornaPanelIscrizioni(Studente studenteSelezionato) {
+    public void aggiornaPanelIscrizioni(Studente studente) {
         panelIscrizioni.svuotaTableAssociazioni();
         
-        for(Corso corso : studenteSelezionato.getCorsiFrequentati()) {
+        for(Corso corso : studente.getCorsiFrequentati()) {
             panelIscrizioni.inserisciInTableCorsiFrequentati(corso.creaRiga());
         }
         for (Corso corso : listaCorsi) {
-            if(corso.eFrequentabile(studenteSelezionato)) {
+            if(corso.eFrequentabile(studente)) {
                 panelIscrizioni.inserisciInTableCorsiFrequentabili(corso.creaRiga());
             }
         }
@@ -457,8 +375,6 @@ public class Controller {
         
         try {
             studenteDelCorsoDAO.createStudenteDelCorso(studente, corso);
-            studente.addCorso(corso);
-            corso.addStudente(studente);
             aggiornaPanelIscrizioni(studente);
         }
         catch (SQLException | CreateStudenteDelCorsoFallitoException e) {
@@ -473,11 +389,59 @@ public class Controller {
         
         try {
             studenteDelCorsoDAO.deleteStudenteDelCorso(studente, corso);
-            studente.removeCorso(corso);
-            corso.removeStudente(studente);
             aggiornaPanelIscrizioni(studente);
         }
-        catch (SQLException | DeleteStudenteDelCorsoFallitoException e) {
+        catch (SQLException | DeleteStudenteDelCorsoFallitoException | DeletePresenzaFallitoException e) {
+            homeFrameOperatore.mostraEccezione(e.getMessage());
+            chiudiConnessionePerErrori();
+        }
+    }
+    
+    public void impostaPanelPresenze(Object studenteSelezionato) {
+        Studente studente = (Studente) studenteSelezionato;
+        panelPresenze.svuotaTutteTable();
+        panelPresenze.inserisciStudenteSelezionato(studente.creaRiga());
+        aggiornaPanelPresenze(studente);
+    }
+    
+    public void aggiornaPanelPresenze(Studente studente) {
+        panelPresenze.svuotaTableAssociazioni();
+        
+        for(Lezione lezione : studente.getPresenze()) {
+            panelPresenze.inserisciInTablePresenzeRegistrate(lezione.creaRiga());
+        }
+        for (Corso corso : studente.getCorsiFrequentati()) {
+            for(Lezione lezione : corso.getLezioniDelCorso()) {
+                if(!studente.getPresenze().contains(lezione)) {
+                    panelPresenze.inserisciInTablePresenzePossibili(lezione.creaRiga());
+                }
+            }
+        }
+    }
+    
+    public void registraPresenza(Object studenteSelezionato, Object lezioneSelezionata) {
+        Studente studente = (Studente) studenteSelezionato;
+        Lezione lezione = (Lezione) lezioneSelezionata;
+        
+        try {
+            presenzeDAO.createPresenza(studente, lezione);
+            aggiornaPanelPresenze(studente);
+        }
+        catch (SQLException | CreatePresenzaFallitoException e) {
+            homeFrameOperatore.mostraEccezione(e.getMessage());
+            chiudiConnessionePerErrori();
+        }
+    }
+    
+    public void rimuoviPresenza(Object studenteSelezionato, Object lezioneSelezionata) {
+        Studente studente = (Studente) studenteSelezionato;
+        Lezione lezione = (Lezione) lezioneSelezionata;
+        
+        try {
+            presenzeDAO.deletePresenza(studente, lezione);
+            aggiornaPanelPresenze(studente);
+        }
+        catch (SQLException | DeletePresenzaFallitoException e) {
             homeFrameOperatore.mostraEccezione(e.getMessage());
             chiudiConnessionePerErrori();
         }
@@ -740,8 +704,6 @@ public class Controller {
         panelAggiornaLezione.setDescrizione(lezione.getDescrizione());
         panelAggiornaLezione.setDurata(lezione.getDurata());
         panelAggiornaLezione.setDataOraInizio(Date.from(lezione.getDataInizio().toInstant()));
-        
-        //System.out.println(Date.from(lezione.getDataInizio().toInstant()));
     }
     
     public void aggiornaLezione(Object lezioneSelezionata, String titolo, String descrizione, String durata, Object dataInizioSelezionata) {

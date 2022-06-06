@@ -1,6 +1,5 @@
 package dao.interfaccia.SQL;
 
-import dto.AreaTematica;
 import dto.Corso;
 import eccezioni.create.CreateCorsoFallitoException;
 import eccezioni.delete.DeleteCorsoFallitoException;
@@ -12,7 +11,7 @@ public interface CorsoDAOInterfaccia {
     
     public void createCorso(Corso corso) throws SQLException, CreateCorsoFallitoException;
     
-    public LinkedList<Corso> retrieveAllCorso(LinkedList<AreaTematica> listaAreeTematiche) throws SQLException;
+    public LinkedList<Corso> retrieveAllCorso() throws SQLException;
     
     public void updateCorso(Corso corso) throws SQLException, UpdateCorsoFallitoException;
     

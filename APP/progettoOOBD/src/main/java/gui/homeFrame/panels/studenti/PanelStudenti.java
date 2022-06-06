@@ -208,6 +208,11 @@ public class PanelStudenti extends PanelGenerico {
         buttonPresenze.setBorderPainted(false);
         buttonPresenze.setFocusPainted(false);
         buttonPresenze.setOpaque(true);
+        buttonPresenze.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPresenzeActionPerformed(evt);
+            }
+        });
 
         buttonAggiornaStudente.setBackground(new java.awt.Color(153, 204, 255));
         buttonAggiornaStudente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -334,6 +339,17 @@ public class PanelStudenti extends PanelGenerico {
             getHomeFrame().mostraEccezione(e.getMessage());
         }
     }//GEN-LAST:event_buttonAggiornaStudenteActionPerformed
+
+    private void buttonPresenzeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPresenzeActionPerformed
+        try {
+            controllaRigaSelezionata(tableStudenti, "studenti");
+            getController().impostaPanelPresenze(ottieniOggettoSelezionato(tableStudenti));
+            getHomeFrame().mostraPanelPresenze();
+        }
+        catch (NessunaRigaSelezionataException e) {
+            getHomeFrame().mostraEccezione(e.getMessage());
+        }
+    }//GEN-LAST:event_buttonPresenzeActionPerformed
     
     public void rimuoviStudenteSelezionato() {
         rimuoviRigaSelezionataDaJTable(tableStudenti);

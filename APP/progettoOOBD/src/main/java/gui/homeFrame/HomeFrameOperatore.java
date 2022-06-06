@@ -14,6 +14,7 @@ import gui.homeFrame.panels.lezioni.PanelNuovaLezione;
 import gui.homeFrame.panels.studenti.PanelAggiornaStudente;
 import gui.homeFrame.panels.studenti.PanelIscrizioni;
 import gui.homeFrame.panels.studenti.PanelNuovoStudente;
+import gui.homeFrame.panels.studenti.PanelPresenze;
 import gui.homeFrame.panels.studenti.PanelStudenti;
 
 import java.awt.CardLayout;
@@ -40,6 +41,7 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     private PanelNuovoStudente panelNuovoStudente;
     private PanelAggiornaStudente panelAggiornaStudente;
     private PanelIscrizioni panelIscrizioni;
+    private PanelPresenze panelPresenze;
     
     private PanelAreeTematiche panelAreeTematiche;
     private PanelNuovaAreaTematica panelNuovaAreaTematica;
@@ -83,6 +85,10 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
 
     public void setPanelIscrizioni(PanelIscrizioni panelIscrizioni) {
         this.panelIscrizioni = panelIscrizioni;
+    }
+
+    public void setPanelPresenze(PanelPresenze panelPresenze) {
+        this.panelPresenze = panelPresenze;
     }
 
     public void setPanelAreeTematiche(PanelAreeTematiche panelAreeTematiche) {
@@ -365,6 +371,7 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         panelContenuti.add(panelNuovoStudente, "cardNuovoStudente");
         panelContenuti.add(panelAggiornaStudente, "cardAggiornaStudente");
         panelContenuti.add(panelIscrizioni, "cardIscrizioni");
+        panelContenuti.add(panelPresenze, "cardPresenze");
         
         panelContenuti.add(panelAreeTematiche, "cardAreeTematiche");
         panelContenuti.add(panelNuovaAreaTematica, "cardNuovaAreaTematica");
@@ -406,6 +413,10 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     
     public void mostraPanelIscrizioni() {
         cambiaCard("cardIscrizioni");
+    }
+    
+    public void mostraPanelPresenze() {
+        cambiaCard("cardPresenze");
     }
     
     public void mostraPanelAreeTematiche() {

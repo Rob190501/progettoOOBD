@@ -2,7 +2,6 @@ package dao.implementazione.postgresql;
 
 import controller.Controller;
 import dao.interfaccia.SQL.CorsoDAOInterfaccia;
-import dto.AreaTematica;
 import dto.Corso;
 import eccezioni.create.CreateCorsoFallitoException;
 import eccezioni.delete.DeleteCorsoFallitoException;
@@ -23,12 +22,8 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
                                       + "INTO corso (nome_corso, descrizione_corso, tasso_presenze_min, partecipanti_max) "
                                       + "VALUES (?, ?, ?, ?)";
     
-    private String querySelectAllCorso = "SELECT * " +
-                                         "FROM corso";
-    
-    private String querySelectAreeDelCorso = "SELECT codice_area_tematica " +
-                                             "FROM area_del_corso " +
-                                             "WHERE codice_corso = ?";
+    private String selectAllCorso = "SELECT * "
+                                  + "FROM corso";
     
     private String updateCorso = "UPDATE corso "
                                + "SET nome_corso = ?, descrizione_corso = ?, tasso_presenze_min = ?, partecipanti_max = ?"
@@ -73,10 +68,10 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
     }
 
     @Override
-    public LinkedList<Corso> retrieveAllCorso(LinkedList<AreaTematica> listaAreeTematiche) throws SQLException {
+    public LinkedList<Corso> retrieveAllCorso() throws SQLException {
         try (Statement stmtRetrieveAllCorso = connection.createStatement()) {
             
-            try (ResultSet rsRetrieveAllCorso = stmtRetrieveAllCorso.executeQuery(querySelectAllCorso)) {
+            try (ResultSet rsRetrieveAllCorso = stmtRetrieveAllCorso.executeQuery(selectAllCorso)) {
                 LinkedList listaCorsi = new LinkedList<Corso>();
                 
                 while (rsRetrieveAllCorso.next()) {
@@ -87,28 +82,13 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
                     int partecipanti_max = rsRetrieveAllCorso.getInt("partecipanti_max");
 
                     Corso corso = new Corso(codice_corso, nome_corso, descrizione_corso, tasso_presenze_min, partecipanti_max);
-                    aggiungiAreeTematiche(corso, listaAreeTematiche);
+                    
+                    controller.setAreeTematiche(corso);
 
                     listaCorsi.add(corso);
                 }
                 
                 return listaCorsi;
-            }
-        }
-    }
-    
-    private void aggiungiAreeTematiche(Corso corso, LinkedList<AreaTematica> listaAreeTematiche) throws SQLException {
-        try (PreparedStatement pstAreeDelCorso = connection.prepareStatement(querySelectAreeDelCorso)) {
-            pstAreeDelCorso.setInt(1, corso.getCodice());
-            try (ResultSet rsAreeDelCorso = pstAreeDelCorso.executeQuery()) {
-                while (rsAreeDelCorso.next()) {
-                    for (AreaTematica areaTematica : listaAreeTematiche) {
-                        if(rsAreeDelCorso.getInt("codice_area_tematica") == areaTematica.getCodice()) {
-                            corso.addAreaTematica(areaTematica);
-                            areaTematica.addCorso(corso);
-                        }
-                    }
-                }
             }
         }
     }

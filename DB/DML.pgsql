@@ -8,10 +8,7 @@ INSERT INTO area_tematica (nome_area_tematica, descrizione_area_tematica) VALUES
 ('Medicina', 'Area di medicina');
 
 INSERT INTO area_del_corso (codice_area_tematica, codice_corso ) VALUES
-(0, 0),
-(2, 1),
-(0, 3),
-(3, 0);
+(0, 5);
 
 INSERT INTO studente (nome, cognome) VALUES
 ('Roberto', 'Ambrosino'),
@@ -23,7 +20,7 @@ INSERT INTO studenti_del_corso (matricola, codice_corso) VALUES
 (0, 1);
 
 INSERT INTO presenze (matricola, codice_lezione) VALUES
-(14, 0);
+(3, 15);
 
 INSERT INTO lezione (titolo_lezione, descrizione_lezione, durata_lezione, data_inizio, codice_corso) VALUES
 /*('Lezione 1', 'Lezione di presentazione', '02:00:00', '2021-09-17 09:00:00', 4),

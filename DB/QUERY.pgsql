@@ -22,6 +22,10 @@ FROM area_del_corso;
 SELECT *
 FROM presenze;
 
+DELETE
+from presenze
+where matricola = 3 AND codice_lezione = 15;
+
 SELECT *
 FROM studente;
 

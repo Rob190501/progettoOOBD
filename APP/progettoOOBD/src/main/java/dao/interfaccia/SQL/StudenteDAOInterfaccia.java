@@ -1,7 +1,5 @@
 package dao.interfaccia.SQL;
 
-import dto.Corso;
-import dto.Lezione;
 import dto.Studente;
 import eccezioni.create.CreateStudenteFallitoException;
 import eccezioni.delete.DeleteStudenteFallitoException;
@@ -13,7 +11,7 @@ public interface StudenteDAOInterfaccia {
     
     public void createStudente(Studente studente) throws SQLException, CreateStudenteFallitoException;
     
-    public LinkedList<Studente> retrieveAllStudente(LinkedList<Corso> listaCorsi, LinkedList<Lezione> listaLezioni) throws SQLException;
+    public LinkedList<Studente> retrieveAllStudente() throws SQLException;
     
     public void updateStudente(Studente studente) throws SQLException, UpdateStudenteFallitoException;
     

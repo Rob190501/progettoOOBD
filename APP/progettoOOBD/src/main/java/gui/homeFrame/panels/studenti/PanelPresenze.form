@@ -47,11 +47,11 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="labelPresenzeRegistrate" alignment="0" min="-2" pref="215" max="-2" attributes="0"/>
-                                  <Component id="scrollPaneTableCorsiFrequentati" alignment="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="scrollPaneTablePresenzeRegistrate" alignment="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="scrollPaneTableCorsiFrequentabili" alignment="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="scrollPaneTablePresenzePossibili" alignment="0" pref="0" max="32767" attributes="0"/>
                                   <Component id="labelPresenzePossibili" alignment="0" min="-2" pref="215" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -88,8 +88,8 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="scrollPaneTableCorsiFrequentabili" alignment="0" pref="273" max="32767" attributes="0"/>
-                      <Component id="scrollPaneTableCorsiFrequentati" alignment="0" pref="273" max="32767" attributes="0"/>
+                      <Component id="scrollPaneTablePresenzePossibili" alignment="0" pref="273" max="32767" attributes="0"/>
+                      <Component id="scrollPaneTablePresenzeRegistrate" alignment="0" pref="273" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -114,14 +114,14 @@
         <Property name="text" type="java.lang.String" value="Presenze"/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="scrollPaneTableCorsiFrequentabili">
+    <Container class="javax.swing.JScrollPane" name="scrollPaneTablePresenzePossibili">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tableCorsiFrequentabili">
+        <Component class="javax.swing.JTable" name="tablePresenzePossibili">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -135,11 +135,45 @@
               <Table columnCount="6" rowCount="0">
                 <Column editable="false" title="Oggetto" type="java.lang.Object"/>
                 <Column editable="false" title="Codice" type="java.lang.String"/>
-                <Column editable="false" title="Nome" type="java.lang.String"/>
+                <Column editable="false" title="Titolo" type="java.lang.String"/>
                 <Column editable="false" title="Descrizione" type="java.lang.String"/>
-                <Column editable="false" title="Tasso presenze minime" type="java.lang.String"/>
-                <Column editable="false" title="Numero massimo iscritti" type="java.lang.String"/>
+                <Column editable="false" title="Data inizio" type="java.lang.String"/>
+                <Column editable="false" title="Durata (HH:MM)" type="java.lang.String"/>
               </Table>
+            </Property>
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+              <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+              </TableColumnModel>
             </Property>
             <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
@@ -262,14 +296,14 @@
         <Property name="text" type="java.lang.String" value="Studente selezionato"/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="scrollPaneTableCorsiFrequentati">
+    <Container class="javax.swing.JScrollPane" name="scrollPaneTablePresenzeRegistrate">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tableCorsiFrequentati">
+        <Component class="javax.swing.JTable" name="tablePresenzeRegistrate">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -283,11 +317,45 @@
               <Table columnCount="6" rowCount="0">
                 <Column editable="false" title="Oggetto" type="java.lang.Object"/>
                 <Column editable="false" title="Codice" type="java.lang.String"/>
-                <Column editable="false" title="Nome" type="java.lang.String"/>
+                <Column editable="false" title="Titolo" type="java.lang.String"/>
                 <Column editable="false" title="Descrizione" type="java.lang.String"/>
-                <Column editable="false" title="Tasso presenze minime" type="java.lang.String"/>
-                <Column editable="false" title="Numero massimo iscritti" type="java.lang.String"/>
+                <Column editable="false" title="Data inizio" type="java.lang.String"/>
+                <Column editable="false" title="Durata (HH:MM)" type="java.lang.String"/>
               </Table>
+            </Property>
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+              <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+              </TableColumnModel>
             </Property>
             <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>

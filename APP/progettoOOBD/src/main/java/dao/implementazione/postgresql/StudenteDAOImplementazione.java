@@ -2,8 +2,6 @@ package dao.implementazione.postgresql;
 
 import controller.Controller;
 import dao.interfaccia.SQL.StudenteDAOInterfaccia;
-import dto.Corso;
-import dto.Lezione;
 import dto.Studente;
 import eccezioni.create.CreateStudenteFallitoException;
 import eccezioni.delete.DeleteStudenteFallitoException;
@@ -26,14 +24,6 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
     
     private String selectAllStudente = "SELECT * "
                                      + "FROM studente";
-    
-    private String selectCorsiFrequentati = "SELECT * "
-                                          + "FROM studenti_del_corso "
-                                          + "WHERE matricola = ?";
-    
-    private String selectPresenze = "SELECT * "
-                                  + "FROM presenze "
-                                  + "WHERE matricola = ?";
     
     private String updateStudente = "UPDATE studente "
                                   + "SET nome = ?, cognome = ?"
@@ -76,7 +66,7 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
     }
 
     @Override
-    public LinkedList<Studente> retrieveAllStudente(LinkedList<Corso>listaCorsi, LinkedList<Lezione> listaLezioni) throws SQLException {
+    public LinkedList<Studente> retrieveAllStudente() throws SQLException {
         try (Statement stmtRetrieveAllStudente = connection.createStatement()) {
             LinkedList<Studente> listaStudenti = new LinkedList<>();
             
@@ -87,45 +77,15 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
                     String cognome = rsRetrieveAllStudente.getString("cognome");
 
                     Studente studente = new Studente(matricola, nome, cognome);
-                    retrieveCorsiFrequentati(studente, listaCorsi);
-                    retrievePresenze(studente, listaLezioni);
+                    
+                    controller.setCorsiFrequentati(studente);
+                    controller.setPresenze(studente);
+                    
                     listaStudenti.add(studente);
                 }
             }
             
             return listaStudenti;
-        }
-    }
-    
-    private void retrieveCorsiFrequentati(Studente studente, LinkedList<Corso> listaCorsi) throws SQLException {
-        try (PreparedStatement pstRetrieveCorsiFrequentati = connection.prepareStatement(selectCorsiFrequentati)) {
-            pstRetrieveCorsiFrequentati.setInt(1, studente.getMatricola());
-            try (ResultSet rsRetrieveCorsiFrequentati = pstRetrieveCorsiFrequentati.executeQuery()) {
-                while (rsRetrieveCorsiFrequentati.next()) {
-                    for (Corso corso : listaCorsi) {
-                        if(rsRetrieveCorsiFrequentati.getInt("codice_corso") == corso.getCodice()) {
-                            studente.addCorso(corso);
-                            corso.addStudente(studente);
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    private void retrievePresenze(Studente studente, LinkedList<Lezione> listaLezioni) throws SQLException {
-        try (PreparedStatement pstRetrievePresenze = connection.prepareStatement(selectPresenze)) {
-            pstRetrievePresenze.setInt(1, studente.getMatricola());
-            try (ResultSet rsRetrievePresenze = pstRetrievePresenze.executeQuery()) {
-                while (rsRetrievePresenze.next()) {
-                    for (Lezione lezione : listaLezioni) {
-                        if(rsRetrievePresenze.getInt("codice_lezione") == lezione.getCodice()) {
-                            studente.addPresenza(lezione);
-                            lezione.addStudente(studente);
-                        }
-                    }
-                }
-            }
         }
     }
 
