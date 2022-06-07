@@ -6,19 +6,14 @@ import java.sql.SQLException;
 
 public class ConnessioneDB{
     
-    //attributi
     private static ConnessioneDB istanza = null;
     private Connection connection = null;
-    //fine attributi
     
-    //cosruttore
     private ConnessioneDB(String userName, String password, String url) throws SQLException, ClassNotFoundException {
         Class.forName("org.postgresql.Driver");
         connection = DriverManager.getConnection(url, userName, password);
     }
-    //fine costruttore
     
-    //getters e setters
     public Connection getConnection() {
         return connection;
     }
@@ -30,5 +25,4 @@ public class ConnessioneDB{
         }
         return istanza;
     }
-    //fine getters e setters
 }

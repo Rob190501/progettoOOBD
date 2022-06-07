@@ -13,12 +13,14 @@ import dto.Corso;
 import dto.Lezione;
 import dto.Studente;
 import eccezioni.associazioni.AssociazioneLezioneCorsoFallitaException;
+import eccezioni.create.CreateAreaDelCorsoFallitoException;
 import eccezioni.create.CreateAreaTematicaFallitoException;
 import eccezioni.create.CreateCorsoFallitoException;
 import eccezioni.create.CreateLezioneFallitoException;
 import eccezioni.create.CreatePresenzaFallitoException;
 import eccezioni.create.CreateStudenteDelCorsoFallitoException;
 import eccezioni.create.CreateStudenteFallitoException;
+import eccezioni.delete.DeleteAreaDelCorsoFallitoException;
 import eccezioni.delete.DeleteAreaTematicaFallitoException;
 import eccezioni.delete.DeleteCorsoFallitoException;
 import eccezioni.delete.DeleteLezioneFallitoException;
@@ -39,6 +41,7 @@ import eccezioni.update.UpdateStudenteFallitoException;
 import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.areeTematiche.PanelAggiornaAreaTematica;
 import gui.homeFrame.panels.areeTematiche.PanelAreeTematiche;
+import gui.homeFrame.panels.areeTematiche.PanelCorsiDellArea;
 import gui.homeFrame.panels.areeTematiche.PanelNuovaAreaTematica;
 import gui.homeFrame.panels.corsi.PanelAggiornaCorso;
 import gui.homeFrame.panels.corsi.PanelCorsi;
@@ -83,6 +86,7 @@ public class Controller {
     private PanelAreeTematiche panelAreeTematiche;
     private PanelNuovaAreaTematica panelNuovaAreaTematica;
     private PanelAggiornaAreaTematica panelAggiornaAreaTematica;
+    private PanelCorsiDellArea panelCorsiDellArea;
     
     private PanelCorsi panelCorsi;
     private PanelNuovoCorso panelNuovoCorso;
@@ -117,7 +121,6 @@ public class Controller {
     //costruttore
     
     //getters e setters
-
     public LoginFrame getLoginFrame() {
         return loginFrame;
     }
@@ -152,7 +155,9 @@ public class Controller {
             retrieveAllDTO();
             loginFrame.connessioneStabilita();
         }
-        catch(ClassNotFoundException | SQLException | AssociazioneLezioneCorsoFallitaException | RetrieveAreaTematicaFallitoException | RetrieveCorsoFallitoException | RetrieveLezioneFallitoException | RetrieveStudenteFallitoException | RetrieveAreaDelCorsoFallitoException | RetrieveStudenteDelCorsoFallitoException | RetrievePresenzaFallitoException e) {
+        catch(SQLException | ClassNotFoundException | AssociazioneLezioneCorsoFallitaException | RetrieveAreaTematicaFallitoException |
+              RetrieveCorsoFallitoException | RetrieveLezioneFallitoException | RetrieveStudenteFallitoException |
+              RetrieveAreaDelCorsoFallitoException | RetrieveStudenteDelCorsoFallitoException | RetrievePresenzaFallitoException e) {
             loginFrame.connessioneNonStabilita();
             loginFrame.mostraEccezione(e.getMessage());
         }
@@ -201,7 +206,8 @@ public class Controller {
         presenzeDAO = new PresenzeDAOImplementazione(this, connection);
     }
     
-    public void retrieveAllDTO() throws AssociazioneLezioneCorsoFallitaException, RetrieveAreaTematicaFallitoException, RetrieveCorsoFallitoException, RetrieveLezioneFallitoException, RetrieveStudenteFallitoException, RetrieveAreaDelCorsoFallitoException, RetrieveStudenteDelCorsoFallitoException, RetrievePresenzaFallitoException {
+    public void retrieveAllDTO() throws AssociazioneLezioneCorsoFallitaException, RetrieveAreaTematicaFallitoException, RetrieveCorsoFallitoException, RetrieveLezioneFallitoException,
+                                        RetrieveStudenteFallitoException, RetrieveAreaDelCorsoFallitoException, RetrieveStudenteDelCorsoFallitoException, RetrievePresenzaFallitoException {
         this.listaAreeTematiche = areaTematicaDAO.retrieveAllAreaTematica();
         this.listaCorsi = corsoDAO.retrieveAllCorso();
         this.listaLezioni = lezioneDAO.retrieveAllLezione(listaCorsi);
@@ -220,7 +226,7 @@ public class Controller {
         presenzeDAO.retrievePresenze(studente, listaLezioni);
     }
     
-    public void removePresenza(Studente studente, Lezione lezione) throws SQLException, DeletePresenzaFallitoException {
+    public void removePresenza(Studente studente, Lezione lezione) throws DeletePresenzaFallitoException {
         presenzeDAO.deletePresenza(studente, lezione);
     }
     //DAO
@@ -270,6 +276,9 @@ public class Controller {
         
         panelAggiornaAreaTematica = new PanelAggiornaAreaTematica(this, homeFrameOperatore);
         homeFrameOperatore.setPanelAggiornaAreaTematica(panelAggiornaAreaTematica);
+        
+        panelCorsiDellArea = new PanelCorsiDellArea(this, homeFrameOperatore);
+        homeFrameOperatore.setPanelCorsiDellArea(panelCorsiDellArea);
         
         panelCorsi = new PanelCorsi(this, homeFrameOperatore);
         homeFrameOperatore.setPanelCorsi(panelCorsi);
@@ -548,6 +557,54 @@ public class Controller {
             panelAreeTematiche.svuotaTableAssociazioni();
         }
         catch(UpdateAreaTematicaFallitoException e) {
+            homeFrameOperatore.mostraEccezione(e.getMessage());
+            chiudiConnessionePerErrori();
+        }
+    }
+    
+    public void impostaPanelCorsiDellArea(Object areaTematicaSelezionata) {
+        AreaTematica areaTematica = (AreaTematica) areaTematicaSelezionata;
+        panelCorsiDellArea.svuotaTutteTable();
+        panelCorsiDellArea.inserisciAreaTematicaSelezionata(areaTematica.creaRiga());
+        aggiornaPanelCorsiDellArea(areaTematica);
+    }
+    
+    public void aggiornaPanelCorsiDellArea(AreaTematica areaTematica) {
+        panelCorsiDellArea.svuotaTableAssociazioni();
+        
+        for(Corso corso : areaTematica.getCorsiDellAreaTematica()) {
+            panelCorsiDellArea.inserisciInTableCorsiRegistrati(corso.creaRiga());
+        }
+        for (Corso corso : listaCorsi) {
+            if(!areaTematica.getCorsiDellAreaTematica().contains(corso)) {
+                panelCorsiDellArea.inserisciInTableCorsiRegistrabili(corso.creaRiga());
+            }
+        }
+    }
+    
+    public void registraAreaDelCorso(Object areaTematicaSelezionata, Object corsoSelezionato) {
+        AreaTematica areaTematica = (AreaTematica) areaTematicaSelezionata;
+        Corso corso = (Corso) corsoSelezionato;
+        
+        try {
+            areaDelCorsoDAO.createAreaDelCorso(corso, areaTematica);
+            aggiornaPanelCorsiDellArea(areaTematica);
+        }
+        catch (CreateAreaDelCorsoFallitoException e) {
+            homeFrameOperatore.mostraEccezione(e.getMessage());
+            chiudiConnessionePerErrori();
+        }
+    }
+    
+    public void rimuoviAreaDelCorso(Object areaTematicaSelezionata, Object corsoSelezionato) {
+        AreaTematica areaTematica = (AreaTematica) areaTematicaSelezionata;
+        Corso corso = (Corso) corsoSelezionato;
+        
+        try {
+            areaDelCorsoDAO.deleteAreaDelCorso(corso, areaTematica);
+            aggiornaPanelCorsiDellArea(areaTematica);
+        }
+        catch (DeleteAreaDelCorsoFallitoException e) {
             homeFrameOperatore.mostraEccezione(e.getMessage());
             chiudiConnessionePerErrori();
         }

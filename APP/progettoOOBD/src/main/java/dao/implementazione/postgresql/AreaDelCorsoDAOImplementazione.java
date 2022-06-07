@@ -20,9 +20,17 @@ public class AreaDelCorsoDAOImplementazione implements AreaDelCorsoDAOInterfacci
     private Controller controller;
     private Connection connection;
     
+    private String insertAreaDelCorso = "INSERT "
+                                      + "INTO area_del_corso (codice_area_tematica, codice_corso) "
+                                      + "VALUES (?, ?)";
+    
     private String selectAreeDelCorso = "SELECT codice_area_tematica "
                                       + "FROM area_del_corso "
                                       + "WHERE codice_corso = ?";
+    
+    private String deleteAreaDelCorso = "DELETE "
+                                      + "FROM area_del_corso "
+                                      + "WHERE codice_area_tematica = ? AND codice_corso = ?";
 
     public AreaDelCorsoDAOImplementazione(Controller controller, Connection connection) {
         this.controller = controller;
@@ -31,7 +39,18 @@ public class AreaDelCorsoDAOImplementazione implements AreaDelCorsoDAOInterfacci
     
     @Override
     public void createAreaDelCorso(Corso corso, AreaTematica areaTematica) throws CreateAreaDelCorsoFallitoException {
-        
+        try (PreparedStatement pstInsertAreaDelCorso = connection.prepareStatement(insertAreaDelCorso)) {
+            pstInsertAreaDelCorso.setInt(1, areaTematica.getCodice());
+            pstInsertAreaDelCorso.setInt(2, corso.getCodice());
+            if (pstInsertAreaDelCorso.executeUpdate() != 1) {
+                throw new CreateAreaDelCorsoFallitoException();
+            }
+            areaTematica.addCorso(corso);
+            corso.addAreaTematica(areaTematica);
+        }
+        catch(SQLException e) {
+            throw new CreateAreaDelCorsoFallitoException(e.getMessage());
+        }
     }
 
     @Override
@@ -56,7 +75,18 @@ public class AreaDelCorsoDAOImplementazione implements AreaDelCorsoDAOInterfacci
 
     @Override
     public void deleteAreaDelCorso(Corso corso, AreaTematica areaTematica) throws DeleteAreaDelCorsoFallitoException {
-        
+        try (PreparedStatement pstDeleteAreaDelCorso = connection.prepareStatement(deleteAreaDelCorso)) {
+            pstDeleteAreaDelCorso.setInt(1, areaTematica.getCodice());
+            pstDeleteAreaDelCorso.setInt(2, corso.getCodice());
+            if (pstDeleteAreaDelCorso.executeUpdate() != 1) {
+                throw new DeleteAreaDelCorsoFallitoException();
+            }
+            areaTematica.removeCorso(corso);
+            corso.removeAreaTematica(areaTematica);
+        }
+        catch(SQLException e) {
+            throw new DeleteAreaDelCorsoFallitoException(e.getMessage());
+        }
     }
     
 }
