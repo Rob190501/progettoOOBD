@@ -84,7 +84,7 @@ public class StudenteDelCorsoDAOImplementazione implements StudenteDelCorsoDAOIn
             }
             studente.removeCorso(corso);
             corso.removeStudente(studente);
-            for(Lezione lezione : studente.getPresenze()) {
+            for(Lezione lezione : studente.getListaPresenze()) {
                 if(lezione.getCorsoDellaLezione().equals(corso)) {
                     controller.removePresenza(studente, lezione);
                 }

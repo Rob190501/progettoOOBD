@@ -6,23 +6,23 @@ public class Studente {
     private int matricola;
     private String nome;
     private String cognome;
-    private LinkedList<Corso> corsiFrequentati;
-    private LinkedList<Lezione> presenze;
+    private LinkedList<Corso> listaCorsiFrequentati;
+    private LinkedList<Lezione> listaPresenze;
 
     public Studente(int matricola, String nome, String cognome) {
         setMatricola(matricola);
         setNome(nome);
         setCognome(cognome);
-        corsiFrequentati = new LinkedList<>();
-        presenze = new LinkedList<>();
+        listaCorsiFrequentati = new LinkedList<>();
+        listaPresenze = new LinkedList<>();
         
     }
     
     public Studente(String nome, String cognome) {
         setNome(nome);
         setCognome(cognome);
-        corsiFrequentati = new LinkedList<Corso>();
-        presenze = new LinkedList<Lezione>();
+        listaCorsiFrequentati = new LinkedList<Corso>();
+        listaPresenze = new LinkedList<Lezione>();
         
     }
     
@@ -38,12 +38,12 @@ public class Studente {
         return cognome;
     }
 
-    public LinkedList<Corso> getCorsiFrequentati() {
-        return corsiFrequentati;
+    public LinkedList<Corso> getListaCorsiFrequentati() {
+        return listaCorsiFrequentati;
     }
 
-    public LinkedList<Lezione> getPresenze() {
-        return presenze;
+    public LinkedList<Lezione> getListaPresenze() {
+        return listaPresenze;
     }
 
     public void setMatricola(int matricola) {
@@ -59,27 +59,27 @@ public class Studente {
     }
     
     public void addCorso(Corso corso) {
-        corsiFrequentati.add(corso);
+        listaCorsiFrequentati.add(corso);
     }
     
     public void removeCorso(Corso corso) {
-        corsiFrequentati.remove(corso);
+        listaCorsiFrequentati.remove(corso);
     }
     
     public void addPresenza(Lezione lezione) {
-        presenze.add(lezione);
+        listaPresenze.add(lezione);
     }
     
     public void removePresenza(Lezione lezione) {
-        presenze.remove(lezione);
+        listaPresenze.remove(lezione);
     }
     
     public void rimuoviDaAssociazioni() {
-        for(Lezione lezione : presenze) {
+        for(Lezione lezione : listaPresenze) {
             lezione.getStudentiPresenti().remove(this);
         }
         
-        for(Corso corso : corsiFrequentati) {
+        for(Corso corso : listaCorsiFrequentati) {
             corso.getStudentiIscritti().remove(this);
         }
     }
@@ -90,7 +90,22 @@ public class Studente {
     }
     
     public String toString() {
-        return matricola + " | " + nome + " | " + cognome + corsiFrequentati.toString() + presenze.toString();
+        return matricola + " | " + nome + " | " + cognome + listaCorsiFrequentati.toString() + listaPresenze.toString();
+    }
+    
+    public int getNumeroPresenzeDiUnCorso(Corso corso) {
+        int contatorePresenze = 0;
+        for(Lezione lezione :  listaPresenze) {
+            if(lezione.getCorsoDellaLezione().equals(corso)) {
+                contatorePresenze++;
+            }
+        }
+        return contatorePresenze;
+    }
+    
+    public boolean eIdoneo(Corso corso) {
+        int tassoStudente = (getNumeroPresenzeDiUnCorso(corso) * 100) / corso.getNumeroLezioni();
+        return tassoStudente >= corso.getTassoPresenzeMinime();
     }
     
 }

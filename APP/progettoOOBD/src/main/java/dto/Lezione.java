@@ -103,11 +103,15 @@ public class Lezione {
     }
     
     public void rimuoviDaAssociazioni() {
-        corsoDellaLezione.getLezioniDelCorso().remove(this);
+        corsoDellaLezione.getListaLezioni().remove(this);
         
         for(Studente studente : studentiPresenti) {
-            studente.getPresenze().remove(this);
+            studente.getListaPresenze().remove(this);
         }
+    }
+    
+    public int getNumeroPresenti() {
+        return studentiPresenti.size();
     }
     
 }

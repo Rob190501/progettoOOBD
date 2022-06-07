@@ -37,7 +37,7 @@ public class PanelCorsi extends PanelGenerico {
         tableAreeDelCorso = new javax.swing.JTable();
         buttonEliminaCorso = new javax.swing.JButton();
         buttonAggiornaCorso = new javax.swing.JButton();
-        buttonNuovoCorso3 = new javax.swing.JButton();
+        buttonProspettoCorso = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(745, 566));
@@ -241,14 +241,19 @@ public class PanelCorsi extends PanelGenerico {
             }
         });
 
-        buttonNuovoCorso3.setBackground(new java.awt.Color(153, 204, 255));
-        buttonNuovoCorso3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonNuovoCorso3.setForeground(new java.awt.Color(255, 255, 255));
-        buttonNuovoCorso3.setText("A");
-        buttonNuovoCorso3.setBorder(null);
-        buttonNuovoCorso3.setBorderPainted(false);
-        buttonNuovoCorso3.setFocusPainted(false);
-        buttonNuovoCorso3.setOpaque(true);
+        buttonProspettoCorso.setBackground(new java.awt.Color(153, 204, 255));
+        buttonProspettoCorso.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonProspettoCorso.setForeground(new java.awt.Color(255, 255, 255));
+        buttonProspettoCorso.setText("Prospetto corso");
+        buttonProspettoCorso.setBorder(null);
+        buttonProspettoCorso.setBorderPainted(false);
+        buttonProspettoCorso.setFocusPainted(false);
+        buttonProspettoCorso.setOpaque(true);
+        buttonProspettoCorso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonProspettoCorsoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -264,7 +269,7 @@ public class PanelCorsi extends PanelGenerico {
                         .addGap(18, 18, 18)
                         .addComponent(buttonAggiornaCorso, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(buttonNuovoCorso3, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonProspettoCorso, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -309,7 +314,7 @@ public class PanelCorsi extends PanelGenerico {
                     .addComponent(buttonNuovoCorso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonEliminaCorso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonAggiornaCorso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonNuovoCorso3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonProspettoCorso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -346,6 +351,17 @@ public class PanelCorsi extends PanelGenerico {
             getHomeFrame().mostraEccezione(e.getMessage());
         }
     }//GEN-LAST:event_buttonAggiornaCorsoActionPerformed
+
+    private void buttonProspettoCorsoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProspettoCorsoActionPerformed
+        try {
+            controllaRigaSelezionata(tableCorsi, "corsi");
+            getController().impostaPanelProspettoCorso(ottieniOggettoSelezionato(tableCorsi));
+            getHomeFrame().mostraPanelProspettoCorso();
+        }
+        catch (NessunaRigaSelezionataException e) {
+            getHomeFrame().mostraEccezione(e.getMessage());
+        }
+    }//GEN-LAST:event_buttonProspettoCorsoActionPerformed
     
     public void svuotaTutteTable() {
         svuotaTable(tableCorsi);
@@ -395,7 +411,7 @@ public class PanelCorsi extends PanelGenerico {
     private javax.swing.JButton buttonAggiornaCorso;
     private javax.swing.JButton buttonEliminaCorso;
     private javax.swing.JButton buttonNuovoCorso;
-    private javax.swing.JButton buttonNuovoCorso3;
+    private javax.swing.JButton buttonProspettoCorso;
     private javax.swing.JLabel labelCorsi;
     private javax.swing.JLabel labelLezioniDelCorso;
     private javax.swing.JLabel labelStudentiIscritti;

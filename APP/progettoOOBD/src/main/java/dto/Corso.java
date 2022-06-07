@@ -1,6 +1,7 @@
 package dto;
 
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
 public class Corso {
     
@@ -10,7 +11,7 @@ public class Corso {
     private int tassoPresenzeMinime;
     private int numeroMassimoIscritti;
     private LinkedList<Studente> studentiIscritti;
-    private LinkedList<Lezione> lezioniDelCorso;
+    private LinkedList<Lezione> listaLezioni;
     private LinkedList<AreaTematica> areeTematicheDelCorso;
 
     public Corso(int codice, String nome, String descrizione, int tassoPresenzeMin, int numeroMassimoIscritti) {
@@ -20,7 +21,7 @@ public class Corso {
         setTassoPresenzeMinime(tassoPresenzeMin);
         setNumeroMassimoIscritti(numeroMassimoIscritti);
         studentiIscritti = new LinkedList<>();
-        lezioniDelCorso = new LinkedList<>();
+        listaLezioni = new LinkedList<>();
         areeTematicheDelCorso = new LinkedList<>();
     }
     
@@ -30,7 +31,7 @@ public class Corso {
         setTassoPresenzeMinime(tassoPresenzeMin);
         setNumeroMassimoIscritti(numeroMassimoIscritti);
         studentiIscritti = new LinkedList<>();
-        lezioniDelCorso = new LinkedList<>();
+        listaLezioni = new LinkedList<>();
         areeTematicheDelCorso = new LinkedList<>();
     }
     
@@ -58,8 +59,8 @@ public class Corso {
         return studentiIscritti;
     }
     
-    public LinkedList<Lezione> getLezioniDelCorso() {
-        return lezioniDelCorso;
+    public LinkedList<Lezione> getListaLezioni() {
+        return listaLezioni;
     }
     
     public LinkedList<AreaTematica> getAreeTematicheDelCorso() {
@@ -95,11 +96,11 @@ public class Corso {
     }
     
     public void addLezione(Lezione lezione) {
-        lezioniDelCorso.add(lezione);
+        listaLezioni.add(lezione);
     }
     
     public void removeLezione(Lezione lezione) {
-        lezioniDelCorso.remove(lezione);
+        listaLezioni.remove(lezione);
     }
     
     public void addAreaTematica(AreaTematica areaTematica) {
@@ -128,11 +129,58 @@ public class Corso {
     
     public void rimuoviDaAssociazioni() {
         for(Studente studente : studentiIscritti) {
-            studente.getCorsiFrequentati().remove(this);
+            studente.getListaCorsiFrequentati().remove(this);
         }
         
         for(AreaTematica areaTematica : areeTematicheDelCorso) {
             areaTematica.removeCorso(this);
+        }
+    }
+    
+    public int getNumeroLezioni() {
+        return listaLezioni.size();
+    }
+    
+    public int getNumeroPresenzeMinimo() {
+        try {
+            int min = listaLezioni.getFirst().getNumeroPresenti();
+            for(Lezione lezione : listaLezioni) {
+                if(lezione.getNumeroPresenti()<min) {
+                    min = lezione.getNumeroPresenti();
+                }
+            }
+            return min;
+        }
+        catch (NoSuchElementException e) {
+            return 0;
+        }
+    }
+    
+    public int getNumeroPresenzeMassimo() {
+        try {
+            int max = listaLezioni.getFirst().getNumeroPresenti();
+            for(Lezione lezione : listaLezioni) {
+                if(lezione.getNumeroPresenti()>max) {
+                    max = lezione.getNumeroPresenti();
+                }
+            }
+            return max;
+        }
+        catch (NoSuchElementException e) {
+            return 0;
+        }
+    }
+    
+    public int getNumeroPresenzeMedio() {
+        try {
+            int presenzeTotali = 0;
+            for(Lezione lezione : listaLezioni) {
+                presenzeTotali += lezione.getNumeroPresenti();
+            }
+            return presenzeTotali/listaLezioni.size();
+        }
+        catch (ArithmeticException e) {
+            return 0;
         }
     }
     

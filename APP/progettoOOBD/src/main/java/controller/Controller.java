@@ -46,6 +46,7 @@ import gui.homeFrame.panels.areeTematiche.PanelNuovaAreaTematica;
 import gui.homeFrame.panels.corsi.PanelAggiornaCorso;
 import gui.homeFrame.panels.corsi.PanelCorsi;
 import gui.homeFrame.panels.corsi.PanelNuovoCorso;
+import gui.homeFrame.panels.corsi.PanelProspettoCorso;
 import gui.homeFrame.panels.homePage.PanelHomePage;
 import gui.homeFrame.panels.lezioni.PanelAggiornaLezione;
 import gui.homeFrame.panels.lezioni.PanelLezioni;
@@ -91,6 +92,7 @@ public class Controller {
     private PanelCorsi panelCorsi;
     private PanelNuovoCorso panelNuovoCorso;
     private PanelAggiornaCorso panelAggiornaCorso;
+    private PanelProspettoCorso panelProspettoCorso;
     
     private PanelLezioni panelLezioni;
     private PanelNuovaLezione panelNuovaLezione;
@@ -289,6 +291,9 @@ public class Controller {
         panelAggiornaCorso = new PanelAggiornaCorso(this, homeFrameOperatore);
         homeFrameOperatore.setPanelAggiornaCorso(panelAggiornaCorso);
         
+        panelProspettoCorso = new PanelProspettoCorso(this, homeFrameOperatore);
+        homeFrameOperatore.setPanelProspettoCorso(panelProspettoCorso);
+        
         panelLezioni = new PanelLezioni(this, homeFrameOperatore);
         homeFrameOperatore.setPanelLezioni(panelLezioni);
         
@@ -326,11 +331,11 @@ public class Controller {
         
         panelStudenti.svuotaTableAssociazioni();
         
-        for(Corso corso : studente.getCorsiFrequentati()) {
+        for(Corso corso : studente.getListaCorsiFrequentati()) {
             panelStudenti.inserisciInTableCorsiFrequentati(corso.creaRiga());
         }
         
-        for(Lezione lezione : studente.getPresenze()) {
+        for(Lezione lezione : studente.getListaPresenze()) {
             panelStudenti.inserisciInTablePresenze(lezione.creaRiga());
         }
     }
@@ -375,7 +380,7 @@ public class Controller {
     public void aggiornaPanelIscrizioni(Studente studente) {
         panelIscrizioni.svuotaTableAssociazioni();
         
-        for(Corso corso : studente.getCorsiFrequentati()) {
+        for(Corso corso : studente.getListaCorsiFrequentati()) {
             panelIscrizioni.inserisciInTableCorsiFrequentati(corso.creaRiga());
         }
         for (Corso corso : listaCorsi) {
@@ -423,12 +428,12 @@ public class Controller {
     public void aggiornaPanelPresenze(Studente studente) {
         panelPresenze.svuotaTableAssociazioni();
         
-        for(Lezione lezione : studente.getPresenze()) {
+        for(Lezione lezione : studente.getListaPresenze()) {
             panelPresenze.inserisciInTablePresenzeRegistrate(lezione.creaRiga());
         }
-        for (Corso corso : studente.getCorsiFrequentati()) {
-            for(Lezione lezione : corso.getLezioniDelCorso()) {
-                if(!studente.getPresenze().contains(lezione)) {
+        for (Corso corso : studente.getListaCorsiFrequentati()) {
+            for(Lezione lezione : corso.getListaLezioni()) {
+                if(!studente.getListaPresenze().contains(lezione)) {
                     panelPresenze.inserisciInTablePresenzePossibili(lezione.creaRiga());
                 }
             }
@@ -624,7 +629,7 @@ public class Controller {
         
         panelCorsi.svuotaTableAssociazioni();
         
-        for(Lezione lezione : corso.getLezioniDelCorso()) {
+        for(Lezione lezione : corso.getListaLezioni()) {
             panelCorsi.inserisciInTableLezioniDelCorso(lezione.creaRiga());
         }
         for(Studente studente : corso.getStudentiIscritti()) {
@@ -654,7 +659,7 @@ public class Controller {
         
         try {
             corsoDAO.deleteCorso(corso);
-            listaLezioni.removeAll(corso.getLezioniDelCorso());
+            listaLezioni.removeAll(corso.getListaLezioni());
             corso.rimuoviDaAssociazioni();
             listaCorsi.remove(corso);
             impostaPanelLezioni();
@@ -695,6 +700,18 @@ public class Controller {
             chiudiConnessionePerErrori();
         }
     }
+    
+    public void impostaPanelProspettoCorso(Object corsoSelezionato) {
+        Corso corso = (Corso) corsoSelezionato;
+        
+        panelProspettoCorso.svuotaTutteTable();
+        panelProspettoCorso.inserisciInTableCorsoSelezionato(corso.creaRiga());
+        for(Studente studente : corso.getStudentiIscritti()) {
+            if(studente.eIdoneo(corso)) {
+                panelProspettoCorso.inserisciInTableStudentiIdonei(studente.creaRiga());
+            }
+        }
+    }
     //sezione corsi
     
     //sezione lezioni
@@ -730,7 +747,7 @@ public class Controller {
         Corso corso = (Corso) corsoSelezionato;
         Lezione lezione = new Lezione (titolo, descrizione, durata, dataInizio, corso);
         
-        corso.getLezioniDelCorso().add(lezione);
+        corso.getListaLezioni().add(lezione);
         
         try {
             lezioneDAO.createLezione(lezione);

@@ -37,7 +37,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="buttonAggiornaCorso" min="-2" pref="147" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="buttonNuovoCorso3" min="-2" pref="147" max="-2" attributes="0"/>
+                      <Component id="buttonProspettoCorso" min="-2" pref="147" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
@@ -94,7 +94,7 @@
                   <Component id="buttonNuovoCorso" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="buttonEliminaCorso" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="buttonAggiornaCorso" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="buttonNuovoCorso3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="buttonProspettoCorso" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
           </Group>
@@ -498,7 +498,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAggiornaCorsoActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonNuovoCorso3">
+    <Component class="javax.swing.JButton" name="buttonProspettoCorso">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="cc" red="99" type="rgb"/>
@@ -509,7 +509,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="A"/>
+        <Property name="text" type="java.lang.String" value="Prospetto corso"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
         </Property>
@@ -517,6 +517,9 @@
         <Property name="focusPainted" type="boolean" value="false"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonProspettoCorsoActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
