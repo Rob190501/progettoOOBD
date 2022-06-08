@@ -171,17 +171,30 @@ public class Corso {
         }
     }
     
-    public int getNumeroPresenzeMedio() {
+    public float getNumeroPresenzeMedio() {
         try {
             int presenzeTotali = 0;
             for(Lezione lezione : listaLezioni) {
                 presenzeTotali += lezione.getNumeroPresenti();
             }
-            return presenzeTotali/listaLezioni.size();
+            return (float) presenzeTotali/listaLezioni.size();
         }
         catch (ArithmeticException e) {
             return 0;
         }
+    }
+    
+    public float getPercentualeRiempimentoMedia() {
+        int presenzeEffettive = 0;
+        for(Lezione lezione : listaLezioni) {
+            presenzeEffettive += lezione.getNumeroPresenti();
+        }
+        int numeroLezioni = listaLezioni.size();
+        int numeroIscritti = studentiIscritti.size();
+        
+        int presenzeMassime = numeroIscritti * numeroLezioni;
+        
+        return (float) ((presenzeEffettive * 100) / presenzeMassime);
     }
     
 }

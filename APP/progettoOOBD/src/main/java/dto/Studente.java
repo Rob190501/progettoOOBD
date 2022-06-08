@@ -93,6 +93,16 @@ public class Studente {
         return matricola + " | " + nome + " | " + cognome + listaCorsiFrequentati.toString() + listaPresenze.toString();
     }
     
+    public LinkedList<Lezione> getPresenzeDiUnCorso(Corso corso) {
+        LinkedList<Lezione> presenzeDiUnCorso = new LinkedList<>();
+        for(Lezione lezione : listaPresenze) {
+            if(lezione.getCorsoDellaLezione().equals(corso)) {
+                presenzeDiUnCorso.add(lezione);
+            }
+        }
+        return presenzeDiUnCorso;
+    }
+    
     public int getNumeroPresenzeDiUnCorso(Corso corso) {
         int contatorePresenze = 0;
         for(Lezione lezione :  listaPresenze) {

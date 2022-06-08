@@ -711,6 +711,11 @@ public class Controller {
                 panelProspettoCorso.inserisciInTableStudentiIdonei(studente.creaRiga());
             }
         }
+        panelProspettoCorso.setNumeroMedioPresenze(corso.getNumeroPresenzeMedio());
+        panelProspettoCorso.setNumeroMinimoPresenze(corso.getNumeroPresenzeMinimo());
+        panelProspettoCorso.setNumeroMassimoPresenze(corso.getNumeroPresenzeMassimo());
+        panelProspettoCorso.setPercentualeRiempimento(corso.getPercentualeRiempimentoMedia());
+        //System.out.println(corso.getPercentualeRiempimentoMedia());
     }
     //sezione corsi
     
