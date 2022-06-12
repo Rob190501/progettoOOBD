@@ -29,34 +29,36 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="buttonNuovoCorso" min="-2" pref="147" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="buttonEliminaCorso" min="-2" pref="147" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="buttonAggiornaCorso" min="-2" pref="147" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="buttonProspettoCorso" min="-2" pref="147" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="labelCorsi" pref="317" max="32767" attributes="0"/>
-                          <Component id="scrollPaneTableCorsi" pref="317" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="labelStudentiIscritti" alignment="0" max="32767" attributes="0"/>
-                          <Component id="scrollPaneTableStudentiIscritti" alignment="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="scrollPaneTableLezioniDelCorso" alignment="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="labelLezioniDelCorso" alignment="0" pref="346" max="32767" attributes="0"/>
-                          <Component id="scrollPaneTableAreeDelCorso" alignment="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="labelStudentiIscritti1" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                  </Group>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="labelCorsi" pref="317" max="32767" attributes="0"/>
+                  <Component id="scrollPaneTableCorsi" pref="317" max="32767" attributes="0"/>
               </Group>
+              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="labelStudentiIscritti" alignment="0" max="32767" attributes="0"/>
+                  <Component id="scrollPaneTableStudentiIscritti" alignment="0" pref="0" max="32767" attributes="0"/>
+                  <Component id="scrollPaneTableLezioniDelCorso" alignment="0" pref="0" max="32767" attributes="0"/>
+                  <Component id="labelLezioniDelCorso" alignment="0" pref="346" max="32767" attributes="0"/>
+                  <Component id="scrollPaneTableAreeDelCorso" alignment="0" pref="0" max="32767" attributes="0"/>
+                  <Component id="labelStudentiIscritti1" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="buttonNuovoCorso" min="-2" pref="147" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="32767" attributes="0"/>
+              <Component id="buttonEliminaCorso" min="-2" pref="147" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="32767" attributes="0"/>
+              <Component id="buttonAggiornaCorso" min="-2" pref="147" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="32767" attributes="0"/>
+              <Component id="buttonProspettoCorso" min="-2" pref="147" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="buttonRicercaCorso" min="-2" pref="147" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -77,26 +79,28 @@
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="scrollPaneTableLezioniDelCorso" pref="113" max="32767" attributes="0"/>
+                      <Component id="scrollPaneTableLezioniDelCorso" pref="114" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelStudentiIscritti" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollPaneTableStudentiIscritti" pref="113" max="32767" attributes="0"/>
+                      <Component id="scrollPaneTableStudentiIscritti" pref="114" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelStudentiIscritti1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="scrollPaneTableAreeDelCorso" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="scrollPaneTableCorsi" pref="415" max="32767" attributes="0"/>
+                  <Component id="scrollPaneTableCorsi" pref="406" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="buttonNuovoCorso" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="buttonEliminaCorso" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="buttonAggiornaCorso" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="buttonProspettoCorso" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="buttonRicercaCorso" min="-2" pref="30" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -519,6 +523,29 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonProspettoCorsoActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonRicercaCorso">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="cc" red="99" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="14" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Ricerca corso"/>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="null"/>
+        </Property>
+        <Property name="borderPainted" type="boolean" value="false"/>
+        <Property name="focusPainted" type="boolean" value="false"/>
+        <Property name="opaque" type="boolean" value="true"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRicercaCorsoActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

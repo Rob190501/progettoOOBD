@@ -1,33 +1,40 @@
-INSERT INTO corso (nome_corso, descrizione_corso, tasso_presenze_min, partecipanti_max) VALUES
-('Informatica', 'Si studia informatica', 50, 3),
-('Matematica', 'Si studia matematica', 50, 10);
+INSERT INTO corsi (nome, descrizione, tasso_presenze_min, partecipanti_max) VALUES
+('Informatica', 'Si studia informatica', 75, 5),
+('Matematica', 'Si studia matematica', 50, 10),
+('Medicina', 'Si studia medicina', 100, 2),
+('Giurisprudenza', 'Si studia giurisprudenza', 0, 5);
 
-INSERT INTO area_tematica (nome_area_tematica, descrizione_area_tematica) VALUES
-('Informatica', 'Area di informatica'),
-('Matematica', 'Area di matematica'),
-('Medicina', 'Area di medicina');
+INSERT INTO lezioni (titolo, descrizione, durata, data_inizio, codice_corso) VALUES
+('Lezione 0', 'Lezione di presentazione del corso di informatica', '02:00:00', '2021-09-17 09:00:00', 0),
+('Lezione 1', 'Programmazione', '02:00:00', '2021-09-18 09:00:00', 0),
+('Lezione 1', 'Introduzione al corso di medicina', '02:00:00', '2021-09-17 11:00:00', 2),
+('Lezione 1', 'Prima lezione matematica', '02:00:00', '2021-09-17 16:00:00', 1),
+('Lezione 1', 'Inizio lezioni giurisprudenza', '02:30:00', '2021-09-17 18:00:00', 3);
 
-INSERT INTO area_del_corso (codice_area_tematica, codice_corso ) VALUES
-(0, 5);
+INSERT INTO aree_tematiche (nome, descrizione) VALUES
+('Scienze', 'Corsi scientifici'),
+('Legge', 'Corsi di giurisprudenza'),
+('Medicina', 'Corsi di medicina');
 
-INSERT INTO studente (nome, cognome) VALUES
+INSERT INTO studenti (nome, cognome) VALUES
 ('Roberto', 'Ambrosino'),
+('Sadman', 'Ahmed'),
 ('Mario', 'Rossi'),
 ('Lucia', 'Gialli');
 
-INSERT INTO studenti_del_corso (matricola, codice_corso) VALUES
+INSERT INTO aree_dei_corsi (codice_area_tematica, codice_corso ) VALUES
 (0, 0),
-(0, 1);
+(0, 1),
+(2, 2),
+(1, 3);
+
+INSERT INTO iscrizioni (matricola, codice_corso) VALUES
+(0, 0),
+(1, 0),
+(2, 2),
+(3, 2);
 
 INSERT INTO presenze (matricola, codice_lezione) VALUES
-(3, 15);
-
-INSERT INTO lezione (titolo_lezione, descrizione_lezione, durata_lezione, data_inizio, codice_corso) VALUES
-/*('Lezione 1', 'Lezione di presentazione', '02:00:00', '2021-09-17 09:00:00', 4),
-('Lezione 2', 'Introduzione', '02:00:00', '2021-09-17 11:00:00', 4),
-('Lezione 3', 'Spiegazione', '02:00:00', '2021-09-17 16:00:00', 4),
-('Lezione 4', 'Spiegazione 2', '02:30:00', '2021-09-17 18:00:00', 4)*/
-('Lezione 1', 'Lezione di presentazione', '02:30', '2021-09-17 18:00:00 UTC', 5);
-
-delete from lezione
-where codice_lezione = 14;
+(0, 0),
+(0, 4),
+(1, 0);

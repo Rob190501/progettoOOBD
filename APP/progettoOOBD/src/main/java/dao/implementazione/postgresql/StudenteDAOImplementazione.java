@@ -1,7 +1,7 @@
 package dao.implementazione.postgresql;
 
 import controller.Controller;
-import dao.interfaccia.SQL.StudenteDAOInterfaccia;
+import dao.interfaccia.StudenteDAOInterfaccia;
 import dto.Studente;
 import eccezioni.create.CreateStudenteFallitoException;
 import eccezioni.delete.DeleteStudenteFallitoException;
@@ -22,30 +22,22 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
     private Connection connection;
     
     private String insertStudente = "INSERT "
-                                  + "INTO studente (nome, cognome) "
+                                  + "INTO studenti (nome, cognome) "
                                   + "VALUES (?, ?)";
     
     private String selectAllStudente = "SELECT * "
-                                     + "FROM studente";
+                                     + "FROM studenti";
     
-    private String updateStudente = "UPDATE studente "
+    private String updateStudente = "UPDATE studenti "
                                   + "SET nome = ?, cognome = ?"
                                   + "WHERE matricola = ?";
     
     private String deleteStudente = "DELETE "
-                                  + "FROM studente "
+                                  + "FROM studenti "
                                   + "WHERE matricola = ?";
     
     public StudenteDAOImplementazione(Controller controller, Connection connection) {
-        setController(controller);
-        setConnection(connection);
-    }
-
-    private void setController(Controller controller) {
         this.controller = controller;
-    }
-
-    private void setConnection(Connection connection) {
         this.connection = connection;
     }
     
@@ -119,6 +111,7 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
             if (pstDeleteStudente.executeUpdate() != 1) {
                 throw new DeleteStudenteFallitoException();
             }
+            studente.rimuoviDaAssociazioni();
         }
         catch(SQLException e) {
             throw new DeleteStudenteFallitoException(e.getMessage());

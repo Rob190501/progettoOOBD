@@ -7,7 +7,7 @@ import dao.implementazione.postgresql.CorsoDAOImplementazione;
 import dao.implementazione.postgresql.LezioneDAOImplementazione;
 import dao.implementazione.postgresql.PresenzeDAOImplementazione;
 import dao.implementazione.postgresql.StudenteDAOImplementazione;
-import dao.implementazione.postgresql.StudenteDelCorsoDAOImplementazione;
+import dao.implementazione.postgresql.IscrizioniDAOImplementazione;
 import dto.AreaTematica;
 import dto.Corso;
 import dto.Lezione;
@@ -47,6 +47,7 @@ import gui.homeFrame.panels.corsi.PanelAggiornaCorso;
 import gui.homeFrame.panels.corsi.PanelCorsi;
 import gui.homeFrame.panels.corsi.PanelNuovoCorso;
 import gui.homeFrame.panels.corsi.PanelProspettoCorso;
+import gui.homeFrame.panels.corsi.PanelRicercaCorso;
 import gui.homeFrame.panels.homePage.PanelHomePage;
 import gui.homeFrame.panels.lezioni.PanelAggiornaLezione;
 import gui.homeFrame.panels.lezioni.PanelLezioni;
@@ -88,6 +89,7 @@ public class Controller {
     private PanelNuovaAreaTematica panelNuovaAreaTematica;
     private PanelAggiornaAreaTematica panelAggiornaAreaTematica;
     private PanelCorsiDellArea panelCorsiDellArea;
+    private PanelRicercaCorso panelRicercaCorso;
     
     private PanelCorsi panelCorsi;
     private PanelNuovoCorso panelNuovoCorso;
@@ -112,7 +114,7 @@ public class Controller {
     
     private AreaDelCorsoDAOImplementazione areaDelCorsoDAO;
     
-    private StudenteDelCorsoDAOImplementazione studenteDelCorsoDAO;
+    private IscrizioniDAOImplementazione iscrizioniDAO;
     
     private PresenzeDAOImplementazione presenzeDAO;
     //attributi
@@ -204,7 +206,7 @@ public class Controller {
         
         areaDelCorsoDAO =  new AreaDelCorsoDAOImplementazione(this, connection);
         
-        studenteDelCorsoDAO = new StudenteDelCorsoDAOImplementazione(this, connection);
+        iscrizioniDAO = new IscrizioniDAOImplementazione(this, connection);
         presenzeDAO = new PresenzeDAOImplementazione(this, connection);
     }
     
@@ -221,7 +223,7 @@ public class Controller {
     }
     
     public void setCorsiFrequentati(Studente studente) throws RetrieveStudenteDelCorsoFallitoException {
-        studenteDelCorsoDAO.retrieveCorsiFrequentati(studente, listaCorsi);
+        iscrizioniDAO.retrieveCorsiFrequentati(studente, listaCorsi);
     }
     
     public void setPresenze(Studente studente) throws RetrievePresenzaFallitoException {
@@ -294,6 +296,9 @@ public class Controller {
         panelProspettoCorso = new PanelProspettoCorso(this, homeFrameOperatore);
         homeFrameOperatore.setPanelProspettoCorso(panelProspettoCorso);
         
+        panelRicercaCorso = new PanelRicercaCorso(this, homeFrameOperatore);
+        homeFrameOperatore.setPanelRicercaCorso(panelRicercaCorso);
+        
         panelLezioni = new PanelLezioni(this, homeFrameOperatore);
         homeFrameOperatore.setPanelLezioni(panelLezioni);
         
@@ -359,7 +364,6 @@ public class Controller {
         
         try {
             studenteDAO.deleteStudente(studente);
-            studente.rimuoviDaAssociazioni();
             listaStudenti.remove(studente);
             panelStudenti.rimuoviStudenteSelezionato();
             panelStudenti.svuotaTableAssociazioni();
@@ -395,7 +399,7 @@ public class Controller {
         Corso corso = (Corso) corsoSelezionato;
         
         try {
-            studenteDelCorsoDAO.createStudenteDelCorso(studente, corso);
+            iscrizioniDAO.createStudenteDelCorso(studente, corso);
             aggiornaPanelIscrizioni(studente);
         }
         catch (CreateStudenteDelCorsoFallitoException e) {
@@ -409,7 +413,7 @@ public class Controller {
         Corso corso = (Corso) corsoSelezionato;
         
         try {
-            studenteDelCorsoDAO.deleteStudenteDelCorso(studente, corso);
+            iscrizioniDAO.deleteStudenteDelCorso(studente, corso);
             aggiornaPanelIscrizioni(studente);
         }
         catch (DeleteStudenteDelCorsoFallitoException | DeletePresenzaFallitoException e) {
@@ -531,7 +535,6 @@ public class Controller {
         
         try {
             areaTematicaDAO.deleteAreaTematica(areaTematica);
-            areaTematica.rimuoviDaAssociazioni();
             listaAreeTematiche.remove(areaTematica);
             panelAreeTematiche.rimuoviAreaTematicaSelezionata();
             panelAreeTematiche.svuotaTableAssociazioni();
@@ -635,7 +638,7 @@ public class Controller {
         for(Studente studente : corso.getStudentiIscritti()) {
             panelCorsi.inserisciInTableStudentiDelCorso(studente.creaRiga());
         }
-        for(AreaTematica areaTematica : corso.getAreeTematicheDelCorso()) {
+        for(AreaTematica areaTematica : corso.getListaAreeTematiche()) {
             panelCorsi.inserisciInTableAreeDelCorso(areaTematica.creaRiga());
         }
     }
@@ -660,11 +663,10 @@ public class Controller {
         try {
             corsoDAO.deleteCorso(corso);
             listaLezioni.removeAll(corso.getListaLezioni());
-            corso.rimuoviDaAssociazioni();
             listaCorsi.remove(corso);
-            impostaPanelLezioni();
             panelCorsi.rimuoviCorsoSelezionato();
             panelCorsi.svuotaTableAssociazioni();
+            impostaPanelLezioni();
         }
         catch(DeleteCorsoFallitoException e) {
             homeFrameOperatore.mostraEccezione(e.getMessage());
@@ -715,7 +717,15 @@ public class Controller {
         panelProspettoCorso.setNumeroMinimoPresenze(corso.getNumeroPresenzeMinimo());
         panelProspettoCorso.setNumeroMassimoPresenze(corso.getNumeroPresenzeMassimo());
         panelProspettoCorso.setPercentualeRiempimento(corso.getPercentualeRiempimentoMedia());
-        //System.out.println(corso.getPercentualeRiempimentoMedia());
+    }
+    
+    public void ricercaCorso(String parolaChiave) {
+        panelRicercaCorso.svuotaTutteTable();
+        for(Corso corso : listaCorsi) {
+            if(corso.ricerca(parolaChiave)) {
+                panelRicercaCorso.inserisciInTableCorsi(corso.creaRiga());
+            }
+        }
     }
     //sezione corsi
     
@@ -770,7 +780,6 @@ public class Controller {
         
         try {
             lezioneDAO.deleteLezione(lezione);
-            lezione.rimuoviDaAssociazioni();
             listaLezioni.remove(lezione);
             panelLezioni.rimuoviLezioneSelezionata();
             panelLezioni.svuotaTableAssociazioni();

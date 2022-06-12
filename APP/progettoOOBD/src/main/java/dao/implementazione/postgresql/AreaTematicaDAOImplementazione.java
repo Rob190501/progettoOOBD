@@ -1,7 +1,7 @@
 package dao.implementazione.postgresql;
 
 import controller.Controller;
-import dao.interfaccia.SQL.AreaTematicaDAOInterfaccia;
+import dao.interfaccia.AreaTematicaDAOInterfaccia;
 import dto.AreaTematica;
 import eccezioni.create.CreateAreaTematicaFallitoException;
 import eccezioni.delete.DeleteAreaTematicaFallitoException;
@@ -20,30 +20,22 @@ public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfacci
     private Connection connection;
     
     private String selectAllAreaTematica = "SELECT * "
-                                         + "FROM area_tematica";
+                                         + "FROM aree_tematiche";
     
     private String insertAreaTematica = "INSERT "
-                                      + "INTO area_tematica (nome_area_tematica, descrizione_area_tematica)"
+                                      + "INTO aree_tematiche (nome, descrizione)"
                                       + "VALUES (?, ?)";
     
     private String deleteAreaTematica = "DELETE "
-                                      + "FROM area_tematica "
-                                      + "WHERE codice_area_tematica = ?";
+                                      + "FROM aree_tematiche "
+                                      + "WHERE codice = ?";
     
-    private String updateAreaTematica = "UPDATE area_tematica "
-                                      + "SET nome_area_tematica = ?, descrizione_area_tematica = ?"
-                                      + "WHERE codice_area_tematica = ?";
+    private String updateAreaTematica = "UPDATE aree_tematiche "
+                                      + "SET nome = ?, descrizione = ?"
+                                      + "WHERE codice = ?";
 
     public AreaTematicaDAOImplementazione(Controller controller, Connection connection) {
-        setController(controller);
-        setConnection(connection);
-    }
-    
-    public void setController(Controller controller) {
         this.controller = controller;
-    }
-
-    public void setConnection(Connection connection) {
         this.connection = connection;
     }
     
@@ -76,11 +68,11 @@ public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfacci
             LinkedList<AreaTematica> listaAreeTematiche = new LinkedList<>();
             
             while(rs.next()) {
-                int codice_area_tematica = rs.getInt("codice_area_tematica");
-                String nome_area_tematica = rs.getString("nome_area_tematica");
-                String descrizione_area = rs.getString("descrizione_area_tematica");
+                int codice_area_tematica = rs.getInt("codice");
+                String nome = rs.getString("nome");
+                String descrizione = rs.getString("descrizione");
 
-                AreaTematica area = new AreaTematica(codice_area_tematica, nome_area_tematica, descrizione_area);
+                AreaTematica area = new AreaTematica(codice_area_tematica, nome, descrizione);
 
                 listaAreeTematiche.add(area);
             }
@@ -114,6 +106,7 @@ public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfacci
             if (pstDeleteAreaTematica.executeUpdate() != 1) {
                 throw new DeleteAreaTematicaFallitoException();
             }
+            areaTematica.rimuoviDaAssociazioni();
         }
         catch(SQLException e) {
             throw new DeleteAreaTematicaFallitoException(e.getMessage());

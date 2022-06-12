@@ -1,7 +1,7 @@
 package dao.implementazione.postgresql;
 
 import controller.Controller;
-import dao.interfaccia.SQL.LezioneDAOInterfaccia;
+import dao.interfaccia.LezioneDAOInterfaccia;
 import dto.Corso;
 import dto.Lezione;
 import eccezioni.associazioni.AssociazioneLezioneCorsoFallitaException;
@@ -26,30 +26,22 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
     private Connection connection;
     
     private String insertLezione = "INSERT "
-                                 + "INTO lezione (titolo_lezione, descrizione_lezione, durata_lezione, data_inizio, codice_corso) "
+                                 + "INTO lezioni (titolo, descrizione, durata, data_inizio, codice_corso) "
                                  + "VALUES (?, ?, ?::INTERVAL, ?, ?)";
     
     private String querySelectAllLezione = "SELECT * "
-                                         + "FROM lezione";
+                                         + "FROM lezioni";
     
-    private String updateLezione = "UPDATE lezione "
-                                 + "SET titolo_lezione = ?, descrizione_lezione = ?, durata_lezione = ?::INTERVAL, data_inizio = ?"
-                                 + "WHERE codice_lezione = ?";
+    private String updateLezione = "UPDATE lezioni "
+                                 + "SET titolo = ?, descrizione = ?, durata = ?::INTERVAL, data_inizio = ?"
+                                 + "WHERE codice = ?";
     
     private String deleteLezione = "DELETE "
-                                  + "FROM lezione "
-                                  + "WHERE codice_lezione = ?";
+                                  + "FROM lezioni "
+                                  + "WHERE codice = ?";
     
     public LezioneDAOImplementazione(Controller controller, Connection connection) {
-        setController(controller);
-        setConnection(connection);
-    }
-    
-    private void setController(Controller controller) {
         this.controller = controller;
-    }
-
-    private void setConnection(Connection connection) {
         this.connection = connection;
     }
     
@@ -86,17 +78,17 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
             LinkedList<Lezione> listaLezioni = new LinkedList<>();
 
             while (rsRetrieveAllLezione.next()) {
-                int codice_lezione = rsRetrieveAllLezione.getInt("codice_lezione");
-                String titolo_lezione = rsRetrieveAllLezione.getString("titolo_lezione");
-                String descrizione_lezione = rsRetrieveAllLezione.getString("descrizione_lezione");
-                String durata_lezione = rsRetrieveAllLezione.getString("durata_lezione").substring(0, 5);
+                int codice_lezione = rsRetrieveAllLezione.getInt("codice");
+                String titolo = rsRetrieveAllLezione.getString("titolo");
+                String descrizione = rsRetrieveAllLezione.getString("descrizione");
+                String durata = rsRetrieveAllLezione.getString("durata").substring(0, 5);
                 ZonedDateTime data_inizio = ZonedDateTime.ofInstant(rsRetrieveAllLezione.getTimestamp("data_inizio").toInstant(), ZoneId.of("Europe/Rome"));
                 data_inizio = data_inizio.truncatedTo(ChronoUnit.MINUTES);
                     
                 int codice_corso = rsRetrieveAllLezione.getInt("codice_corso");
                 Corso corsoDellaLezione = trovaCorso(codice_corso, listaCorsi);
                     
-                Lezione lezione = new Lezione(codice_lezione, titolo_lezione, descrizione_lezione, durata_lezione, data_inizio, corsoDellaLezione);
+                Lezione lezione = new Lezione(codice_lezione, titolo, descrizione, durata, data_inizio, corsoDellaLezione);
                 corsoDellaLezione.addLezione(lezione);
                 listaLezioni.add(lezione);
             }
@@ -141,6 +133,7 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
             if (pstDeleteLezione.executeUpdate() != 1) {
                 throw new DeleteLezioneFallitoException();
             }
+            lezione.rimuoviDaAssociazioni();
         }
         catch(SQLException e) {
             throw new DeleteLezioneFallitoException(e.getMessage());

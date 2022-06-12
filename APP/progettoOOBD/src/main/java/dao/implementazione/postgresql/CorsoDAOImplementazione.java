@@ -1,7 +1,7 @@
 package dao.implementazione.postgresql;
 
 import controller.Controller;
-import dao.interfaccia.SQL.CorsoDAOInterfaccia;
+import dao.interfaccia.CorsoDAOInterfaccia;
 import dto.Corso;
 import eccezioni.create.CreateCorsoFallitoException;
 import eccezioni.delete.DeleteCorsoFallitoException;
@@ -21,30 +21,22 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
     private Connection connection;
     
     private String insertCorso = "INSERT "
-                               + "INTO corso (nome_corso, descrizione_corso, tasso_presenze_min, partecipanti_max) "
+                               + "INTO corsi (nome, descrizione, tasso_presenze_min, partecipanti_max) "
                                + "VALUES (?, ?, ?, ?)";
     
     private String selectAllCorso = "SELECT * "
-                                  + "FROM corso";
+                                  + "FROM corsi";
     
-    private String updateCorso = "UPDATE corso "
-                               + "SET nome_corso = ?, descrizione_corso = ?, tasso_presenze_min = ?, partecipanti_max = ?"
-                               + "WHERE codice_corso = ?";
+    private String updateCorso = "UPDATE corsi "
+                               + "SET nome = ?, descrizione = ?, tasso_presenze_min = ?, partecipanti_max = ? "
+                               + "WHERE codice = ?";
     
     private String deleteCorso = "DELETE "
-                               + "FROM corso "
-                               + "WHERE codice_corso = ?";
+                               + "FROM corsi "
+                               + "WHERE codice = ?";
     
     public CorsoDAOImplementazione(Controller controller, Connection connection) {
-        setController(controller);
-        setConnection(connection);
-    }
-
-    private void setController(Controller controller) {
         this.controller = controller;
-    }
-
-    private void setConnection(Connection connection) {
         this.connection = connection;
     }
     
@@ -79,13 +71,13 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
             LinkedList listaCorsi = new LinkedList<Corso>();
             
             while (rsRetrieveAllCorso.next()) {
-                int codice_corso = rsRetrieveAllCorso.getInt("codice_corso");
-                String nome_corso = rsRetrieveAllCorso.getString("nome_corso");
-                String descrizione_corso = rsRetrieveAllCorso.getString("descrizione_corso");
+                int codice = rsRetrieveAllCorso.getInt("codice");
+                String nome = rsRetrieveAllCorso.getString("nome");
+                String descrizione = rsRetrieveAllCorso.getString("descrizione");
                 int tasso_presenze_min = rsRetrieveAllCorso.getInt("tasso_presenze_min");
                 int partecipanti_max = rsRetrieveAllCorso.getInt("partecipanti_max");
 
-                Corso corso = new Corso(codice_corso, nome_corso, descrizione_corso, tasso_presenze_min, partecipanti_max);
+                Corso corso = new Corso(codice, nome, descrizione, tasso_presenze_min, partecipanti_max);
                     
                 controller.setAreeTematiche(corso);
 
@@ -123,6 +115,7 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
             if (pstDeleteAreaCorso.executeUpdate() != 1) {
                 throw new DeleteCorsoFallitoException();
             }
+            corso.rimuoviDaAssociazioni();
         }
         catch(SQLException e) {
             throw new DeleteCorsoFallitoException(e.getMessage());

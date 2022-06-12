@@ -1,4 +1,4 @@
-package dao.interfaccia.SQL;
+package dao.interfaccia;
 
 import dto.AreaTematica;
 import eccezioni.create.CreateAreaTematicaFallitoException;

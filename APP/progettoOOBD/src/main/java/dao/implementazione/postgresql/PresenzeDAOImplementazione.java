@@ -1,7 +1,7 @@
 package dao.implementazione.postgresql;
 
 import controller.Controller;
-import dao.interfaccia.SQL.PresenzeDAOInterfaccia;
+import dao.interfaccia.PresenzeDAOInterfaccia;
 import dto.Lezione;
 import dto.Studente;
 import eccezioni.create.CreatePresenzaFallitoException;

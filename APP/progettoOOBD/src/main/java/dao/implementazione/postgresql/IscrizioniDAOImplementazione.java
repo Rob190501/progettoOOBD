@@ -1,7 +1,7 @@
 package dao.implementazione.postgresql;
 
 import controller.Controller;
-import dao.interfaccia.SQL.StudenteDelCorsoDAOInterfaccia;
+import dao.interfaccia.StudenteDelCorsoDAOInterfaccia;
 import dto.Corso;
 import dto.Lezione;
 import dto.Studente;
@@ -17,26 +17,26 @@ import java.util.LinkedList;
 
 
 
-public class StudenteDelCorsoDAOImplementazione implements StudenteDelCorsoDAOInterfaccia {
+public class IscrizioniDAOImplementazione implements StudenteDelCorsoDAOInterfaccia {
 
     private Controller controller;
     private Connection connection;
 
-    public StudenteDelCorsoDAOImplementazione(Controller controller, Connection connection) {
+    public IscrizioniDAOImplementazione(Controller controller, Connection connection) {
         this.controller = controller;
         this.connection = connection;
     }
     
     private String insertStudenteDelCorso = "INSERT "
-                                          + "INTO studenti_del_corso (matricola, codice_corso) "
+                                          + "INTO iscrizioni (matricola, codice_corso) "
                                           + "VALUES (?, ?)";
     
     private String selectCorsiFrequentati = "SELECT * "
-                                          + "FROM studenti_del_corso "
+                                          + "FROM iscrizioni "
                                           + "WHERE matricola = ?";
     
     private String deleteStudenteDelCorso = "DELETE "
-                                          + "FROM studenti_del_corso "
+                                          + "FROM iscrizioni "
                                           + "WHERE matricola = ? AND codice_corso = ?";
     
     @Override
@@ -77,6 +77,9 @@ public class StudenteDelCorsoDAOImplementazione implements StudenteDelCorsoDAOIn
     @Override
     public void deleteStudenteDelCorso(Studente studente, Corso corso) throws DeleteStudenteDelCorsoFallitoException, DeletePresenzaFallitoException {
         try (PreparedStatement pstDeleteStudenteDelCorso = connection.prepareStatement(deleteStudenteDelCorso)) {
+            for(Lezione lezione : studente.getPresenzeDiUnCorso(corso)) {
+               controller.removePresenza(studente, lezione);
+            }
             pstDeleteStudenteDelCorso.setInt(1, studente.getMatricola());
             pstDeleteStudenteDelCorso.setInt(2, corso.getCodice());
             if (pstDeleteStudenteDelCorso.executeUpdate() != 1) {
@@ -84,9 +87,7 @@ public class StudenteDelCorsoDAOImplementazione implements StudenteDelCorsoDAOIn
             }
             studente.removeCorso(corso);
             corso.removeStudente(studente);
-            for(Lezione lezione : studente.getPresenzeDiUnCorso(corso)) {
-               controller.removePresenza(studente, lezione);
-            }
+            
         }
         catch(SQLException e) {
             throw new DeleteStudenteDelCorsoFallitoException(e.getMessage());

@@ -9,6 +9,7 @@ import gui.homeFrame.panels.corsi.PanelAggiornaCorso;
 import gui.homeFrame.panels.corsi.PanelCorsi;
 import gui.homeFrame.panels.corsi.PanelNuovoCorso;
 import gui.homeFrame.panels.corsi.PanelProspettoCorso;
+import gui.homeFrame.panels.corsi.PanelRicercaCorso;
 import gui.homeFrame.panels.homePage.PanelHomePage;
 import gui.homeFrame.panels.lezioni.PanelAggiornaLezione;
 import gui.homeFrame.panels.lezioni.PanelLezioni;
@@ -49,6 +50,7 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     private PanelNuovaAreaTematica panelNuovaAreaTematica;
     private PanelAggiornaAreaTematica panelAggiornaAreaTematica;
     private PanelCorsiDellArea panelCorsiDellArea;
+    private PanelRicercaCorso panelRicercaCorso;
     
     private PanelCorsi panelCorsi;
     private PanelNuovoCorso panelNuovoCorso;
@@ -125,6 +127,10 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
 
     public void setPanelProspettoCorso(PanelProspettoCorso panelProspettoCorso) {
         this.panelProspettoCorso = panelProspettoCorso;
+    }
+    
+    public void setPanelRicercaCorso(PanelRicercaCorso panelRicercaCorso) {
+        this.panelRicercaCorso = panelRicercaCorso;
     }
     
     public void setPanelLezioni(PanelLezioni panelLezioni) {
@@ -394,6 +400,7 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         panelContenuti.add(panelNuovoCorso, "cardNuovoCorso");
         panelContenuti.add(panelAggiornaCorso, "cardAggiornaCorso");
         panelContenuti.add(panelProspettoCorso, "cardProspettoCorso");
+        panelContenuti.add(panelRicercaCorso, "cardRicercaCorso");
         
         panelContenuti.add(panelLezioni, "cardLezioni");
         panelContenuti.add(panelNuovaLezione, "cardNuovaLezione");
@@ -465,6 +472,10 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     
     public void mostraPanelAggiornaCorso() {
         cambiaCard("cardAggiornaCorso");
+    }
+    
+    public void mostraPanelRicercaCorso() {
+        cambiaCard("cardRicercaCorso");
     }
     
     public void mostraPanelProspettoCorso() {

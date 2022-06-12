@@ -73,7 +73,7 @@ public class AreaTematica {
     
     public void rimuoviDaAssociazioni() {
         for(Corso corso : corsiDellAreaTematica) {
-            corso.getAreeTematicheDelCorso().remove(this);
+            corso.getListaAreeTematiche().remove(this);
         }
     }
     

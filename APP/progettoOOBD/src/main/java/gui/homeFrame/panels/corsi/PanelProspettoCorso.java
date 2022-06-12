@@ -144,7 +144,8 @@ public class PanelProspettoCorso extends PanelGenerico {
         labelPercentualeRiempimento.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         labelPercentualeRiempimento.setForeground(new java.awt.Color(0, 0, 0));
         labelPercentualeRiempimento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelPercentualeRiempimento.setText("Percentuale riempimento media:");
+        labelPercentualeRiempimento.setText("Percentuale riempimento media: %");
+        labelPercentualeRiempimento.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -229,7 +230,7 @@ public class PanelProspettoCorso extends PanelGenerico {
     }
     
     public void setPercentualeRiempimento(float percentualeRiempimento) {
-        labelPercentualeRiempimento.setText("Percentuale riempimento media: " + percentualeRiempimento);
+        labelPercentualeRiempimento.setText("Percentuale riempimento media: " + percentualeRiempimento + "%");
     }   
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

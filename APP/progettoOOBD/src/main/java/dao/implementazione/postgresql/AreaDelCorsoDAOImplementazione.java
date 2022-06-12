@@ -1,7 +1,7 @@
 package dao.implementazione.postgresql;
 
 import controller.Controller;
-import dao.interfaccia.SQL.AreaDelCorsoDAOInterfaccia;
+import dao.interfaccia.AreaDelCorsoDAOInterfaccia;
 import dto.AreaTematica;
 import dto.Corso;
 import eccezioni.create.CreateAreaDelCorsoFallitoException;
@@ -21,15 +21,15 @@ public class AreaDelCorsoDAOImplementazione implements AreaDelCorsoDAOInterfacci
     private Connection connection;
     
     private String insertAreaDelCorso = "INSERT "
-                                      + "INTO area_del_corso (codice_area_tematica, codice_corso) "
+                                      + "INTO aree_dei_corsi (codice_area_tematica, codice_corso) "
                                       + "VALUES (?, ?)";
     
     private String selectAreeDelCorso = "SELECT codice_area_tematica "
-                                      + "FROM area_del_corso "
+                                      + "FROM aree_dei_corsi "
                                       + "WHERE codice_corso = ?";
     
     private String deleteAreaDelCorso = "DELETE "
-                                      + "FROM area_del_corso "
+                                      + "FROM aree_dei_corsi "
                                       + "WHERE codice_area_tematica = ? AND codice_corso = ?";
 
     public AreaDelCorsoDAOImplementazione(Controller controller, Connection connection) {

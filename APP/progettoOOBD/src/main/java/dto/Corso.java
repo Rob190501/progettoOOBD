@@ -12,7 +12,7 @@ public class Corso {
     private int numeroMassimoIscritti;
     private LinkedList<Studente> studentiIscritti;
     private LinkedList<Lezione> listaLezioni;
-    private LinkedList<AreaTematica> areeTematicheDelCorso;
+    private LinkedList<AreaTematica> listaAreeTematiche;
 
     public Corso(int codice, String nome, String descrizione, int tassoPresenzeMin, int numeroMassimoIscritti) {
         setCodice(codice);
@@ -22,7 +22,7 @@ public class Corso {
         setNumeroMassimoIscritti(numeroMassimoIscritti);
         studentiIscritti = new LinkedList<>();
         listaLezioni = new LinkedList<>();
-        areeTematicheDelCorso = new LinkedList<>();
+        listaAreeTematiche = new LinkedList<>();
     }
     
     public Corso(String nome, String descrizione, int tassoPresenzeMin, int numeroMassimoIscritti) {
@@ -32,7 +32,7 @@ public class Corso {
         setNumeroMassimoIscritti(numeroMassimoIscritti);
         studentiIscritti = new LinkedList<>();
         listaLezioni = new LinkedList<>();
-        areeTematicheDelCorso = new LinkedList<>();
+        listaAreeTematiche = new LinkedList<>();
     }
     
     public int getCodice() {
@@ -63,8 +63,8 @@ public class Corso {
         return listaLezioni;
     }
     
-    public LinkedList<AreaTematica> getAreeTematicheDelCorso() {
-        return areeTematicheDelCorso;
+    public LinkedList<AreaTematica> getListaAreeTematiche() {
+        return listaAreeTematiche;
     }
     
     public void setCodice(int codice) {
@@ -104,11 +104,11 @@ public class Corso {
     }
     
     public void addAreaTematica(AreaTematica areaTematica) {
-        areeTematicheDelCorso.add(areaTematica);
+        listaAreeTematiche.add(areaTematica);
     }
     
     public void removeAreaTematica(AreaTematica areaTematica) {
-        areeTematicheDelCorso.remove(areaTematica);
+        listaAreeTematiche.remove(areaTematica);
     }
     
     public Object[] creaRiga() {
@@ -124,15 +124,16 @@ public class Corso {
     }
     
     public String toString() {
-        return nome + areeTematicheDelCorso.toString();
+        return nome + listaAreeTematiche.toString();
     }
     
     public void rimuoviDaAssociazioni() {
         for(Studente studente : studentiIscritti) {
-            studente.getListaCorsiFrequentati().remove(this);
+            studente.getListaPresenze().removeAll(listaLezioni);
+            studente.removeCorso(this);
         }
         
-        for(AreaTematica areaTematica : areeTematicheDelCorso) {
+        for(AreaTematica areaTematica : listaAreeTematiche) {
             areaTematica.removeCorso(this);
         }
     }
@@ -185,16 +186,42 @@ public class Corso {
     }
     
     public float getPercentualeRiempimentoMedia() {
-        int presenzeEffettive = 0;
-        for(Lezione lezione : listaLezioni) {
-            presenzeEffettive += lezione.getNumeroPresenti();
+        try {
+            int presenzeEffettive = 0;
+            for(Lezione lezione : listaLezioni) {
+                presenzeEffettive += lezione.getNumeroPresenti();
+            }
+            int numeroLezioni = listaLezioni.size();
+            int numeroIscritti = studentiIscritti.size();
+
+            int presenzeMassime = numeroIscritti * numeroLezioni;
+
+            return (float) ((presenzeEffettive * 100) / presenzeMassime);
         }
-        int numeroLezioni = listaLezioni.size();
-        int numeroIscritti = studentiIscritti.size();
+        catch(ArithmeticException e) {
+            return 0;
+        }
+    }
+    
+    public boolean ricerca(String parolaChiave) {
+        if(nome.contains(parolaChiave) || descrizione.contains(parolaChiave)) {
+            return true;
+        }
         
-        int presenzeMassime = numeroIscritti * numeroLezioni;
+        for(AreaTematica areaTematica : listaAreeTematiche) {
+            if(areaTematica.getNome().contains(parolaChiave) || areaTematica.getDescrizione().contains(parolaChiave)) {
+                return true;
+            }
+        }
         
-        return (float) ((presenzeEffettive * 100) / presenzeMassime);
+        for(Lezione lezione : listaLezioni) {
+            if(lezione.getTitolo().contains(parolaChiave) || lezione.getDescrizione().contains(parolaChiave) ||
+                lezione.getDataInizio().toString().contains(parolaChiave) ) {
+                return true;
+            }
+        }
+        
+        return false;
     }
     
 }
