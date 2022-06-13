@@ -338,7 +338,7 @@ public class LoginFrame extends javax.swing.JFrame {
     
     private void buttonConnettitiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConnettitiActionPerformed
         // TODO add your handling code here:
-        controller.avviaConnessione(textFieldUserName.getText(), passwordField.getText(), textFieldIP.getText(), textFieldPorta.getText(), textFieldDatabase.getText());
+        controller.avviaConnessione(textFieldUserName.getText().trim(), passwordField.getText(), textFieldIP.getText().trim(), textFieldPorta.getText().trim(), textFieldDatabase.getText().trim());
     }//GEN-LAST:event_buttonConnettitiActionPerformed
 
     private void buttonAccediOperatoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAccediOperatoreActionPerformed

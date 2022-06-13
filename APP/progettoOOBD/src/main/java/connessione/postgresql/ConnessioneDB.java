@@ -1,4 +1,4 @@
-package connessione;
+package connessione.postgresql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,6 +12,7 @@ public class ConnessioneDB{
     private ConnessioneDB(String userName, String password, String url) throws SQLException, ClassNotFoundException {
         Class.forName("org.postgresql.Driver");
         connection = DriverManager.getConnection(url, userName, password);
+        
     }
     
     public Connection getConnection() {

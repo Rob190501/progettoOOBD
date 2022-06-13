@@ -1,6 +1,7 @@
 package controller;
 
-import connessione.ConnessioneDB;
+import connessione.postgresql.ConnessioneDB;
+import connessione.postgresql.DBBuilder;
 import dao.implementazione.postgresql.AreaDelCorsoDAOImplementazione;
 import dao.implementazione.postgresql.AreaTematicaDAOImplementazione;
 import dao.implementazione.postgresql.CorsoDAOImplementazione;
@@ -65,6 +66,8 @@ import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -132,6 +135,15 @@ public class Controller {
     public void setLoginFrame(LoginFrame loginFrame) {
         this.loginFrame = loginFrame;
     }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+        connessioneStabilita();
+    }
     
     public LinkedList<AreaTematica> getListaAreeTematiche() {
         return listaAreeTematiche;
@@ -155,11 +167,36 @@ public class Controller {
         chiudiConnessione();
         try {
             connection = ConnessioneDB.getIstanza(userName, password, ip, porta, db).getConnection();
+            connessioneStabilita();
+        }
+        catch(SQLException e) {
+            if(e.getSQLState().equals("3D000")) {
+                try {
+                    DBBuilder dbBuilder = new DBBuilder(this, userName, password, ip, porta, db);
+                }
+                catch (SQLException | ClassNotFoundException ex) {
+                    loginFrame.connessioneNonStabilita();
+                    loginFrame.mostraEccezione(ex.getMessage());
+                }
+            }
+            else {
+                loginFrame.connessioneNonStabilita();
+                loginFrame.mostraEccezione(e.getMessage());
+            }
+        }
+        catch(ClassNotFoundException e) {
+            loginFrame.connessioneNonStabilita();
+            loginFrame.mostraEccezione(e.getMessage());
+        }
+    }
+    
+    public void connessioneStabilita() {
+        try {
             creaDAO();
             retrieveAllDTO();
             loginFrame.connessioneStabilita();
         }
-        catch(SQLException | ClassNotFoundException | AssociazioneLezioneCorsoFallitaException | RetrieveAreaTematicaFallitoException |
+        catch(AssociazioneLezioneCorsoFallitaException | RetrieveAreaTematicaFallitoException |
               RetrieveCorsoFallitoException | RetrieveLezioneFallitoException | RetrieveStudenteFallitoException |
               RetrieveAreaDelCorsoFallitoException | RetrieveStudenteDelCorsoFallitoException | RetrievePresenzaFallitoException e) {
             loginFrame.connessioneNonStabilita();
