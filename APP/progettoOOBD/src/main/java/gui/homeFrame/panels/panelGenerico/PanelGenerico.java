@@ -14,8 +14,8 @@ public abstract class PanelGenerico extends javax.swing.JPanel {
     private HomeFrameOperatore homeFrame;
 
     public PanelGenerico(Controller controller, HomeFrameOperatore homeFrame) {
-        setController(controller);
-        setHomeFrame(homeFrame);
+        this.controller = controller;
+        this.homeFrame = homeFrame;
     }
     
     public Controller getController() {
@@ -24,14 +24,6 @@ public abstract class PanelGenerico extends javax.swing.JPanel {
 
     public HomeFrameOperatore getHomeFrame() {
         return homeFrame;
-    }
-    
-    private void setController(Controller controller) {
-        this.controller = controller;
-    }            
-    
-    private void setHomeFrame(HomeFrameOperatore homeFrame) {
-        this.homeFrame = homeFrame;
     }
     
     public void nascondiColonnaOggetto(JTable table) {

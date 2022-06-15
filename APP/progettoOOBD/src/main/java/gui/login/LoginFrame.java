@@ -3,26 +3,18 @@ package gui.login;
 import controller.Controller;
 import javax.swing.JOptionPane;
 
+
+
 public class LoginFrame extends javax.swing.JFrame {
 
     private Controller controller;
     private int mouseX;
     private int mouseY;
     
-    
-    
     public LoginFrame(Controller controller) {
-        setController(controller);
+        this.controller = controller;
         initComponents();
     }
-    
-    
-    
-    private void setController(Controller controller) {
-        this.controller = controller;
-    }
-    
-    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -314,11 +306,8 @@ public class LoginFrame extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    
-    
+  
     private void panelSuperioreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelSuperioreMousePressed
-        // TODO add your handling code here:
         if (getExtendedState() == NORMAL) {
             mouseX = evt.getX();
             mouseY = evt.getY();
@@ -326,61 +315,45 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_panelSuperioreMousePressed
 
     private void panelSuperioreMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelSuperioreMouseDragged
-        // TODO add your handling code here:
         if (getExtendedState() == NORMAL) {
             int x = evt.getXOnScreen();
             int y = evt.getYOnScreen();
             setLocation(x - mouseX, y - mouseY);
         }
     }//GEN-LAST:event_panelSuperioreMouseDragged
-    
-    
-    
+
     private void buttonConnettitiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConnettitiActionPerformed
-        // TODO add your handling code here:
         controller.avviaConnessione(textFieldUserName.getText().trim(), passwordField.getText(), textFieldIP.getText().trim(), textFieldPorta.getText().trim(), textFieldDatabase.getText().trim());
     }//GEN-LAST:event_buttonConnettitiActionPerformed
 
     private void buttonAccediOperatoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAccediOperatoreActionPerformed
-        // TODO add your handling code here:
         controller.accessoOperatore();
     }//GEN-LAST:event_buttonAccediOperatoreActionPerformed
 
-    
-    
-    
     private void labelChiudiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelChiudiMouseClicked
-        // TODO add your handling code here:
         controller.terminaEsecuzione();
     }//GEN-LAST:event_labelChiudiMouseClicked
 
     private void labelChiudiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelChiudiMouseEntered
-        // TODO add your handling code here:
         labelChiudi.setForeground(new java.awt.Color(255, 0, 0));
     }//GEN-LAST:event_labelChiudiMouseEntered
 
     private void labelChiudiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelChiudiMouseExited
-        // TODO add your handling code here:
         labelChiudi.setForeground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_labelChiudiMouseExited
 
     private void labelMinimizzaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMinimizzaMouseClicked
-        // TODO add your handling code here:
         setState(ICONIFIED);
     }//GEN-LAST:event_labelMinimizzaMouseClicked
 
     private void labelMinimizzaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMinimizzaMouseEntered
-        // TODO add your handling code here:
         labelMinimizza.setForeground(new java.awt.Color(255, 204, 0));
     }//GEN-LAST:event_labelMinimizzaMouseEntered
 
     private void labelMinimizzaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMinimizzaMouseExited
-        // TODO add your handling code here:
         labelMinimizza.setForeground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_labelMinimizzaMouseExited
 
-    
-    
     public void connessioneStabilita() {
         labelStatoConnessione.setForeground(new java.awt.Color(0, 204, 0));
         labelStatoConnessione.setText("Stato: connesso");    
@@ -397,7 +370,10 @@ public class LoginFrame extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, messaggioEccezione, "Errore", JOptionPane.ERROR_MESSAGE);
     }
     
-    
+    public boolean confermaCreazioneDB() {
+        return JOptionPane.showConfirmDialog(this, "DB selezionato non esistente, vuoi costruirlo?", "Attenzione", JOptionPane.YES_NO_OPTION) 
+                == JOptionPane.YES_OPTION;
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAccediOperatore;

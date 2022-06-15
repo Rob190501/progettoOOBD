@@ -4,9 +4,10 @@ import controller.Controller;
 import dao.interfaccia.AreaDelCorsoDAOInterfaccia;
 import dto.AreaTematica;
 import dto.Corso;
-import eccezioni.create.CreateAreaDelCorsoFallitoException;
-import eccezioni.delete.DeleteAreaDelCorsoFallitoException;
-import eccezioni.retrieve.RetrieveAreaDelCorsoFallitoException;
+import eccezioni.associazioni.AssociazioneFallitaException;
+import eccezioni.create.CreateFallitoException;
+import eccezioni.delete.DeleteFallitoException;
+import eccezioni.retrieve.RetrieveFallitoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,54 +39,56 @@ public class AreaDelCorsoDAOImplementazione implements AreaDelCorsoDAOInterfacci
     }
     
     @Override
-    public void createAreaDelCorso(Corso corso, AreaTematica areaTematica) throws CreateAreaDelCorsoFallitoException {
-        try (PreparedStatement pstInsertAreaDelCorso = connection.prepareStatement(insertAreaDelCorso)) {
-            pstInsertAreaDelCorso.setInt(1, areaTematica.getCodice());
-            pstInsertAreaDelCorso.setInt(2, corso.getCodice());
-            if (pstInsertAreaDelCorso.executeUpdate() != 1) {
-                throw new CreateAreaDelCorsoFallitoException();
-            }
+    public void createAreaDelCorso(Corso corso, AreaTematica areaTematica) throws CreateFallitoException {
+        try (PreparedStatement pstmt = connection.prepareStatement(insertAreaDelCorso)) {
+            pstmt.setInt(1, areaTematica.getCodice());
+            pstmt.setInt(2, corso.getCodice());
+            pstmt.executeUpdate();
             areaTematica.addCorso(corso);
             corso.addAreaTematica(areaTematica);
         }
         catch(SQLException e) {
-            throw new CreateAreaDelCorsoFallitoException(e.getMessage());
+            throw new CreateFallitoException("Area Tematica del Corso", e.getMessage());
         }
     }
 
     @Override
-    public void retrieveAreeDelCorso(Corso corso, LinkedList<AreaTematica> listaAreeTematiche) throws RetrieveAreaDelCorsoFallitoException {
-        try (PreparedStatement pstAreeDelCorso = connection.prepareStatement(selectAreeDelCorso)) {
-            pstAreeDelCorso.setInt(1, corso.getCodice());
-            try (ResultSet rsAreeDelCorso = pstAreeDelCorso.executeQuery()) {
-                while (rsAreeDelCorso.next()) {
-                    for (AreaTematica areaTematica : listaAreeTematiche) {
-                        if(rsAreeDelCorso.getInt("codice_area_tematica") == areaTematica.getCodice()) {
-                            corso.addAreaTematica(areaTematica);
-                            areaTematica.addCorso(corso);
-                        }
-                    }
+    public void retrieveAllAreaDelCorso(Corso corso, LinkedList<AreaTematica> listaAreeTematiche) throws RetrieveFallitoException, AssociazioneFallitaException {
+        try (PreparedStatement pstmt = connection.prepareStatement(selectAreeDelCorso)) {
+            pstmt.setInt(1, corso.getCodice());
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    AreaTematica areaTematica = trovaAreaDelCorso(rs.getInt("codice_area_tematica"), listaAreeTematiche);
+                    corso.addAreaTematica(areaTematica);
+                    areaTematica.addCorso(corso);
                 }
             }
         }
         catch(SQLException e) {
-            throw new RetrieveAreaDelCorsoFallitoException(e.getMessage());
+            throw new RetrieveFallitoException("l'Area del Corso", e.getMessage());
         }
+    }
+    
+    public AreaTematica trovaAreaDelCorso(int codice_area_tematica, LinkedList<AreaTematica> listaAreeTematiche) throws AssociazioneFallitaException {
+        for (AreaTematica areaTematica : listaAreeTematiche) {
+            if(codice_area_tematica == areaTematica.getCodice()) {
+                return areaTematica;
+            }
+        }
+        throw new AssociazioneFallitaException("Aree tematiche e Corsi");
     }
 
     @Override
-    public void deleteAreaDelCorso(Corso corso, AreaTematica areaTematica) throws DeleteAreaDelCorsoFallitoException {
-        try (PreparedStatement pstDeleteAreaDelCorso = connection.prepareStatement(deleteAreaDelCorso)) {
-            pstDeleteAreaDelCorso.setInt(1, areaTematica.getCodice());
-            pstDeleteAreaDelCorso.setInt(2, corso.getCodice());
-            if (pstDeleteAreaDelCorso.executeUpdate() != 1) {
-                throw new DeleteAreaDelCorsoFallitoException();
-            }
+    public void deleteAreaDelCorso(Corso corso, AreaTematica areaTematica) throws DeleteFallitoException {
+        try (PreparedStatement pstmt = connection.prepareStatement(deleteAreaDelCorso)) {
+            pstmt.setInt(1, areaTematica.getCodice());
+            pstmt.setInt(2, corso.getCodice());
+            pstmt.executeUpdate();
             areaTematica.removeCorso(corso);
             corso.removeAreaTematica(areaTematica);
         }
         catch(SQLException e) {
-            throw new DeleteAreaDelCorsoFallitoException(e.getMessage());
+            throw new DeleteFallitoException("l'Area del Corso", e.getMessage());
         }
     }
     

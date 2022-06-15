@@ -4,11 +4,11 @@ import controller.Controller;
 import dao.interfaccia.LezioneDAOInterfaccia;
 import dto.Corso;
 import dto.Lezione;
-import eccezioni.associazioni.AssociazioneLezioneCorsoFallitaException;
-import eccezioni.create.CreateLezioneFallitoException;
-import eccezioni.delete.DeleteLezioneFallitoException;
-import eccezioni.retrieve.RetrieveLezioneFallitoException;
-import eccezioni.update.UpdateLezioneFallitoException;
+import eccezioni.associazioni.AssociazioneFallitaException;
+import eccezioni.create.CreateFallitoException;
+import eccezioni.delete.DeleteFallitoException;
+import eccezioni.retrieve.RetrieveFallitoException;
+import eccezioni.update.UpdateFallitoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -46,47 +46,39 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
     }
     
     @Override
-    public void createLezione(Lezione lezione) throws CreateLezioneFallitoException {
-        try (PreparedStatement pstInsertLezione = connection.prepareStatement(insertLezione, Statement.RETURN_GENERATED_KEYS)) {
-            pstInsertLezione.setString(1, lezione.getTitolo());
-            pstInsertLezione.setString(2, lezione.getDescrizione());
-            pstInsertLezione.setString(3, lezione.getDurata());
-            pstInsertLezione.setTimestamp(4, Timestamp.valueOf(lezione.getDataInizio().toLocalDateTime()));
-            pstInsertLezione.setInt(5, lezione.getCorsoDellaLezione().getCodice());
-            
-            if (pstInsertLezione.executeUpdate() != 1) {
-                throw new CreateLezioneFallitoException();
-            }
-            try (ResultSet rsInsertLezione = pstInsertLezione.getGeneratedKeys()) {
-                if(rsInsertLezione.next()) {
-                    lezione.setCodice(rsInsertLezione.getInt(1));
-                }
-                else {
-                    throw new CreateLezioneFallitoException();
-                }
+    public void createLezione(Lezione lezione) throws CreateFallitoException {
+        try (PreparedStatement pstmt = connection.prepareStatement(insertLezione, Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setString(1, lezione.getTitolo());
+            pstmt.setString(2, lezione.getDescrizione());
+            pstmt.setString(3, lezione.getDurata());
+            pstmt.setTimestamp(4, Timestamp.valueOf(lezione.getDataInizio().toLocalDateTime()));
+            pstmt.setInt(5, lezione.getCorsoDellaLezione().getCodice());
+            pstmt.executeUpdate();
+            try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                rs.next();
+                lezione.setCodice(rs.getInt(1));
             }
         }
         catch(SQLException e) {
-            throw new CreateLezioneFallitoException(e.getMessage());
+            throw new CreateFallitoException("la Lezione", e.getMessage());
         }
     }
 
     @Override
-    public LinkedList<Lezione> retrieveAllLezione(LinkedList<Corso> listaCorsi) throws RetrieveLezioneFallitoException, AssociazioneLezioneCorsoFallitaException {
-        try (Statement stmtRetrieveAllLezione = connection.createStatement();
-             ResultSet rsRetrieveAllLezione = stmtRetrieveAllLezione.executeQuery(querySelectAllLezione)) {
+    public LinkedList<Lezione> retrieveAllLezione(LinkedList<Corso> listaCorsi) throws RetrieveFallitoException, AssociazioneFallitaException {
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(querySelectAllLezione)) {
             LinkedList<Lezione> listaLezioni = new LinkedList<>();
 
-            while (rsRetrieveAllLezione.next()) {
-                int codice_lezione = rsRetrieveAllLezione.getInt("codice");
-                String titolo = rsRetrieveAllLezione.getString("titolo");
-                String descrizione = rsRetrieveAllLezione.getString("descrizione");
-                String durata = rsRetrieveAllLezione.getString("durata").substring(0, 5);
-                ZonedDateTime data_inizio = ZonedDateTime.ofInstant(rsRetrieveAllLezione.getTimestamp("data_inizio").toInstant(), ZoneId.of("Europe/Rome"));
-                data_inizio = data_inizio.truncatedTo(ChronoUnit.MINUTES);
+            while (rs.next()) {
+                int codice_lezione = rs.getInt("codice");
+                String titolo = rs.getString("titolo");
+                String descrizione = rs.getString("descrizione");
+                String durata = rs.getString("durata").substring(0, 5);
+                ZonedDateTime data_inizio = ZonedDateTime.ofInstant(rs.getTimestamp("data_inizio").toInstant(), ZoneId.of(controller.getFusoOrario())).truncatedTo(ChronoUnit.MINUTES);
                     
-                int codice_corso = rsRetrieveAllLezione.getInt("codice_corso");
-                Corso corsoDellaLezione = trovaCorso(codice_corso, listaCorsi);
+                int codice_corso = rs.getInt("codice_corso");
+                Corso corsoDellaLezione = trovaCorsoDellaLezione(codice_corso, listaCorsi);
                     
                 Lezione lezione = new Lezione(codice_lezione, titolo, descrizione, durata, data_inizio, corsoDellaLezione);
                 corsoDellaLezione.addLezione(lezione);
@@ -96,47 +88,43 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
             return listaLezioni;
         }
         catch(SQLException e) {
-            throw new RetrieveLezioneFallitoException(e.getMessage());
+            throw new RetrieveFallitoException("la Lezione", e.getMessage());
         }
     }
     
-    private Corso trovaCorso(int codice_corso, LinkedList<Corso> listaCorsi) throws AssociazioneLezioneCorsoFallitaException {
+    private Corso trovaCorsoDellaLezione(int codice_corso, LinkedList<Corso> listaCorsi) throws AssociazioneFallitaException {
         for (Corso corso : listaCorsi) {
             if (corso.getCodice() == codice_corso) {
                 return corso;
             }
         }
-        throw new AssociazioneLezioneCorsoFallitaException();
+        throw new AssociazioneFallitaException("Lezioni e Corsi");
     }
 
     @Override
-    public void updateLezione(Lezione lezione) throws UpdateLezioneFallitoException {
-        try (PreparedStatement pstUpdateLezione = connection.prepareStatement(updateLezione)) {
-            pstUpdateLezione.setString(1, lezione.getTitolo());
-            pstUpdateLezione.setString(2, lezione.getDescrizione());
-            pstUpdateLezione.setString(3, lezione.getDurata());
-            pstUpdateLezione.setTimestamp(4, Timestamp.valueOf(lezione.getDataInizio().toLocalDateTime()));
-            pstUpdateLezione.setInt(5, lezione.getCodice());
-            if (pstUpdateLezione.executeUpdate() != 1) {
-                throw new UpdateLezioneFallitoException();
-            }
+    public void updateLezione(Lezione lezione) throws UpdateFallitoException {
+        try (PreparedStatement pstmt = connection.prepareStatement(updateLezione)) {
+            pstmt.setString(1, lezione.getTitolo());
+            pstmt.setString(2, lezione.getDescrizione());
+            pstmt.setString(3, lezione.getDurata());
+            pstmt.setTimestamp(4, Timestamp.valueOf(lezione.getDataInizio().toLocalDateTime()));
+            pstmt.setInt(5, lezione.getCodice());
+            pstmt.executeUpdate();
         }
         catch(SQLException e) {
-            throw new UpdateLezioneFallitoException(e.getMessage());
+            throw new UpdateFallitoException("la Lezione", e.getMessage());
         }
     }
 
     @Override
-    public void deleteLezione(Lezione lezione) throws DeleteLezioneFallitoException {
-        try (PreparedStatement pstDeleteLezione = connection.prepareStatement(deleteLezione)) {
-            pstDeleteLezione.setInt(1, lezione.getCodice());
-            if (pstDeleteLezione.executeUpdate() != 1) {
-                throw new DeleteLezioneFallitoException();
-            }
+    public void deleteLezione(Lezione lezione) throws DeleteFallitoException {
+        try (PreparedStatement pstmt = connection.prepareStatement(deleteLezione)) {
+            pstmt.setInt(1, lezione.getCodice());
+            pstmt.executeUpdate();
             lezione.rimuoviDaAssociazioni();
         }
         catch(SQLException e) {
-            throw new DeleteLezioneFallitoException(e.getMessage());
+            throw new DeleteFallitoException("la Lezione", e.getMessage());
         }
     }
     

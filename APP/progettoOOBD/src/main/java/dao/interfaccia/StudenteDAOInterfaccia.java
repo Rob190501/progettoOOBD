@@ -1,22 +1,21 @@
 package dao.interfaccia;
 
 import dto.Studente;
-import eccezioni.create.CreateStudenteFallitoException;
-import eccezioni.delete.DeleteStudenteFallitoException;
-import eccezioni.retrieve.RetrievePresenzaFallitoException;
-import eccezioni.retrieve.RetrieveStudenteDelCorsoFallitoException;
-import eccezioni.retrieve.RetrieveStudenteFallitoException;
-import eccezioni.update.UpdateStudenteFallitoException;
+import eccezioni.associazioni.AssociazioneFallitaException;
+import eccezioni.create.CreateFallitoException;
+import eccezioni.delete.DeleteFallitoException;
+import eccezioni.retrieve.RetrieveFallitoException;
+import eccezioni.update.UpdateFallitoException;
 import java.util.LinkedList;
 
 public interface StudenteDAOInterfaccia {
     
-    public void createStudente(Studente studente) throws CreateStudenteFallitoException;
+    public void createStudente(Studente studente) throws CreateFallitoException;
     
-    public LinkedList<Studente> retrieveAllStudente() throws RetrieveStudenteFallitoException, RetrieveStudenteDelCorsoFallitoException, RetrievePresenzaFallitoException;
+    public LinkedList<Studente> retrieveAllStudente() throws RetrieveFallitoException, AssociazioneFallitaException;
     
-    public void updateStudente(Studente studente) throws UpdateStudenteFallitoException;
+    public void updateStudente(Studente studente) throws UpdateFallitoException;
     
-    public void deleteStudente(Studente studente) throws DeleteStudenteFallitoException;
+    public void deleteStudente(Studente studente) throws DeleteFallitoException;
     
 }

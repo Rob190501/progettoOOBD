@@ -3,11 +3,11 @@ package dao.implementazione.postgresql;
 import controller.Controller;
 import dao.interfaccia.CorsoDAOInterfaccia;
 import dto.Corso;
-import eccezioni.create.CreateCorsoFallitoException;
-import eccezioni.delete.DeleteCorsoFallitoException;
-import eccezioni.retrieve.RetrieveAreaDelCorsoFallitoException;
-import eccezioni.retrieve.RetrieveCorsoFallitoException;
-import eccezioni.update.UpdateCorsoFallitoException;
+import eccezioni.associazioni.AssociazioneFallitaException;
+import eccezioni.create.CreateFallitoException;
+import eccezioni.delete.DeleteFallitoException;
+import eccezioni.retrieve.RetrieveFallitoException;
+import eccezioni.update.UpdateFallitoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,45 +41,39 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
     }
     
     @Override
-    public void createCorso(Corso corso) throws CreateCorsoFallitoException {
-        try (PreparedStatement pstInsertCorso = connection.prepareStatement(insertCorso, Statement.RETURN_GENERATED_KEYS)) {
-            pstInsertCorso.setString(1, corso.getNome());
-            pstInsertCorso.setString(2, corso.getDescrizione());
-            pstInsertCorso.setInt(3, corso.getTassoPresenzeMinime());
-            pstInsertCorso.setInt(4, corso.getNumeroMassimoIscritti());
-            if (pstInsertCorso.executeUpdate() != 1) {
-                throw new CreateCorsoFallitoException();
-            }
-            try (ResultSet rsInsertAreaTematica = pstInsertCorso.getGeneratedKeys()) {
-                if(rsInsertAreaTematica.next()) {
-                    corso.setCodice(rsInsertAreaTematica.getInt(1));
-                }
-                else {
-                    throw new CreateCorsoFallitoException();
-                }
+    public void createCorso(Corso corso) throws CreateFallitoException {
+        try (PreparedStatement pstmt = connection.prepareStatement(insertCorso, Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setString(1, corso.getNome());
+            pstmt.setString(2, corso.getDescrizione());
+            pstmt.setInt(3, corso.getTassoPresenzeMinime());
+            pstmt.setInt(4, corso.getNumeroMassimoIscritti());
+            pstmt.executeUpdate();
+            try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                rs.next();
+                corso.setCodice(rs.getInt(1));
             }
         }
         catch(SQLException e) {
-            throw new CreateCorsoFallitoException(e.getMessage());
+            throw new CreateFallitoException("Corso", e.getMessage());
         }
     }
 
     @Override
-    public LinkedList<Corso> retrieveAllCorso() throws RetrieveCorsoFallitoException, RetrieveAreaDelCorsoFallitoException {
-        try (Statement stmtRetrieveAllCorso = connection.createStatement();
-             ResultSet rsRetrieveAllCorso = stmtRetrieveAllCorso.executeQuery(selectAllCorso)) {
+    public LinkedList<Corso> retrieveAllCorso() throws RetrieveFallitoException, AssociazioneFallitaException {
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(selectAllCorso)) {
             LinkedList listaCorsi = new LinkedList<Corso>();
             
-            while (rsRetrieveAllCorso.next()) {
-                int codice = rsRetrieveAllCorso.getInt("codice");
-                String nome = rsRetrieveAllCorso.getString("nome");
-                String descrizione = rsRetrieveAllCorso.getString("descrizione");
-                int tasso_presenze_min = rsRetrieveAllCorso.getInt("tasso_presenze_min");
-                int partecipanti_max = rsRetrieveAllCorso.getInt("partecipanti_max");
+            while (rs.next()) {
+                int codice = rs.getInt("codice");
+                String nome = rs.getString("nome");
+                String descrizione = rs.getString("descrizione");
+                int tasso_presenze_min = rs.getInt("tasso_presenze_min");
+                int partecipanti_max = rs.getInt("partecipanti_max");
 
                 Corso corso = new Corso(codice, nome, descrizione, tasso_presenze_min, partecipanti_max);
                     
-                controller.setAreeTematiche(corso);
+                controller.setAreeTematicheDelCorso(corso);
 
                 listaCorsi.add(corso);
             } 
@@ -87,38 +81,34 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
             return listaCorsi;
         }
         catch(SQLException e) {
-            throw new RetrieveCorsoFallitoException(e.getMessage());
+            throw new RetrieveFallitoException("il Corso", e.getMessage());
         }
     }
 
     @Override
-    public void updateCorso(Corso corso) throws UpdateCorsoFallitoException {
-        try (PreparedStatement pstUpdateCorso = connection.prepareStatement(updateCorso)) {
-            pstUpdateCorso.setString(1, corso.getNome());
-            pstUpdateCorso.setString(2, corso.getDescrizione());
-            pstUpdateCorso.setInt(3, corso.getTassoPresenzeMinime());
-            pstUpdateCorso.setInt(4, corso.getNumeroMassimoIscritti());
-            pstUpdateCorso.setInt(5, corso.getCodice());
-            if (pstUpdateCorso.executeUpdate() != 1) {
-                throw new UpdateCorsoFallitoException();
-            }
+    public void updateCorso(Corso corso) throws UpdateFallitoException {
+        try (PreparedStatement pstmt = connection.prepareStatement(updateCorso)) {
+            pstmt.setString(1, corso.getNome());
+            pstmt.setString(2, corso.getDescrizione());
+            pstmt.setInt(3, corso.getTassoPresenzeMinime());
+            pstmt.setInt(4, corso.getNumeroMassimoIscritti());
+            pstmt.setInt(5, corso.getCodice());
+            pstmt.executeUpdate();
         }
         catch(SQLException e) {
-            throw new UpdateCorsoFallitoException(e.getMessage());
+            throw new UpdateFallitoException("il Corso", e.getMessage());
         }
     }
 
     @Override
-    public void deleteCorso(Corso corso) throws DeleteCorsoFallitoException {
+    public void deleteCorso(Corso corso) throws DeleteFallitoException {
         try (PreparedStatement pstDeleteAreaCorso = connection.prepareStatement(deleteCorso)) {
             pstDeleteAreaCorso.setInt(1, corso.getCodice());
-            if (pstDeleteAreaCorso.executeUpdate() != 1) {
-                throw new DeleteCorsoFallitoException();
-            }
+            pstDeleteAreaCorso.executeUpdate();
             corso.rimuoviDaAssociazioni();
         }
         catch(SQLException e) {
-            throw new DeleteCorsoFallitoException(e.getMessage());
+            throw new DeleteFallitoException("il Corso", e.getMessage());
         }
     }
     

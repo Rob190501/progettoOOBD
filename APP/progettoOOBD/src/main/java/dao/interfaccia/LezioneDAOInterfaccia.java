@@ -2,21 +2,21 @@ package dao.interfaccia;
 
 import dto.Corso;
 import dto.Lezione;
-import eccezioni.associazioni.AssociazioneLezioneCorsoFallitaException;
-import eccezioni.create.CreateLezioneFallitoException;
-import eccezioni.delete.DeleteLezioneFallitoException;
-import eccezioni.retrieve.RetrieveLezioneFallitoException;
-import eccezioni.update.UpdateLezioneFallitoException;
+import eccezioni.associazioni.AssociazioneFallitaException;
+import eccezioni.create.CreateFallitoException;
+import eccezioni.delete.DeleteFallitoException;
+import eccezioni.retrieve.RetrieveFallitoException;
+import eccezioni.update.UpdateFallitoException;
 import java.util.LinkedList;
 
 public interface LezioneDAOInterfaccia {
     
-    public void createLezione(Lezione lez) throws CreateLezioneFallitoException;
+    public void createLezione(Lezione lez) throws CreateFallitoException;
     
-    public LinkedList<Lezione> retrieveAllLezione(LinkedList<Corso> listaCorsi) throws RetrieveLezioneFallitoException, AssociazioneLezioneCorsoFallitaException;
+    public LinkedList<Lezione> retrieveAllLezione(LinkedList<Corso> listaCorsi) throws RetrieveFallitoException, AssociazioneFallitaException;
     
-    public void updateLezione(Lezione lez) throws UpdateLezioneFallitoException;
+    public void updateLezione(Lezione lez) throws UpdateFallitoException;
     
-    public void deleteLezione(Lezione lez) throws DeleteLezioneFallitoException;
+    public void deleteLezione(Lezione lez) throws DeleteFallitoException;
     
 }

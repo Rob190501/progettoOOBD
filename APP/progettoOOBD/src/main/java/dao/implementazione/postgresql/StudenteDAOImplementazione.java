@@ -3,12 +3,11 @@ package dao.implementazione.postgresql;
 import controller.Controller;
 import dao.interfaccia.StudenteDAOInterfaccia;
 import dto.Studente;
-import eccezioni.create.CreateStudenteFallitoException;
-import eccezioni.delete.DeleteStudenteFallitoException;
-import eccezioni.retrieve.RetrievePresenzaFallitoException;
-import eccezioni.retrieve.RetrieveStudenteDelCorsoFallitoException;
-import eccezioni.retrieve.RetrieveStudenteFallitoException;
-import eccezioni.update.UpdateStudenteFallitoException;
+import eccezioni.associazioni.AssociazioneFallitaException;
+import eccezioni.create.CreateFallitoException;
+import eccezioni.delete.DeleteFallitoException;
+import eccezioni.retrieve.RetrieveFallitoException;
+import eccezioni.update.UpdateFallitoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -42,79 +41,69 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
     }
     
     @Override
-    public void createStudente(Studente studente) throws CreateStudenteFallitoException {
-        try (PreparedStatement pstInsertStudente = connection.prepareStatement(insertStudente, Statement.RETURN_GENERATED_KEYS)) {
-            pstInsertStudente.setString(1, studente.getNome());
-            pstInsertStudente.setString(2, studente.getCognome());
-            if (pstInsertStudente.executeUpdate() != 1) {
-                throw new CreateStudenteFallitoException();
-            }
-            try (ResultSet rsInsertStudente = pstInsertStudente.getGeneratedKeys()) {
-                if(rsInsertStudente.next()) {
-                    studente.setMatricola(rsInsertStudente.getInt(1));
-                }
-                else {
-                    throw new CreateStudenteFallitoException();
-                }
+    public void createStudente(Studente studente) throws CreateFallitoException {
+        try (PreparedStatement pstmt = connection.prepareStatement(insertStudente, Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setString(1, studente.getNome());
+            pstmt.setString(2, studente.getCognome());
+            pstmt.executeUpdate();
+            try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                rs.next();
+                studente.setMatricola(rs.getInt(1));
             }
         }
         catch(SQLException e) {
-            throw new CreateStudenteFallitoException(e.getMessage());
+            throw new CreateFallitoException("lo Studente", e.getMessage());
         }
     }
 
     @Override
-    public LinkedList<Studente> retrieveAllStudente() throws RetrieveStudenteFallitoException, RetrieveStudenteDelCorsoFallitoException, RetrievePresenzaFallitoException {
-        try (Statement stmtRetrieveAllStudente = connection.createStatement();
-             ResultSet rsRetrieveAllStudente = stmtRetrieveAllStudente.executeQuery(selectAllStudente)) {
+    public LinkedList<Studente> retrieveAllStudente() throws RetrieveFallitoException, AssociazioneFallitaException {
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(selectAllStudente)) {
             LinkedList<Studente> listaStudenti = new LinkedList<>();
             
-            while(rsRetrieveAllStudente.next()) {
-                int matricola = rsRetrieveAllStudente.getInt("matricola");
-                String nome = rsRetrieveAllStudente.getString("nome");
-                String cognome = rsRetrieveAllStudente.getString("cognome");
+            while(rs.next()) {
+                int matricola = rs.getInt("matricola");
+                String nome = rs.getString("nome");
+                String cognome = rs.getString("cognome");
 
                 Studente studente = new Studente(matricola, nome, cognome);
                     
                 controller.setCorsiFrequentati(studente);
                 controller.setPresenze(studente);
-                    
+                
                 listaStudenti.add(studente);
             }
             
             return listaStudenti;
         }
         catch(SQLException e) {
-            throw new RetrieveStudenteFallitoException(e.getMessage());
+            throw new RetrieveFallitoException("lo Studente", e.getMessage());
         }
     }
 
     @Override
-    public void updateStudente(Studente studente) throws UpdateStudenteFallitoException {
-        try (PreparedStatement pstUpdateStudente = connection.prepareStatement(updateStudente)) {
-            pstUpdateStudente.setString(1, studente.getNome());
-            pstUpdateStudente.setString(2, studente.getCognome());
-            pstUpdateStudente.setInt(3, studente.getMatricola());
-            if (pstUpdateStudente.executeUpdate() != 1) {
-                throw new UpdateStudenteFallitoException();
-            }
+    public void updateStudente(Studente studente) throws UpdateFallitoException {
+        try (PreparedStatement pstmt = connection.prepareStatement(updateStudente)) {
+            pstmt.setString(1, studente.getNome());
+            pstmt.setString(2, studente.getCognome());
+            pstmt.setInt(3, studente.getMatricola());
+            pstmt.executeUpdate();
         }
         catch(SQLException e) {
-            throw new UpdateStudenteFallitoException(e.getMessage());
+            throw new UpdateFallitoException("lo Studente", e.getMessage());
         }
     }
 
     @Override
-    public void deleteStudente(Studente studente) throws DeleteStudenteFallitoException {
-        try (PreparedStatement pstDeleteStudente = connection.prepareStatement(deleteStudente)) {
-            pstDeleteStudente.setInt(1, studente.getMatricola());
-            if (pstDeleteStudente.executeUpdate() != 1) {
-                throw new DeleteStudenteFallitoException();
-            }
+    public void deleteStudente(Studente studente) throws DeleteFallitoException {
+        try (PreparedStatement pstmt = connection.prepareStatement(deleteStudente)) {
+            pstmt.setInt(1, studente.getMatricola());
+            pstmt.executeUpdate();
             studente.rimuoviDaAssociazioni();
         }
         catch(SQLException e) {
-            throw new DeleteStudenteFallitoException(e.getMessage());
+            throw new DeleteFallitoException("lo Studente", e.getMessage());
         }
     }
     

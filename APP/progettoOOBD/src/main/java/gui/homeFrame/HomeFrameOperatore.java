@@ -62,87 +62,99 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     private PanelAggiornaLezione panelAggiornaLezione;
     
     public HomeFrameOperatore(Controller controller) {
-        setController(controller);
+        this.controller = controller;
         initComponents();
         setLabelSelezionata(labelMenuHomePage);
-    }
-    
-    
-    
-    private void setController(Controller controller) {
-        this.controller = controller;
     }
 
     public void setPanelHomePage(PanelHomePage panelHomePage) {
         this.panelHomePage = panelHomePage;
+        panelContenuti.add(panelHomePage, "panelHomePage");
     }
 
     public void setPanelStudenti(PanelStudenti panelStudenti) {
         this.panelStudenti = panelStudenti;
+        panelContenuti.add(panelStudenti, "panelStudenti");
     }
 
     public void setPanelNuovoStudente(PanelNuovoStudente panelNuovoStudente) {
         this.panelNuovoStudente = panelNuovoStudente;
+        panelContenuti.add(panelNuovoStudente, "panelNuovoStudente");
     }
 
     public void setPanelAggiornaStudente(PanelAggiornaStudente panelAggiornaStudente) {
         this.panelAggiornaStudente = panelAggiornaStudente;
+        panelContenuti.add(panelAggiornaStudente, "panelAggiornaStudente");
     }
 
     public void setPanelIscrizioni(PanelIscrizioni panelIscrizioni) {
         this.panelIscrizioni = panelIscrizioni;
+        panelContenuti.add(panelIscrizioni, "panelIscrizioni");
     }
 
     public void setPanelPresenze(PanelPresenze panelPresenze) {
         this.panelPresenze = panelPresenze;
+        panelContenuti.add(panelPresenze, "panelPresenze");
     }
 
     public void setPanelAreeTematiche(PanelAreeTematiche panelAreeTematiche) {
         this.panelAreeTematiche = panelAreeTematiche;
+        panelContenuti.add(panelAreeTematiche, "panelAreeTematiche");
     }
 
     public void setPanelNuovaAreaTematica(PanelNuovaAreaTematica panelNuovaAreaTematica) {
         this.panelNuovaAreaTematica = panelNuovaAreaTematica;
+        panelContenuti.add(panelNuovaAreaTematica, "panelNuovaAreaTematica");
     }
 
     public void setPanelAggiornaAreaTematica(PanelAggiornaAreaTematica panelAggiornaAreaTematica) {
         this.panelAggiornaAreaTematica = panelAggiornaAreaTematica;
+        panelContenuti.add(panelAggiornaAreaTematica, "panelAggiornaAreaTematica");
     }
 
     public void setPanelCorsiDellArea(PanelCorsiDellArea panelCorsiDellArea) {
         this.panelCorsiDellArea = panelCorsiDellArea;
+        panelContenuti.add(panelCorsiDellArea, "panelCorsiDellArea");
     }
     
     public void setPanelCorsi(PanelCorsi panelCorsi) {
         this.panelCorsi = panelCorsi;
+        panelContenuti.add(panelCorsi, "panelCorsi");
     }
 
     public void setPanelNuovoCorso(PanelNuovoCorso panelNuovoCorso) {
         this.panelNuovoCorso = panelNuovoCorso;
+        panelContenuti.add(panelNuovoCorso, "panelNuovoCorso");
     }
 
     public void setPanelAggiornaCorso(PanelAggiornaCorso panelAggiornaCorso) {
         this.panelAggiornaCorso = panelAggiornaCorso;
+        panelContenuti.add(panelAggiornaCorso, "panelAggiornaCorso");
     }
 
     public void setPanelProspettoCorso(PanelProspettoCorso panelProspettoCorso) {
         this.panelProspettoCorso = panelProspettoCorso;
+        panelContenuti.add(panelProspettoCorso, "panelProspettoCorso");
     }
     
     public void setPanelRicercaCorso(PanelRicercaCorso panelRicercaCorso) {
         this.panelRicercaCorso = panelRicercaCorso;
+        panelContenuti.add(panelRicercaCorso, "panelRicercaCorso");
     }
     
     public void setPanelLezioni(PanelLezioni panelLezioni) {
         this.panelLezioni = panelLezioni;
+        panelContenuti.add(panelLezioni, "panelLezioni");
     }
 
     public void setPanelNuovaLezione(PanelNuovaLezione panelNuovaLezione) {
         this.panelNuovaLezione = panelNuovaLezione;
+        panelContenuti.add(panelNuovaLezione, "panelNuovaLezione");
     }
 
     public void setPanelAggiornaLezione(PanelAggiornaLezione panelAggiornaLezione) {
         this.panelAggiornaLezione = panelAggiornaLezione;
+        panelContenuti.add(panelAggiornaLezione, "panelAggiornaLezione");
     }
     
     @SuppressWarnings("unchecked")
@@ -382,31 +394,6 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
-    public void aggiungiPanels() {
-        panelContenuti.add(panelHomePage, "cardHomePage");
-        
-        panelContenuti.add(panelStudenti, "cardStudenti");
-        panelContenuti.add(panelNuovoStudente, "cardNuovoStudente");
-        panelContenuti.add(panelAggiornaStudente, "cardAggiornaStudente");
-        panelContenuti.add(panelIscrizioni, "cardIscrizioni");
-        panelContenuti.add(panelPresenze, "cardPresenze");
-        
-        panelContenuti.add(panelAreeTematiche, "cardAreeTematiche");
-        panelContenuti.add(panelNuovaAreaTematica, "cardNuovaAreaTematica");
-        panelContenuti.add(panelAggiornaAreaTematica, "cardAggiornaAreaTematica");
-        panelContenuti.add(panelCorsiDellArea, "cardCorsiDellArea");
-        
-        panelContenuti.add(panelCorsi, "cardCorsi");
-        panelContenuti.add(panelNuovoCorso, "cardNuovoCorso");
-        panelContenuti.add(panelAggiornaCorso, "cardAggiornaCorso");
-        panelContenuti.add(panelProspettoCorso, "cardProspettoCorso");
-        panelContenuti.add(panelRicercaCorso, "cardRicercaCorso");
-        
-        panelContenuti.add(panelLezioni, "cardLezioni");
-        panelContenuti.add(panelNuovaLezione, "cardNuovaLezione");
-        panelContenuti.add(panelAggiornaLezione, "cardAggiornaLezione");
-    }
-    
     public void cambiaCard(String cardDesiderata) {
         ((CardLayout) panelContenuti.getLayout()).show(panelContenuti, cardDesiderata);
     }
@@ -414,87 +401,87 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     public void mostraPanelHomePage() {
         aggiornaLabelSelezionata(labelMenuHomePage);
         controller.aggiornaHomePage();
-        cambiaCard("cardHomePage");
+        cambiaCard("panelHomePage");
     }
     
     public void mostraPanelStudenti() {
         panelStudenti.aggiornaSelezione();
         aggiornaLabelSelezionata(labelMenuStudenti);
-        cambiaCard("cardStudenti");
+        cambiaCard("panelStudenti");
     }
     
     public void mostraPanelNuovoStudente() {
         panelNuovoStudente.svuotaCampi();
-        cambiaCard("cardNuovoStudente");
+        cambiaCard("panelNuovoStudente");
     }
     
     public void mostraPanelAggiornaStudente() {
-        cambiaCard("cardAggiornaStudente");
+        cambiaCard("panelAggiornaStudente");
     }
     
     public void mostraPanelIscrizioni() {
-        cambiaCard("cardIscrizioni");
+        cambiaCard("panelIscrizioni");
     }
     
     public void mostraPanelPresenze() {
-        cambiaCard("cardPresenze");
+        cambiaCard("panelPresenze");
     }
     
     public void mostraPanelAreeTematiche() {
         panelAreeTematiche.aggiornaSelezione();
         aggiornaLabelSelezionata(labelMenuAreeTematiche);
-        cambiaCard("cardAreeTematiche");
+        cambiaCard("panelAreeTematiche");
     }
     
     public void mostraPanelNuovaAreaTematica() {
         panelNuovaAreaTematica.svuotaCampi();
-        cambiaCard("cardNuovaAreaTematica");
+        cambiaCard("panelNuovaAreaTematica");
     }
     
     public void mostraPanelAggiornaAreaTematica() {
-        cambiaCard("cardAggiornaAreaTematica");
+        cambiaCard("panelAggiornaAreaTematica");
     }
     
     public void mostraPanelCorsiDellArea() {
-        cambiaCard("cardCorsiDellArea");
+        cambiaCard("panelCorsiDellArea");
     }
     
     public void mostraPanelCorsi() {
         panelCorsi.aggiornaSelezione();
         aggiornaLabelSelezionata(labelMenuCorsi);
-        cambiaCard("cardCorsi");
+        cambiaCard("panelCorsi");
     }
     
     public void mostraPanelNuovoCorso() {
         panelNuovoCorso.svuotaCampi();
-        cambiaCard("cardNuovoCorso");
+        cambiaCard("panelNuovoCorso");
     }
     
     public void mostraPanelAggiornaCorso() {
-        cambiaCard("cardAggiornaCorso");
+        cambiaCard("panelAggiornaCorso");
     }
     
     public void mostraPanelRicercaCorso() {
-        cambiaCard("cardRicercaCorso");
+        cambiaCard("panelRicercaCorso");
     }
     
     public void mostraPanelProspettoCorso() {
-        cambiaCard("cardProspettoCorso");
+        cambiaCard("panelProspettoCorso");
     }
     
     public void mostraPanelLezioni() {
         panelLezioni.aggiornaSelezione();
         aggiornaLabelSelezionata(labelMenuLezioni);
-        cambiaCard("cardLezioni");
+        cambiaCard("panelLezioni");
     }
     
     public void mostraPanelNuovaLezione() {
         controller.impostaPanelNuovaLezione();
-        cambiaCard("cardNuovaLezione");
+        cambiaCard("panelNuovaLezione");
     }
     
     public void mostraPanelAggiornaLezione() {
-        cambiaCard("cardAggiornaLezione");
+        cambiaCard("panelAggiornaLezione");
     }
     
     @Override

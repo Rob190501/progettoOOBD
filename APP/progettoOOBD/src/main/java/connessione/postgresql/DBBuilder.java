@@ -2,8 +2,6 @@ package connessione.postgresql;
 
 import controller.Controller;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -234,10 +232,9 @@ public class DBBuilder {
     public DBBuilder(Controller controller, String userName, String password, String ip, String porta, String db) throws SQLException, ClassNotFoundException {
         this.controller = controller;
         this.connection = ConnessioneDB.getIstanza(userName, password, ip, porta, "postgres").getConnection();
-        createDatabase(userName, password, ip, porta, db);
     }
     
-    public void createDatabase(String userName, String password, String ip, String porta, String db) throws SQLException, ClassNotFoundException {
+    public Connection createDatabase(String userName, String password, String ip, String porta, String db) throws SQLException, ClassNotFoundException {
         if(db.indexOf(';') != -1) {
             db = db.substring(0, db.indexOf(';'));
         }
@@ -250,15 +247,13 @@ public class DBBuilder {
         }
         
         connection.close();
-        
         connection = ConnessioneDB.getIstanza(userName, password, ip, porta, db).getConnection();
-        
         createTable();
         createTriggerFunction();
         createTrigger();
         insertDemo();
         
-        controller.setConnection(connection);
+        return connection;
     }
     
     public void createTable() throws SQLException {

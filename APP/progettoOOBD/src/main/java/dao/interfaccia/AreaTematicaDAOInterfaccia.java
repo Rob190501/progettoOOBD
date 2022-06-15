@@ -1,20 +1,20 @@
 package dao.interfaccia;
 
 import dto.AreaTematica;
-import eccezioni.create.CreateAreaTematicaFallitoException;
-import eccezioni.delete.DeleteAreaTematicaFallitoException;
-import eccezioni.retrieve.RetrieveAreaTematicaFallitoException;
-import eccezioni.update.UpdateAreaTematicaFallitoException;
+import eccezioni.create.CreateFallitoException;
+import eccezioni.delete.DeleteFallitoException;
+import eccezioni.retrieve.RetrieveFallitoException;
+import eccezioni.update.UpdateFallitoException;
 import java.util.LinkedList;
 
 public interface AreaTematicaDAOInterfaccia {
     
-    public void createAreaTematica(AreaTematica area) throws CreateAreaTematicaFallitoException;
+    public void createAreaTematica(AreaTematica area) throws CreateFallitoException;
     
-    public LinkedList<AreaTematica> retrieveAllAreaTematica() throws RetrieveAreaTematicaFallitoException;
+    public LinkedList<AreaTematica> retrieveAllAreaTematica() throws RetrieveFallitoException;
     
-    public void updateAreaTematica(AreaTematica areaTematica) throws UpdateAreaTematicaFallitoException;
+    public void updateAreaTematica(AreaTematica areaTematica) throws UpdateFallitoException;
     
-    public void deleteAreaTematica(AreaTematica areaTematica) throws DeleteAreaTematicaFallitoException;
+    public void deleteAreaTematica(AreaTematica areaTematica) throws DeleteFallitoException;
     
 }
