@@ -1,7 +1,7 @@
 package gui.homeFrame.panels.panelGenerico;
 
 import controller.Controller;
-import eccezioni.elementiGui.NessunaRigaSelezionataException;
+import eccezioni.gui.NessunaRigaSelezionataException;
 import gui.homeFrame.HomeFrameOperatore;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;

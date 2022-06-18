@@ -11,6 +11,11 @@ public class DBBuilder {
 
     private Controller controller;
     private Connection connection;
+    private String userName;
+    private String password;
+    private String ip;
+    private String porta;
+    private String db;
     
     private String createDatabase = "CREATE DATABASE ";
     
@@ -231,29 +236,28 @@ public class DBBuilder {
     
     public DBBuilder(Controller controller, String userName, String password, String ip, String porta, String db) throws SQLException, ClassNotFoundException {
         this.controller = controller;
-        this.connection = ConnessioneDB.getIstanza(userName, password, ip, porta, "postgres").getConnection();
+        this.connection = ConnessioneSingleton.getIstanza(userName, password, ip, porta, "postgres").getConnection();
+        this.userName = userName;
+        this.password = password;
+        this.ip = ip;
+        this.porta = porta;
+        this.db = db;
     }
     
-    public Connection createDatabase(String userName, String password, String ip, String porta, String db) throws SQLException, ClassNotFoundException {
-        if(db.indexOf(';') != -1) {
-            db = db.substring(0, db.indexOf(';'));
-        }
-        if(db.indexOf(' ') != -1) {
-            db = db.substring(0, db.indexOf(' '));
-        }
-        
+    public Connection getConnection() {
+        return connection;
+    }
+    
+    public void buildDatabase() throws SQLException, ClassNotFoundException {
         try (Statement stmt = connection.createStatement();) {
             stmt.executeUpdate(createDatabase + db);
         }
-        
         connection.close();
-        connection = ConnessioneDB.getIstanza(userName, password, ip, porta, db).getConnection();
+        connection = ConnessioneSingleton.getIstanza(userName, password, ip, porta, db).getConnection();
         createTable();
         createTriggerFunction();
         createTrigger();
         insertDemo();
-        
-        return connection;
     }
     
     public void createTable() throws SQLException {

@@ -1,6 +1,5 @@
 package dao.interfaccia;
 
-import dto.Corso;
 import dto.Lezione;
 import eccezioni.associazioni.AssociazioneFallitaException;
 import eccezioni.create.CreateFallitoException;
@@ -13,7 +12,7 @@ public interface LezioneDAOInterfaccia {
     
     public void createLezione(Lezione lez) throws CreateFallitoException;
     
-    public LinkedList<Lezione> retrieveAllLezione(LinkedList<Corso> listaCorsi) throws RetrieveFallitoException, AssociazioneFallitaException;
+    public LinkedList<Lezione> retrieveAllLezione() throws RetrieveFallitoException, AssociazioneFallitaException;
     
     public void updateLezione(Lezione lez) throws UpdateFallitoException;
     

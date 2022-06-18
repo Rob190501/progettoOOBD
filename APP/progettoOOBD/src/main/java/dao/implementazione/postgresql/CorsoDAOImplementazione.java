@@ -72,8 +72,6 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
                 int partecipanti_max = rs.getInt("partecipanti_max");
 
                 Corso corso = new Corso(codice, nome, descrizione, tasso_presenze_min, partecipanti_max);
-                    
-                controller.setAreeTematicheDelCorso(corso);
 
                 listaCorsi.add(corso);
             } 

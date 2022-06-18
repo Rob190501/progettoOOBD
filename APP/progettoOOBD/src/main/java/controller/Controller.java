@@ -1,6 +1,6 @@
 package controller;
 
-import connessione.postgresql.ConnessioneDB;
+import connessione.postgresql.ConnessioneSingleton;
 import connessione.postgresql.DBBuilder;
 import dao.implementazione.postgresql.AreaDelCorsoDAOImplementazione;
 import dao.implementazione.postgresql.AreaTematicaDAOImplementazione;
@@ -103,6 +103,10 @@ public class Controller {
     
     //costruttore
     public Controller() {
+        this.listaAreeTematiche = new LinkedList<>();
+        this.listaCorsi = new LinkedList<>();
+        this.listaLezioni = new LinkedList<>();
+        this.listaStudenti = new LinkedList<>();
         fusoOrario = "Europe/Rome";
     }
     //costruttore
@@ -137,118 +141,7 @@ public class Controller {
     }
     //getters e setters
     
-    //connessione
-    public void avviaConnessione(String userName, String password, String ip, String porta, String db) {        
-        chiudiConnessione();
-        try {
-            connection = ConnessioneDB.getIstanza(userName, password, ip, porta, db).getConnection();
-            connessioneStabilita();
-        }
-        catch(SQLException e) {
-            if(e.getSQLState().equals("3D000") && loginFrame.confermaCreazioneDB()) {
-                costruisciDB(userName, password, ip, porta, db);
-            }
-            else {
-                loginFrame.connessioneNonStabilita();
-                loginFrame.mostraEccezione(e.getMessage());
-            }
-        }
-        catch(ClassNotFoundException e) {
-            loginFrame.connessioneNonStabilita();
-            loginFrame.mostraEccezione(e.getMessage());
-        }
-    }
-    
-    public void costruisciDB(String userName, String password, String ip, String porta, String db) {
-        try {
-            DBBuilder dbBuilder = new DBBuilder(this, userName, password, ip, porta, db);
-            connection = dbBuilder.createDatabase(userName, password, ip, porta, db);
-            connessioneStabilita();
-        }
-        catch (SQLException | ClassNotFoundException e) {
-            loginFrame.connessioneNonStabilita();
-            loginFrame.mostraEccezione(e.getMessage());
-        }
-    }
-    
-    public void connessioneStabilita() {
-        try {
-            creaDAO();
-            retrieveAllDTO();
-            loginFrame.connessioneStabilita();
-        }
-        catch(RetrieveFallitoException | AssociazioneFallitaException e) {
-            loginFrame.connessioneNonStabilita();
-            loginFrame.mostraEccezione(e.getMessage());
-        }
-    }
-    
-    public void chiudiConnessione() {
-        if(connection != null){   
-            try {
-                connection.close();
-            }
-            catch(SQLException e) {
-                if(loginFrame.isVisible()) {
-                    loginFrame.mostraEccezione(e.getMessage());
-                }
-                if(homeFrameOperatore.isVisible()) {
-                    homeFrameOperatore.mostraEccezione(e.getMessage());
-                }
-            }
-        }
-    }
-    
-    public void chiudiConnessionePerErrori() {
-        chiudiConnessione();
-        esciDaOperatore();
-        loginFrame.connessioneNonStabilita();
-    }
-    //connessione
-    
-    //termina esecuzione
-    public void terminaEsecuzione() {
-        chiudiConnessione();
-        System.exit(0);
-    }
-    //termina esecuzione
-    
-    //DAO
-    private void creaDAO() {
-        areaTematicaDAO = new AreaTematicaDAOImplementazione(this, connection);
-        corsoDAO = new CorsoDAOImplementazione(this, connection);
-        lezioneDAO = new LezioneDAOImplementazione(this, connection);    
-        studenteDAO = new StudenteDAOImplementazione(this, connection);
-        areaDelCorsoDAO =  new AreaDelCorsoDAOImplementazione(this, connection);
-        iscrizioniDAO = new IscrizioniDAOImplementazione(this, connection);
-        presenzeDAO = new PresenzeDAOImplementazione(this, connection);
-    }
-    
-    public void retrieveAllDTO() throws RetrieveFallitoException, AssociazioneFallitaException {
-        this.listaAreeTematiche = areaTematicaDAO.retrieveAllAreaTematica();
-        this.listaCorsi = corsoDAO.retrieveAllCorso();
-        this.listaLezioni = lezioneDAO.retrieveAllLezione(listaCorsi);
-        this.listaStudenti = studenteDAO.retrieveAllStudente();
-    }
-    
-    public void setAreeTematicheDelCorso(Corso corso) throws RetrieveFallitoException, AssociazioneFallitaException {
-        areaDelCorsoDAO.retrieveAllAreaDelCorso(corso, listaAreeTematiche);
-    }
-    
-    public void setCorsiFrequentati(Studente studente) throws RetrieveFallitoException, AssociazioneFallitaException {
-        iscrizioniDAO.retrieveIscrizioniByStudente(studente, listaCorsi);
-    }
-    
-    public void setPresenze(Studente studente) throws RetrieveFallitoException, AssociazioneFallitaException {
-        presenzeDAO.retrievePresenzeByStudente(studente, listaLezioni);
-    }
-    
-    public void removePresenza(Studente studente, Lezione lezione) throws DeleteFallitoException {
-        presenzeDAO.deletePresenza(studente, lezione);
-    }
-    //DAO
-    
-    //cambio frame
+    //GUI
     public void creaGUI() {
         loginFrame = new LoginFrame(this);
         homeFrameOperatore = new HomeFrameOperatore(this);
@@ -330,7 +223,122 @@ public class Controller {
         impostaPanelCorsi();
         impostaPanelLezioni();
     }
-    //cambio frame
+    //GUI
+    
+    //connessione
+    public void avviaConnessione(String userName, String password, String ip, String porta, String db) {        
+        chiudiConnessione();
+        try {
+            connection = ConnessioneSingleton.getIstanza(userName, password, ip, porta, db).getConnection();
+            connessioneStabilita();
+        }
+        catch(SQLException e) {
+            if(e.getSQLState().equals("3D000") && loginFrame.confermaCreazioneDB()) {
+                costruisciDB(userName, password, ip, porta, db);
+            }
+            if(!e.getSQLState().equals("3D000")) {
+                connessioneNonStabilita(e.getMessage());
+            }
+        }
+        catch(ClassNotFoundException e) {
+            connessioneNonStabilita(e.getMessage());
+        }
+    }
+    
+    public void costruisciDB(String userName, String password, String ip, String porta, String db) {
+        try {
+            DBBuilder dbBuilder = new DBBuilder(this, userName, password, ip, porta, db);
+            dbBuilder.buildDatabase();
+            connection = dbBuilder.getConnection();
+            connessioneStabilita();
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            connessioneNonStabilita(e.getMessage());
+        }
+    }
+    
+    public void connessioneStabilita() {
+        try {
+            creaDAO();
+            retrieveAllDTO();
+            stabilisciAssociazioni();
+            loginFrame.confermaConnessioneStabilita();
+        }
+        catch(RetrieveFallitoException | AssociazioneFallitaException e) {
+            connessioneNonStabilita(e.getMessage());
+        }
+    }
+    
+    public void connessioneNonStabilita(String messaggioEccezione) {
+        loginFrame.confermaConnessioneNonStabilita();
+        loginFrame.mostraEccezione(messaggioEccezione);
+    }
+    
+    public void chiudiConnessione() {
+        if(connection != null){   
+            try {
+                connection.close();
+            }
+            catch(SQLException e) {
+                if(loginFrame.isVisible()) {
+                    loginFrame.mostraEccezione(e.getMessage());
+                }
+                if(homeFrameOperatore.isVisible()) {
+                    homeFrameOperatore.mostraEccezione(e.getMessage());
+                }
+            }
+        }
+    }
+    
+    public void chiudiConnessionePerErrori() {
+        chiudiConnessione();
+        esciDaOperatore();
+        loginFrame.confermaConnessioneNonStabilita();
+    }
+    //connessione
+    
+    //termina esecuzione
+    public void terminaEsecuzione() {
+        chiudiConnessione();
+        System.exit(0);
+    }
+    //termina esecuzione
+    
+    //DAO
+    private void creaDAO() {
+        areaTematicaDAO = new AreaTematicaDAOImplementazione(this, connection);
+        corsoDAO = new CorsoDAOImplementazione(this, connection);
+        lezioneDAO = new LezioneDAOImplementazione(this, connection);    
+        studenteDAO = new StudenteDAOImplementazione(this, connection);
+        areaDelCorsoDAO =  new AreaDelCorsoDAOImplementazione(this, connection);
+        iscrizioniDAO = new IscrizioniDAOImplementazione(this, connection);
+        presenzeDAO = new PresenzeDAOImplementazione(this, connection);
+    }
+    
+    public void retrieveAllDTO() throws RetrieveFallitoException, AssociazioneFallitaException {
+        this.listaAreeTematiche = areaTematicaDAO.retrieveAllAreaTematica();
+        this.listaCorsi = corsoDAO.retrieveAllCorso();
+        this.listaLezioni = lezioneDAO.retrieveAllLezione();
+        this.listaStudenti = studenteDAO.retrieveAllStudente();
+    }
+    
+    public void stabilisciAssociazioni() throws RetrieveFallitoException, AssociazioneFallitaException{
+        for(Corso corso : listaCorsi) {
+            areaDelCorsoDAO.retrieveAllAreaDelCorso(corso, listaAreeTematiche);
+        }
+        for(Lezione lezione : listaLezioni) {
+            lezioneDAO.retrieveCorsoDellaLezione(lezione, listaCorsi);
+        }
+        for(Studente studente : listaStudenti) {
+            iscrizioniDAO.retrieveIscrizioniByStudente(studente, listaCorsi);
+            presenzeDAO.retrievePresenzeByStudente(studente, listaLezioni);
+        }
+    }
+    
+    public void removePresenza(Studente studente, Lezione lezione) throws DeleteFallitoException {
+        presenzeDAO.deletePresenza(studente, lezione);
+    }
+    //DAO
     
     //sezione home page
     public void aggiornaHomePage() {

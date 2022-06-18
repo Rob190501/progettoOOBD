@@ -1,7 +1,7 @@
 package gui.homeFrame.panels.studenti;
 
 import controller.Controller;
-import eccezioni.elementiGui.CampoVuotoException;
+import eccezioni.gui.CampoVuotoException;
 import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.panelGenerico.PanelGenerico;
 
@@ -207,7 +207,7 @@ public class PanelAggiornaStudente extends PanelGenerico {
     }
     
     private void controllaCampi() throws CampoVuotoException {
-        if (textFieldNome.getText().equals("") || textFieldCognome.getText().equals("")) {
+        if (textFieldNome.getText().isBlank() || textFieldCognome.getText().isBlank()) {
             throw new CampoVuotoException();
         }
     }

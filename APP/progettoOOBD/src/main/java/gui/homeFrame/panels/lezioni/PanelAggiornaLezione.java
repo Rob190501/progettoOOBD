@@ -1,8 +1,8 @@
 package gui.homeFrame.panels.lezioni;
 
 import controller.Controller;
-import eccezioni.elementiGui.CampoVuotoException;
-import eccezioni.elementiGui.FormatoSbagliatoException;
+import eccezioni.gui.CampoVuotoException;
+import eccezioni.gui.FormatoSbagliatoException;
 import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.panelGenerico.PanelGenerico;
 import java.awt.Color;
@@ -257,7 +257,7 @@ public class PanelAggiornaLezione extends PanelGenerico {
     }//GEN-LAST:event_textFieldDurataFocusGained
 
     private void textFieldDurataFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textFieldDurataFocusLost
-        if(textFieldDurata.getText().equals("")) {
+        if(textFieldDurata.getText().isBlank()) {
             textFieldDurata.setForeground(Color.GRAY);
             textFieldDurata.setText("HH:MM");
         }
@@ -284,9 +284,9 @@ public class PanelAggiornaLezione extends PanelGenerico {
     }
     
     private void controllaCampi() throws CampoVuotoException, FormatoSbagliatoException {
-        if (textFieldTitolo.getText().equals("") ||
-            textFieldDescrizione.getText().equals("") ||
-            textFieldDurata.getText().equals("") ||
+        if (textFieldTitolo.getText().isBlank() ||
+            textFieldDescrizione.getText().isBlank() ||
+            textFieldDurata.getText().isBlank() ||
             textFieldDurata.getText().equals("HH:MM")) {
             throw new CampoVuotoException();
         }

@@ -32,6 +32,10 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
     private String querySelectAllLezione = "SELECT * "
                                          + "FROM lezioni";
     
+    private String selectCorsoDellaLezione = "SELECT codice_corso "
+                                           + "FROM lezioni "
+                                           + "WHERE codice = ?";
+    
     private String updateLezione = "UPDATE lezioni "
                                  + "SET titolo = ?, descrizione = ?, durata = ?::INTERVAL, data_inizio = ?"
                                  + "WHERE codice = ?";
@@ -65,7 +69,7 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
     }
 
     @Override
-    public LinkedList<Lezione> retrieveAllLezione(LinkedList<Corso> listaCorsi) throws RetrieveFallitoException, AssociazioneFallitaException {
+    public LinkedList<Lezione> retrieveAllLezione() throws RetrieveFallitoException, AssociazioneFallitaException {
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(querySelectAllLezione)) {
             LinkedList<Lezione> listaLezioni = new LinkedList<>();
@@ -77,11 +81,8 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
                 String durata = rs.getString("durata").substring(0, 5);
                 ZonedDateTime data_inizio = ZonedDateTime.ofInstant(rs.getTimestamp("data_inizio").toInstant(), ZoneId.of(controller.getFusoOrario())).truncatedTo(ChronoUnit.MINUTES);
                     
-                int codice_corso = rs.getInt("codice_corso");
-                Corso corsoDellaLezione = trovaCorsoDellaLezione(codice_corso, listaCorsi);
-                    
-                Lezione lezione = new Lezione(codice_lezione, titolo, descrizione, durata, data_inizio, corsoDellaLezione);
-                corsoDellaLezione.addLezione(lezione);
+                Lezione lezione = new Lezione(codice_lezione, titolo, descrizione, durata, data_inizio);
+                
                 listaLezioni.add(lezione);
             }
                 
@@ -89,6 +90,22 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
         }
         catch(SQLException e) {
             throw new RetrieveFallitoException("la Lezione", e.getMessage());
+        }
+    }
+    
+    public void retrieveCorsoDellaLezione(Lezione lezione, LinkedList<Corso> listaCorsi) throws RetrieveFallitoException, AssociazioneFallitaException {
+        try (PreparedStatement pstm = connection.prepareStatement(selectCorsoDellaLezione)) {
+            pstm.setInt(1, lezione.getCodice());
+            try (ResultSet rs = pstm.executeQuery()) {
+                while(rs.next()) {
+                    Corso corsoDellaLezione = trovaCorsoDellaLezione(rs.getInt("codice_corso"), listaCorsi);
+                    lezione.setCorsoDellaLezione(corsoDellaLezione);
+                    corsoDellaLezione.addLezione(lezione);
+                }
+            }
+        }
+        catch (SQLException e) {
+            throw new RetrieveFallitoException("il corso della lezione", e.getMessage());
         }
     }
     

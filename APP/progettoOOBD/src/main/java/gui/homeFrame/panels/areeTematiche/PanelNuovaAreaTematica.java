@@ -1,7 +1,7 @@
 package gui.homeFrame.panels.areeTematiche;
 
 import controller.Controller;
-import eccezioni.elementiGui.CampoVuotoException;
+import eccezioni.gui.CampoVuotoException;
 import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.panelGenerico.PanelGenerico;
 
@@ -146,7 +146,7 @@ public class PanelNuovaAreaTematica extends PanelGenerico {
     }//GEN-LAST:event_buttonIndietroActionPerformed
 
     private void controllaCampi() throws CampoVuotoException {
-        if (textFieldNome.getText().equals("") || textFieldDescrizione.equals("")) {
+        if (textFieldNome.getText().isBlank() || textFieldDescrizione.getText().isBlank()) {
             throw new CampoVuotoException();
         }
     }

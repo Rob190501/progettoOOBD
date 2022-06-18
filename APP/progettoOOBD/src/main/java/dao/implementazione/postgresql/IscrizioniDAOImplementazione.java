@@ -32,8 +32,8 @@ public class IscrizioniDAOImplementazione implements IscrizioniDAOInterfaccia {
                                     + "VALUES (?, ?)";
     
     private String selectIscrizioniByStudente = "SELECT * "
-                                                    + "FROM iscrizioni "
-                                                    + "WHERE matricola = ?";
+                                              + "FROM iscrizioni "
+                                              + "WHERE matricola = ?";
     
     private String deleteIscrizione = "DELETE "
                                     + "FROM iscrizioni "

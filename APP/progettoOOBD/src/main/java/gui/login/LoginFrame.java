@@ -1,6 +1,10 @@
 package gui.login;
 
 import controller.Controller;
+import eccezioni.gui.CampoVuotoException;
+import eccezioni.gui.FormatoSbagliatoException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 
@@ -323,9 +327,29 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_panelSuperioreMouseDragged
 
     private void buttonConnettitiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConnettitiActionPerformed
-        controller.avviaConnessione(textFieldUserName.getText().trim(), passwordField.getText(), textFieldIP.getText().trim(), textFieldPorta.getText().trim(), textFieldDatabase.getText().trim());
+        try {
+            controllaCampi();
+            controller.avviaConnessione(textFieldUserName.getText(), passwordField.getText(), textFieldIP.getText(), textFieldPorta.getText(), textFieldDatabase.getText());
+        }
+        catch (CampoVuotoException | FormatoSbagliatoException e) {
+            mostraEccezione(e.getMessage());
+        }
+        
     }//GEN-LAST:event_buttonConnettitiActionPerformed
 
+    public void controllaCampi() throws CampoVuotoException, FormatoSbagliatoException {
+        Pattern pattern = Pattern.compile("[^A-Za-z0-9_]");
+        Matcher matcher = pattern.matcher(textFieldDatabase.getText());
+        
+        if( matcher.find() || Pattern.matches("[0-9]+", textFieldDatabase.getText()) ) {
+            throw new FormatoSbagliatoException("Database", "non solo numerico, senza caratteri speciali o spazi vuoti");
+        }
+        
+        if(textFieldDatabase.getText().isBlank() || textFieldPorta.getText().isBlank() || textFieldUserName.getText().isBlank()) {
+            throw new CampoVuotoException();
+        }
+    }
+    
     private void buttonAccediOperatoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAccediOperatoreActionPerformed
         controller.accessoOperatore();
     }//GEN-LAST:event_buttonAccediOperatoreActionPerformed
@@ -354,25 +378,24 @@ public class LoginFrame extends javax.swing.JFrame {
         labelMinimizza.setForeground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_labelMinimizzaMouseExited
 
-    public void connessioneStabilita() {
+    public void confermaConnessioneStabilita() {
         labelStatoConnessione.setForeground(new java.awt.Color(0, 204, 0));
         labelStatoConnessione.setText("Stato: connesso");    
         buttonAccediOperatore.setEnabled(true);
     }
     
-    public void connessioneNonStabilita() {
+    public void confermaConnessioneNonStabilita() {
         labelStatoConnessione.setForeground(new java.awt.Color(204, 0, 0));
         labelStatoConnessione.setText("Stato: non connesso");    
         buttonAccediOperatore.setEnabled(false);
     }
     
-    public void mostraEccezione(String messaggioEccezione) {
-        JOptionPane.showMessageDialog(this, messaggioEccezione, "Errore", JOptionPane.ERROR_MESSAGE);
+    public boolean confermaCreazioneDB() {
+        return JOptionPane.showConfirmDialog(this, "DB selezionato non esistente, si desidera crearlo?", "Attenzione", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
     }
     
-    public boolean confermaCreazioneDB() {
-        return JOptionPane.showConfirmDialog(this, "DB selezionato non esistente, vuoi costruirlo?", "Attenzione", JOptionPane.YES_NO_OPTION) 
-                == JOptionPane.YES_OPTION;
+    public void mostraEccezione(String messaggioEccezione) {
+        JOptionPane.showMessageDialog(this, messaggioEccezione, "Errore", JOptionPane.ERROR_MESSAGE);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

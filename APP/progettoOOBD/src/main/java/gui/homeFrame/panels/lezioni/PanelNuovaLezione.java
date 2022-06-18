@@ -1,13 +1,12 @@
 package gui.homeFrame.panels.lezioni;
 
 import controller.Controller;
-import eccezioni.elementiGui.CampoVuotoException;
-import eccezioni.elementiGui.FormatoSbagliatoException;
-import eccezioni.elementiGui.NessunaRigaSelezionataException;
+import eccezioni.gui.CampoVuotoException;
+import eccezioni.gui.FormatoSbagliatoException;
+import eccezioni.gui.NessunaRigaSelezionataException;
 import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.panelGenerico.PanelGenerico;
 import java.awt.Color;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
@@ -256,7 +255,7 @@ public class PanelNuovaLezione extends PanelGenerico {
     }//GEN-LAST:event_textFieldDurataFocusGained
 
     private void textFieldDurataFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textFieldDurataFocusLost
-        if(textFieldDurata.getText().equals("")) {
+        if(textFieldDurata.getText().isBlank()) {
             textFieldDurata.setForeground(Color.GRAY);
             textFieldDurata.setText("HH:MM");
         }
@@ -277,16 +276,14 @@ public class PanelNuovaLezione extends PanelGenerico {
     private void controllaCampi() throws NessunaRigaSelezionataException, CampoVuotoException, FormatoSbagliatoException  {
         controllaRigaSelezionata(tableCorsi, "corsi");
         
-        if (textFieldTitolo.getText().equals("") ||
-            textFieldDescrizione.getText().equals("") ||
-            textFieldDurata.getText().equals("") ||
+        if (textFieldTitolo.getText().isBlank() ||
+            textFieldDescrizione.getText().isBlank() ||
+            textFieldDurata.getText().isBlank() ||
             textFieldDurata.getText().equals("HH:MM")) {
             throw new CampoVuotoException();
         }
         
-        Pattern pattern = Pattern.compile("[0-9][0-9]:[0-5][0-9]");
-        Matcher matcher = pattern.matcher(textFieldDurata.getText());
-        if(!matcher.find()) {
+        if(!Pattern.matches("[0-9][0-9]:[0-5][0-9]", textFieldDurata.getText())) {
             throw new FormatoSbagliatoException("Durata", "HH:MM");
         }
     }

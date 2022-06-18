@@ -14,13 +14,12 @@ public class Lezione {
     private Corso corsoDellaLezione;
     private LinkedList<Studente> studentiPresenti;
 
-    public Lezione(int codiceLezione, String titoloLezione, String descrizioneLezione, String durataLezione, ZonedDateTime dataInizio, Corso corsoDellaLezione) {
+    public Lezione(int codiceLezione, String titoloLezione, String descrizioneLezione, String durataLezione, ZonedDateTime dataInizio) {
         setCodice(codiceLezione);
         setTitolo(titoloLezione);
         setDescrizione(descrizioneLezione);
         setDurata(durataLezione);
         setDataInizio(dataInizio);
-        setCorsoDellaLezione(corsoDellaLezione);
         studentiPresenti = new LinkedList<>();
     }
     

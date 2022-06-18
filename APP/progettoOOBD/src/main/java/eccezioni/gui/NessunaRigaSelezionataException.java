@@ -1,4 +1,4 @@
-package eccezioni.elementiGui;
+package eccezioni.gui;
 
 public class NessunaRigaSelezionataException extends Exception {
     public NessunaRigaSelezionataException(String nomeTabella) {

@@ -68,9 +68,6 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
                 String cognome = rs.getString("cognome");
 
                 Studente studente = new Studente(matricola, nome, cognome);
-                    
-                controller.setCorsiFrequentati(studente);
-                controller.setPresenze(studente);
                 
                 listaStudenti.add(studente);
             }

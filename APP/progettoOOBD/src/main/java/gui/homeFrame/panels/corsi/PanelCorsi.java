@@ -1,7 +1,7 @@
 package gui.homeFrame.panels.corsi;
 
 import controller.Controller;
-import eccezioni.elementiGui.NessunaRigaSelezionataException;
+import eccezioni.gui.NessunaRigaSelezionataException;
 import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.panelGenerico.PanelGenerico;
 

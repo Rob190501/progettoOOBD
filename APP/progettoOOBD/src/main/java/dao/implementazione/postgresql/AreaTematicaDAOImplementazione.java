@@ -57,8 +57,8 @@ public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfacci
 
     @Override
     public LinkedList<AreaTematica> retrieveAllAreaTematica() throws RetrieveFallitoException {
-        try(PreparedStatement pstmt = connection.prepareStatement(selectAllAreaTematica); 
-            ResultSet rs = pstmt.executeQuery()) {
+        try(Statement stmt = connection.createStatement(); 
+            ResultSet rs = stmt.executeQuery(selectAllAreaTematica)) {
             LinkedList<AreaTematica> listaAreeTematiche = new LinkedList<>();
             
             while(rs.next()) {
