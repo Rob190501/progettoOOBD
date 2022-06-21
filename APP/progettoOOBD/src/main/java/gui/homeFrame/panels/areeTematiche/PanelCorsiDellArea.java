@@ -260,7 +260,7 @@ public class PanelCorsiDellArea extends PanelGenerico {
 
     private void buttonRegistraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegistraActionPerformed
         try {
-            controllaRigaSelezionata(tableCorsiRegistrabili, "corsi frequentabili");
+            controllaRigaSelezionata(tableCorsiRegistrabili, "corsi registrabili");
             getController().registraAreaDelCorso(ottieniPrimoOggetto(tableAreaTematicaSelezionata), ottieniOggettoSelezionato(tableCorsiRegistrabili));
         }
         catch (NessunaRigaSelezionataException e) {
@@ -270,7 +270,7 @@ public class PanelCorsiDellArea extends PanelGenerico {
 
     private void buttonRimuoviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRimuoviActionPerformed
         try {
-            controllaRigaSelezionata(tableCorsiRegistrati, "corsi frequentati");
+            controllaRigaSelezionata(tableCorsiRegistrati, "corsi registrati");
             getController().rimuoviAreaDelCorso(ottieniPrimoOggetto(tableAreaTematicaSelezionata), ottieniOggettoSelezionato(tableCorsiRegistrati));
         }
         catch (NessunaRigaSelezionataException e) {

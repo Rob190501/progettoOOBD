@@ -9,7 +9,6 @@ import gui.homeFrame.panels.panelGenerico.PanelGenerico;
 
 public class PanelAreeTematiche extends PanelGenerico {
 
-
     public PanelAreeTematiche(Controller controller, HomeFrameOperatore homeFrame) {
         super(controller, homeFrame);
         initComponents();

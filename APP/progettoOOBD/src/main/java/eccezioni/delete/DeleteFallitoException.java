@@ -1,5 +1,7 @@
 package eccezioni.delete;
 
+
+
 public class DeleteFallitoException extends Exception {
     
     public DeleteFallitoException(String cosaEliminare, String messaggioEccezione) {

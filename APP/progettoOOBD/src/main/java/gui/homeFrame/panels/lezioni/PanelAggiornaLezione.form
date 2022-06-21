@@ -28,37 +28,41 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="labelDurata" alignment="0" pref="350" max="32767" attributes="0"/>
-                              <Component id="labelTitolo" alignment="0" max="32767" attributes="0"/>
-                              <Component id="textFieldTitolo" alignment="1" max="32767" attributes="0"/>
-                              <Component id="textFieldDurata" alignment="0" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="16" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="labelDurata" alignment="0" pref="350" max="32767" attributes="0"/>
+                                  <Component id="labelTitolo" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="textFieldTitolo" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="textFieldDurata" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="labelDescrizione" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="labelDataOraInizio" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="textFieldDescrizione" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="spinnerDataOraInizio" alignment="0" min="-2" pref="350" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="labelDescrizione" alignment="0" max="32767" attributes="0"/>
-                              <Component id="labelDataOraInizio" alignment="0" max="32767" attributes="0"/>
-                              <Component id="textFieldDescrizione" alignment="0" max="32767" attributes="0"/>
-                              <Component id="spinnerDataOraInizio" alignment="0" min="-2" pref="350" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="labelAggiornaLezione" min="-2" pref="349" max="-2" attributes="0"/>
+                              <Component id="labelLezioneSelezionata" min="-2" pref="644" max="-2" attributes="0"/>
+                              <Component id="scrollPaneTableLezioneSelezionata" alignment="0" min="-2" pref="712" max="-2" attributes="0"/>
                           </Group>
-                      </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labelAggiornaLezione" min="-2" pref="349" max="-2" attributes="0"/>
-                          <Component id="labelLezioneSelezionata" min="-2" pref="644" max="-2" attributes="0"/>
-                          <Component id="scrollPaneTableLezioneSelezionata" alignment="0" min="-2" pref="712" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="buttonIndietro" min="-2" pref="147" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="131" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="buttonAggiornaLezione" min="-2" pref="147" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="17" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -93,8 +97,8 @@
               </Group>
               <EmptySpace pref="59" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="buttonIndietro" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="buttonAggiornaLezione" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="buttonIndietro" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
           </Group>

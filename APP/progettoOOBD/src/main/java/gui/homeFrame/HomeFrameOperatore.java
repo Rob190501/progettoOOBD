@@ -22,7 +22,6 @@ import gui.homeFrame.panels.studenti.PanelStudenti;
 
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -394,6 +393,26 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
+    private void evidenziaLabel(JLabel label) {
+        label.setText(label.getText().replace("  ", "| "));
+        label.setForeground(new Color(255, 255, 255));
+    }
+    
+    private void deselezionaLabel(JLabel label) {
+        label.setText(label.getText().replace("| ", "  "));
+        label.setForeground(new Color(204, 204, 204));
+    }
+    
+    private void setLabelSelezionata(JLabel nuovaLabelSelezionata) {
+        evidenziaLabel(nuovaLabelSelezionata);
+        labelSelezionata = nuovaLabelSelezionata;
+    }
+            
+    private void aggiornaLabelSelezionata(JLabel nuovaLabelSelezionata) {
+        deselezionaLabel(labelSelezionata);
+        setLabelSelezionata(nuovaLabelSelezionata);
+    } 
+    
     public void cambiaCard(String cardDesiderata) {
         ((CardLayout) panelContenuti.getLayout()).show(panelContenuti, cardDesiderata);
     }
@@ -493,7 +512,6 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     }
     
     private void panelSuperioreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelSuperioreMousePressed
-        // TODO add your handling code here:
         if (getExtendedState() == NORMAL) {
             mouseX = evt.getX();
             mouseY = evt.getY();
@@ -501,33 +519,26 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     }//GEN-LAST:event_panelSuperioreMousePressed
 
     private void panelSuperioreMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelSuperioreMouseDragged
-        // TODO add your handling code here:
         if (getExtendedState() == NORMAL) {
             int x = evt.getXOnScreen();
             int y = evt.getYOnScreen();
             setLocation(x - mouseX, y - mouseY);
         }
     }//GEN-LAST:event_panelSuperioreMouseDragged
-    
-    
-    
+ 
     private void labelMinimizzaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMinimizzaMouseClicked
-        // TODO add your handling code here:
         setState(ICONIFIED);
     }//GEN-LAST:event_labelMinimizzaMouseClicked
 
     private void labelMinimizzaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMinimizzaMouseEntered
-        // TODO add your handling code here:
         labelMinimizza.setForeground(new java.awt.Color(255, 204, 0));
     }//GEN-LAST:event_labelMinimizzaMouseEntered
 
     private void labelMinimizzaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMinimizzaMouseExited
-        // TODO add your handling code here:
         labelMinimizza.setForeground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_labelMinimizzaMouseExited
 
     private void labelRidimensionaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelRidimensionaMouseClicked
-        // TODO add your handling code here:
         if (getExtendedState() == MAXIMIZED_BOTH) {
             setExtendedState(JFrame.NORMAL);
         }
@@ -537,83 +548,48 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     }//GEN-LAST:event_labelRidimensionaMouseClicked
 
     private void labelRidimensionaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelRidimensionaMouseEntered
-        // TODO add your handling code here:
         labelRidimensiona.setForeground(new java.awt.Color(3, 172, 3));
     }//GEN-LAST:event_labelRidimensionaMouseEntered
 
     private void labelRidimensionaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelRidimensionaMouseExited
-        // TODO add your handling code here:
         labelRidimensiona.setForeground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_labelRidimensionaMouseExited
 
     private void labelChiudiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelChiudiMouseClicked
-        // TODO add your handling code here:
         controller.terminaEsecuzione();
     }//GEN-LAST:event_labelChiudiMouseClicked
 
     private void labelChiudiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelChiudiMouseEntered
-        // TODO add your handling code here:
         labelChiudi.setForeground(new java.awt.Color(255, 0, 0));
     }//GEN-LAST:event_labelChiudiMouseEntered
 
     private void labelChiudiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelChiudiMouseExited
-        // TODO add your handling code here:
         labelChiudi.setForeground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_labelChiudiMouseExited
-    
-    
-    
-    private void evidenziaLabel(JLabel label) {
-        label.setText(label.getText().replace("  ", "| "));
-        label.setFont(new Font("Segoe UI", 1, 24));
-        label.setForeground(new Color(255, 255, 255));
-    }
-    
-    private void deselezionaLabel(JLabel label) {
-        label.setText(label.getText().replace("| ", "  "));
-        label.setFont(new Font("Segoe UI", 1, 24));
-        label.setForeground(new Color(204, 204, 204));
-    }
-    
-    private void setLabelSelezionata(JLabel nuovaLabelSelezionata) {
-        evidenziaLabel(nuovaLabelSelezionata);
-        labelSelezionata = nuovaLabelSelezionata;
-    }
-            
-    private void aggiornaLabelSelezionata(JLabel nuovaLabelSelezionata) {
-        deselezionaLabel(labelSelezionata);
-        setLabelSelezionata(nuovaLabelSelezionata);
-    }    
-    
+   
     private void labelMenuStudentiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMenuStudentiMouseClicked
-        // TODO add your handling code here:
         mostraPanelStudenti();
     }//GEN-LAST:event_labelMenuStudentiMouseClicked
 
     private void labelMenuHomePageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMenuHomePageMouseClicked
-        // TODO add your handling code here:
         mostraPanelHomePage();
     }//GEN-LAST:event_labelMenuHomePageMouseClicked
 
     private void labelMenuCorsiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMenuCorsiMouseClicked
-        // TODO add your handling code here:
         mostraPanelCorsi();
     }//GEN-LAST:event_labelMenuCorsiMouseClicked
 
     private void labelMenuLezioniMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMenuLezioniMouseClicked
-        // TODO add your handling code here:
         mostraPanelLezioni();
     }//GEN-LAST:event_labelMenuLezioniMouseClicked
 
     private void labelMenuAreeTematicheMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMenuAreeTematicheMouseClicked
-        // TODO add your handling code here:
         mostraPanelAreeTematiche();
     }//GEN-LAST:event_labelMenuAreeTematicheMouseClicked
     
     public void mostraEccezione(String messaggioEccezione) {
         JOptionPane.showMessageDialog(this, messaggioEccezione, "Errore", JOptionPane.ERROR_MESSAGE);
     }
-    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel labelChiudi;
@@ -630,4 +606,5 @@ public class HomeFrameOperatore extends javax.swing.JFrame {
     private javax.swing.JPanel panelSuperiore;
     private javax.swing.JPanel panelTotale;
     // End of variables declaration//GEN-END:variables
+
 }

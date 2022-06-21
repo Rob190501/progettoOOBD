@@ -1,5 +1,7 @@
 package eccezioni.associazioni;
 
+
+
 public class AssociazioneFallitaException extends Exception {
 
     public AssociazioneFallitaException(String cosaAssociare) {

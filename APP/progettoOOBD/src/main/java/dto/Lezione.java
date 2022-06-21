@@ -1,8 +1,9 @@
-
 package dto;
 
 import java.time.ZonedDateTime;
 import java.util.LinkedList;
+
+
 
 public class Lezione {
     
@@ -11,25 +12,25 @@ public class Lezione {
     private String descrizione;
     private String durata;
     private ZonedDateTime dataInizio;
-    private Corso corsoDellaLezione;
-    private LinkedList<Studente> studentiPresenti;
+    private Corso corso;
+    private LinkedList<Studente> listaStudenti;
 
-    public Lezione(int codiceLezione, String titoloLezione, String descrizioneLezione, String durataLezione, ZonedDateTime dataInizio) {
-        setCodice(codiceLezione);
-        setTitolo(titoloLezione);
-        setDescrizione(descrizioneLezione);
-        setDurata(durataLezione);
-        setDataInizio(dataInizio);
-        studentiPresenti = new LinkedList<>();
+    public Lezione(int codice, String titolo, String descrizione, String durata, ZonedDateTime dataInizio) {
+        this.codice = codice;
+        this.titolo = titolo;
+        this.descrizione = descrizione;
+        this.durata = durata;
+        this.dataInizio = dataInizio;
+        this.listaStudenti = new LinkedList<>();
     }
     
-    public Lezione(String titoloLezione, String descrizioneLezione, String durataLezione, ZonedDateTime dataInizio, Corso corsoDellaLezione) {
-        setTitolo(titoloLezione);
-        setDescrizione(descrizioneLezione);
-        setDurata(durataLezione);
-        setDataInizio(dataInizio);
-        setCorsoDellaLezione(corsoDellaLezione);
-        studentiPresenti = new LinkedList<>();
+    public Lezione(String titolo, String descrizione, String durata, ZonedDateTime dataInizio, Corso corso) {
+        this.titolo = titolo;
+        this.descrizione = descrizione;
+        this.durata = durata;
+        this.dataInizio = dataInizio;
+        this.corso = corso;
+        this.listaStudenti = new LinkedList<>();
     }
     
     public int getCodice() {
@@ -52,12 +53,12 @@ public class Lezione {
         return dataInizio;
     }
 
-    public Corso getCorsoDellaLezione() {
-        return corsoDellaLezione;
+    public Corso getCorso() {
+        return corso;
     }
 
-    public LinkedList<Studente> getStudentiPresenti() {
-        return studentiPresenti;
+    public LinkedList<Studente> getListaStudenti() {
+        return listaStudenti;
     }
     
     public void setCodice(int codice) {
@@ -80,16 +81,16 @@ public class Lezione {
         this.dataInizio = dataInizio;
     }
 
-    public void setCorsoDellaLezione(Corso corsoDellaLezione) {
-        this.corsoDellaLezione = corsoDellaLezione;
+    public void setCorso(Corso corso) {
+        this.corso = corso;
     }
     
     public void addStudente(Studente studente) {
-        studentiPresenti.add(studente);
+        listaStudenti.add(studente);
     }
     
     public void removeStudente(Studente studente) {
-        studentiPresenti.remove(studente);
+        listaStudenti.remove(studente);
     }
     
     public Object[] creaRiga() {
@@ -97,20 +98,16 @@ public class Lezione {
         return riga;
     }
     
-    public String toString() {
-        return codice + " | " + titolo + " | " + descrizione + " | " + durata + " | " + dataInizio + " | " + corsoDellaLezione.getNome();
-    }
-    
     public void rimuoviDaAssociazioni() {
-        corsoDellaLezione.getListaLezioni().remove(this);
+        corso.getListaLezioni().remove(this);
         
-        for(Studente studente : studentiPresenti) {
-            studente.getListaPresenze().remove(this);
+        for(Studente studente : listaStudenti) {
+            studente.getListaLezioni().remove(this);
         }
     }
     
     public int getNumeroPresenti() {
-        return studentiPresenti.size();
+        return listaStudenti.size();
     }
     
 }

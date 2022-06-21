@@ -164,6 +164,32 @@ public class DBBuilder {
                                         "        RETURN NEW; " +
                                         "    END IF; " +
                                         "END; " +
+                                        "' LANGUAGE plpgsql;" +
+                                        
+                                        "CREATE OR REPLACE FUNCTION vieta_aggiornamento_presenza() RETURNS TRIGGER AS " +
+                                        "' " +
+                                        "BEGIN " +
+                                        "    RAISE EXCEPTION ''Impossibile aggiornare una riga della tabella presenze.''; " +
+                                        "END; " +
+                                        "' LANGUAGE plpgsql;" +
+                                        
+                                        "CREATE OR REPLACE FUNCTION vieta_aggiornamento_iscrizione() RETURNS TRIGGER AS " +
+                                        "' " +
+                                        "BEGIN " +
+                                        "    RAISE EXCEPTION ''Impossibile aggiornare una riga della tabella iscrizioni.''; " +
+                                        "END; " +
+                                        "' LANGUAGE plpgsql;" +
+            
+                                        "CREATE OR REPLACE FUNCTION vieta_aggiornamento_corso_della_lezione() RETURNS TRIGGER AS " +
+                                        "' " +
+                                        "BEGIN " +
+                                        "    IF (NEW.codice_corso) <> (OLD.codice_corso) " +
+                                        "    THEN " +
+                                        "        RAISE EXCEPTION ''Impossibile cambiare il corso di una lezione.''; " +
+                                        "    ELSE " +
+                                        "        RETURN NEW; " +
+                                        "    END IF; " +
+                                        "END; " +
                                         "' LANGUAGE plpgsql;";
     
     private String createTrigger =  "CREATE OR REPLACE TRIGGER nuova_iscrizione " +
@@ -188,7 +214,25 @@ public class DBBuilder {
                                     "BEFORE UPDATE " +
                                     "ON corsi " +
                                     "FOR EACH ROW " +
-                                    "EXECUTE FUNCTION controlla_partecipanti_max();";
+                                    "EXECUTE FUNCTION controlla_partecipanti_max();" +
+            
+                                    "CREATE OR REPLACE TRIGGER update_presenza " +
+                                    "BEFORE UPDATE " +
+                                    "ON presenze " +
+                                    "FOR EACH ROW " +
+                                    "EXECUTE FUNCTION vieta_aggiornamento_presenza();" +
+            
+                                    "CREATE OR REPLACE TRIGGER update_iscrizione " +
+                                    "BEFORE UPDATE " +
+                                    "ON iscrizioni " +
+                                    "FOR EACH ROW " +
+                                    "EXECUTE FUNCTION vieta_aggiornamento_iscrizione();" +
+            
+                                    "CREATE OR REPLACE TRIGGER update_lezione " +
+                                    "BEFORE UPDATE " +
+                                    "ON lezioni " +
+                                    "FOR EACH ROW " +
+                                    "EXECUTE FUNCTION vieta_aggiornamento_corso_della_lezione();";
     
     private String insertDemo = "INSERT INTO corsi (nome, descrizione, tasso_presenze_min, partecipanti_max) VALUES " +
                                 "('Informatica', 'Si studia informatica', 75, 5), " +
@@ -236,6 +280,9 @@ public class DBBuilder {
     
     public DBBuilder(Controller controller, String userName, String password, String ip, String porta, String db) throws SQLException, ClassNotFoundException {
         this.controller = controller;
+        if(this.connection != null) {
+            this.connection.close();
+        }
         this.connection = ConnessioneSingleton.getIstanza(userName, password, ip, porta, "postgres").getConnection();
         this.userName = userName;
         this.password = password;

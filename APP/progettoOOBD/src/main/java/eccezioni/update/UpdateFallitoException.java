@@ -1,5 +1,7 @@
 package eccezioni.update;
 
+
+
 public class UpdateFallitoException extends Exception {
     
     public UpdateFallitoException(String cosaAggiornare, String messaggioEccezione) {

@@ -1,5 +1,7 @@
 package eccezioni.retrieve;
 
+
+
 public class RetrieveFallitoException extends Exception {
     
     public RetrieveFallitoException(String cosaRecuperare, String messaggioEccezione) {

@@ -5,6 +5,8 @@ import eccezioni.gui.NessunaRigaSelezionataException;
 import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.panelGenerico.PanelGenerico;
 
+
+
 public class PanelPresenze extends PanelGenerico {
 
     public PanelPresenze(Controller controller, HomeFrameOperatore homeFrame) {
@@ -316,4 +318,5 @@ public class PanelPresenze extends PanelGenerico {
     private javax.swing.JTable tablePresenzeRegistrate;
     private javax.swing.JTable tableStudenteSelezionato;
     // End of variables declaration//GEN-END:variables
+
 }

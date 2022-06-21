@@ -56,7 +56,7 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
             pstmt.setString(2, lezione.getDescrizione());
             pstmt.setString(3, lezione.getDurata());
             pstmt.setTimestamp(4, Timestamp.valueOf(lezione.getDataInizio().toLocalDateTime()));
-            pstmt.setInt(5, lezione.getCorsoDellaLezione().getCodice());
+            pstmt.setInt(5, lezione.getCorso().getCodice());
             pstmt.executeUpdate();
             try (ResultSet rs = pstmt.getGeneratedKeys()) {
                 rs.next();
@@ -99,7 +99,7 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
             try (ResultSet rs = pstm.executeQuery()) {
                 while(rs.next()) {
                     Corso corsoDellaLezione = trovaCorsoDellaLezione(rs.getInt("codice_corso"), listaCorsi);
-                    lezione.setCorsoDellaLezione(corsoDellaLezione);
+                    lezione.setCorso(corsoDellaLezione);
                     corsoDellaLezione.addLezione(lezione);
                 }
             }

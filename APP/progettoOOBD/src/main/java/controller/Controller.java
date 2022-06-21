@@ -107,7 +107,7 @@ public class Controller {
         this.listaCorsi = new LinkedList<>();
         this.listaLezioni = new LinkedList<>();
         this.listaStudenti = new LinkedList<>();
-        fusoOrario = "Europe/Rome";
+        this.fusoOrario = "Europe/Rome";
     }
     //costruttore
     
@@ -359,11 +359,11 @@ public class Controller {
         
         panelStudenti.svuotaTableAssociazioni();
         
-        for(Corso corso : studente.getListaCorsiFrequentati()) {
+        for(Corso corso : studente.getListaCorsi()) {
             panelStudenti.inserisciInTableCorsiFrequentati(corso.creaRiga());
         }
         
-        for(Lezione lezione : studente.getListaPresenze()) {
+        for(Lezione lezione : studente.getListaLezioni()) {
             panelStudenti.inserisciInTablePresenze(lezione.creaRiga());
         }
     }
@@ -407,7 +407,7 @@ public class Controller {
     public void aggiornaPanelIscrizioni(Studente studente) {
         panelIscrizioni.svuotaTableAssociazioni();
         
-        for(Corso corso : studente.getListaCorsiFrequentati()) {
+        for(Corso corso : studente.getListaCorsi()) {
             panelIscrizioni.inserisciInTableCorsiFrequentati(corso.creaRiga());
         }
         for (Corso corso : listaCorsi) {
@@ -455,12 +455,12 @@ public class Controller {
     public void aggiornaPanelPresenze(Studente studente) {
         panelPresenze.svuotaTableAssociazioni();
         
-        for(Lezione lezione : studente.getListaPresenze()) {
+        for(Lezione lezione : studente.getListaLezioni()) {
             panelPresenze.inserisciInTablePresenzeRegistrate(lezione.creaRiga());
         }
-        for (Corso corso : studente.getListaCorsiFrequentati()) {
+        for (Corso corso : studente.getListaCorsi()) {
             for(Lezione lezione : corso.getListaLezioni()) {
-                if(!studente.getListaPresenze().contains(lezione)) {
+                if(!studente.getListaLezioni().contains(lezione)) {
                     panelPresenze.inserisciInTablePresenzePossibili(lezione.creaRiga());
                 }
             }
@@ -658,7 +658,7 @@ public class Controller {
         for(Lezione lezione : corso.getListaLezioni()) {
             panelCorsi.inserisciInTableLezioniDelCorso(lezione.creaRiga());
         }
-        for(Studente studente : corso.getStudentiIscritti()) {
+        for(Studente studente : corso.getListaStudenti()) {
             panelCorsi.inserisciInTableStudentiDelCorso(studente.creaRiga());
         }
         for(AreaTematica areaTematica : corso.getListaAreeTematiche()) {
@@ -701,6 +701,7 @@ public class Controller {
         Corso corso = (Corso) corsoSelezionato;
         
         panelAggiornaCorso.svuotaCampi();
+        panelAggiornaCorso.setNumeroMinimoIscritti(corso.getNumeroIscritti());
         panelAggiornaCorso.inserisciCorsoSelezionato(corso.creaRiga());
         panelAggiornaCorso.setNome(corso.getNome());
         panelAggiornaCorso.setDescrizione(corso.getDescrizione());
@@ -731,7 +732,7 @@ public class Controller {
         
         panelProspettoCorso.svuotaTutteTable();
         panelProspettoCorso.inserisciInTableCorsoSelezionato(corso.creaRiga());
-        for(Studente studente : corso.getStudentiIscritti()) {
+        for(Studente studente : corso.getListaStudenti()) {
             if(studente.eIdoneo(corso)) {
                 panelProspettoCorso.inserisciInTableStudentiIdonei(studente.creaRiga());
             }
@@ -765,11 +766,11 @@ public class Controller {
         
         panelLezioni.svuotaTableAssociazioni();
         
-        for(Studente studente : lezione.getStudentiPresenti()) {
+        for(Studente studente : lezione.getListaStudenti()) {
             panelLezioni.inserisciInTableStudentiPresenti(studente.creaRiga());
         }
         
-        panelLezioni.inserisciInTableCorsoDellaLezione(lezione.getCorsoDellaLezione().creaRiga());
+        panelLezioni.inserisciInTableCorsoDellaLezione(lezione.getCorso().creaRiga());
     }
     
     public void impostaPanelNuovaLezione() {

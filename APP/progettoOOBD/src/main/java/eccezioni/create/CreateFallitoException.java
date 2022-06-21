@@ -1,5 +1,7 @@
 package eccezioni.create;
 
+
+
 public class CreateFallitoException extends Exception {
     
     public CreateFallitoException(String cosaCreare, String messaggioEccezione) {

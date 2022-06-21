@@ -24,43 +24,37 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="188" max="-2" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace pref="101" max="32767" attributes="0"/>
+              <Component id="buttonNuovaLezione" min="-2" pref="147" max="-2" attributes="0"/>
+              <EmptySpace pref="54" max="32767" attributes="0"/>
               <Component id="buttonEliminaLezione" min="-2" pref="147" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+              <EmptySpace pref="38" max="32767" attributes="0"/>
               <Component id="buttonAggiornaLezione" min="-2" pref="147" max="-2" attributes="0"/>
-              <EmptySpace pref="225" max="32767" attributes="0"/>
+              <EmptySpace pref="111" max="32767" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="labelLezioni" max="32767" attributes="0"/>
+                      <Component id="scrollPaneTableLezioni" pref="317" max="32767" attributes="0"/>
+                  </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="buttonNuovaLezione" min="-2" pref="147" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="458" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="labelLezioni" max="32767" attributes="0"/>
-                              <Component id="scrollPaneTableLezioni" pref="317" max="32767" attributes="0"/>
+                              <Component id="scrollPaneTableStudentiPresenti" alignment="0" pref="345" max="32767" attributes="0"/>
+                              <Component id="scrollPaneTableCorsoDellaLezione" alignment="1" pref="0" max="32767" attributes="0"/>
+                              <Component id="labelCorsoDellaLezione" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="scrollPaneTableStudentiPresenti" alignment="0" pref="345" max="32767" attributes="0"/>
-                                      <Component id="scrollPaneTableCorsoDellaLezione" alignment="1" pref="0" max="32767" attributes="0"/>
-                                      <Component id="labelCorsoDellaLezione" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                                  <Component id="labelStudentiPresenti" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                          <Component id="labelStudentiPresenti" max="32767" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -68,12 +62,13 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="517" max="32767" attributes="0"/>
+              <EmptySpace pref="518" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="buttonEliminaLezione" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="buttonAggiornaLezione" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="buttonNuovaLezione" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
@@ -92,9 +87,7 @@
                       </Group>
                       <Component id="scrollPaneTableLezioni" alignment="0" pref="374" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                  <Component id="buttonNuovaLezione" min="-2" pref="30" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
               </Group>
           </Group>
       </Group>

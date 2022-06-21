@@ -1,5 +1,7 @@
 package eccezioni.gui;
 
+
+
 public class FormatoSbagliatoException extends Exception {
     
     public FormatoSbagliatoException(String campo, String formatoCorretto) {

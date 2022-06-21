@@ -419,4 +419,5 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textFieldPorta;
     private javax.swing.JTextField textFieldUserName;
     // End of variables declaration//GEN-END:variables
+
 }

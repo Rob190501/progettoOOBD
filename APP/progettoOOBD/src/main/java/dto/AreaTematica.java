@@ -2,6 +2,8 @@ package dto;
 
 import java.util.LinkedList;
 
+
+
 public class AreaTematica {
     
     private int codice;
@@ -10,21 +12,17 @@ public class AreaTematica {
     private LinkedList<Corso> corsiDellAreaTematica;
 
     public AreaTematica(int codice, String nome, String descrizione) {
-        setCodice(codice);
-        setNome(nome);
-        setDescrizione(descrizione);
-        corsiDellAreaTematica = new LinkedList<>();
+        this.codice = codice;
+        this.nome = nome;
+        this.descrizione = descrizione;
+        this.corsiDellAreaTematica = new LinkedList<>();
     }
-
-    
 
     public AreaTematica(String nome, String descrizione) {
-        setNome(nome);
-        setDescrizione(descrizione);
-        corsiDellAreaTematica = new LinkedList<>();
+        this.nome = nome;
+        this.descrizione = descrizione;
+        this.corsiDellAreaTematica = new LinkedList<>();
     }
-    
-    
 
     public int getCodice() {
         return codice;
@@ -67,15 +65,10 @@ public class AreaTematica {
         return riga;
     }
     
-    public String toString() {
-        return getCodice() + " | " + getNome() + " | " + getDescrizione();
-    }
-    
     public void rimuoviDaAssociazioni() {
         for(Corso corso : corsiDellAreaTematica) {
             corso.getListaAreeTematiche().remove(this);
         }
     }
-    
     
 }

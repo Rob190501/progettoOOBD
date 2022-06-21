@@ -3,6 +3,8 @@ package dto;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
+
+
 public class Corso {
     
     private int codice;
@@ -10,27 +12,27 @@ public class Corso {
     private String descrizione;
     private int tassoPresenzeMinime;
     private int numeroMassimoIscritti;
-    private LinkedList<Studente> studentiIscritti;
+    private LinkedList<Studente> listaStudenti;
     private LinkedList<Lezione> listaLezioni;
     private LinkedList<AreaTematica> listaAreeTematiche;
 
     public Corso(int codice, String nome, String descrizione, int tassoPresenzeMin, int numeroMassimoIscritti) {
-        setCodice(codice);
-        setNome(nome);
-        setDescrizione(descrizione);
-        setTassoPresenzeMinime(tassoPresenzeMin);
-        setNumeroMassimoIscritti(numeroMassimoIscritti);
-        studentiIscritti = new LinkedList<>();
-        listaLezioni = new LinkedList<>();
-        listaAreeTematiche = new LinkedList<>();
+        this.codice = codice;
+        this.nome = nome;
+        this.descrizione = descrizione;
+        this.tassoPresenzeMinime = tassoPresenzeMin;
+        this.numeroMassimoIscritti = numeroMassimoIscritti;
+        this.listaStudenti = new LinkedList<>();
+        this.listaLezioni = new LinkedList<>();
+        this.listaAreeTematiche = new LinkedList<>();
     }
     
     public Corso(String nome, String descrizione, int tassoPresenzeMin, int numeroMassimoIscritti) {
-        setNome(nome);
-        setDescrizione(descrizione);
-        setTassoPresenzeMinime(tassoPresenzeMin);
-        setNumeroMassimoIscritti(numeroMassimoIscritti);
-        studentiIscritti = new LinkedList<>();
+        this.nome = nome;
+        this.descrizione = descrizione;
+        this.tassoPresenzeMinime = tassoPresenzeMin;
+        this.numeroMassimoIscritti = numeroMassimoIscritti;
+        listaStudenti = new LinkedList<>();
         listaLezioni = new LinkedList<>();
         listaAreeTematiche = new LinkedList<>();
     }
@@ -55,8 +57,8 @@ public class Corso {
         return numeroMassimoIscritti;
     }
     
-    public LinkedList<Studente> getStudentiIscritti() {
-        return studentiIscritti;
+    public LinkedList<Studente> getListaStudenti() {
+        return listaStudenti;
     }
     
     public LinkedList<Lezione> getListaLezioni() {
@@ -88,11 +90,11 @@ public class Corso {
     }
     
     public void addStudente(Studente studente) {
-        studentiIscritti.add(studente);
+        listaStudenti.add(studente);
     }
     
     public void removeStudente(Studente studente) {
-        studentiIscritti.remove(studente);
+        listaStudenti.remove(studente);
     }
     
     public void addLezione(Lezione lezione) {
@@ -117,19 +119,12 @@ public class Corso {
     }
     
     public boolean eFrequentabile(Studente studente) {
-        if(!studentiIscritti.contains(studente) && studentiIscritti.size() < numeroMassimoIscritti) {
-            return true;
-        }
-        return false;
-    }
-    
-    public String toString() {
-        return nome + listaAreeTematiche.toString();
+        return (!listaStudenti.contains(studente) && listaStudenti.size() < numeroMassimoIscritti);
     }
     
     public void rimuoviDaAssociazioni() {
-        for(Studente studente : studentiIscritti) {
-            studente.getListaPresenze().removeAll(listaLezioni);
+        for(Studente studente : listaStudenti) {
+            studente.getListaLezioni().removeAll(listaLezioni);
             studente.removeCorso(this);
         }
         
@@ -155,6 +150,10 @@ public class Corso {
         catch (NoSuchElementException e) {
             return 0;
         }
+    }
+    
+    public int getNumeroIscritti() {
+        return listaStudenti.size();
     }
     
     public int getNumeroPresenzeMassimo() {
@@ -192,7 +191,7 @@ public class Corso {
                 presenzeEffettive += lezione.getNumeroPresenti();
             }
             int numeroLezioni = listaLezioni.size();
-            int numeroIscritti = studentiIscritti.size();
+            int numeroIscritti = listaStudenti.size();
 
             int presenzeMassime = numeroIscritti * numeroLezioni;
 

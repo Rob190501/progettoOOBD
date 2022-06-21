@@ -2,12 +2,15 @@ package gui.homeFrame.panels.corsi;
 
 import controller.Controller;
 import eccezioni.gui.CampoVuotoException;
+import eccezioni.gui.FormatoSbagliatoException;
 import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.panelGenerico.PanelGenerico;
 
 
 
 public class PanelAggiornaCorso extends PanelGenerico {
+    
+    private int numeroMinimoIscritti;
     
     public PanelAggiornaCorso(Controller controller, HomeFrameOperatore homeFrame) {
         super(controller, homeFrame);        
@@ -213,6 +216,10 @@ public class PanelAggiornaCorso extends PanelGenerico {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setNumeroMinimoIscritti(int numeroMinimoIscritti) {
+        this.numeroMinimoIscritti = numeroMinimoIscritti;
+    }
+    
     private void buttonAggiornaCorsoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAggiornaCorsoActionPerformed
         try {
             controllaCampi();
@@ -223,7 +230,7 @@ public class PanelAggiornaCorso extends PanelGenerico {
                                           (int) spinnerNumeroMassimoIscritti.getValue());
             getHomeFrame().mostraPanelCorsi();
         }
-        catch(CampoVuotoException e) {
+        catch(CampoVuotoException | FormatoSbagliatoException e) {
             getHomeFrame().mostraEccezione(e.getMessage());
         }
     }//GEN-LAST:event_buttonAggiornaCorsoActionPerformed
@@ -252,9 +259,12 @@ public class PanelAggiornaCorso extends PanelGenerico {
         spinnerNumeroMassimoIscritti.setValue(numeroMassimo);
     }
     
-    private void controllaCampi() throws CampoVuotoException {
+    private void controllaCampi() throws CampoVuotoException, FormatoSbagliatoException {
         if (textFieldNome.getText().isBlank() || textFieldDescrizione.getText().isBlank()) {
             throw new CampoVuotoException();
+        }
+        if( ((int)spinnerNumeroMassimoIscritti.getValue()) < numeroMinimoIscritti) {
+            throw new FormatoSbagliatoException("spinner partecipanti max", "un numero >= " + numeroMinimoIscritti);
         }
     }
     
