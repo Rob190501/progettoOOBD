@@ -45,6 +45,8 @@ import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -206,22 +208,24 @@ public class Controller {
     }
     
     public void accessoOperatore(){
-        impostaPanelPrincipali();
-        
-        loginFrame.setVisible(false);
-        homeFrameOperatore.setVisible(true);
+        try {
+            retrieveAllDTO();
+            stabilisciAssociazioni();
+            impostaPanelStudenti();
+            impostaPanelAreeTematiche();
+            impostaPanelCorsi();
+            impostaPanelLezioni();
+            loginFrame.setVisible(false);
+            homeFrameOperatore.setVisible(true);
+        }
+        catch (RetrieveFallitoException | AssociazioneFallitaException e) {
+            connessioneNonStabilita(e.getMessage());
+        }
     }
     
     public void esciDaOperatore() {
         loginFrame.setVisible(true);
         homeFrameOperatore.setVisible(false);
-    }
-    
-    private void impostaPanelPrincipali() {
-        impostaPanelStudenti();
-        impostaPanelAreeTematiche();
-        impostaPanelCorsi();
-        impostaPanelLezioni();
     }
     //GUI
     
@@ -258,15 +262,8 @@ public class Controller {
     }
     
     public void connessioneStabilita() {
-        try {
-            creaDAO();
-            retrieveAllDTO();
-            stabilisciAssociazioni();
-            loginFrame.confermaConnessioneStabilita();
-        }
-        catch(RetrieveFallitoException | AssociazioneFallitaException e) {
-            connessioneNonStabilita(e.getMessage());
-        }
+        creaDAO();
+        loginFrame.confermaConnessioneStabilita();
     }
     
     public void connessioneNonStabilita(String messaggioEccezione) {
