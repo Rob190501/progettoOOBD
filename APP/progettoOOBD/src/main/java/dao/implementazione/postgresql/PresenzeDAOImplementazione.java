@@ -69,7 +69,7 @@ public class PresenzeDAOImplementazione implements PresenzeDAOInterfaccia {
         }
     }
     
-    public Lezione trovaLezioneDellaPresenza(int codice_lezione, LinkedList<Lezione> listaLezioni) throws AssociazioneFallitaException {
+    private Lezione trovaLezioneDellaPresenza(int codice_lezione, LinkedList<Lezione> listaLezioni) throws AssociazioneFallitaException {
         for (Lezione lezione : listaLezioni) {
             if(codice_lezione == lezione.getCodice()) {
                 return lezione;

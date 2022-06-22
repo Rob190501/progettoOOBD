@@ -69,7 +69,7 @@ public class IscrizioniDAOImplementazione implements IscrizioniDAOInterfaccia {
         }
     }
     
-    public Corso trovaCorsoFrequentato(int codice_corso, LinkedList<Corso> listaCorsi) throws AssociazioneFallitaException {
+    private Corso trovaCorsoFrequentato(int codice_corso, LinkedList<Corso> listaCorsi) throws AssociazioneFallitaException {
         for (Corso corso : listaCorsi) {
             if(codice_corso == corso.getCodice()) {
                 return corso;

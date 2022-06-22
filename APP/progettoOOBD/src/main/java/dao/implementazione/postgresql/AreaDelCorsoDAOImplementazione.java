@@ -69,7 +69,7 @@ public class AreaDelCorsoDAOImplementazione implements AreaDelCorsoDAOInterfacci
         }
     }
     
-    public AreaTematica trovaAreaDelCorso(int codice_area_tematica, LinkedList<AreaTematica> listaAreeTematiche) throws AssociazioneFallitaException {
+    private AreaTematica trovaAreaDelCorso(int codice_area_tematica, LinkedList<AreaTematica> listaAreeTematiche) throws AssociazioneFallitaException {
         for (AreaTematica areaTematica : listaAreeTematiche) {
             if(codice_area_tematica == areaTematica.getCodice()) {
                 return areaTematica;
