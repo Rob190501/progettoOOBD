@@ -45,8 +45,6 @@ import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 
@@ -116,30 +114,6 @@ public class Controller {
     //getters e setters
     public String getFusoOrario() {
         return fusoOrario;
-    }
-    
-    public Connection getConnection() {
-        return connection;
-    }
-
-    public void setConnection(Connection connection) {
-        this.connection = connection;
-    }
-    
-    public LinkedList<AreaTematica> getListaAreeTematiche() {
-        return listaAreeTematiche;
-    }
-
-    public LinkedList<Corso> getListaCorsi() {
-        return listaCorsi;
-    }
-
-    public LinkedList<Lezione> getListaLezioni() {
-        return listaLezioni;
-    }
-
-    public LinkedList<Studente> getListaStudenti() {
-        return listaStudenti;
     }
     //getters e setters
     
