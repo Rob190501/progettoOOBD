@@ -266,6 +266,9 @@ public class PanelAggiornaCorso extends PanelGenerico {
         if( ((int)spinnerNumeroMassimoIscritti.getValue()) < numeroMinimoIscritti) {
             throw new FormatoSbagliatoException("spinner partecipanti max", "un numero >= " + numeroMinimoIscritti);
         }
+        if( ((int)spinnerTassoPresenze.getValue()<0) || ((int)spinnerNumeroMassimoIscritti.getValue()<0) ) {
+            throw new FormatoSbagliatoException("spinner tasso presenze / spinner numero massimo iscritti", "un numero non negativo");
+        }
     }
     
     public void svuotaCampi() {

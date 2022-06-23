@@ -2,6 +2,7 @@ package gui.homeFrame.panels.corsi;
 
 import controller.Controller;
 import eccezioni.gui.CampoVuotoException;
+import eccezioni.gui.FormatoSbagliatoException;
 import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.panelGenerico.PanelGenerico;
 
@@ -174,7 +175,7 @@ public class PanelNuovoCorso extends PanelGenerico {
                                        (int) spinnerNumeroMassimoIscritti.getValue());
             getHomeFrame().mostraPanelCorsi();
         }
-        catch(CampoVuotoException e) {
+        catch(CampoVuotoException | FormatoSbagliatoException e) {
             getHomeFrame().mostraEccezione(e.getMessage());
         }
     }//GEN-LAST:event_buttonRegistraCorsoActionPerformed
@@ -190,9 +191,12 @@ public class PanelNuovoCorso extends PanelGenerico {
         spinnerNumeroMassimoIscritti.setValue(0);
     }
 
-    private void controllaCampi() throws CampoVuotoException {
+    private void controllaCampi() throws CampoVuotoException, FormatoSbagliatoException {
         if (textFieldNome.getText().isBlank() || textFieldDescrizione.getText().isBlank()) {
             throw new CampoVuotoException();
+        }
+        if( ((int)spinnerTassoPresenze.getValue()<0) || ((int)spinnerNumeroMassimoIscritti.getValue()<0) ) {
+            throw new FormatoSbagliatoException("spinner tasso presenze / spinner numero massimo iscritti", "un numero non negativo");
         }
     }
     

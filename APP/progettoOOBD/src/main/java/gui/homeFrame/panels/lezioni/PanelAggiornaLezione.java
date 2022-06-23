@@ -7,7 +7,6 @@ import gui.homeFrame.HomeFrameOperatore;
 import gui.homeFrame.panels.panelGenerico.PanelGenerico;
 import java.awt.Color;
 import java.util.Date;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
@@ -292,9 +291,7 @@ public class PanelAggiornaLezione extends PanelGenerico {
             throw new CampoVuotoException();
         }
         
-        Pattern pattern = Pattern.compile("[0-9][0-9]:[0-5][0-9]");
-        Matcher matcher = pattern.matcher(textFieldDurata.getText());
-        if(!matcher.find()) {
+        if(!Pattern.matches("[0-9][0-9]:[0-5][0-9]", textFieldDurata.getText())) {
             throw new FormatoSbagliatoException("Durata", "HH:MM");
         }
     }
