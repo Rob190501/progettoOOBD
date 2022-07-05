@@ -13,9 +13,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.AbstractList;
 import java.util.LinkedList;
 
-public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
+public class StudenteDAOPostgreSQL implements StudenteDAOInterfaccia {
 
     private Controller controller;
     private Connection connection;
@@ -35,7 +36,7 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
                                   + "FROM studenti "
                                   + "WHERE matricola = ?";
     
-    public StudenteDAOImplementazione(Controller controller, Connection connection) {
+    public StudenteDAOPostgreSQL(Controller controller, Connection connection) {
         this.controller = controller;
         this.connection = connection;
     }
@@ -57,10 +58,10 @@ public class StudenteDAOImplementazione implements StudenteDAOInterfaccia {
     }
 
     @Override
-    public LinkedList<Studente> retrieveAllStudente() throws RetrieveFallitoException, AssociazioneFallitaException {
+    public AbstractList<Studente> retrieveAllStudente() throws RetrieveFallitoException, AssociazioneFallitaException {
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(selectAllStudente)) {
-            LinkedList<Studente> listaStudenti = new LinkedList<>();
+            AbstractList<Studente> listaStudenti = new LinkedList<>();
             
             while(rs.next()) {
                 int matricola = rs.getInt("matricola");

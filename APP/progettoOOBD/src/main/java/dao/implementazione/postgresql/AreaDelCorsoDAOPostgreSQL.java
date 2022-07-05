@@ -12,11 +12,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
+import java.util.AbstractList;
 
 
 
-public class AreaDelCorsoDAOImplementazione implements AreaDelCorsoDAOInterfaccia {
+public class AreaDelCorsoDAOPostgreSQL implements AreaDelCorsoDAOInterfaccia {
 
     private Controller controller;
     private Connection connection;
@@ -33,7 +33,7 @@ public class AreaDelCorsoDAOImplementazione implements AreaDelCorsoDAOInterfacci
                                       + "FROM aree_dei_corsi "
                                       + "WHERE codice_area_tematica = ? AND codice_corso = ?";
 
-    public AreaDelCorsoDAOImplementazione(Controller controller, Connection connection) {
+    public AreaDelCorsoDAOPostgreSQL(Controller controller, Connection connection) {
         this.controller = controller;
         this.connection = connection;
     }
@@ -53,7 +53,7 @@ public class AreaDelCorsoDAOImplementazione implements AreaDelCorsoDAOInterfacci
     }
 
     @Override
-    public void retrieveAllAreaDelCorso(Corso corso, LinkedList<AreaTematica> listaAreeTematiche) throws RetrieveFallitoException, AssociazioneFallitaException {
+    public void retrieveAllAreaDelCorso(Corso corso, AbstractList<AreaTematica> listaAreeTematiche) throws RetrieveFallitoException, AssociazioneFallitaException {
         try (PreparedStatement pstmt = connection.prepareStatement(selectAreeDelCorso)) {
             pstmt.setInt(1, corso.getCodice());
             try (ResultSet rs = pstmt.executeQuery()) {
@@ -69,7 +69,7 @@ public class AreaDelCorsoDAOImplementazione implements AreaDelCorsoDAOInterfacci
         }
     }
     
-    private AreaTematica trovaAreaDelCorso(int codice_area_tematica, LinkedList<AreaTematica> listaAreeTematiche) throws AssociazioneFallitaException {
+    private AreaTematica trovaAreaDelCorso(int codice_area_tematica, AbstractList<AreaTematica> listaAreeTematiche) throws AssociazioneFallitaException {
         for (AreaTematica areaTematica : listaAreeTematiche) {
             if(codice_area_tematica == areaTematica.getCodice()) {
                 return areaTematica;

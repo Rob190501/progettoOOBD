@@ -1,6 +1,7 @@
 package dto;
 
 import java.time.ZonedDateTime;
+import java.util.AbstractList;
 import java.util.LinkedList;
 
 
@@ -13,7 +14,7 @@ public class Lezione {
     private String durata;
     private ZonedDateTime dataInizio;
     private Corso corso;
-    private LinkedList<Studente> listaStudenti;
+    private AbstractList<Studente> listaStudenti;
 
     public Lezione(int codice, String titolo, String descrizione, String durata, ZonedDateTime dataInizio) {
         this.codice = codice;
@@ -57,7 +58,7 @@ public class Lezione {
         return corso;
     }
 
-    public LinkedList<Studente> getListaStudenti() {
+    public AbstractList<Studente> getListaStudenti() {
         return listaStudenti;
     }
     

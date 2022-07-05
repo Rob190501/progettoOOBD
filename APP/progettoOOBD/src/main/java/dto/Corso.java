@@ -1,5 +1,6 @@
 package dto;
 
+import java.util.AbstractList;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
@@ -12,9 +13,9 @@ public class Corso {
     private String descrizione;
     private int tassoPresenzeMinime;
     private int numeroMassimoIscritti;
-    private LinkedList<Studente> listaStudenti;
-    private LinkedList<Lezione> listaLezioni;
-    private LinkedList<AreaTematica> listaAreeTematiche;
+    private AbstractList<Studente> listaStudenti;
+    private AbstractList<Lezione> listaLezioni;
+    private AbstractList<AreaTematica> listaAreeTematiche;
 
     public Corso(int codice, String nome, String descrizione, int tassoPresenzeMin, int numeroMassimoIscritti) {
         this.codice = codice;
@@ -57,15 +58,15 @@ public class Corso {
         return numeroMassimoIscritti;
     }
     
-    public LinkedList<Studente> getListaStudenti() {
+    public AbstractList<Studente> getListaStudenti() {
         return listaStudenti;
     }
     
-    public LinkedList<Lezione> getListaLezioni() {
+    public AbstractList<Lezione> getListaLezioni() {
         return listaLezioni;
     }
     
-    public LinkedList<AreaTematica> getListaAreeTematiche() {
+    public AbstractList<AreaTematica> getListaAreeTematiche() {
         return listaAreeTematiche;
     }
     
@@ -139,7 +140,7 @@ public class Corso {
     
     public int getNumeroPresenzeMinimo() {
         try {
-            int min = listaLezioni.getFirst().getNumeroPresenti();
+            int min = ((Lezione) ((LinkedList) listaLezioni).getFirst()).getNumeroPresenti();
             for(Lezione lezione : listaLezioni) {
                 if(lezione.getNumeroPresenti()<min) {
                     min = lezione.getNumeroPresenti();
@@ -158,7 +159,7 @@ public class Corso {
     
     public int getNumeroPresenzeMassimo() {
         try {
-            int max = listaLezioni.getFirst().getNumeroPresenti();
+            int max = ((Lezione) ((LinkedList) listaLezioni).getFirst()).getNumeroPresenti();;
             for(Lezione lezione : listaLezioni) {
                 if(lezione.getNumeroPresenti()>max) {
                     max = lezione.getNumeroPresenti();

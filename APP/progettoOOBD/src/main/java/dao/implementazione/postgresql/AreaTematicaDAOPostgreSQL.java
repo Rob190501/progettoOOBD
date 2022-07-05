@@ -12,9 +12,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.AbstractList;
 import java.util.LinkedList;
 
-public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfaccia {
+public class AreaTematicaDAOPostgreSQL implements AreaTematicaDAOInterfaccia {
 
     private Controller controller;
     private Connection connection;
@@ -34,7 +35,7 @@ public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfacci
                                       + "SET nome = ?, descrizione = ?"
                                       + "WHERE codice = ?";
 
-    public AreaTematicaDAOImplementazione(Controller controller, Connection connection) {
+    public AreaTematicaDAOPostgreSQL(Controller controller, Connection connection) {
         this.controller = controller;
         this.connection = connection;
     }
@@ -56,10 +57,10 @@ public class AreaTematicaDAOImplementazione implements AreaTematicaDAOInterfacci
     }
 
     @Override
-    public LinkedList<AreaTematica> retrieveAllAreaTematica() throws RetrieveFallitoException {
+    public AbstractList<AreaTematica> retrieveAllAreaTematica() throws RetrieveFallitoException {
         try(Statement stmt = connection.createStatement(); 
             ResultSet rs = stmt.executeQuery(selectAllAreaTematica)) {
-            LinkedList<AreaTematica> listaAreeTematiche = new LinkedList<>();
+            AbstractList<AreaTematica> listaAreeTematiche = new LinkedList<>();
             
             while(rs.next()) {
                 int codice = rs.getInt("codice");

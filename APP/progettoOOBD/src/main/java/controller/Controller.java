@@ -2,13 +2,20 @@ package controller;
 
 import connessione.postgresql.ConnessioneSingleton;
 import connessione.postgresql.DBBuilder;
-import dao.implementazione.postgresql.AreaDelCorsoDAOImplementazione;
-import dao.implementazione.postgresql.AreaTematicaDAOImplementazione;
-import dao.implementazione.postgresql.CorsoDAOImplementazione;
-import dao.implementazione.postgresql.LezioneDAOImplementazione;
-import dao.implementazione.postgresql.PresenzeDAOImplementazione;
-import dao.implementazione.postgresql.StudenteDAOImplementazione;
-import dao.implementazione.postgresql.IscrizioniDAOImplementazione;
+import dao.implementazione.postgresql.AreaDelCorsoDAOPostgreSQL;
+import dao.implementazione.postgresql.AreaTematicaDAOPostgreSQL;
+import dao.implementazione.postgresql.CorsoDAOPostgreSQL;
+import dao.implementazione.postgresql.LezioneDAOPostgreSQL;
+import dao.implementazione.postgresql.PresenzeDAOPostgreSQL;
+import dao.implementazione.postgresql.StudenteDAOPostgreSQL;
+import dao.implementazione.postgresql.IscrizioniDAOPostgreSQL;
+import dao.interfaccia.AreaDelCorsoDAOInterfaccia;
+import dao.interfaccia.AreaTematicaDAOInterfaccia;
+import dao.interfaccia.CorsoDAOInterfaccia;
+import dao.interfaccia.IscrizioniDAOInterfaccia;
+import dao.interfaccia.LezioneDAOInterfaccia;
+import dao.interfaccia.PresenzeDAOInterfaccia;
+import dao.interfaccia.StudenteDAOInterfaccia;
 import dto.AreaTematica;
 import dto.Corso;
 import dto.Lezione;
@@ -43,6 +50,7 @@ import java.sql.SQLException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.AbstractList;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -82,23 +90,23 @@ public class Controller {
     private PanelNuovaLezione panelNuovaLezione;
     private PanelAggiornaLezione panelAggiornaLezione;
     
-    private LinkedList<AreaTematica> listaAreeTematiche;
-    private AreaTematicaDAOImplementazione areaTematicaDAO;
+    private AbstractList<AreaTematica> listaAreeTematiche;
+    private AreaTematicaDAOInterfaccia areaTematicaDAO;
     
-    private LinkedList<Corso> listaCorsi;
-    private CorsoDAOImplementazione corsoDAO;
+    private AbstractList<Corso> listaCorsi;
+    private CorsoDAOInterfaccia corsoDAO;
     
-    private LinkedList<Lezione> listaLezioni;
-    private LezioneDAOImplementazione lezioneDAO;
+    private AbstractList<Lezione> listaLezioni;
+    private LezioneDAOInterfaccia lezioneDAO;
     
-    private LinkedList<Studente> listaStudenti;
-    private StudenteDAOImplementazione studenteDAO;
+    private AbstractList<Studente> listaStudenti;
+    private StudenteDAOInterfaccia studenteDAO;
     
-    private AreaDelCorsoDAOImplementazione areaDelCorsoDAO;
+    private AreaDelCorsoDAOInterfaccia areaDelCorsoDAO;
     
-    private IscrizioniDAOImplementazione iscrizioniDAO;
+    private IscrizioniDAOInterfaccia iscrizioniDAO;
     
-    private PresenzeDAOImplementazione presenzeDAO;
+    private PresenzeDAOInterfaccia presenzeDAO;
     //attributi
     
     //costruttore
@@ -277,13 +285,13 @@ public class Controller {
     
     //DAO
     private void creaDAO() {
-        areaTematicaDAO = new AreaTematicaDAOImplementazione(this, connection);
-        corsoDAO = new CorsoDAOImplementazione(this, connection);
-        lezioneDAO = new LezioneDAOImplementazione(this, connection);    
-        studenteDAO = new StudenteDAOImplementazione(this, connection);
-        areaDelCorsoDAO =  new AreaDelCorsoDAOImplementazione(this, connection);
-        iscrizioniDAO = new IscrizioniDAOImplementazione(this, connection);
-        presenzeDAO = new PresenzeDAOImplementazione(this, connection);
+        areaTematicaDAO = new AreaTematicaDAOPostgreSQL(this, connection);
+        corsoDAO = new CorsoDAOPostgreSQL(this, connection);
+        lezioneDAO = new LezioneDAOPostgreSQL(this, connection);    
+        studenteDAO = new StudenteDAOPostgreSQL(this, connection);
+        areaDelCorsoDAO =  new AreaDelCorsoDAOPostgreSQL(this, connection);
+        iscrizioniDAO = new IscrizioniDAOPostgreSQL(this, connection);
+        presenzeDAO = new PresenzeDAOPostgreSQL(this, connection);
     }
     
     public void retrieveAllDTO() throws RetrieveFallitoException, AssociazioneFallitaException {

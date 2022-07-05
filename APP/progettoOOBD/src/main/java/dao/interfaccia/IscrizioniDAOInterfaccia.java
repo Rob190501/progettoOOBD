@@ -6,14 +6,14 @@ import eccezioni.associazioni.AssociazioneFallitaException;
 import eccezioni.create.CreateFallitoException;
 import eccezioni.delete.DeleteFallitoException;
 import eccezioni.retrieve.RetrieveFallitoException;
-import java.util.LinkedList;
+import java.util.AbstractList;
 
 public interface IscrizioniDAOInterfaccia {
     
-    public void createIscrizione(Studente studente, Corso corso) throws CreateFallitoException;
+    public abstract void createIscrizione(Studente studente, Corso corso) throws CreateFallitoException;
     
-    public void retrieveIscrizioniByStudente(Studente studente, LinkedList<Corso> listaCorsi) throws RetrieveFallitoException, AssociazioneFallitaException;
+    public abstract void retrieveIscrizioniByStudente(Studente studente, AbstractList<Corso> listaCorsi) throws RetrieveFallitoException, AssociazioneFallitaException;
     
-    public void deleteIscrizione(Studente studente, Corso corso) throws DeleteFallitoException;
+    public abstract void deleteIscrizione(Studente studente, Corso corso) throws DeleteFallitoException;
     
 }

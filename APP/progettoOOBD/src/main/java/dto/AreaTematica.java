@@ -1,5 +1,6 @@
 package dto;
 
+import java.util.AbstractList;
 import java.util.LinkedList;
 
 
@@ -9,7 +10,7 @@ public class AreaTematica {
     private int codice;
     private String nome;
     private String descrizione;
-    private LinkedList<Corso> corsiDellAreaTematica;
+    private AbstractList<Corso> corsiDellAreaTematica;
 
     public AreaTematica(int codice, String nome, String descrizione) {
         this.codice = codice;
@@ -48,7 +49,7 @@ public class AreaTematica {
         this.descrizione = descrizione;
     }
     
-    public LinkedList<Corso> getCorsiDellAreaTematica() {
+    public AbstractList<Corso> getCorsiDellAreaTematica() {
         return corsiDellAreaTematica;
     }
     

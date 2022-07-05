@@ -12,11 +12,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
+import java.util.AbstractList;
 
 
 
-public class PresenzeDAOImplementazione implements PresenzeDAOInterfaccia {
+public class PresenzeDAOPostgreSQL implements PresenzeDAOInterfaccia {
 
     private Controller controller;
     private Connection connection;
@@ -33,7 +33,7 @@ public class PresenzeDAOImplementazione implements PresenzeDAOInterfaccia {
                                   + "FROM presenze "
                                   + "WHERE matricola = ? AND codice_lezione = ?";
 
-    public PresenzeDAOImplementazione(Controller controller, Connection connection) {
+    public PresenzeDAOPostgreSQL(Controller controller, Connection connection) {
         this.controller = controller;
         this.connection = connection;
     }
@@ -53,7 +53,7 @@ public class PresenzeDAOImplementazione implements PresenzeDAOInterfaccia {
     }
 
     @Override
-    public void retrievePresenzeByStudente(Studente studente, LinkedList<Lezione> listaLezioni) throws RetrieveFallitoException, AssociazioneFallitaException {
+    public void retrievePresenzeByStudente(Studente studente, AbstractList<Lezione> listaLezioni) throws RetrieveFallitoException, AssociazioneFallitaException {
         try (PreparedStatement pstmt = connection.prepareStatement(selectPresenzeByStudente)) {
             pstmt.setInt(1, studente.getMatricola());
             try (ResultSet rs = pstmt.executeQuery()) {
@@ -69,7 +69,7 @@ public class PresenzeDAOImplementazione implements PresenzeDAOInterfaccia {
         }
     }
     
-    private Lezione trovaLezioneDellaPresenza(int codice_lezione, LinkedList<Lezione> listaLezioni) throws AssociazioneFallitaException {
+    private Lezione trovaLezioneDellaPresenza(int codice_lezione, AbstractList<Lezione> listaLezioni) throws AssociazioneFallitaException {
         for (Lezione lezione : listaLezioni) {
             if(codice_lezione == lezione.getCodice()) {
                 return lezione;

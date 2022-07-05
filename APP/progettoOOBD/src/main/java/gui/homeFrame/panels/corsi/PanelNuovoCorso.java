@@ -195,8 +195,11 @@ public class PanelNuovoCorso extends PanelGenerico {
         if (textFieldNome.getText().isBlank() || textFieldDescrizione.getText().isBlank()) {
             throw new CampoVuotoException();
         }
-        if( ((int)spinnerTassoPresenze.getValue()<0) || ((int)spinnerNumeroMassimoIscritti.getValue()<0) ) {
-            throw new FormatoSbagliatoException("spinner tasso presenze / spinner numero massimo iscritti", "un numero non negativo");
+        if( ((int)spinnerTassoPresenze.getValue())<0 || ((int)spinnerTassoPresenze.getValue())>100 ) {
+            throw new FormatoSbagliatoException("spinner tasso presenze", "un numero >= 0 e <= 100");
+        }
+        if( ((int)spinnerNumeroMassimoIscritti.getValue())<0 ) {
+            throw new FormatoSbagliatoException("spinner numero massimo iscritti", "un numero >= 0");
         }
     }
     

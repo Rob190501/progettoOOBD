@@ -8,21 +8,21 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
 import dao.interfaccia.IscrizioniDAOInterfaccia;
 import eccezioni.associazioni.AssociazioneFallitaException;
 import eccezioni.create.CreateFallitoException;
 import eccezioni.delete.DeleteFallitoException;
 import eccezioni.retrieve.RetrieveFallitoException;
+import java.util.AbstractList;
 
 
 
-public class IscrizioniDAOImplementazione implements IscrizioniDAOInterfaccia {
+public class IscrizioniDAOPostgreSQL implements IscrizioniDAOInterfaccia {
 
     private Controller controller;
     private Connection connection;
 
-    public IscrizioniDAOImplementazione(Controller controller, Connection connection) {
+    public IscrizioniDAOPostgreSQL(Controller controller, Connection connection) {
         this.controller = controller;
         this.connection = connection;
     }
@@ -53,7 +53,7 @@ public class IscrizioniDAOImplementazione implements IscrizioniDAOInterfaccia {
         }
     }
     
-    public void retrieveIscrizioniByStudente(Studente studente, LinkedList<Corso> listaCorsi) throws RetrieveFallitoException, AssociazioneFallitaException {
+    public void retrieveIscrizioniByStudente(Studente studente, AbstractList<Corso> listaCorsi) throws RetrieveFallitoException, AssociazioneFallitaException {
         try (PreparedStatement pstmt = connection.prepareStatement(selectIscrizioniByStudente)) {
             pstmt.setInt(1, studente.getMatricola());
             try (ResultSet rs = pstmt.executeQuery()) {
@@ -69,7 +69,7 @@ public class IscrizioniDAOImplementazione implements IscrizioniDAOInterfaccia {
         }
     }
     
-    private Corso trovaCorsoFrequentato(int codice_corso, LinkedList<Corso> listaCorsi) throws AssociazioneFallitaException {
+    private Corso trovaCorsoFrequentato(int codice_corso, AbstractList<Corso> listaCorsi) throws AssociazioneFallitaException {
         for (Corso corso : listaCorsi) {
             if(codice_corso == corso.getCodice()) {
                 return corso;

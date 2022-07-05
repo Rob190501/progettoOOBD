@@ -18,9 +18,10 @@ import java.sql.Timestamp;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.AbstractList;
 import java.util.LinkedList;
 
-public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
+public class LezioneDAOPostgreSQL implements LezioneDAOInterfaccia {
 
     private Controller controller;
     private Connection connection;
@@ -44,7 +45,7 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
                                   + "FROM lezioni "
                                   + "WHERE codice = ?";
     
-    public LezioneDAOImplementazione(Controller controller, Connection connection) {
+    public LezioneDAOPostgreSQL(Controller controller, Connection connection) {
         this.controller = controller;
         this.connection = connection;
     }
@@ -69,10 +70,10 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
     }
 
     @Override
-    public LinkedList<Lezione> retrieveAllLezione() throws RetrieveFallitoException, AssociazioneFallitaException {
+    public AbstractList<Lezione> retrieveAllLezione() throws RetrieveFallitoException, AssociazioneFallitaException {
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(querySelectAllLezione)) {
-            LinkedList<Lezione> listaLezioni = new LinkedList<>();
+            AbstractList<Lezione> listaLezioni = new LinkedList<>();
 
             while (rs.next()) {
                 int codice_lezione = rs.getInt("codice");
@@ -93,10 +94,10 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
         }
     }
     
-    public void retrieveCorsoDellaLezione(Lezione lezione, LinkedList<Corso> listaCorsi) throws RetrieveFallitoException, AssociazioneFallitaException {
-        try (PreparedStatement pstm = connection.prepareStatement(selectCorsoDellaLezione)) {
-            pstm.setInt(1, lezione.getCodice());
-            try (ResultSet rs = pstm.executeQuery()) {
+    public void retrieveCorsoDellaLezione(Lezione lezione, AbstractList<Corso> listaCorsi) throws RetrieveFallitoException, AssociazioneFallitaException {
+        try (PreparedStatement pstmt = connection.prepareStatement(selectCorsoDellaLezione)) {
+            pstmt.setInt(1, lezione.getCodice());
+            try (ResultSet rs = pstmt.executeQuery()) {
                 while(rs.next()) {
                     Corso corsoDellaLezione = trovaCorsoDellaLezione(rs.getInt("codice_corso"), listaCorsi);
                     lezione.setCorso(corsoDellaLezione);
@@ -109,7 +110,7 @@ public class LezioneDAOImplementazione implements LezioneDAOInterfaccia {
         }
     }
     
-    private Corso trovaCorsoDellaLezione(int codice_corso, LinkedList<Corso> listaCorsi) throws AssociazioneFallitaException {
+    private Corso trovaCorsoDellaLezione(int codice_corso, AbstractList<Corso> listaCorsi) throws AssociazioneFallitaException {
         for (Corso corso : listaCorsi) {
             if (corso.getCodice() == codice_corso) {
                 return corso;

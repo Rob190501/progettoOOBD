@@ -1,5 +1,6 @@
 package dto;
 
+import java.util.AbstractList;
 import java.util.LinkedList;
 
 
@@ -8,8 +9,8 @@ public class Studente {
     private int matricola;
     private String nome;
     private String cognome;
-    private LinkedList<Corso> listaCorsi;
-    private LinkedList<Lezione> listaLezioni;
+    private AbstractList<Corso> listaCorsi;
+    private AbstractList<Lezione> listaLezioni;
 
     public Studente(int matricola, String nome, String cognome) {
         this.matricola = matricola;
@@ -40,11 +41,11 @@ public class Studente {
         return cognome;
     }
 
-    public LinkedList<Corso> getListaCorsi() {
+    public AbstractList<Corso> getListaCorsi() {
         return listaCorsi;
     }
 
-    public LinkedList<Lezione> getListaLezioni() {
+    public AbstractList<Lezione> getListaLezioni() {
         return listaLezioni;
     }
 

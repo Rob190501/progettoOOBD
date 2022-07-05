@@ -6,14 +6,14 @@ import eccezioni.associazioni.AssociazioneFallitaException;
 import eccezioni.create.CreateFallitoException;
 import eccezioni.delete.DeleteFallitoException;
 import eccezioni.retrieve.RetrieveFallitoException;
-import java.util.LinkedList;
+import java.util.AbstractList;
 
 public interface AreaDelCorsoDAOInterfaccia {
     
-    public void createAreaDelCorso(Corso corso, AreaTematica areaTematica) throws CreateFallitoException;
+    public abstract void createAreaDelCorso(Corso corso, AreaTematica areaTematica) throws CreateFallitoException;
     
-    public void retrieveAllAreaDelCorso(Corso corso, LinkedList<AreaTematica> listaAreeTematiche) throws RetrieveFallitoException, AssociazioneFallitaException;
+    public abstract void retrieveAllAreaDelCorso(Corso corso, AbstractList<AreaTematica> listaAreeTematiche) throws RetrieveFallitoException, AssociazioneFallitaException;
     
-    public void deleteAreaDelCorso(Corso corso, AreaTematica areaTematica) throws DeleteFallitoException;
+    public abstract void deleteAreaDelCorso(Corso corso, AreaTematica areaTematica) throws DeleteFallitoException;
     
 }

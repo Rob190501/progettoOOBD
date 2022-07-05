@@ -6,16 +6,16 @@ import eccezioni.create.CreateFallitoException;
 import eccezioni.delete.DeleteFallitoException;
 import eccezioni.retrieve.RetrieveFallitoException;
 import eccezioni.update.UpdateFallitoException;
-import java.util.LinkedList;
+import java.util.AbstractList;
 
 public interface CorsoDAOInterfaccia {
     
-    public void createCorso(Corso corso) throws CreateFallitoException;
+    public abstract void createCorso(Corso corso) throws CreateFallitoException;
     
-    public LinkedList<Corso> retrieveAllCorso() throws RetrieveFallitoException, AssociazioneFallitaException;
+    public abstract AbstractList<Corso> retrieveAllCorso() throws RetrieveFallitoException, AssociazioneFallitaException;
     
-    public void updateCorso(Corso corso) throws UpdateFallitoException;
+    public abstract void updateCorso(Corso corso) throws UpdateFallitoException;
     
-    public void deleteCorso(Corso corso) throws DeleteFallitoException;
+    public abstract void deleteCorso(Corso corso) throws DeleteFallitoException;
     
 }

@@ -13,9 +13,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.AbstractList;
 import java.util.LinkedList;
 
-public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
+public class CorsoDAOPostgreSQL implements CorsoDAOInterfaccia {
 
     private Controller controller;
     private Connection connection;
@@ -35,7 +36,7 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
                                + "FROM corsi "
                                + "WHERE codice = ?";
     
-    public CorsoDAOImplementazione(Controller controller, Connection connection) {
+    public CorsoDAOPostgreSQL(Controller controller, Connection connection) {
         this.controller = controller;
         this.connection = connection;
     }
@@ -59,10 +60,10 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
     }
 
     @Override
-    public LinkedList<Corso> retrieveAllCorso() throws RetrieveFallitoException, AssociazioneFallitaException {
+    public AbstractList<Corso> retrieveAllCorso() throws RetrieveFallitoException, AssociazioneFallitaException {
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(selectAllCorso)) {
-            LinkedList listaCorsi = new LinkedList<Corso>();
+            AbstractList<Corso> listaCorsi = new LinkedList<>();
             
             while (rs.next()) {
                 int codice = rs.getInt("codice");
@@ -100,9 +101,9 @@ public class CorsoDAOImplementazione implements CorsoDAOInterfaccia {
 
     @Override
     public void deleteCorso(Corso corso) throws DeleteFallitoException {
-        try (PreparedStatement pstDeleteAreaCorso = connection.prepareStatement(deleteCorso)) {
-            pstDeleteAreaCorso.setInt(1, corso.getCodice());
-            pstDeleteAreaCorso.executeUpdate();
+        try (PreparedStatement pstmt = connection.prepareStatement(deleteCorso)) {
+            pstmt.setInt(1, corso.getCodice());
+            pstmt.executeUpdate();
             corso.rimuoviDaAssociazioni();
         }
         catch(SQLException e) {
